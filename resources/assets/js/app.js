@@ -3,6 +3,7 @@ import React from 'react';
 import { render } from 'react-dom';
 import { Router, Route, browserHistory } from 'react-router';
 
-import Example from './components/Example';
+import Index from './components/Index';
 
-render(<Example />, document.getElementById('example'));
+render(<Index/>, document.getElementById('happyfarm'));
+
