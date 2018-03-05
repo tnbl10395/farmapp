@@ -1,4 +1,4 @@
-import { CHOOSE_OPTION_SIDEBAR, LOAD_CONTENT } from "./TypeAction";
+import { CHOOSE_OPTION_SIDEBAR } from "./TypeAction";
 
 export const chooseOptionSidebar = (option) => {
     return {
@@ -7,9 +7,3 @@ export const chooseOptionSidebar = (option) => {
     }
 }
 
-export const loadContent = (option) => {
-    return {
-        type: LOAD_CONTENT,
-        option
-    }
-}

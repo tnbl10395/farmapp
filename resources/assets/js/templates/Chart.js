@@ -8,11 +8,25 @@ export class Chart extends React.Component {
     render() {
         return (
             <div style={style.main_content} className="col-md-12 col-sm-12 col-12">
+                <select>
+                    {
+                        array.forEach(item=>{
+                            return <option>{item}</option>
+                        })
+                    }
+                </select>
                 <LineChart data={chartData} options={chartOptions} style={style.chart} height="100%" />
             </div>
         )
     }
 }
+
+var array = [
+    {id:1,name:"device_1"},
+    {id:2,name:"device_2"},
+    {id:3,name:"device_3"},
+    {id:4,name:"device_4"},
+]
 
 var chartData = {
     labels: ["January", "February", "March", "April", "May", "June", "July"],
@@ -64,7 +78,7 @@ var chartOptions = {
 const style = {
     main_content: {
         color: 'black',
-        backgroundColor: 'white',
+        backgroundColor: 'gray',
         position: 'absolute',
         padding: 10,
         left: '18%',
@@ -77,6 +91,8 @@ const style = {
         boxShadow: "1px 7px 3px black"
     },
     chart: {
+        backgroundColor: 'white',
         padding: 20,
+        borderRadius: 2,
     }
 }

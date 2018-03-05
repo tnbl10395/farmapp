@@ -1,14 +1,11 @@
-import { connect } from 'react-redux';
-import Content from '../components/Content';
-import { loadContent } from '../actions/Action';
+// import { connect } from 'react-redux';
+// import Content from '../components/Content';
+// import { chooseOptionSidebar } from '../actions/Action';
 
-const mapStateToProps = (state) => ({
+// const mapStateToProps = (state) => ({
+// });
+// const mapDispatchToProps = (dispatch) => ({
 
-});
-const mapDispatchToProps = (dispatch) => ({
-    loadContent: (option) => {
-        dispatch(loadContent(option));
-    }
-});
+// });
 
-export default connect (mapStateToProps,mapDispatchToProps)(Content);
+// export default connect(mapStateToProps, mapDispatchToProps)(Content);

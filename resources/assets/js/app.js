@@ -1,19 +1,22 @@
 require('./bootstrap');
 import React from 'react';
 import { render } from 'react-dom';
-import Index from './components/Index';
-import Devices from './components/DevicesComponent';
-import User from './components/UserComponent';
+import Index from './containers/IndexContainer';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+import Reducer from './providers/rootReducer';
 
-// class App extends React.Component {
-//     render(){
-//         return (
-//             <Router>
-//                 <Index/>
-//             </Router>
-//         );
-//     }
-// }
+const store = createStore(Reducer);
 
-render(<Index/>, document.getElementById('happyfarm'));
+class App extends React.Component {
+    render() {
+        return (
+            <Provider store={store}>
+                <Index />
+            </Provider>
+        );
+    }
+}
+
+render(<App />, document.getElementById('happyfarm'));
 

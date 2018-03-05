@@ -2,13 +2,9 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { TopBar } from '../components/TopBar';
 import SideBar from '../containers/SideBarContainer';
-import Content from '../containers/ContentContainer';
-import { Provider } from 'react-redux';
-import { createStore } from 'redux';
-import { Route, Link, HashRouter } from 'react-router-dom';
-import Reducer from '../providers/rootReducer';
+import Content from '../components/Content';
+import { HashRouter } from 'react-router-dom';
 
-const store = createStore(Reducer);
 
 export default class Index extends Component {
     constructor(props){
@@ -17,7 +13,6 @@ export default class Index extends Component {
 
     render() {
         return (
-            <Provider store={store}>
                 <HashRouter>
                     <div className="container-fluid">
                         <img src="/images/background-farm.jpg" style={style.img} />
@@ -26,7 +21,6 @@ export default class Index extends Component {
                         <Content />
                     </div>
                 </HashRouter>
-            </Provider >
         );
     }
 }

@@ -11,6 +11,9 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
     chooseOption: (option) => {
         dispatch(chooseOptionSidebar(option));
+    },
+    loadContent: (option) => {
+        dispatch(chooseOptionSidebar(option));
     }
 });
 

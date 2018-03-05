@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
 import 'font-awesome/css/font-awesome.css';
 import { Element } from "../templates/Element";
-import { Link } from 'react-router-dom';
 
 export default class SideBar extends React.Component {
     constructor(props) {
         super(props);
+    }
 
+    componentDidMount(){
+        var url = window.location.toString();
+        var str = url.indexOf('/#/');
+        this.props.loadContent(url.slice(str+3));
     }
 
     render() {

@@ -1,4 +1,4 @@
-import { CHOOSE_OPTION_SIDEBAR, LOAD_CONTENT } from "../actions/TypeAction";
+import { CHOOSE_OPTION_SIDEBAR } from "../actions/TypeAction";
 
 const initialState = {
     admin_device_component: true,
@@ -43,17 +43,11 @@ const Reducer = (state = initialState, action) => {
                         admin_data_component: false,
                         admin_solution_component: true,
                     }
-                default:
+                default: 
                     return {
                         ...state,
                     }
             }
-            return {
-                ...state,
-            }
-
-        // case LOAD_CONTENT: 
-
         default:
             return {
                 ...state

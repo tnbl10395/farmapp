@@ -8,14 +8,6 @@ import Solution from '../containers/SolutionContainer';
 export default class Content extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-        }
-    }
-
-    componentDidMount(){
-        var url = window.location.toString();
-        var str = url.indexOf('/#/');
-        this.props.loadContent(url.slice(str+3));
     }
 
     render() {

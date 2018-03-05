@@ -33,7 +33,7 @@ export class Element extends React.Component {
 
     render() {
         return (
-            <Link to={"/" + this.props.link} onClick={this.onclick.bind(this)} style={this.state.font ? style.font_true : style.font_false}>
+            <Link to={"/"+this.props.link} onClick={this.onclick.bind(this)} style={this.state.font ? style.font_true : style.font_false}>
                 <div style={!this.props.choose ? style.div_li_true : style.div_li_false}
                     onMouseOver={!this.props.choose ? this.onmouseover.bind(this) : null}
                     onMouseOut={this.onmouseout.bind(this)}>
