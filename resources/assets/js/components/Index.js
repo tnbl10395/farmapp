@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { TopBar } from '../components/TopBar';
-import SideBar from '../components/SideBar';
-import Content from '../components/Content';
+import SideBar from '../containers/SideBarContainer';
+import Content from '../containers/ContentContainer';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import { Route, Link, HashRouter } from 'react-router-dom';
@@ -11,6 +11,9 @@ import Reducer from '../providers/rootReducer';
 const store = createStore(Reducer);
 
 export default class Index extends Component {
+    constructor(props){
+        super(props);
+    }
 
     render() {
         return (

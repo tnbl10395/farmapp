@@ -13,10 +13,27 @@ export default class SideBar extends React.Component {
         return (
             <div style={style.sideBar} className="row">
                 <div style={style.div_ul}>
-                    <Link to="/devices"><Element icon={'fa fa-home'} name={"Manage Devices"}/></Link>
-                    <Link to="/user"><Element  icon={'fa fa-rocket'} name={"Manage User"}/></Link>
-                    <Link to="/data"><Element icon={'fa fa-coffee'} name={"Manage Data"}/></Link>
-                    <Link to="/solution"><Element  icon={'fa fa-rocket'} name={"Manage Solution"}/></Link>
+                    <Element icon={'fa fa-home'}
+                        name={"Manage Devices"}
+                        choose={this.props.admin_device_component}
+                        chooseOption={this.props.chooseOption}
+                        link={"device"} />
+                    <Element icon={'fa fa-home'}
+                        name={"Manage User"}
+                        choose={this.props.admin_user_component}
+                        chooseOption={this.props.chooseOption}
+                        link={"user"} />
+                    <Element icon={'fa fa-home'}
+                        name={"Manage Data"}
+                        choose={this.props.admin_data_component}
+                        chooseOption={this.props.chooseOption}
+                        link={"data"} />
+                    <Element icon={'fa fa-home'}
+                        name={"Manage Solution"}
+                        choose={this.props.admin_solution_component}
+                        chooseOption={this.props.chooseOption}
+                        link={"solution"} />
+
                 </div>
             </div>
         )
@@ -27,12 +44,12 @@ var style = {
     sideBar: {
         position: 'fixed',
         backgroundColor: 'black',
-        top:60,
-        left:0,
+        top: 60,
+        left: 0,
         width: 220,
         height: '100%',
-        float:'left',
-        opacity:0.8,
+        float: 'left',
+        opacity: 0.8,
         zIndex: 1,
     },
     div_ul: {

@@ -1,14 +1,21 @@
 import React, { Component } from 'react';
 import { Route, Switch } from "react-router-dom";
-import Devices from '../components/DevicesComponent';
-import User from './UserComponent';
-import { Element } from "../templates/Element";
+import Devices from '../containers/DevicesContainer';
+import User from '../containers/UserContainer';
+import Data from '../containers/DataContainer';
+import Solution from '../containers/SolutionContainer';
 
 export default class Content extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
         }
+    }
+
+    componentDidMount(){
+        var url = window.location.toString();
+        var str = url.indexOf('/#/');
+        this.props.loadContent(url.slice(str+3));
     }
 
     render() {
@@ -21,8 +28,11 @@ export default class Content extends React.Component {
                         <a style={style.tag_a}>Home</a> > Table
                     </div>
                     <Switch>
-                        <Route exact path="/devices" component={Devices} />
+                        <Route exact path="/" component={Devices} />
+                        <Route exact path="/device" component={Devices} />
                         <Route exact path="/user" component={User} />
+                        <Route exact path="/data" component={Data} />
+                        <Route exact path="/solution" component={Solution} />
                     </Switch>
                 </div>
             </div>

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import 'font-awesome/css/font-awesome.css';
+import { Link } from 'react-router-dom';
 
 export class Element extends React.Component {
     constructor(props) {
@@ -23,6 +24,7 @@ export class Element extends React.Component {
     }
 
     onclick() {
+        this.props.chooseOption(this.props.link);
         this.setState({
             choose: false,
             font: true
@@ -31,14 +33,13 @@ export class Element extends React.Component {
 
     render() {
         return (
-            <div style={this.state.choose ? style.div_li_true : style.div_li_false}
-                onMouseOver={this.state.choose ? this.onmouseover.bind(this) : null}
-                onMouseOut={this.onmouseout.bind(this)}
-                onClick={this.onclick.bind(this)}>
-                    <div style={this.state.font ? style.font_true : style.font_false}>
-                        <i className={this.props.icon} style={style.icon} />{this.props.name}
-                    </div>
-            </div>
+            <Link to={"/" + this.props.link} onClick={this.onclick.bind(this)} style={this.state.font ? style.font_true : style.font_false}>
+                <div style={!this.props.choose ? style.div_li_true : style.div_li_false}
+                    onMouseOver={!this.props.choose ? this.onmouseover.bind(this) : null}
+                    onMouseOut={this.onmouseout.bind(this)}>
+                    <i className={this.props.icon} style={style.icon} />{this.props.name}
+                </div>
+            </Link>
         )
     }
 }

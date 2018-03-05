@@ -5,6 +5,7 @@ export default class DevicesComponent extends React.Component {
     constructor(props) {
         super(props);
     }
+
     render() {
         return (
             <Table dataSet={dataSet} columns={columns}/>
