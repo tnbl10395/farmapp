@@ -7,25 +7,32 @@ export class Chart extends React.Component {
     }
     render() {
         return (
-            <div style={style.main_content} className="col-md-12 col-sm-12 col-12">
-                <select>
-                    {
-                        array.forEach(item=>{
-                            return <option>{item}</option>
-                        })
-                    }
-                </select>
-                <LineChart data={chartData} options={chartOptions} style={style.chart} height="100%" />
+            <div style={this.props.sideBar ? style.main_content_true : style.main_content_false}>
+                <div className="col-sx-2 col-sm-2 col-md-2">
+                    <div className="form-group">
+                        <h4 for="sel1">Devices</h4>
+                        <select className="form-control" id="sel1">
+                            {
+                                array.map(element => {
+                                    return <option id={element.id}>{element.name}</option>
+                                })
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div className="col-sx-10 col-sm-10 col-md-10">
+                    <LineChart data={chartData} options={chartOptions} style={style.chart} redraw height="150" width="400"/>
+                </div>
             </div>
         )
     }
 }
 
 var array = [
-    {id:1,name:"device_1"},
-    {id:2,name:"device_2"},
-    {id:3,name:"device_3"},
-    {id:4,name:"device_4"},
+    { id: 1, name: "device_1" },
+    { id: 2, name: "device_2" },
+    { id: 3, name: "device_3" },
+    { id: 4, name: "device_4" },
 ]
 
 var chartData = {
@@ -56,8 +63,8 @@ var chartData = {
 
 var chartOptions = {
     scaleFontColor: "black",
-    scaleShowGridLines: false,
-    scaleGridLineColor: "black",
+    scaleShowGridLines: true,
+    scaleGridLineColor: "#9E9E9E",
     scaleGridLineWidth: 1,
     scaleShowHorizontalLines: true,
     scaleShowVerticalLines: true,
@@ -72,18 +79,32 @@ var chartOptions = {
     datasetFill: true,
     offsetGridLines: false,
     responsive: true,
-    // maintainAspectRatio: false,
+    // maintainAspectRatio: true,
 };
 
 const style = {
-    main_content: {
+    main_content_true: {
         color: 'black',
-        backgroundColor: 'gray',
+        backgroundColor: '#9E9E9E',
         position: 'absolute',
         padding: 10,
-        left: '18%',
+        left: '16%',
         top: 120,
-        width: '80%',
+        width: '83%',
+        fontSize: 12,
+        opacity: 0.8,
+        borderRadius: 5,
+        fontWeight: 'bold',
+        boxShadow: "1px 7px 3px black"
+    },
+    main_content_false: {
+        color: 'black',
+        backgroundColor: '#9E9E9E',
+        position: 'absolute',
+        padding: 10,
+        left: '4%',
+        top: 120,
+        width: '95%',
         fontSize: 12,
         opacity: 0.8,
         borderRadius: 5,

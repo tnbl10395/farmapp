@@ -1,17 +1,16 @@
 import React from 'react';
 import 'font-awesome/css/font-awesome.css';
 
-var w = window.innerWidth;
-var h = window.innerHeight;
-
-export const TopBar = () => (
+const TopBar = ({openSidebar}) => (
     <div style={style.topBar} className="row">
         <div style={style.divTitle} className="col-md-3 col-sm-3 col-3">
             <p style={style.title}>LP<a href="" style={style.a}>Farm</a></p>
-            <a href="" style={style.a_bar}><i className="fa fa-bars" /></a>
+            <a onClick={()=>openSidebar()} style={style.a_bar}><i className="fa fa-bars" /></a>
         </div>
     </div>
 );
+
+export default TopBar;
 
 var style = {
     topBar: {
@@ -40,6 +39,7 @@ var style = {
         fontWeight: 500,
     },
     a_bar: {
+        cursor: 'pointer',
         position: 'relative',
         top: 5,
         left: 65,

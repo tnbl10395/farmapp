@@ -1,42 +1,55 @@
 import React, { Component } from 'react';
 import 'font-awesome/css/font-awesome.css';
-import { Element } from "../templates/Element";
+import Element from "../templates/Element";
+import Profile from '../templates/Profile';
 
 export default class SideBar extends React.Component {
     constructor(props) {
         super(props);
     }
 
-    componentDidMount(){
+    componentDidMount() {
         var url = window.location.toString();
         var str = url.indexOf('/#/');
-        this.props.loadContent(url.slice(str+3));
+        this.props.loadContent(url.slice(str + 3));
     }
 
     render() {
         return (
-            <div style={style.sideBar} className="row">
+            <div style={ this.props.sideBar ? style.sideBar_true : style.sideBar_false} className="row">
+                <div>
+                    <Profile sideBar={this.props.sideBar}/>
+                    <div style={style.line}></div>
+                </div>
                 <div style={style.div_ul}>
                     <Element icon={'fa fa-home'}
                         name={"Manage Devices"}
                         choose={this.props.admin_device_component}
                         chooseOption={this.props.chooseOption}
-                        link={"device"} />
+                        link={"device"} 
+                        sideBar={this.props.sideBar}
+                        />
                     <Element icon={'fa fa-home'}
                         name={"Manage User"}
                         choose={this.props.admin_user_component}
                         chooseOption={this.props.chooseOption}
-                        link={"user"} />
+                        link={"user"} 
+                        sideBar={this.props.sideBar}
+                        />
                     <Element icon={'fa fa-home'}
                         name={"Manage Data"}
                         choose={this.props.admin_data_component}
                         chooseOption={this.props.chooseOption}
-                        link={"data"} />
+                        link={"data"} 
+                        sideBar={this.props.sideBar}
+                        />
                     <Element icon={'fa fa-home'}
                         name={"Manage Solution"}
                         choose={this.props.admin_solution_component}
                         chooseOption={this.props.chooseOption}
-                        link={"solution"} />
+                        link={"solution"} 
+                        sideBar={this.props.sideBar}
+                        />
 
                 </div>
             </div>
@@ -45,7 +58,7 @@ export default class SideBar extends React.Component {
 }
 
 var style = {
-    sideBar: {
+    sideBar_true: {
         position: 'fixed',
         backgroundColor: 'black',
         top: 60,
@@ -56,7 +69,25 @@ var style = {
         opacity: 0.8,
         zIndex: 1,
     },
+    sideBar_false: {
+        position: 'fixed',
+        backgroundColor: 'black',
+        top: 60,
+        left: 0,
+        width: 60,
+        height: '100%',
+        float: 'left',
+        opacity: 0.8,
+        zIndex: 1,
+    },
     div_ul: {
+        marginLeft: -5,
         listStyle: 'none',
     },
+    line: {
+        backgroundColor: 'white',
+        opacity: 0.3,
+        width: '100%',
+        height: 0.5
+    }
 }

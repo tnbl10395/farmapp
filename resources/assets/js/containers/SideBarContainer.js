@@ -6,7 +6,8 @@ const mapStateToProps = (state) => ({
     admin_device_component: state.admin_device_component,
     admin_user_component: state.admin_user_component,
     admin_data_component: state.admin_data_component,
-    admin_solution_component: state.admin_solution_component
+    admin_solution_component: state.admin_solution_component,
+    sideBar: state.sideBar
 });
 const mapDispatchToProps = (dispatch) => ({
     chooseOption: (option) => {
@@ -14,7 +15,7 @@ const mapDispatchToProps = (dispatch) => ({
     },
     loadContent: (option) => {
         dispatch(chooseOptionSidebar(option));
-    }
+    },
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SideBar);

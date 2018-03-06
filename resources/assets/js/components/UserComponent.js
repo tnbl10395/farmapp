@@ -7,7 +7,7 @@ export default class UserComponent extends React.Component {
     }
     render() {
         return (
-            <Chart/>
+            <Chart sideBar={this.props.sideBar}/>
         );
     }
 }

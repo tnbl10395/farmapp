@@ -1,26 +1,26 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { TopBar } from '../components/TopBar';
+import TopBar from '../containers/TopBarContainer';
 import SideBar from '../containers/SideBarContainer';
 import Content from '../components/Content';
 import { HashRouter } from 'react-router-dom';
 
 
 export default class Index extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
     }
 
     render() {
         return (
-                <HashRouter>
-                    <div className="container-fluid">
-                        <img src="/images/background-farm.jpg" style={style.img} />
-                        <TopBar />
-                        <SideBar />
-                        <Content />
-                    </div>
-                </HashRouter>
+            <HashRouter>
+                <div className="container-fluid">
+                    <img src="/images/background-farm.jpg" style={style.img} />
+                    <TopBar />
+                    <SideBar />
+                    <Content sideBar={this.props.sideBar}/>
+                </div>
+            </HashRouter>
         );
     }
 }
