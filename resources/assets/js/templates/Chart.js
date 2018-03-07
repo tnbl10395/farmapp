@@ -10,18 +10,18 @@ export class Chart extends React.Component {
             <div style={this.props.sideBar ? style.main_content_true : style.main_content_false}>
                 <div className="col-sx-2 col-sm-2 col-md-2">
                     <div className="form-group">
-                        <h4 for="sel1">Devices</h4>
-                        <select className="form-control" id="sel1">
+                        <h4>Devices</h4>
+                        <select className="form-control">
                             {
                                 array.map(element => {
-                                    return <option id={element.id}>{element.name}</option>
+                                    return <option key={element.id}>{element.name}</option>
                                 })
                             }
                         </select>
                     </div>
                 </div>
                 <div className="col-sx-10 col-sm-10 col-md-10">
-                    <LineChart data={chartData} options={chartOptions} style={style.chart} redraw height="150" width="400"/>
+                    <LineChart data={chartData} options={chartOptions} style={style.chart} height="100%" />
                 </div>
             </div>
         )
@@ -95,7 +95,7 @@ const style = {
         opacity: 0.8,
         borderRadius: 5,
         fontWeight: 'bold',
-        boxShadow: "1px 7px 3px black"
+        boxShadow: "1px 7px 3px black",
     },
     main_content_false: {
         color: 'black',
@@ -109,7 +109,7 @@ const style = {
         opacity: 0.8,
         borderRadius: 5,
         fontWeight: 'bold',
-        boxShadow: "1px 7px 3px black"
+        boxShadow: "1px 7px 3px black",
     },
     chart: {
         backgroundColor: 'white',

@@ -11,6 +11,9 @@ export default class Index extends Component {
         super(props);
     }
 
+    // componentDidMount(){
+    // }
+
     render() {
         return (
             <HashRouter>
