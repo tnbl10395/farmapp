@@ -12,7 +12,7 @@ export default class DataComponent extends React.Component {
 
     render() {
         return (
-            this.props.dataSet.length>0? <Table dataSet={this.props.dataSet} columns={columns} sideBar={this.props.sideBar} name={"data"}/> : null
+            this.props.dataSet.length>0? <Table dataSet={this.props.dataSet} columns={columns} sideBar={this.props.sideBar} name={"Data"}/> : null
         );
     }
 }
@@ -24,7 +24,7 @@ var columns = [
     { title: "Temperature" },
     { title: "Latitude" },
     { title: "Longitude" },
-    { title: "Measured Date" },
+    { title: "Date" },
     { title: "Status" },
     { title: "Action" },
 ];

@@ -1,4 +1,4 @@
-import { CHOOSE_OPTION_SIDEBAR, OPEN_SIDEBAR, GET_DATA_DEVICES, GET_DATA_VALUES } from "../actions/TypeAction";
+import { CHOOSE_OPTION_SIDEBAR, OPEN_SIDEBAR, GET_DATA_DEVICES, GET_DATA_VALUES, GET_DATA_USERS, GET_DATA_SOLUTIONS } from "../actions/TypeAction";
 
 const initialState = {
     admin_device_component: true,
@@ -8,9 +8,11 @@ const initialState = {
     sideBar: true,
     data_devices: [],
     data_values: [],
+    data_users: [],
+    data_solutions: [],
 };
 
-const edit = (id) => ('<a href="/'+id+'" style="border-radius: 5px; padding: 5px 5px 5px 6px; background-color:#3498db; color:#fff;margin-right:10px;" class="fa fa-edit"></a>');
+const edit = (id) => ('<a href="/' + id + '" style="border-radius: 5px; padding: 5px 5px 5px 6px; background-color:#3498db; color:#fff;margin-right:10px;" class="fa fa-edit"></a>');
 const remove = (id) => ('<a href="" style="border-radius: 5px; padding: 5px 7px 5px 7px; background-color:#e74c3c; color:#fff" class="fa fa-remove"></a>');
 const act = (id) => ('<div style="text-align: center">' + edit(id) + remove(id) + '</div>');
 
@@ -31,19 +33,51 @@ const Reducer = (state = initialState, action) => {
             var dt = action.loadData;
             dt.forEach(obj => {
                 data.push([
-                    obj.id, 
-                    obj.name, 
-                    obj.humidity, 
-                    obj.temperature, 
-                    obj.latitude, 
-                    obj.longitude, 
-                    obj.measured_date, 
+                    obj.id,
+                    obj.name,
+                    obj.humidity,
+                    obj.temperature,
+                    obj.latitude,
+                    obj.longitude,
+                    obj.updated_at,
                     obj.status,
                     act]);
             });
             return {
                 ...state,
                 data_values: data
+            }
+        case GET_DATA_USERS:
+            var data = [];
+            var dt = action.loadData;
+            dt.forEach(obj => {
+                data.push([
+                    obj.id,
+                    obj.username,
+                    obj.fullname,
+                    obj.address,
+                    obj.phone,
+                    act]);
+            });
+            return {
+                ...state,
+                data_users: data
+            }
+        case GET_DATA_SOLUTIONS:
+            var data = [];
+            var dt = action.loadData;
+            dt.forEach(obj => {
+                data.push([
+                    obj.id,
+                    obj.temperature,
+                    obj.humidity,
+                    obj.solution,
+                    obj.updated_at,
+                    act]);
+            });
+            return {
+                ...state,
+                data_solutions: data
             }
         case CHOOSE_OPTION_SIDEBAR:
             switch (action.option) {

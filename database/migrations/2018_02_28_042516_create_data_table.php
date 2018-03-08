@@ -21,7 +21,6 @@ class CreateDataTable extends Migration
             $table->string('temperature',10);
             $table->string('latitude',20);
             $table->string('longitude',20);
-            $table->datetime('measured_date');
             $table->enum('status',['1','0']);
             $table->timestamps();
         });

@@ -56,7 +56,7 @@ class UsersController extends Controller
      */
     public function index()
     {   
-        $users = User::all();
+        $users = User::select('id','username','fullname','address','phone')->get();
         if(count($users) > 0){
             return response()->json($users);
         }else{

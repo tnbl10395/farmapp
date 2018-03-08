@@ -3,3 +3,5 @@ export const OPEN_SIDEBAR = 'OPEN_SIDEBAR';
 
 export const GET_DATA_DEVICES = 'GET_DATA_DEVICES';
 export const GET_DATA_VALUES = 'GET_DATA_VALUES';
+export const GET_DATA_USERS = 'GET_DATA_USERS';
+export const GET_DATA_SOLUTIONS = 'GET_DATA_SOLUTIONS';

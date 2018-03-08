@@ -28,9 +28,9 @@ export class Table extends React.Component {
         return (
             <div style={this.props.sideBar?style.main_content_true:style.main_content_false}>
                 <div>
-                    <lable style={{ color: 'white', fontWeight: 'bold', fontSize: 20 }}>Name Table</lable>
+                    <lable style={{ color: 'white', fontWeight: 'bold', fontSize: 20 }}>{this.props.name} Table</lable>
                     {
-                        this.props.name=="data"?
+                        this.props.name=="Data"?
                         <button className="btn btn-success" style={{ position: 'absolute', right: 10, top: 5, fontSize: 12 }}>Export</button>
                         :
                         <button className="btn btn-success" style={{ position: 'absolute', right: 10, top: 5, fontSize: 12 }}>Add</button>

@@ -12,7 +12,7 @@ export default class DevicesComponent extends React.Component {
 
     render() {
         return (
-            this.props.dataSet.length>0? <Table dataSet={this.props.dataSet} columns={columns} sideBar={this.props.sideBar} /> : null
+            this.props.dataSet.length>0? <Table dataSet={this.props.dataSet} columns={columns} sideBar={this.props.sideBar} name={'Device'}/> : null
         );
     }
 }

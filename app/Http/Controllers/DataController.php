@@ -32,14 +32,13 @@ class DataController extends Controller
      */
     public function store(Request $request)
     {
-        $req = json_decode($request->data);
+        $req = explode('-',$request->data);
         $data = new Data();
-        $data->deviceId = $req->data->deviceId;
-        $data->humidity = $req->data->humidity;
-        $data->temperature = $req->data->temperature;
-        $data->latitude = $req->data->latitude;
-        $data->longitude = $req->data->longitude;
-        $data->measured_date = $req->data->measured_date;
+        $data->deviceId = $req[1];
+        $data->humidity = $req[2];
+        $data->temperature = $req[3];
+        $data->latitude = $req[4];
+        $data->longitude = $req[5];
         $data->status = 1;
         $data->save();
         return response()->json('Successfull!');
