@@ -8,7 +8,7 @@ export default class DevicesComponent extends React.Component {
 
     render() {
         return (
-            <Table dataSet={dataSet} columns={columns}/>
+            <Table dataSet={dataSet} columns={columns} sideBar={this.props.sideBar}/>
         );
     }
 }

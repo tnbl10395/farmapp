@@ -1,10 +1,11 @@
-import { CHOOSE_OPTION_SIDEBAR } from "../actions/TypeAction";
+import { CHOOSE_OPTION_SIDEBAR, OPEN_SIDEBAR } from "../actions/TypeAction";
 
 const initialState = {
     admin_device_component: true,
     admin_user_component: false,
     admin_data_component: false,
     admin_solution_component: false,
+    sideBar: true,
 };
 
 const Reducer = (state = initialState, action) => {
@@ -48,9 +49,15 @@ const Reducer = (state = initialState, action) => {
                         ...state,
                     }
             }
+
+        case OPEN_SIDEBAR:
+            return {
+                ...state,
+                sideBar: !state.sideBar
+            }
         default:
             return {
-                ...state
+                ...state,
             }
     }
 

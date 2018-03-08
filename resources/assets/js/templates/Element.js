@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import 'font-awesome/css/font-awesome.css';
 import { Link } from 'react-router-dom';
 
-export class Element extends React.Component {
+export default class Element extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -37,7 +37,9 @@ export class Element extends React.Component {
                 <div style={!this.props.choose ? style.div_li_true : style.div_li_false}
                     onMouseOver={!this.props.choose ? this.onmouseover.bind(this) : null}
                     onMouseOut={this.onmouseout.bind(this)}>
-                    <i className={this.props.icon} style={style.icon} />{this.props.name}
+                    <i  className={this.props.icon} 
+                        style={this.props.sideBar?style.icon_true:style.icon_false} />
+                        {this.props.sideBar ? this.props.name : null}
                 </div>
             </Link>
         )
@@ -56,8 +58,12 @@ const style = {
         padding: 10,
         backgroundColor: 'green',
     },
-    icon: {
+    icon_true: {
         marginRight: 25,
+    },
+    icon_false: {
+        marginRight: 25,
+        fontSize:24
     },
     font_true: {
         fontWeight: 'bold',

@@ -13,30 +13,35 @@ export default class Content extends React.Component {
     render() {
         return (
             <div>
-                <div>
-                    <div style={style.content}>
-                    </div>
-                    <div style={style.breadcrumb}>
-                        <a style={style.tag_a}>Home</a> > Table
-                    </div>
-                    <Switch>
-                        <Route exact path="/" component={Devices} />
-                        <Route exact path="/device" component={Devices} />
-                        <Route exact path="/user" component={User} />
-                        <Route exact path="/data" component={Data} />
-                        <Route exact path="/solution" component={Solution} />
-                    </Switch>
+                <div style={this.props.sideBar?style.content_true:style.content_false}>
                 </div>
+                <div style={style.breadcrumb}>
+                    <a style={style.tag_a}>Home</a> > Table
+                    </div>
+                <Switch>
+                    <Route exact path="/" component={Devices} />
+                    <Route exact path="/device" component={Devices} />
+                    <Route exact path="/user" component={User} />
+                    <Route exact path="/data" component={Data} />
+                    <Route exact path="/solution" component={Solution} />
+                </Switch>
             </div>
         )
     }
 }
 
 var style = {
-    content: {
-        // backgroundColor: 'gray',
+    content_true: {
         position: 'fixed',
         left: 200,
+        width: '100%',
+        height: '100%',
+        top: 60,
+        opacity: 0.7
+    },
+    content_false: {
+        position: 'fixed',
+        left: 40,
         width: '100%',
         height: '100%',
         top: 60,

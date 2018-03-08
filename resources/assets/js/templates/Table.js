@@ -26,7 +26,7 @@ export class Table extends React.Component {
 
     render() {
         return (
-            <div style={style.main_content}>
+            <div style={this.props.sideBar?style.main_content_true:style.main_content_false}>
                 <div>
                     <lable style={{ color: 'white', fontWeight: 'bold', fontSize: 20 }}>Name Table</lable>
                     <button className="btn btn-success" style={{ position: 'absolute', right: 10, top: 5, fontSize: 12 }}>Add</button>
@@ -39,14 +39,28 @@ export class Table extends React.Component {
 }
 
 const style = {
-    main_content: {
+    main_content_true: {
         color: 'black',
         backgroundColor: '#9E9E9E',
         position: 'absolute',
         padding: 10,
-        left: '18%',
+        left: '16%',
         top: 120,
-        width: '80%',
+        width: '83%',
+        fontSize: 12,
+        opacity: 0.8,
+        borderRadius: 5,
+        fontWeight: 'bold',
+        boxShadow: "1px 7px 3px black"
+    },
+    main_content_false: {
+        color: 'black',
+        backgroundColor: '#9E9E9E',
+        position: 'absolute',
+        padding: 10,
+        left: '4%',
+        top: 120,
+        width: '95%',
         fontSize: 12,
         opacity: 0.8,
         borderRadius: 5,
