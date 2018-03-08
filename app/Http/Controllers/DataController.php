@@ -14,7 +14,9 @@ class DataController extends Controller
      */
     public function index()
     {   
-        $datas = Data::all();
+        $datas = Data::join('devices','data.deviceId','=','devices.id')
+                    ->select('data.*','devices.name')
+                    ->get();
         if(count($datas) > 0){
             return response()->json($datas);
         }else{

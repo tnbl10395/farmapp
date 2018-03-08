@@ -1,8 +1,9 @@
 import { connect } from 'react-redux';
 import UserComponent from '../components/UserComponent';
 
+
 const mapStateToProps = (state) => ({
-    sideBar: state.sideBar
+    sideBar: state.sideBar,
 });
 const mapDispatchToProps = (dispatch) => ({
 

@@ -18,7 +18,7 @@ use Illuminate\Http\Request;
 // });
 
 Route::post('auth/login', 'UsersController@login');
-Route::group(['middleware' => 'jwt.auth'], function () {
+// Route::group(['middleware' => 'jwt.auth'], function () {
     Route::get('user-info', 'UsersController@getUserInfo');
     //Devices
     Route::get('devices', 'DevicesController@index');
@@ -53,7 +53,7 @@ Route::group(['middleware' => 'jwt.auth'], function () {
     Route::get('data/{id}', 'DataController@show');
     Route::post('data/{id}', 'DataController@update');
     Route::delete('data/{id}', 'DataController@destroy');
-});
+// });
 Route::group(['middleware' => 'key'], function () {
     Route::get('send-data', 'DataController@store');
 });
