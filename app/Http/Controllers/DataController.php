@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Data;
+use App\Manage;
+use JWTAuth;
 
 class DataController extends Controller
 {
@@ -15,7 +17,7 @@ class DataController extends Controller
     public function index()
     {   
         $datas = Data::join('devices','data.deviceId','=','devices.id')
-                    ->select('data.*','devices.name')
+                    ->select('data.*','devices.name')->orderBy('id','asc')
                     ->get();
         if(count($datas) > 0){
             return response()->json($datas);
@@ -37,8 +39,6 @@ class DataController extends Controller
         $data->deviceId = $req[1];
         $data->humidity = $req[2];
         $data->temperature = $req[3];
-        $data->latitude = $req[4];
-        $data->longitude = $req[5];
         $data->status = 1;
         $data->save();
         return response()->json('Successfull!');
@@ -69,11 +69,11 @@ class DataController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $data = Data::findOrFail($id);
-        $data->userId = $request->userId;
-        $data->deviceId = $request->deviceId;
-        $data->save();
-        return response()->json('Updated');
+        // $data = Data::findOrFail($id);
+        // $data->userId = $request->userId;
+        // $data->deviceId = $request->deviceId;
+        // $data->save();
+        // return response()->json('Updated');
     }
 
     /**
@@ -87,5 +87,96 @@ class DataController extends Controller
         $data = Data::findOrFail($id);
         $data->delete();
         return response()->json('Deleted');
+    }
+    //real - hour
+    public function getRealChartBasedOnHour(Request $request, $deviceId)
+    {   
+        $array = [];
+        // $device = Manage::where('userId',$user->id)->select('deviceId as id')->orderBy('deviceId','asc')->first();
+        $date = date('Y-m-d H');
+        $data = Data::join('devices','data.deviceId','=','devices.id')
+                    // ->whereRaw('data.updated_at LIKE "'.$date.'%"')
+                    ->whereRaw('substr(data.updated_at,1,13) = "'.$date.'"')
+                    ->where('deviceId',$deviceId)
+                    ->selectRaw('data.id,data.deviceId,devices.name,substr(data.updated_at,1,16) as minute,
+                            data.humidity,data.temperature,data.updated_at')
+                    ->orderBy('id','asc')->get()->groupBy('minute'); 
+        foreach ($data as $key => $value) {
+            array_push($array,$value[count($value)-1]);
+        }
+        return response()->json($array);
+    }
+    //real - day
+    public function getRealChartBasedOnDay(Request $request, $deviceId)
+    {   
+        $array = [];
+        // $device = Manage::where('userId',$user->id)->select('deviceId as id')->orderBy('deviceId','asc')->first();
+        $date = date('Y-m-d');
+        $data = Data::join('devices','data.deviceId','=','devices.id')
+                    // ->whereRaw('data.updated_at LIKE "'.$date.'%"')
+                    ->whereDate('data.updated_at',$date)
+                    ->where('deviceId',$deviceId)
+                    ->selectRaw('data.id,data.deviceId,devices.name,substr(data.updated_at,1,13) as hour,
+                            data.humidity,data.temperature,data.updated_at')
+                    ->orderBy('id','asc')->get()->groupBy('hour'); 
+        foreach ($data as $key => $value) {
+            array_push($array,$value[count($value)-1]);
+        }
+        return response()->json($array);
+    }
+    //old-hour
+    public function getOldChartBasedOnHour(Request $request)
+    {
+        // return response()->json($request);
+        $array = [];
+        $data = Data::join('devices','data.deviceId','=','devices.id')
+        ->whereRaw('substr(data.updated_at,1,13) = "'.$request->hour.'"')
+        ->where('deviceId',$request->deviceId)
+        ->selectRaw('data.id,data.deviceId,devices.name,substr(data.updated_at,1,16) as minute,
+                    substr(data.updated_at,15,2) as min,data.humidity,data.temperature,data.updated_at')
+        ->orderBy('id','asc')->get()->groupBy('minute'); 
+        foreach ($data as $key => $value) {
+            array_push($array,$value[count($value)-1]);
+        }
+        return response()->json($array);
+    }
+    //old-day
+    public function getOldChartBasedOnDay(Request $request)
+    {
+        $array = [];
+        $data = Data::join('devices','data.deviceId','=','devices.id')
+        ->whereDate('data.updated_at',$request->day)
+        ->where('deviceId',$request->deviceId)
+        ->selectRaw('data.id,data.deviceId,devices.name,substr(data.updated_at,1,13) as hour,
+                data.humidity,data.temperature,data.updated_at')
+        ->orderBy('id','asc')->get()->groupBy('hour'); 
+        foreach ($data as $key => $value) {
+            array_push($array,$value[count($value)-1]);
+        }
+        return response()->json($array);
+    }
+    //one-minute
+    public function getOneValueBasedOnMinute(Request $request)
+    {
+        $array = [];
+        $data = Data::join('devices','data.deviceId','=','devices.id')
+        ->whereRaw('substr(data.updated_at,1,16) = "'.$request->minute.'"')
+        ->where('deviceId',$request->deviceId)
+        ->selectRaw('data.id,data.deviceId,devices.name, substr(data.updated_at,15,2) as minute,
+                data.humidity,data.temperature,data.updated_at')
+        ->orderBy('id','desc')->first(); 
+        return response()->json($data);
+    }
+    //one-hour
+    public function getOneValueBasedOnHour(Request $request)
+    {
+        $array = [];
+        $data = Data::join('devices','data.deviceId','=','devices.id')
+        ->whereDate('data.updated_at',$request->hour)
+        ->where('deviceId',$request->deviceId)
+        ->selectRaw('data.id,data.deviceId,devices.name, substr(data.updated_at,12,2) as hour,
+                data.humidity,data.temperature,data.updated_at')
+        ->orderBy('id','desc')->first(); 
+        return response()->json($data);
     }
 }

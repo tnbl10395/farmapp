@@ -23,4 +23,5 @@ var columns = [
     { title: "Full Name" },
     { title: "Address" },
     { title: "Phone" },
+    { title: "Action" },
 ];

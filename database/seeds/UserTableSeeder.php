@@ -11,15 +11,29 @@ class UserTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('users')->insert([
-            'username' => 'admin',
-            'password' => bcrypt('admin'),
-            'fullname' => 'Long (Lewis) N.B. TRAN',
-            'address' => '48 Nam Cao Street, Danang City',
-            'phone' => '0905515033',
-            'role' => 'admin',
-            'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
-            'updated_at' => \Carbon\Carbon::now()->toDateTimeString(),
-        ]);
+        DB::table('users')->insert(
+            [
+                [
+                    'username' => 'admin',
+                    'password' => bcrypt('admin'),
+                    'fullname' => 'Long (Lewis) N.B. TRAN',
+                    'address' => '48 Nam Cao Street, Danang City',
+                    'phone' => '0905515033',
+                    'role' => '1',
+                    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+                    'updated_at' => \Carbon\Carbon::now()->toDateTimeString(),
+                ],
+                [
+                    'username' => 'client1',
+                    'password' => bcrypt('happyfarm'),
+                    'fullname' => 'Phuong (Patrick) V. NGUYEN',
+                    'address' => 'Danang City',
+                    'phone' => '01672269262',
+                    'role' => '0',
+                    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+                    'updated_at' => \Carbon\Carbon::now()->toDateTimeString(),
+                ]
+            ]
+        );
     }
 }

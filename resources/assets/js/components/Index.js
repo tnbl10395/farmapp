@@ -11,8 +11,9 @@ export default class Index extends Component {
         super(props);
     }
 
-    // componentDidMount(){
-    // }
+    componentDidMount(){
+        this.props.getDevicesOfUser();
+    }
 
     render() {
         return (

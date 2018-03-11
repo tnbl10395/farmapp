@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateDataTable extends Migration
+class CreateLocationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,12 @@ class CreateDataTable extends Migration
      */
     public function up()
     {
-        Schema::create('data', function (Blueprint $table) {
+        Schema::create('locations', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('deviceId')->unsigned();
             $table->foreign('deviceId')->references('id')->on('devices');
-            $table->string('humidity',10);
-            $table->string('temperature',10);
-            $table->enum('status',['1','0']);
+            $table->string('latitude',20);
+            $table->string('longitude',20);
             $table->timestamps();
         });
     }
@@ -31,6 +30,6 @@ class CreateDataTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('data');
+        Schema::dropIfExists('locations');
     }
 }

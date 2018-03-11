@@ -68,6 +68,7 @@ var style = {
         float: 'left',
         opacity: 0.8,
         zIndex: 1,
+        boxShadow: "1px 7px 3px black",
     },
     sideBar_false: {
         position: 'fixed',
