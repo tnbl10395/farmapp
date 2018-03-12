@@ -28,10 +28,13 @@ export class Table extends React.Component {
         return (
             <div style={this.props.sideBar?style.main_content_true:style.main_content_false}>
                 <div>
-                    <lable style={{ color: 'white', fontWeight: 'bold', fontSize: 20 }}>Name Table</lable>
+                    <lable style={{ color: 'white', fontWeight: 'bold', fontSize: 20 }}>{this.props.name} Table</lable>
                     {
-                        this.props.name=="data"?
-                        <button className="btn btn-success" style={{ position: 'absolute', right: 10, top: 5, fontSize: 12 }}>Export</button>
+                        this.props.name=="Data"?
+                        <button 
+                            onClick={()=>this.props.change()}
+                            className="btn btn-success" 
+                            style={{ position: 'absolute', right: 10, top: 5, fontSize: 12 }}>Chart</button>
                         :
                         <button className="btn btn-success" style={{ position: 'absolute', right: 10, top: 5, fontSize: 12 }}>Add</button>
                     }
@@ -63,9 +66,9 @@ const style = {
         backgroundColor: '#9E9E9E',
         position: 'absolute',
         padding: 10,
-        left: '4%',
+        left: '11%',
         top: 120,
-        width: '95%',
+        width: '88%',
         fontSize: 12,
         opacity: 0.8,
         borderRadius: 5,
@@ -73,6 +76,7 @@ const style = {
         boxShadow: "1px 7px 3px black"
     },
     table: {
+        // tableLayout:'fixed',
         backgroundColor: '#4CAF50',
     },
 }

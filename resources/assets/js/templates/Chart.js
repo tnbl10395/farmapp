@@ -1,65 +1,159 @@
 import React, { Component } from 'react';
+var Datetime = require('react-datetime');
 var LineChart = require('react-chartjs').Line;
 
 export class Chart extends React.Component {
     constructor(props) {
-        super(props)
+        super(props);
     }
+
+    chooseDevice(option) {
+        console.log(option.target.value);
+    }
+
+    chooseInterval(option) {
+        console.log(option.target.value);
+    }
+
+    chooseDate(option) {
+        var time = new Date(option._d);
+        if (parseInt(time.getDate()) < 10) {
+            var dd = '0' + time.getDate();
+        } else {
+            var dd = time.getDate();
+        }
+        if (parseInt(time.getMonth()) < 10) {
+            var mm = time.getMonth() + 1;
+            var mm = "0" + mm;
+        } else {
+            var mm = time.getMonth() + 1;
+        }
+        var yyyy = time.getFullYear();
+        if (parseInt(time.getHours()) < 10) {
+            var HH = '0' + time.getHours();
+        } else {
+            var HH = time.getHours();
+        }
+        if (this.props.checkInterval) {
+            var date = yyyy + '-' + mm + '-' + dd;
+        } else {
+            var date = yyyy + '-' + mm + '-' + dd + ' ' + HH;
+        }
+        this.props.getOldDataOnChart(this.props.device, date, this.props.checkInterval, time);
+    }
+
     render() {
+        var arrayHour = this.props.checkInterval ? labelDay() : labelHour();
+        var arrayDay = labelDay();
+        var array = this.props.all_devices;
+        var chartData = {
+            labels: arrayHour,
+            datasets: [
+                {
+                    label: "My First dataset",
+                    fillColor: "rgba(39, 174, 96,0.2)",
+                    strokeColor: "green",
+                    pointColor: "green",
+                    pointStrokeColor: "#fff",
+                    pointHighlightFill: "#fff",
+                    pointHighlightStroke: "green",
+                    data: this.props.humidity
+                },
+                {
+                    label: "My Second dataset",
+                    fillColor: "rgba(52, 152, 219,0.2)",
+                    strokeColor: "blue",
+                    pointColor: "blue",
+                    pointStrokeColor: "#fff",
+                    pointHighlightFill: "#fff",
+                    pointHighlightStroke: "blue",
+                    data: this.props.temperature
+                }
+            ]
+        };
         return (
             <div style={this.props.sideBar ? style.main_content_true : style.main_content_false}>
-                <div className="col-sx-2 col-sm-2 col-md-2">
-                    <div className="form-group">
-                        <h4>Devices</h4>
-                        <select className="form-control">
-                            {
-                                array.map(element => {
-                                    return <option key={element.id}>{element.name}</option>
-                                })
-                            }
-                        </select>
-                    </div>
+                <div style={style.button_div}>
+                    <button
+                        // onClick={() => this.props.change()}
+                        className="btn btn-success"
+                        style={{ position: 'absolute', right: 80, top: 5, fontSize: 12 }}>Export</button>
+                    <button
+                        onClick={() => this.props.change()}
+                        className="btn btn-success"
+                        style={{ position: 'absolute', right: 10, top: 5, fontSize: 12 }}>Table</button>
                 </div>
-                <div className="col-sx-10 col-sm-10 col-md-10">
-                    <LineChart data={chartData} options={chartOptions} style={style.chart} height="100%" />
+                <hr style={{ opacity: 0.2, marginTop: 0, marginBottom: 0 }} />
+                <div>
+                    <div className="col-sx-2 col-sm-2 col-md-2">
+                        <div className="form-group">
+                            <h5 style={{ fontWeight: 'bold' }}>Interval</h5>
+                            <select className="form-control"
+                                value={this.props.interval}
+                                onChange={(option) => this.props.changeInterval(option.target.value)}>
+                                {
+                                    interval.map(element => {
+                                        return <option key={element.id} value={element.name}>{element.name}</option>
+                                    })
+                                }
+                            </select>
+                        </div>
+                        <h5 style={{ fontWeight: 'bold' }}>Time</h5>
+                        <div className="form-group">
+                            <Datetime
+                                value={this.props.date}
+                                input={false}
+                                timeFormat={!this.props.checkInterval ? "HH" : false}
+                                isValidDate={valid}
+                                onChange={(option) => this.chooseDate(option)} />
+                        </div>
+                        <div className="form-group">
+                            <h5 style={{ fontWeight: 'bold' }}>Devices</h5>
+                            <select className="form-control"
+                                value={this.props.device}
+                                onChange={(device) => this.props.getOldDataOnChart(device.target.value, this.props.date, this.props.checkInterval, this.props.date)}>
+                                {
+                                    array.map(element => {
+                                        return <option key={element.id} value={element.id}>{element.name}</option>
+                                    })
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div className="col-sx-10 col-sm-10 col-md-10">
+                        <LineChart data={chartData} options={chartOptions} style={style.chart} height="100%" />
+                    </div>
                 </div>
             </div>
         )
     }
 }
 
-var array = [
-    { id: 1, name: "device_1" },
-    { id: 2, name: "device_2" },
-    { id: 3, name: "device_3" },
-    { id: 4, name: "device_4" },
+var today = Datetime.moment();
+var valid = function (current) {
+    return current.isBefore(today);
+};
+
+var interval = [
+    { id: 1, name: "1 Hour" },
+    { id: 2, name: "1 Day" },
 ]
 
-var chartData = {
-    labels: ["January", "February", "March", "April", "May", "June", "July"],
-    datasets: [
-        {
-            label: "My First dataset",
-            fillColor: "rgba(39, 174, 96,0.2)",
-            strokeColor: "green",
-            pointColor: "green",
-            pointStrokeColor: "#fff",
-            pointHighlightFill: "#fff",
-            pointHighlightStroke: "green",
-            data: [65, 59, 80, 81, 56, 55, 40]
-        },
-        {
-            label: "My Second dataset",
-            fillColor: "rgba(52, 152, 219,0.2)",
-            strokeColor: "blue",
-            pointColor: "blue",
-            pointStrokeColor: "#fff",
-            pointHighlightFill: "#fff",
-            pointHighlightStroke: "blue",
-            data: [28, 48, 40, 19, 86, 27, 90]
-        }
-    ]
-};
+const labelHour = () => {
+    var array = [];
+    for (var i = 0; i < 60; i++) {
+        array.push(i);
+    }
+    return array;
+}
+
+const labelDay = () => {
+    var array = [];
+    for (var i = 0; i < 24; i++) {
+        array.push(i);
+    }
+    return array;
+}
 
 var chartOptions = {
     scaleFontColor: "black",
@@ -71,7 +165,7 @@ var chartOptions = {
     bezierCurve: true,
     bezierCurveTension: 0.4,
     pointDot: true,
-    pointDotRadius: 4,
+    pointDotRadius: 3,
     pointDotStrokeWidth: 1,
     pointHitDetectionRadius: 20,
     datasetStroke: true,
@@ -79,6 +173,7 @@ var chartOptions = {
     datasetFill: true,
     offsetGridLines: false,
     responsive: true,
+    animation: false
     // maintainAspectRatio: true,
 };
 
@@ -102,9 +197,9 @@ const style = {
         backgroundColor: '#9E9E9E',
         position: 'absolute',
         padding: 10,
-        left: '4%',
+        left: '11%',
         top: 120,
-        width: '95%',
+        width: '88%',
         fontSize: 12,
         opacity: 0.8,
         borderRadius: 5,
@@ -112,8 +207,12 @@ const style = {
         boxShadow: "1px 7px 3px black",
     },
     chart: {
+        marginTop: 40,
         backgroundColor: 'white',
         padding: 20,
         borderRadius: 2,
+    },
+    button_div: {
+        height: 35,
     }
 }

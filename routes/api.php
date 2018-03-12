@@ -53,6 +53,12 @@ Route::post('auth/login', 'UsersController@login');
     Route::get('data/{id}', 'DataController@show');
     Route::post('data/{id}', 'DataController@update');
     Route::delete('data/{id}', 'DataController@destroy');
+    Route::get('data-real-chart-hour/{deviceId}', 'DataController@getRealChartBasedOnHour');
+    Route::get('data-real-chart-day/{deviceId}', 'DataController@getRealChartBasedOnDay');
+    Route::post('data-old-chart-hour', 'DataController@getOldChartBasedOnHour');
+    Route::post('data-old-chart-day', 'DataController@getOldChartBasedOnDay');
+    Route::post('one-real-chart-hour','DataController@getOneValueBasedOnMinute');
+    Route::post('one-real-chart-day','DataController@getOneValueBasedOnHour');
 // });
 Route::group(['middleware' => 'key'], function () {
     Route::get('send-data', 'DataController@store');

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Manage;
+use JWTAuth;
 
 class ManagesController extends Controller
 {
@@ -12,9 +13,14 @@ class ManagesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {   
-        $manages = Manage::all();
+        // $user = JWTAuth::toUser($request->token);
+        $manages = Manage::join('devices','manages.deviceId','=','devices.id')
+                        ->where('userId',1)
+                        ->select('manages.deviceId as id','devices.name')
+                        ->orderBy('id')
+                        ->get();
         if(count($manages) > 0){
             return response()->json($manages);
         }else{

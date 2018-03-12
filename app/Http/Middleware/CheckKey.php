@@ -15,8 +15,9 @@ class CheckKey
      */
     public function handle($request, Closure $next)
     {
-        $data = json_decode($request->data);
-        if($data->key==md5('happyfarm'))
+        $data = $request->data;
+        $array = explode('-',$data);
+        if($array[0]==md5('happyfarm'))
         {
             return $next($request);
         }

@@ -18,7 +18,8 @@ var style = {
         backgroundColor: 'black',
         width:'100%',
         height: 60, 
-        zIndex: 1,
+        zIndex: 99999,
+        boxShadow: "1px 7px 3px black",
         // opacity: 0.7,
     },
     divTitle: {
