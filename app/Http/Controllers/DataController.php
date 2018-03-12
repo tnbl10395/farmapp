@@ -148,7 +148,7 @@ class DataController extends Controller
         ->whereDate('data.updated_at',$request->day)
         ->where('deviceId',$request->deviceId)
         ->selectRaw('data.id,data.deviceId,devices.name,substr(data.updated_at,1,13) as hour,
-                data.humidity,data.temperature,data.updated_at')
+        substr(data.updated_at,12,2) as h,data.humidity,data.temperature,data.updated_at')
         ->orderBy('id','asc')->get()->groupBy('hour'); 
         foreach ($data as $key => $value) {
             array_push($array,$value[count($value)-1]);

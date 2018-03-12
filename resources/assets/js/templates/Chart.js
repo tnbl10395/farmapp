@@ -8,6 +8,7 @@ export class Chart extends React.Component {
     }
 
     componentWillMount() {
+        console.log(this.props.device);
         // this.props.getRealDataOnChart(this.props.device,this.props.date);
     }
 
@@ -161,8 +162,8 @@ var chartOptions = {
     datasetFill: true,
     offsetGridLines: false,
     responsive: true,
-    animation: false
-    // maintainAspectRatio: true,
+    animation: false,
+    // maintainAspectRatio: false,
 };
 
 const style = {

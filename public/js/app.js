@@ -77670,6 +77670,7 @@ var Chart = function (_React$Component) {
     _createClass(Chart, [{
         key: 'componentWillMount',
         value: function componentWillMount() {
+            console.log(this.props.device);
             // this.props.getRealDataOnChart(this.props.device,this.props.date);
         }
     }, {
@@ -77877,7 +77878,7 @@ var chartOptions = {
     offsetGridLines: false,
     responsive: true,
     animation: false
-    // maintainAspectRatio: true,
+    // maintainAspectRatio: false,
 };
 
 var style = {
