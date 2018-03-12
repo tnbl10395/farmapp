@@ -1,4 +1,4 @@
-export const URL = "http://localhost:8000/";
+export const URL = "http://192.168.20.122:8000/";
 
 export const getDataDevicesAPI = (dispatch, getDataDevices) => {
     try {

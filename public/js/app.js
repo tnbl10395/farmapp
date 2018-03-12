@@ -25360,7 +25360,7 @@ var style = {
 /* unused harmony export URL */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return getDataDevicesAPI; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return getDataValuesAPI; });
-var URL = "http://localhost:8000/";
+var URL = "http://192.168.20.122:8000/";
 
 var getDataDevicesAPI = function getDataDevicesAPI(dispatch, getDataDevices) {
     try {
