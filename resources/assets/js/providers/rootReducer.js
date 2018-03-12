@@ -1,4 +1,4 @@
-import { CHOOSE_OPTION_SIDEBAR, OPEN_SIDEBAR, GET_DATA_DEVICES, GET_DATA_VALUES, GET_DATA_USERS, GET_DATA_SOLUTIONS, CHANGE_DISPLAY_DATA_SCREEN, GET_REAL_CHART_BASED_ON_HOUR, GET_OLD_CHART_BASED_ON_HOUR, GET_DEVICES_OF_USER } from "../actions/TypeAction";
+import { CHOOSE_OPTION_SIDEBAR, OPEN_SIDEBAR, GET_DATA_DEVICES, GET_DATA_VALUES, GET_DATA_USERS, GET_DATA_SOLUTIONS, CHANGE_DISPLAY_DATA_SCREEN, GET_REAL_CHART_BASED_ON_HOUR, GET_OLD_CHART_BASED_ON_HOUR, GET_DEVICES_OF_USER, CHANGE_INTERVAL, GET_OLD_CHART_BASED_ON_DAY, SAVE_DEVICE, GET_REAL_CHART_BASED_ON_DAY } from "../actions/TypeAction";
 
 const initialState = {
     admin_device_component: true,
@@ -16,6 +16,8 @@ const initialState = {
     all_devices: [],
     select_device: '',
     select_date: '',
+    checkInterval: false,
+    interval: 0,
 };
 
 const edit = (id) => ('<a href="/' + id + '" style="border-radius: 5px; padding: 5px 5px 5px 6px; background-color:#3498db; color:#fff;margin-right:10px;" class="fa fa-edit"></a>');
@@ -23,7 +25,14 @@ const remove = (id) => ('<a href="" style="border-radius: 5px; padding: 5px 7px 
 const act = (id) => ('<div style="text-align: center">' + edit(id) + remove(id) + '</div>');
 const initValueHour = () => {
     var array = [];
-    for(var i = 0;i<60;i++){
+    for (var i = 0; i < 60; i++) {
+        array.push(0);
+    }
+    return array;
+}
+const initValueDay = () => {
+    var array = [];
+    for (var i = 0; i < 24; i++) {
         array.push(0);
     }
     return array;
@@ -91,18 +100,11 @@ const Reducer = (state = initialState, action) => {
                 data_solutions: data
             }
         case GET_REAL_CHART_BASED_ON_HOUR:
-            return {
-                ...state,
-                // data_chart: action.loadData,
-                // select_device: action.device,
-                // select_date: action.date
-            }
-        case GET_OLD_CHART_BASED_ON_HOUR:
             var humidity = initValueHour();
             var temperature = initValueHour();
             action.loadData.forEach(element => {
-                humidity.splice(parseInt(element.min),1,element.humidity);
-                temperature.splice(parseInt(element.min),1,element.temperature);
+                humidity.splice(parseInt(element.min), 1, element.humidity);
+                temperature.splice(parseInt(element.min), 1, element.temperature);
             });
             return {
                 ...state,
@@ -111,11 +113,58 @@ const Reducer = (state = initialState, action) => {
                 select_device: action.device,
                 select_date: action.date
             }
-        case GET_DEVICES_OF_USER: 
+        case GET_REAL_CHART_BASED_ON_DAY:
+            var humidity = initValueDay();
+            var temperature = initValueDay();
+            action.loadData.forEach(element => {
+                humidity.splice(parseInt(element.min), 1, element.humidity);
+                temperature.splice(parseInt(element.min), 1, element.temperature);
+            });
             return {
                 ...state,
-                select_device: action.loadData[0].id,
+                humidity_chart: humidity,
+                temperature_chart: temperature,
+                select_device: action.device,
+                select_date: action.date
+            }
+        case GET_OLD_CHART_BASED_ON_HOUR:
+            var humidity = initValueHour();
+            var temperature = initValueHour();
+            action.loadData.forEach(element => {
+                humidity.splice(parseInt(element.min), 1, element.humidity);
+                temperature.splice(parseInt(element.min), 1, element.temperature);
+            });
+            return {
+                ...state,
+                humidity_chart: humidity,
+                temperature_chart: temperature,
+                select_device: action.device,
+                select_date: action.date
+            }
+        case GET_OLD_CHART_BASED_ON_DAY:
+            var humidity = initValueDay();
+            var temperature = initValueDay();
+            action.loadData.forEach(element => {
+                humidity.splice(parseInt(element.h), 1, element.humidity);
+                temperature.splice(parseInt(element.h), 1, element.temperature);
+            });
+            return {
+                ...state,
+                humidity_chart: humidity,
+                temperature_chart: temperature,
+                select_device: action.device,
+                select_date: action.date
+            }
+        case GET_DEVICES_OF_USER:
+            return {
+                ...state,
                 all_devices: action.loadData,
+                select_device: action.loadData[0].id,
+            }
+        case SAVE_DEVICE:
+            return {
+                ...state,
+                select_device: state.all_devices[0].id,
             }
         case CHANGE_DISPLAY_DATA_SCREEN:
             return {
@@ -165,6 +214,12 @@ const Reducer = (state = initialState, action) => {
             return {
                 ...state,
                 sideBar: !state.sideBar
+            }
+        case CHANGE_INTERVAL:
+            return {
+                ...state,
+                checkInterval: !state.checkInterval,
+                interval: action.option
             }
         default:
             return {

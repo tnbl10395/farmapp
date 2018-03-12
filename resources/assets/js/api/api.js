@@ -1,9 +1,12 @@
 export const URL = "http://116.98.208.44:3000/";
+// export const URL = "http://localhost:3000/";
 
 export const getDataDevicesAPI = (dispatch, getDataDevices) => {
     try {
         var data = [];
-        fetch(URL + "api/devices")
+        fetch(URL + "api/devices", {
+            method: 'GET'
+        })
             .then((response) => response.json())
             .then((res) => {
                 res.forEach(element => {
@@ -21,9 +24,11 @@ export const getDataValuesAPI = (dispatch, getDataValues) => {
         fetch(URL + "api/data")
             .then((response) => response.json())
             .then((res) => {
-                res.forEach(element => {
-                    data.push(element)
-                });
+                if (res.length > 0) {
+                    res.forEach(element => {
+                        data.push(element)
+                    });
+                }
                 dispatch(getDataValues(data));
             });
     } catch (error) {
@@ -60,23 +65,43 @@ export const getDataSolutionsAPI = (dispatch, getDataSolutions) => {
     }
 }
 
-export const getRealChartBasedOnHourAPI = (dispatch, getRealChartBasedOnHour, device, date) => {
+export const getRealChartBasedOnHourAPI = (dispatch, getRealChartBasedOnHour, device) => {
     try {
         var data = [];
         fetch(URL + "api/data-real-chart-hour/" + device)
             .then((response) => response.json())
             .then((res) => {
-                res.forEach(element => {
-                    data.push(element)
-                });
-                console.log(data)
-                // dispatch(getRealChartBasedOnHour(data,device,date));
+                if (res.length > 0) {
+                    res.forEach(element => {
+                        data.push(element)
+                    });
+                }
+                var time = new Date();
+                dispatch(getRealChartBasedOnHour(data,device,time));
             });
     } catch (error) {
     }
 }
 
-export const getOldChartBasedOnHourAPI = (dispatch, getOldChartBasedOnHour, device, date) => {
+export const getRealChartBasedOnDayAPI = (dispatch, getRealChartBasedOnDay, device) => {
+    try {
+        var data = [];
+        fetch(URL + "api/data-real-chart-day/" + device)
+            .then((response) => response.json())
+            .then((res) => {
+                if (res.length > 0) {
+                    res.forEach(element => {
+                        data.push(element)
+                    });
+                }
+                var time = new Date();
+                dispatch(getRealChartBasedOnDay(data,device,time));
+            });
+    } catch (error) {
+    }
+}
+
+export const getOldChartBasedOnHourAPI = (dispatch, getOldChartBasedOnHour, device, date, time) => {
     try {
         var data = [];
         fetch(URL + "api/data-old-chart-hour", {
@@ -92,14 +117,43 @@ export const getOldChartBasedOnHourAPI = (dispatch, getOldChartBasedOnHour, devi
         })
             .then((response) => response.json())
             .then((res) => {
-                res.forEach(element => {
-                    data.push(element)
-                });
-                dispatch(getOldChartBasedOnHour(data,device,date));
+                if (res.length > 0) {
+                    res.forEach(element => {
+                        data.push(element)
+                    });
+                }
+                dispatch(getOldChartBasedOnHour(data, device, time));
             });
     } catch (error) {
     }
-} 
+}
+
+export const getOldChartBasedOnDayAPI = (dispatch, getOldChartBasedOnDay, device, date, time) => {
+    try {
+        var data = [];
+        fetch(URL + "api/data-old-chart-day", {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                deviceId: device,
+                day: date,
+            })
+        })
+            .then((response) => response.json())
+            .then((res) => {
+                if (res.length > 0) {
+                    res.forEach(element => {
+                        data.push(element)
+                    });
+                }
+                dispatch(getOldChartBasedOnDay(data, device, time));
+            });
+    } catch (error) {
+    }
+}
 
 export const getDeviceOfUserAPI = (dispatch, getDeviceOfUser) => {
     try {
@@ -107,9 +161,11 @@ export const getDeviceOfUserAPI = (dispatch, getDeviceOfUser) => {
         fetch(URL + "api/manages")
             .then((response) => response.json())
             .then((res) => {
-                res.forEach(element => {
-                    data.push(element)
-                });
+                if (res.length > 0) {
+                    res.forEach(element => {
+                        data.push(element)
+                    });
+                }
                 dispatch(getDeviceOfUser(data));
             });
     } catch (error) {

@@ -99,7 +99,7 @@ class DataController extends Controller
                     ->whereRaw('substr(data.updated_at,1,13) = "'.$date.'"')
                     ->where('deviceId',$deviceId)
                     ->selectRaw('data.id,data.deviceId,devices.name,substr(data.updated_at,1,16) as minute,
-                            data.humidity,data.temperature,data.updated_at')
+                                substr(data.updated_at,15,2) as min,data.humidity,data.temperature,data.updated_at')
                     ->orderBy('id','asc')->get()->groupBy('minute'); 
         foreach ($data as $key => $value) {
             array_push($array,$value[count($value)-1]);
@@ -117,7 +117,7 @@ class DataController extends Controller
                     ->whereDate('data.updated_at',$date)
                     ->where('deviceId',$deviceId)
                     ->selectRaw('data.id,data.deviceId,devices.name,substr(data.updated_at,1,13) as hour,
-                            data.humidity,data.temperature,data.updated_at')
+                                substr(data.updated_at,12,2) as h,data.humidity,data.temperature,data.updated_at')
                     ->orderBy('id','asc')->get()->groupBy('hour'); 
         foreach ($data as $key => $value) {
             array_push($array,$value[count($value)-1]);
@@ -149,6 +149,7 @@ class DataController extends Controller
         ->where('deviceId',$request->deviceId)
         ->selectRaw('data.id,data.deviceId,devices.name,substr(data.updated_at,1,13) as hour,
         substr(data.updated_at,12,2) as h,data.humidity,data.temperature,data.updated_at')
+
         ->orderBy('id','asc')->get()->groupBy('hour'); 
         foreach ($data as $key => $value) {
             array_push($array,$value[count($value)-1]);

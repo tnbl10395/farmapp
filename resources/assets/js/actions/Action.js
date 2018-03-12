@@ -8,7 +8,11 @@ import {
     CHANGE_DISPLAY_DATA_SCREEN,
     GET_REAL_CHART_BASED_ON_HOUR,
     GET_OLD_CHART_BASED_ON_HOUR,
-    GET_DEVICES_OF_USER
+    GET_DEVICES_OF_USER,
+    CHANGE_INTERVAL,
+    GET_OLD_CHART_BASED_ON_DAY,
+    SAVE_DEVICE,
+    GET_REAL_CHART_BASED_ON_DAY
 } from "./TypeAction";
 
 export const chooseOptionSidebar = (option) => {
@@ -58,9 +62,18 @@ export const changeDisplayDataScreen = () => {
     }
 }
 
-export const getRealChartBasedOnHour = (loadData, deivce, date) => {
+export const getRealChartBasedOnHour = (loadData, device, date) => {
     return {
         type: GET_REAL_CHART_BASED_ON_HOUR,
+        loadData,
+        device,
+        date
+    }
+}
+
+export const getRealChartBasedOnDay = (loadData, device, date) => {
+    return {
+        type: GET_REAL_CHART_BASED_ON_DAY,
         loadData,
         device,
         date
@@ -76,9 +89,31 @@ export const getOldChartBasedOnHour = (loadData, device, date) => {
     }
 }
 
+export const getOldChartBasedOnDay = (loadData, device, date) => {
+    return {
+        type: GET_OLD_CHART_BASED_ON_DAY,
+        loadData,
+        device,
+        date
+    }
+}
+
 export const getDeviceOfUser = (loadData) => {
     return {
         type: GET_DEVICES_OF_USER,
         loadData
+    }
+}
+
+export const changeInterval = (option) => {
+    return {
+        type: CHANGE_INTERVAL,
+        option
+    }
+}
+
+export const saveDevice = () => {
+    return {
+        type: SAVE_DEVICE
     }
 }

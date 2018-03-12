@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import DataComponent from '../components/DataComponent';
-import { getDataValuesAPI, getRealChartBasedOnHourAPI, getOldChartBasedOnHourAPI } from '../api/api';
-import { getDataValues, changeDisplayDataScreen, getRealChartBasedOnHour, getOldChartBasedOnHour } from '../actions/Action';
+import { getDataValuesAPI, getRealChartBasedOnHourAPI, getOldChartBasedOnHourAPI, getOldChartBasedOnDayAPI, getRealChartBasedOnDayAPI } from '../api/api';
+import { getDataValues, changeDisplayDataScreen, getRealChartBasedOnHour, getOldChartBasedOnHour, changeInterval, getOldChartBasedOnDay, getRealChartBasedOnDay } from '../actions/Action';
 
 const mapStateToProps = (state) => ({
     sideBar: state.sideBar,
@@ -11,21 +11,34 @@ const mapStateToProps = (state) => ({
     date: state.select_date,
     humidity: state.humidity_chart,
     temperature: state.temperature_chart,
-    all_devices: state.all_devices
+    all_devices: state.all_devices,
+    checkInterval: state.checkInterval,
+    interval: state.interval
 });
 const mapDispatchToProps = (dispatch) => ({
     getDataValuesonTable: () => {
         getDataValuesAPI(dispatch, getDataValues);
     },
-    getRealDataOnChart: (device, date) => {
-        getRealChartBasedOnHourAPI(dispatch, getRealChartBasedOnHour, device, date);
-    },
-    getOldDataOnChart: (device, date) => {
-        getOldChartBasedOnHourAPI(dispatch, getOldChartBasedOnHour, device, date);
+    getOldDataOnChart: (device, date, interval, time) => {
+        if (interval) {
+            getOldChartBasedOnDayAPI(dispatch, getOldChartBasedOnDay, device, date, time);
+        } else {
+            getOldChartBasedOnHourAPI(dispatch, getOldChartBasedOnHour, device, date, time);
+        }
     },
     changeDisplayDataScreen: () => {
         dispatch(changeDisplayDataScreen());
-    }
+    },
+    changeInterval: (option) => {
+        dispatch(changeInterval(option));
+    },
+    getRealDataOnChart: (device, interval) => {
+        if (interval) {
+            getRealChartBasedOnDayAPI(dispatch, getRealChartBasedOnDay, device);
+        }else{
+            getRealChartBasedOnHourAPI(dispatch, getRealChartBasedOnHour, device);
+        }
+    },
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(DataComponent);

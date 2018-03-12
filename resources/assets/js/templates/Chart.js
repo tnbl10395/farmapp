@@ -7,46 +7,30 @@ export class Chart extends React.Component {
         super(props);
     }
 
-    componentWillMount() {
-        console.log(this.props.device);
-        // this.props.getRealDataOnChart(this.props.device,this.props.date);
-    }
-
-    chooseDevice(option) {
-        console.log(option.target.value);
-    }
-
-    chooseInterval(option) {
-        console.log(option.target.value);
+    changeInterval(option) {
+        this.props.changeInterval(option.target.value);
+        var time = new Date();
+        if(time.toDateString()==this.props.date.toDateString()){
+            this.props.getRealDataOnChart(this.props.device,this.props.checkInterval);
+        }else {
+            var date = configDate(this.props.date,this.props.checkInterval);
+            console.log(date);
+            this.props.getOldDataOnChart(this.props.device, date, this.props.checkInterval, this.props.date);
+        }
     }
 
     chooseDate(option) {
         var time = new Date(option._d);
-        if (parseInt(time.getDate()) < 10) {
-            var dd = '0' + time.getDate();
-        } else {
-            var dd = time.getDate();
-        }
-        if (parseInt(time.getMonth()) < 10) {
-            var mm = time.getMonth() + 1;
-            var mm = "0" + mm;
-        } else {
-            var mm = time.getMonth() + 1;
-        }
-        var yyyy = time.getFullYear();
-        if (parseInt(time.getHours()) < 10) {
-            var HH = '0' + time.getHours();
-        } else {
-            var HH = time.getHours();
-        }
-        var date = yyyy + '-' + mm + '-' + dd + ' ' + HH;
-        this.props.getOldDataOnChart(this.props.device, date);
+        var date  = configDate(time,this.props.checkInterval);
+        this.props.getOldDataOnChart(this.props.device, date, this.props.checkInterval, time);
     }
 
     render() {
+        var arrayHour = this.props.checkInterval ? labelDay() : labelHour();
+        var arrayDay = labelDay();
         var array = this.props.all_devices;
         var chartData = {
-            labels: labelHour(),
+            labels: arrayHour,
             datasets: [
                 {
                     label: "My First dataset",
@@ -88,7 +72,8 @@ export class Chart extends React.Component {
                         <div className="form-group">
                             <h5 style={{ fontWeight: 'bold' }}>Interval</h5>
                             <select className="form-control"
-                                onChange={(option) => this.chooseInterval(option)}>
+                                value={this.props.interval}
+                                onChange={(option) => this.changeInterval(option)}>
                                 {
                                     interval.map(element => {
                                         return <option key={element.id} value={element.name}>{element.name}</option>
@@ -99,8 +84,9 @@ export class Chart extends React.Component {
                         <h5 style={{ fontWeight: 'bold' }}>Time</h5>
                         <div className="form-group">
                             <Datetime
+                                value={this.props.date}
                                 input={false}
-                                timeFormat={"HH"}
+                                timeFormat={!this.props.checkInterval ? "HH" : false}
                                 isValidDate={valid}
                                 onChange={(option) => this.chooseDate(option)} />
                         </div>
@@ -108,7 +94,7 @@ export class Chart extends React.Component {
                             <h5 style={{ fontWeight: 'bold' }}>Devices</h5>
                             <select className="form-control"
                                 value={this.props.device}
-                                onChange={(device) => this.props.getOldDataOnChart(device.target.value, this.props.date)}>
+                                onChange={(device) => this.props.getOldDataOnChart(device.target.value, this.props.date, this.props.checkInterval, this.props.date)}>
                                 {
                                     array.map(element => {
                                         return <option key={element.id} value={element.id}>{element.name}</option>
@@ -118,12 +104,39 @@ export class Chart extends React.Component {
                         </div>
                     </div>
                     <div className="col-sx-10 col-sm-10 col-md-10">
-                        <LineChart data={chartData} options={chartOptions} style={style.chart} height="100%" />
+                        <LineChart data={chartData} options={chartOptions} style={style.chart} redraw  width="600" height="300" />
                     </div>
                 </div>
             </div>
         )
     }
+}
+
+const configDate = (time,interval) => {
+    var date = '';
+    if (parseInt(time.getDate()) < 10) {
+        var dd = '0' + time.getDate();
+    } else {
+        var dd = time.getDate();
+    }
+    if (parseInt(time.getMonth()) < 10) {
+        var mm = time.getMonth() + 1;
+        var mm = "0" + mm;
+    } else {
+        var mm = time.getMonth() + 1;
+    }
+    var yyyy = time.getFullYear();
+    if (parseInt(time.getHours()) < 10) {
+        var HH = '0' + time.getHours();
+    } else {
+        var HH = time.getHours();
+    }
+    if (interval) {
+        date = yyyy + '-' + mm + '-' + dd;
+    } else {
+        date = yyyy + '-' + mm + '-' + dd + ' ' + HH;
+    }
+    return date;
 }
 
 var today = Datetime.moment();
@@ -139,6 +152,14 @@ var interval = [
 const labelHour = () => {
     var array = [];
     for (var i = 0; i < 60; i++) {
+        array.push(i);
+    }
+    return array;
+}
+
+const labelDay = () => {
+    var array = [];
+    for (var i = 0; i < 24; i++) {
         array.push(i);
     }
     return array;
@@ -198,7 +219,6 @@ const style = {
     chart: {
         marginTop: 40,
         backgroundColor: 'white',
-        padding: 20,
         borderRadius: 2,
     },
     button_div: {
