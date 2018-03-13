@@ -4,6 +4,7 @@ import TopBar from '../containers/TopBarContainer';
 import SideBar from '../containers/SideBarContainer';
 import Content from '../components/Content';
 import { HashRouter } from 'react-router-dom';
+import Modal from '../templates/Modal';
 
 
 export default class Index extends Component {
@@ -23,6 +24,7 @@ export default class Index extends Component {
                     <TopBar />
                     <SideBar />
                     <Content sideBar={this.props.sideBar}/>
+                    { this.props.modal? <Modal closeModal={this.props.closeModal} object={this.props.object}/>:null}
                 </div>
             </HashRouter>
         );

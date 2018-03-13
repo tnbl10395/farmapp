@@ -4,6 +4,7 @@ import Devices from '../containers/DevicesContainer';
 import User from '../containers/UserContainer';
 import Data from '../containers/DataContainer';
 import Solution from '../containers/SolutionContainer';
+import AddDevices from '../containers/AddDeviceContainer';
 
 export default class Content extends React.Component {
     constructor(props) {
@@ -24,6 +25,7 @@ export default class Content extends React.Component {
                     <Route exact path="/user" component={User} />
                     <Route exact path="/data" component={Data} />
                     <Route exact path="/solution" component={Solution} />
+                    <Route exact path="/add-device" component={AddDevices} />
                 </Switch>
             </div>
         )

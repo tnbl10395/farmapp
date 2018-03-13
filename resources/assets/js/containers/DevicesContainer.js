@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import DevicesComponent from '../components/DevicesComponent';
-import { chooseOptionSidebar, getDataDevices } from "../actions/Action";
+import { chooseOptionSidebar, getDataDevices, openModal } from "../actions/Action";
 import { getDataDevicesAPI } from '../api/api';
 
 const mapStateToProps = (state) => ({
@@ -10,7 +10,10 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
     getDataDevices: () => {
         getDataDevicesAPI(dispatch,getDataDevices);
-    }
+    },
+    openModal: (object) => {
+        dispatch(openModal(object));
+    },
 });
 
 export default connect (mapStateToProps,mapDispatchToProps)(DevicesComponent);
