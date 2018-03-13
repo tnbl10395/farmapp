@@ -4,6 +4,7 @@ import Devices from '../containers/DevicesContainer';
 import User from '../containers/UserContainer';
 import Data from '../containers/DataContainer';
 import Solution from '../containers/SolutionContainer';
+import { HashRouter, BrowserRouter } from 'react-router-dom';
 
 export default class Content extends React.Component {
     constructor(props) {
@@ -12,20 +13,20 @@ export default class Content extends React.Component {
 
     render() {
         return (
-            <div>
-                <div style={this.props.sideBar?style.content_true:style.content_false}>
-                </div>
-                <div style={style.breadcrumb}>
-                    <a style={style.tag_a}>Home</a> > Table
+                <div>
+                    <div style={this.props.sideBar ? style.content_true : style.content_false}>
                     </div>
-                <Switch>
-                    <Route exact path="/" component={Devices} />
-                    <Route exact path="/device" component={Devices} />
-                    <Route exact path="/user" component={User} />
-                    <Route exact path="/data" component={Data} />
-                    <Route exact path="/solution" component={Solution} />
-                </Switch>
-            </div>
+                    <div style={style.breadcrumb}>
+                        <a style={style.tag_a}>Home</a> > Table
+                    </div>
+                    <Switch>
+                        <Route exact path="/" component={Devices} />
+                        <Route exact path="/device" component={Devices} />
+                        <Route exact path="/user" component={User} />
+                        <Route exact path="/data" component={Data} />
+                        <Route exact path="/solution" component={Solution} />
+                    </Switch>
+                </div>
         )
     }
 }

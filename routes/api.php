@@ -59,7 +59,11 @@ Route::post('auth/login', 'UsersController@login');
     Route::post('data-old-chart-day', 'DataController@getOldChartBasedOnDay');
     Route::post('one-real-chart-hour','DataController@getOneValueBasedOnMinute');
     Route::post('one-real-chart-day','DataController@getOneValueBasedOnHour');
+
+    //Location 
+    Route::get('location/{id}','LocationsController@show');
 // });
 Route::group(['middleware' => 'key'], function () {
     Route::get('send-data', 'DataController@store');
+    Route::get('send-location','LocationsController@store');
 });

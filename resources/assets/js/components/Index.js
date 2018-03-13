@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import TopBar from '../containers/TopBarContainer';
 import SideBar from '../containers/SideBarContainer';
 import Content from '../components/Content';
-import { HashRouter } from 'react-router-dom';
+import { HashRouter, BrowserRouter } from 'react-router-dom';
 
 
 export default class Index extends Component {
@@ -11,7 +11,7 @@ export default class Index extends Component {
         super(props);
     }
 
-    componentDidMount(){
+    componentDidMount() {
         this.props.getDevicesOfUser();
     }
 
@@ -19,10 +19,10 @@ export default class Index extends Component {
         return (
             <HashRouter>
                 <div className="container-fluid">
-                    <img src="/images/background-farm.jpg" style={style.img} />
+                    <img src="/images/farmintro.jpg" style={style.img} />
                     <TopBar />
                     <SideBar />
-                    <Content sideBar={this.props.sideBar}/>
+                    <Content sideBar={this.props.sideBar} />
                 </div>
             </HashRouter>
         );
@@ -36,6 +36,7 @@ var style = {
         top: 0,
         bottom: 0,
         right: 0,
-        filter: 'blur(3px)'
+        filter: 'blur(3px)',
+        maxWidth:'100%',
     }
 }

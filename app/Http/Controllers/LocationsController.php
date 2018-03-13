@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Location;
 
 class LocationsController extends Controller
 {
@@ -13,17 +14,7 @@ class LocationsController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        
     }
 
     /**
@@ -33,8 +24,14 @@ class LocationsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        //
+    {   
+        $req = explode('-',$request->data);
+        $location = new Location();
+        $location->deviceId = $req[1];
+        $location->latitude = $req[2];
+        $location->longitude = $req[3];
+        $location->save();
+        return response()->json("Successful");
     }
 
     /**
@@ -43,20 +40,10 @@ class LocationsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        $locations = Location::findOrFail($id);
+        return response()->json($locations);
     }
 
     /**

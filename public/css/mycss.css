@@ -233,3 +233,10 @@
   .rdtTime td {
     cursor: default;
   }
+
+  .img_smartphone {
+    position:'absolute';
+    z-index: 99999;
+    bottom: -60px;
+    width: 40%;
+  }
