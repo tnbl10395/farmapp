@@ -61854,7 +61854,7 @@ var style = {
     img_smartphone: {
         position: 'absolute',
         zIndex: 99999,
-        bottom: -60,
+        bottom: 0,
         width: '40%',
         animation: '6s',
         animationName: __WEBPACK_IMPORTED_MODULE_2_radium__["b" /* default */].keyframes(__WEBPACK_IMPORTED_MODULE_1_react_animations__["bounceInLeft"], 'bounceInLeft')

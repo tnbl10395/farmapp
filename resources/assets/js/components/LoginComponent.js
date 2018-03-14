@@ -62,7 +62,7 @@ const style = {
     img_smartphone: {
         position:'absolute',
         zIndex: 99999,
-        bottom: -60,
+        bottom: 0,
         width:'40%',
         animation: '6s',
         animationName: Radium.keyframes(bounceInLeft,'bounceInLeft') 
