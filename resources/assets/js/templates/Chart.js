@@ -5,24 +5,54 @@ var LineChart = require('react-chartjs').Line;
 export class Chart extends React.Component {
     constructor(props) {
         super(props);
+        var time = new Date();
+        this.state = {
+            date: time.getDate(),
+            month: (time.getMonth() + 1),
+            year: time.getFullYear(),
+            hour: time.getHours(),
+            minute: time.getMinutes(),
+            second: time.getSeconds(),
+        }
+    }
+
+    componentDidMount() {
+        this.interval = setInterval(() => {
+            var time = new Date();
+            this.setState({
+                date: time.getDate(),
+                month: (time.getMonth() + 1),
+                year: time.getFullYear(),
+                hour: time.getHours(),
+                minute: time.getMinutes(),
+                second: time.getSeconds(),
+            });
+            this.props.getRealDataOnChart(this.props.device, this.props.checkInterval);
+        }, 1000);
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.interval);
     }
 
     changeInterval(option) {
-        this.props.changeInterval(option.target.value);
-        var time = new Date();
-        if(time.toDateString()==this.props.date.toDateString()){
-            this.props.getRealDataOnChart(this.props.device,this.props.checkInterval);
-        }else {
-            var date = configDate(this.props.date,this.props.checkInterval);
-            console.log(date);
-            this.props.getOldDataOnChart(this.props.device, date, this.props.checkInterval, this.props.date);
-        }
+        var subDate = configDate(this.props.date, this.props.checkInterval);
+        this.props.changeInterval(option.target.value, this.props.device, this.props.date, subDate);
     }
 
     chooseDate(option) {
         var time = new Date(option._d);
-        var date  = configDate(time,this.props.checkInterval);
+        var currentTime = new Date();
+        var date = configDate(time, this.props.checkInterval);
         this.props.getOldDataOnChart(this.props.device, date, this.props.checkInterval, time);
+        // if (time.toDateString() == currentTime.toDateString()) {
+        //     this.interval = setInterval(() => {
+        //         console.log('ok');
+        //         this.props.getRealDataOnChart(this.props.device, this.props.checkInterval);
+        //     }, 1000);
+        // } else {
+        clearInterval(this.interval);
+        // }
     }
 
     render() {
@@ -33,7 +63,7 @@ export class Chart extends React.Component {
             labels: arrayHour,
             datasets: [
                 {
-                    label: "My First dataset",
+                    label: "Humidity",
                     fillColor: "rgba(39, 174, 96,0.2)",
                     strokeColor: "green",
                     pointColor: "green",
@@ -43,7 +73,7 @@ export class Chart extends React.Component {
                     data: this.props.humidity
                 },
                 {
-                    label: "My Second dataset",
+                    label: "Temperature",
                     fillColor: "rgba(52, 152, 219,0.2)",
                     strokeColor: "blue",
                     pointColor: "blue",
@@ -103,8 +133,18 @@ export class Chart extends React.Component {
                             </select>
                         </div>
                     </div>
-                    <div className="col-sx-10 col-sm-10 col-md-10">
-                        <LineChart data={chartData} options={chartOptions} style={style.chart} redraw  width="600" height="300" />
+                    <div className="col-sx-10 col-sm-10 col-md-10" style={{ marginTop: 10 }}>
+                        <div className="label label-success col-md-2" style={{ fontSize: 15, padding: 10 }}>Humidity</div>
+                        <div className="label label-primary col-md-2 col-md-offset-1" style={{ fontSize: 15, padding: 10 }}>Temperature</div>
+                        <div className="col-md-6 col-md-offset-1">
+                            <div className="col-md-6 label label-default" style={{ fontSize: 15, padding: 10 }}>
+                                {this.state.year}-{this.state.month}-{this.state.date}
+                            </div>
+                            <div className="col-md-4 col-md-offset-1 label label-default" style={{ fontSize: 15, padding: 10 }}>
+                                {this.state.hour}:{this.state.minute}:{this.state.second}
+                            </div>
+                        </div>
+                        <LineChart data={chartData} options={chartOptions} style={style.chart} redraw width="600" height="300" />
                     </div>
                 </div>
             </div>
@@ -112,7 +152,7 @@ export class Chart extends React.Component {
     }
 }
 
-const configDate = (time,interval) => {
+const configDate = (time, interval) => {
     var date = '';
     if (parseInt(time.getDate()) < 10) {
         var dd = '0' + time.getDate();
@@ -217,7 +257,7 @@ const style = {
         boxShadow: "1px 7px 3px black",
     },
     chart: {
-        marginTop: 40,
+        marginTop: 20,
         backgroundColor: 'white',
         borderRadius: 2,
     },

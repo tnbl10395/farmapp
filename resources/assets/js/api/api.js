@@ -77,7 +77,7 @@ export const getRealChartBasedOnHourAPI = (dispatch, getRealChartBasedOnHour, de
                     });
                 }
                 var time = new Date();
-                dispatch(getRealChartBasedOnHour(data,device,time));
+                dispatch(getRealChartBasedOnHour(data, device, time));
             });
     } catch (error) {
     }
@@ -95,7 +95,54 @@ export const getRealChartBasedOnDayAPI = (dispatch, getRealChartBasedOnDay, devi
                     });
                 }
                 var time = new Date();
-                dispatch(getRealChartBasedOnDay(data,device,time));
+                dispatch(getRealChartBasedOnDay(data, device, time));
+            });
+    } catch (error) {
+    }
+}
+
+export const getRealChartWithIntervalAPI = (dispatch, changeInterval, device, date, subDate, option) => {
+    var link = (option == "1 Hour") ? "hour" : "day";
+    try {
+        var data = [];
+        fetch(URL + "api/data-real-chart-" + link + "/" + device)
+            .then((response) => response.json())
+            .then((res) => {
+                if (res.length > 0) {
+                    res.forEach(element => {
+                        data.push(element)
+                    });
+                }
+                dispatch(changeInterval(option, data, device, date));
+            });
+    } catch (error) {
+    }
+}
+
+export const getOldChartWithIntervalAPI = (dispatch, changeInterval, device, date, subDate, option) => {
+    var link = (option == "1 Hour") ? "hour" : "day";
+    var variable = (option == "1 Hour") ? "hour" : "day";
+    try {
+        var data = [];
+        fetch(URL + "api/data-old-chart-" + link, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                deviceId: device,
+                variable: subDate,
+            })
+        })
+            .then((response) => response.json())
+            .then((res) => {
+                if (res.length > 0) {
+                    res.forEach(element => {
+                        data.push(element)
+                    });
+                }
+                dispatch(changeInterval(option, data, device, date));
             });
     } catch (error) {
     }
@@ -168,6 +215,63 @@ export const getDeviceOfUserAPI = (dispatch, getDeviceOfUser) => {
                 }
                 dispatch(getDeviceOfUser(data));
             });
+    } catch (error) {
+    }
+}
+//form
+export const submitAddDeviceFormAPI = (dispatch, submitAddDeviceForm, name, date, code) => {
+    try {
+        fetch(URL + "api/devices", {
+            method: "POST",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                name: name,
+                code: code,
+                manufacturing_date: date
+            })
+        })
+            .then((response) => response.json())
+            .then((res) => {
+                if (res) {
+                    dispatch(submitAddDeviceForm());
+                    window.location.reload();
+                } else {
+                    alert('Code is unique');
+                }
+            })
+    } catch (error) {
+    }
+}
+
+export const submitAddUserFormAPI = (dispatch, submitAddUserForm, username, password, fullname, address, phone, role) => {
+    try {
+        fetch(URL + "api/users", {
+            method: "POST",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                username: username,
+                password: password,
+                fullname: fullname,
+                address: address,
+                phone: phone,
+                role: role
+            })
+        })
+            .then((response) => response.json())
+            .then((res) => {
+                if (res) {
+                    dispatch(submitAddUserForm());
+                    window.location.reload();
+                } else {
+                    alert('Username already have been registered');
+                }
+            })
     } catch (error) {
     }
 }

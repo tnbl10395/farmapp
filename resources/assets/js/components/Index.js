@@ -3,7 +3,9 @@ import ReactDOM from 'react-dom';
 import TopBar from '../containers/TopBarContainer';
 import SideBar from '../containers/SideBarContainer';
 import Content from '../components/Content';
-import { HashRouter, BrowserRouter } from 'react-router-dom';
+
+import { HashRouter } from 'react-router-dom';
+import Modal from '../templates/Modal';
 
 
 export default class Index extends Component {
@@ -23,6 +25,12 @@ export default class Index extends Component {
                     <TopBar />
                     <SideBar />
                     <Content sideBar={this.props.sideBar} />
+                    {
+                        this.props.modal ?
+                        <Modal closeModal={this.props.closeModal}
+                            object={this.props.object} />
+                        : null
+                    }
                 </div>
             </HashRouter>
         );
@@ -37,6 +45,6 @@ var style = {
         bottom: 0,
         right: 0,
         filter: 'blur(3px)',
-        maxWidth:'100%',
+        // maxWidth:'100%',
     }
 }

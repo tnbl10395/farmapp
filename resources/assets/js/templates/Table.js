@@ -1,18 +1,15 @@
 import React, { Component } from 'react';
 import 'datatables.net-dt/css/jquery.dataTables.css';
 import 'font-awesome/css/font-awesome.css';
+import { Link } from 'react-router-dom';
 
 var $ = require('jquery');
 var dt = require('datatables.net');
 
 export class Table extends React.Component {
     constructor(props) {
-        super(props)
+        super(props);
     }
-
-    // componentWillUnmount() {
-    //     this.$el.DataTable.destroy(true);
-    // }
 
     componentDidMount() {
         this.$el = $(this.el);
@@ -26,17 +23,26 @@ export class Table extends React.Component {
 
     render() {
         return (
-            <div style={this.props.sideBar?style.main_content_true:style.main_content_false}>
+            <div style={this.props.sideBar ? style.main_content_true : style.main_content_false}>
                 <div>
                     <lable style={{ color: 'white', fontWeight: 'bold', fontSize: 20 }}>{this.props.name} Table</lable>
                     {
-                        this.props.name=="Data"?
-                        <button 
-                            onClick={()=>this.props.change()}
-                            className="btn btn-success" 
-                            style={{ position: 'absolute', right: 10, top: 5, fontSize: 12 }}>Chart</button>
-                        :
-                        <button className="btn btn-success" style={{ position: 'absolute', right: 10, top: 5, fontSize: 12 }}>Add</button>
+                        this.props.name == "Data" ?
+                            <div>
+                                <button
+                                    // onClick={() => this.props.change()}
+                                    className="btn btn-success"
+                                    style={{ position: 'absolute', right: 80, top: 5, fontSize: 12 }}>Export</button>
+                                <button
+                                    onClick={() => this.props.change()}
+                                    className="btn btn-success"
+                                    style={{ position: 'absolute', right: 10, top: 5, fontSize: 12 }}>Chart</button>
+                            </div>
+                            :
+                            <button
+                                onClick={() => this.props.openModal(this.props.object) }
+                                className="btn btn-success"
+                                style={{ position: 'absolute', right: 10, top: 5, fontSize: 12 }}>Add</button>
                     }
                 </div>
                 <hr style={{ opacity: 0.2, marginTop: 0 }} />

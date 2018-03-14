@@ -1,7 +1,24 @@
 import { connect } from 'react-redux';
 import DataComponent from '../components/DataComponent';
-import { getDataValuesAPI, getRealChartBasedOnHourAPI, getOldChartBasedOnHourAPI, getOldChartBasedOnDayAPI, getRealChartBasedOnDayAPI } from '../api/api';
-import { getDataValues, changeDisplayDataScreen, getRealChartBasedOnHour, getOldChartBasedOnHour, changeInterval, getOldChartBasedOnDay, getRealChartBasedOnDay } from '../actions/Action';
+import {
+    getDataValuesAPI,
+    getRealChartBasedOnHourAPI,
+    getOldChartBasedOnHourAPI,
+    etOldChartBasedOnDayAPI,
+    getRealChartBasedOnDayAPI,
+    getRealChartWithIntervalAPI,
+    getOldChartWithIntervalAPI,
+    getOldChartBasedOnDayAPI
+} from '../api/api';
+import {
+    getDataValues,
+    changeDisplayDataScreen,
+    getRealChartBasedOnHour,
+    getOldChartBasedOnHour,
+    changeInterval,
+    getOldChartBasedOnDay,
+    getRealChartBasedOnDay
+} from '../actions/Action';
 
 const mapStateToProps = (state) => ({
     sideBar: state.sideBar,
@@ -19,6 +36,17 @@ const mapDispatchToProps = (dispatch) => ({
     getDataValuesonTable: () => {
         getDataValuesAPI(dispatch, getDataValues);
     },
+    changeDisplayDataScreen: () => {
+        dispatch(changeDisplayDataScreen());
+    },
+    changeInterval: (option, device, date, subDate) => {
+        var time = new Date();
+        if (time.toDateString() == date.toDateString()) {
+            getRealChartWithIntervalAPI(dispatch, changeInterval, device, date, subDate, option);
+        } else {
+            getOldChartWithIntervalAPI(dispatch, changeInterval, device, date, subDate, option);
+        }
+    },
     getOldDataOnChart: (device, date, interval, time) => {
         if (interval) {
             getOldChartBasedOnDayAPI(dispatch, getOldChartBasedOnDay, device, date, time);
@@ -26,16 +54,10 @@ const mapDispatchToProps = (dispatch) => ({
             getOldChartBasedOnHourAPI(dispatch, getOldChartBasedOnHour, device, date, time);
         }
     },
-    changeDisplayDataScreen: () => {
-        dispatch(changeDisplayDataScreen());
-    },
-    changeInterval: (option) => {
-        dispatch(changeInterval(option));
-    },
     getRealDataOnChart: (device, interval) => {
         if (interval) {
             getRealChartBasedOnDayAPI(dispatch, getRealChartBasedOnDay, device);
-        }else{
+        } else {
             getRealChartBasedOnHourAPI(dispatch, getRealChartBasedOnHour, device);
         }
     },

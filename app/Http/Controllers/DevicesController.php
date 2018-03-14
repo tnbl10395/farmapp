@@ -30,12 +30,18 @@ class DevicesController extends Controller
      */
     public function store(Request $request)
     {
-        $device = new Device();
-        $device->name = $request->name;
-        $device->manufacturing_date = $request->manufacturing_date;
-        $device->status = $request->status;
-        $device->save();
-        return response()->json('Successfull');
+        $checkCode = Device::where('code',$request->code)->first();
+        if($checkCode==null){
+            $device = new Device();
+            $device->name = $request->name;
+            $device->code = $request->code;
+            $device->manufacturing_date = $request->manufacturing_date;
+            $device->status = '0';
+            $device->save();
+            return response()->json(true);
+        }else{
+            return response()->json(false);
+        }
     }
 
     /**
@@ -50,7 +56,7 @@ class DevicesController extends Controller
         if(!is_null($device)){
             return response()->json($device);
         }else{
-            return response()->json('No data');
+            return response()->json('message','nodata');
         } 
     }
 
@@ -68,7 +74,7 @@ class DevicesController extends Controller
         $device->manufacturing_date = $request->manufacturing_date;
         $device->status = $request->status;
         $device->save();
-        return response()->json('Updated');
+        return response()->json('message','updated');
     }
 
     /**
@@ -81,6 +87,6 @@ class DevicesController extends Controller
     {
         $device = Device::findOrFail($id);
         $device->delete();
-        return response()->json('Deleted');
+        return response()->json('message','deleted');
     }
 }

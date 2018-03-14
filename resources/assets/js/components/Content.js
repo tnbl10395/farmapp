@@ -4,7 +4,8 @@ import Devices from '../containers/DevicesContainer';
 import User from '../containers/UserContainer';
 import Data from '../containers/DataContainer';
 import Solution from '../containers/SolutionContainer';
-import { HashRouter, BrowserRouter } from 'react-router-dom';
+import { HashRouter } from 'react-router-dom';
+
 
 export default class Content extends React.Component {
     constructor(props) {
@@ -27,6 +28,7 @@ export default class Content extends React.Component {
                         <Route exact path="/solution" component={Solution} />
                     </Switch>
                 </div>
+
         )
     }
 }

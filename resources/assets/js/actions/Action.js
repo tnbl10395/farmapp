@@ -12,7 +12,12 @@ import {
     CHANGE_INTERVAL,
     GET_OLD_CHART_BASED_ON_DAY,
     SAVE_DEVICE,
-    GET_REAL_CHART_BASED_ON_DAY
+    GET_REAL_CHART_BASED_ON_DAY,
+    OPEN_MODAL,
+    CLOSE_MODAL,
+    SAVE_INPUT,
+    SUBMIT_ADD_DEVICE_FORM,
+    SUBMIT_ADD_USER_FORM
 } from "./TypeAction";
 
 export const chooseOptionSidebar = (option) => {
@@ -105,15 +110,52 @@ export const getDeviceOfUser = (loadData) => {
     }
 }
 
-export const changeInterval = (option) => {
+export const changeInterval = (option, loadData, device, date) => {
     return {
         type: CHANGE_INTERVAL,
-        option
+        option,
+        loadData,
+        device,
+        date
     }
 }
 
 export const saveDevice = () => {
     return {
         type: SAVE_DEVICE
+    }
+}
+
+export const openModal = (object) => {
+    return {
+        type: OPEN_MODAL,
+        object
+    }
+}
+
+export const closeModal = () => {
+    return {
+        type: CLOSE_MODAL,
+
+    }
+}
+
+export const saveInput = (name, value) => {
+    return {
+        type: SAVE_INPUT,
+        name,
+        value
+    }
+}
+
+export const submitAddDeviceForm = () => {
+    return {
+        type: SUBMIT_ADD_DEVICE_FORM
+    }
+}
+
+export const submitAddUserForm = () => {
+    return {
+        type: SUBMIT_ADD_USER_FORM
     }
 }

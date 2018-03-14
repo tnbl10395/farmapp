@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Data;
 use App\Manage;
+use App\Device;
+use App\Location;
 use JWTAuth;
 
 class DataController extends Controller
@@ -35,13 +37,25 @@ class DataController extends Controller
     public function store(Request $request)
     {
         $req = explode('-',$request->data);
-        $data = new Data();
-        $data->deviceId = $req[1];
-        $data->humidity = $req[2];
-        $data->temperature = $req[3];
-        $data->status = 1;
-        $data->save();
-        return response()->json('Successfull!');
+        $checkStatus = Device::where('id',$req[1])->select('status')->first();
+        if($checkStatus->status=="1"){
+            $data = new Data();
+            $data->deviceId = $req[1];
+            $data->humidity = $req[2];
+            $data->temperature = $req[3];
+            $data->status = 1;
+            $data->save();
+            if($req[4]!='null' && $req[5] !='null' ){
+                $location = new Location();
+                $location->deviceId = $req[1];
+                $location->latitude = $req[4];
+                $location->longitude = $req[5];
+                $location->save();
+            }
+            return response()->json(true);
+        }else{
+            return response()->json(false);
+        }
     }
 
     /**

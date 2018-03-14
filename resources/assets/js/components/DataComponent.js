@@ -9,7 +9,9 @@ export default class DataComponent extends React.Component {
 
     componentDidMount() {
         this.props.getDataValuesonTable();
-        this.props.getRealDataOnChart(this.props.device,this.props.checkInterval);
+        setTimeout(()=>{
+            this.props.getRealDataOnChart(this.props.device,this.props.checkInterval);
+        },1000);
     }
 
     render() {
@@ -38,6 +40,7 @@ export default class DataComponent extends React.Component {
                                 changeInterval={this.props.changeInterval}
                                 checkInterval={this.props.checkInterval}
                                 interval={this.props.interval}
+                                getRealDataOnChart={this.props.getRealDataOnChart}
                                 />
                     }
                 </div>

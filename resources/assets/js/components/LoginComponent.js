@@ -38,13 +38,13 @@ export default class LoginComponent extends React.Component {
 
 const style = {
     overview: {
-        backgroundColor: 'black',
+        // backgroundColor: 'black',
         position: 'absolute',
         top: 0,
         right: 0,
         bottom: 0,
         left: 0,
-        opacity: 0.9,
+        // opacity: 0.9,
         zIndex: 99999,
 
     },
@@ -56,7 +56,7 @@ const style = {
         right: 0,
         filter: 'blur(3px)',
         zIndex: 99999,
-        maxWidth:'100%',
+        // maxWidth:'100%',
         // maxHeight:'100%',
     },
     img_smartphone: {
@@ -64,8 +64,8 @@ const style = {
         zIndex: 99999,
         bottom: 0,
         width:'40%',
-        animation: '6s',
-        animationName: Radium.keyframes(bounceInLeft,'bounceInLeft') 
+        animation: '4s',
+        animationName: Radium.keyframes(bounceInLeft,'bounceInLeft'),
     },
     intro: {
         position:'absolute',
@@ -85,5 +85,5 @@ const style = {
     title: {
         fontWeight: 'bold',
         textAlign: 'center',
-    }
+    },
 }

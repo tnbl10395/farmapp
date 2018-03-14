@@ -42,7 +42,7 @@ class LocationsController extends Controller
      */
     public function show(Request $request, $id)
     {
-        $locations = Location::findOrFail($id);
+        $locations = Location::where('deviceId',$id)->get();
         return response()->json($locations);
     }
 

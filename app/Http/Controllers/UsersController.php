@@ -60,7 +60,7 @@ class UsersController extends Controller
         if(count($users) > 0){
             return response()->json($users);
         }else{
-            return response()->json('No data');
+            return response()->json('nodata');
         }  
     }
 
@@ -72,15 +72,20 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-        $user = new User();
-        $user->username = $request->username;
-        $user->password = Hash::make($request->password);
-        $user->fullname = $request->fullname;
-        $user->address = $request->address;
-        $user->phone = $request->phone;
-        $user->role = $request->role;
-        $user->save();
-        return response()->json('Successfull');
+        $checkUsername = User::where('username',$request->username)->select('username')->first();
+        if($checkUsername==null) {
+            $user = new User();
+            $user->username = $request->username;
+            $user->password = Hash::make($request->password);
+            $user->fullname = $request->fullname;
+            $user->address = $request->address;
+            $user->phone = $request->phone;
+            $user->role = $request->role;
+            $user->save();
+            return response()->json(true);
+        }else{
+            return response()->json(false);
+        }
     }
 
     /**
@@ -95,7 +100,7 @@ class UsersController extends Controller
         if(!is_null($user)){
             return response()->json($user);
         }else{
-            return response()->json('No data');
+            return response()->json('nodata');
         }    
     }
 
@@ -116,7 +121,7 @@ class UsersController extends Controller
         $user->phone = $request->phone;
         $user->role = $request->role;
         $user->save();
-        return response()->json('Updated');
+        return response()->json('updated');
     }
 
     /**
@@ -129,6 +134,6 @@ class UsersController extends Controller
     {
         $user = User::findOrFail($id);
         $user->delete();
-        return response()->json('Deleted');
+        return response()->json('deleted');
     }
 }

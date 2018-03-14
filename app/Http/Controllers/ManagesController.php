@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Manage;
+use App\Device;
 use JWTAuth;
 
 class ManagesController extends Controller
@@ -24,7 +25,7 @@ class ManagesController extends Controller
         if(count($manages) > 0){
             return response()->json($manages);
         }else{
-            return response()->json('No data');
+            return response()->json([$message=>'nodata']);
         }      
     }
 
@@ -36,11 +37,13 @@ class ManagesController extends Controller
      */
     public function store(Request $request)
     {
+        $deviceId = Device::where('code',$request->code)->select('deviceId')->first();
         $manage = new Manage();
         $manage->userId = $request->userId;
-        $manage->deviceId = $request->deviceId;
+        $manage->deviceId = $deviceId->deviceId;
         $manage->save();
-        return response()->json('Successfull');
+
+        return response()->json([$message=>'successfull']);
     }
 
     /**
@@ -55,7 +58,7 @@ class ManagesController extends Controller
         if(!is_null($manage)){
             return response()->json($manage);
         }else{
-            return response()->json('No data');
+            return response()->json([$message=>'nodata']);
         }
     }
 
@@ -68,11 +71,12 @@ class ManagesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $manage = Manage::findOrFail($id);
-        $manage->userId = $request->userId;
-        $manage->deviceId = $request->deviceId;
-        $manage->save();
-        return response()->json('Updated');
+        // $deviceId = Device::where('code',$request->code)->select('deviceId')->first();
+        // $manage = Manage::findOrFail($id);
+        // $manage->userId = $request->userId;
+        // $manage->deviceId = $deviceId->deviceId;
+        // $manage->save();
+        // return response()->json([$message=>'updated']);
     }
 
     /**
@@ -85,6 +89,6 @@ class ManagesController extends Controller
     {
         $manage = Manage::findOrFail($id);
         $manage->delete();
-        return response()->json('Deleted');
+        return response()->json([$message=>'deleted']);
     }
 }

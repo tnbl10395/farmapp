@@ -18,7 +18,7 @@ class SolutionsController extends Controller
         if(count($solutions) > 0){
             return response()->json($solutions);
         }else{
-            return response()->json('No data');
+            return response()->json([$message=>'nodata']);
         }      
     }
 
@@ -35,7 +35,7 @@ class SolutionsController extends Controller
         $solution->humidity = $request->humidity;
         $solution->solution = $request->solution;
         $solution->save();
-        return response()->json('Successfull');
+        return response()->json([$message=>'successfull']);
     }
 
     /**
@@ -50,7 +50,7 @@ class SolutionsController extends Controller
         if(!is_null($solution)){
             return response()->json($solution);
         }else{
-            return response()->json('No data');
+            return response()->json([$message=>'nodata']);
         }    
     }
 
@@ -68,7 +68,7 @@ class SolutionsController extends Controller
         $solution->humidity = $request->humidity;
         $solution->solution = $request->solution;
         $solution->save();
-        return response()->json('Updated');
+        return response()->json([$message=>'updated']);
     }
 
     /**
@@ -81,6 +81,6 @@ class SolutionsController extends Controller
     {
         $solution = Solution::findOrFail($id);
         $solution->delete();
-        return response()->json('Deleted');
+        return response()->json([$message=>'deleted']);
     }
 }

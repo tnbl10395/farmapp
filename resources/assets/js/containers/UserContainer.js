@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import UserComponent from '../components/UserComponent';
 import { getDataUsersAPI } from '../api/api';
-import { getDataUsers } from '../actions/Action';
+import { getDataUsers, openModal } from '../actions/Action';
 
 
 const mapStateToProps = (state) => ({
@@ -11,7 +11,10 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
     getDataUsers: () => {
         getDataUsersAPI(dispatch, getDataUsers);
-    }
+    },
+    openModal: (object) => {
+        dispatch(openModal(object));
+    },
 });
 
 export default connect (mapStateToProps,mapDispatchToProps)(UserComponent);
