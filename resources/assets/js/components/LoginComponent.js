@@ -56,7 +56,7 @@ const style = {
         right: 0,
         filter: 'blur(3px)',
         zIndex: 99999,
-        maxWidth:'100%',
+        // maxWidth:'100%',
         // maxHeight:'100%',
     },
     img_smartphone: {

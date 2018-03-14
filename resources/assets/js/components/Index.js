@@ -37,6 +37,6 @@ var style = {
         bottom: 0,
         right: 0,
         filter: 'blur(3px)',
-        maxWidth:'100%',
+        // maxWidth:'100%',
     }
 }
