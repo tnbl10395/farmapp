@@ -7365,19 +7365,22 @@ module.exports = PooledClass;
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return chooseOptionSidebar; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "m", function() { return openSidebar; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return getDataDevices; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return getDataValues; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return getDataUsers; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return getDataSolutions; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "o", function() { return openSidebar; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return getDataDevices; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return getDataValues; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return getDataUsers; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return getDataSolutions; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return changeDisplayDataScreen; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "l", function() { return getRealChartBasedOnHour; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "k", function() { return getRealChartBasedOnDay; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "j", function() { return getOldChartBasedOnHour; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return getOldChartBasedOnDay; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return getDeviceOfUser; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "m", function() { return getRealChartBasedOnHour; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "l", function() { return getRealChartBasedOnDay; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "k", function() { return getOldChartBasedOnHour; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "j", function() { return getOldChartBasedOnDay; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return getDeviceOfUser; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return changeInterval; });
 /* unused harmony export saveDevice */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "n", function() { return openModal; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return closeModal; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "p", function() { return saveInputText; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__TypeAction__ = __webpack_require__(139);
 
 
@@ -7390,34 +7393,34 @@ var chooseOptionSidebar = function chooseOptionSidebar(option) {
 
 var openSidebar = function openSidebar() {
     return {
-        type: __WEBPACK_IMPORTED_MODULE_0__TypeAction__["m" /* OPEN_SIDEBAR */]
+        type: __WEBPACK_IMPORTED_MODULE_0__TypeAction__["o" /* OPEN_SIDEBAR */]
     };
 };
 
 var getDataDevices = function getDataDevices(loadData) {
     return {
-        type: __WEBPACK_IMPORTED_MODULE_0__TypeAction__["d" /* GET_DATA_DEVICES */],
+        type: __WEBPACK_IMPORTED_MODULE_0__TypeAction__["e" /* GET_DATA_DEVICES */],
         loadData: loadData
     };
 };
 
 var getDataValues = function getDataValues(loadData) {
     return {
-        type: __WEBPACK_IMPORTED_MODULE_0__TypeAction__["g" /* GET_DATA_VALUES */],
+        type: __WEBPACK_IMPORTED_MODULE_0__TypeAction__["h" /* GET_DATA_VALUES */],
         loadData: loadData
     };
 };
 
 var getDataUsers = function getDataUsers(loadData) {
     return {
-        type: __WEBPACK_IMPORTED_MODULE_0__TypeAction__["f" /* GET_DATA_USERS */],
+        type: __WEBPACK_IMPORTED_MODULE_0__TypeAction__["g" /* GET_DATA_USERS */],
         loadData: loadData
     };
 };
 
 var getDataSolutions = function getDataSolutions(loadData) {
     return {
-        type: __WEBPACK_IMPORTED_MODULE_0__TypeAction__["e" /* GET_DATA_SOLUTIONS */],
+        type: __WEBPACK_IMPORTED_MODULE_0__TypeAction__["f" /* GET_DATA_SOLUTIONS */],
         loadData: loadData
     };
 };
@@ -7430,7 +7433,7 @@ var changeDisplayDataScreen = function changeDisplayDataScreen() {
 
 var getRealChartBasedOnHour = function getRealChartBasedOnHour(loadData, device, date) {
     return {
-        type: __WEBPACK_IMPORTED_MODULE_0__TypeAction__["l" /* GET_REAL_CHART_BASED_ON_HOUR */],
+        type: __WEBPACK_IMPORTED_MODULE_0__TypeAction__["m" /* GET_REAL_CHART_BASED_ON_HOUR */],
         loadData: loadData,
         device: device,
         date: date
@@ -7439,7 +7442,7 @@ var getRealChartBasedOnHour = function getRealChartBasedOnHour(loadData, device,
 
 var getRealChartBasedOnDay = function getRealChartBasedOnDay(loadData, device, date) {
     return {
-        type: __WEBPACK_IMPORTED_MODULE_0__TypeAction__["k" /* GET_REAL_CHART_BASED_ON_DAY */],
+        type: __WEBPACK_IMPORTED_MODULE_0__TypeAction__["l" /* GET_REAL_CHART_BASED_ON_DAY */],
         loadData: loadData,
         device: device,
         date: date
@@ -7448,7 +7451,7 @@ var getRealChartBasedOnDay = function getRealChartBasedOnDay(loadData, device, d
 
 var getOldChartBasedOnHour = function getOldChartBasedOnHour(loadData, device, date) {
     return {
-        type: __WEBPACK_IMPORTED_MODULE_0__TypeAction__["j" /* GET_OLD_CHART_BASED_ON_HOUR */],
+        type: __WEBPACK_IMPORTED_MODULE_0__TypeAction__["k" /* GET_OLD_CHART_BASED_ON_HOUR */],
         loadData: loadData,
         device: device,
         date: date
@@ -7457,7 +7460,7 @@ var getOldChartBasedOnHour = function getOldChartBasedOnHour(loadData, device, d
 
 var getOldChartBasedOnDay = function getOldChartBasedOnDay(loadData, device, date) {
     return {
-        type: __WEBPACK_IMPORTED_MODULE_0__TypeAction__["i" /* GET_OLD_CHART_BASED_ON_DAY */],
+        type: __WEBPACK_IMPORTED_MODULE_0__TypeAction__["j" /* GET_OLD_CHART_BASED_ON_DAY */],
         loadData: loadData,
         device: device,
         date: date
@@ -7466,21 +7469,46 @@ var getOldChartBasedOnDay = function getOldChartBasedOnDay(loadData, device, dat
 
 var getDeviceOfUser = function getDeviceOfUser(loadData) {
     return {
-        type: __WEBPACK_IMPORTED_MODULE_0__TypeAction__["h" /* GET_DEVICES_OF_USER */],
+        type: __WEBPACK_IMPORTED_MODULE_0__TypeAction__["i" /* GET_DEVICES_OF_USER */],
         loadData: loadData
     };
 };
 
-var changeInterval = function changeInterval(option) {
+var changeInterval = function changeInterval(option, loadData, device, date) {
     return {
         type: __WEBPACK_IMPORTED_MODULE_0__TypeAction__["b" /* CHANGE_INTERVAL */],
-        option: option
+        option: option,
+        loadData: loadData,
+        device: device,
+        date: date
     };
 };
 
 var saveDevice = function saveDevice() {
     return {
-        type: __WEBPACK_IMPORTED_MODULE_0__TypeAction__["n" /* SAVE_DEVICE */]
+        type: __WEBPACK_IMPORTED_MODULE_0__TypeAction__["p" /* SAVE_DEVICE */]
+    };
+};
+
+var openModal = function openModal(object) {
+    return {
+        type: __WEBPACK_IMPORTED_MODULE_0__TypeAction__["n" /* OPEN_MODAL */],
+        object: object
+    };
+};
+
+var closeModal = function closeModal() {
+    return {
+        type: __WEBPACK_IMPORTED_MODULE_0__TypeAction__["d" /* CLOSE_MODAL */]
+
+    };
+};
+
+var saveInputText = function saveInputText(name, value) {
+    return {
+        type: __WEBPACK_IMPORTED_MODULE_0__TypeAction__["q" /* SAVE_INPUT_TEXT */],
+        name: name,
+        value: value
     };
 };
 
@@ -9080,8 +9108,10 @@ var createPath = function createPath(location) {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return getDataValuesAPI; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return getDataUsersAPI; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return getDataSolutionsAPI; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return getRealChartBasedOnHourAPI; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return getRealChartBasedOnDayAPI; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "j", function() { return getRealChartBasedOnHourAPI; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return getRealChartBasedOnDayAPI; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "k", function() { return getRealChartWithIntervalAPI; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return getOldChartWithIntervalAPI; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return getOldChartBasedOnHourAPI; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return getOldChartBasedOnDayAPI; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return getDeviceOfUserAPI; });
@@ -9178,6 +9208,51 @@ var getRealChartBasedOnDayAPI = function getRealChartBasedOnDayAPI(dispatch, get
             }
             var time = new Date();
             dispatch(getRealChartBasedOnDay(data, device, time));
+        });
+    } catch (error) {}
+};
+
+var getRealChartWithIntervalAPI = function getRealChartWithIntervalAPI(dispatch, changeInterval, device, date, subDate, option) {
+    var link = option == "1 Hour" ? "hour" : "day";
+    try {
+        var data = [];
+        fetch(URL + "api/data-real-chart-" + link + "/" + device).then(function (response) {
+            return response.json();
+        }).then(function (res) {
+            if (res.length > 0) {
+                res.forEach(function (element) {
+                    data.push(element);
+                });
+            }
+            dispatch(changeInterval(option, data, device, date));
+        });
+    } catch (error) {}
+};
+
+var getOldChartWithIntervalAPI = function getOldChartWithIntervalAPI(dispatch, changeInterval, device, date, subDate, option) {
+    var link = option == "1 Hour" ? "hour" : "day";
+    var variable = option == "1 Hour" ? "hour" : "day";
+    try {
+        var data = [];
+        fetch(URL + "api/data-old-chart-" + link, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                deviceId: device,
+                variable: subDate
+            })
+        }).then(function (response) {
+            return response.json();
+        }).then(function (res) {
+            if (res.length > 0) {
+                res.forEach(function (element) {
+                    data.push(element);
+                });
+            }
+            dispatch(changeInterval(option, data, device, date));
         });
     } catch (error) {}
 };
@@ -23813,6 +23888,7 @@ var createTransitionManager = function createTransitionManager() {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_datatables_net_dt_css_jquery_dataTables_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_datatables_net_dt_css_jquery_dataTables_css__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_font_awesome_css_font_awesome_css__ = __webpack_require__(51);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_font_awesome_css_font_awesome_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_font_awesome_css_font_awesome_css__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_react_router_dom__ = __webpack_require__(37);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -23820,6 +23896,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
 
 
 
@@ -23836,10 +23913,6 @@ var Table = function (_React$Component) {
 
         return _possibleConstructorReturn(this, (Table.__proto__ || Object.getPrototypeOf(Table)).call(this, props));
     }
-
-    // componentWillUnmount() {
-    //     this.$el.DataTable.destroy(true);
-    // }
 
     _createClass(Table, [{
         key: 'componentDidMount',
@@ -23868,17 +23941,34 @@ var Table = function (_React$Component) {
                         ' Table'
                     ),
                     this.props.name == "Data" ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'div',
+                        null,
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'button',
+                            {
+                                // onClick={() => this.props.change()}
+                                className: 'btn btn-success',
+                                style: { position: 'absolute', right: 80, top: 5, fontSize: 12 } },
+                            'Export'
+                        ),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'button',
+                            {
+                                onClick: function onClick() {
+                                    return _this2.props.change();
+                                },
+                                className: 'btn btn-success',
+                                style: { position: 'absolute', right: 10, top: 5, fontSize: 12 } },
+                            'Chart'
+                        )
+                    ) : __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'button',
                         {
                             onClick: function onClick() {
-                                return _this2.props.change();
+                                return _this2.props.openModal(_this2.props.object);
                             },
                             className: 'btn btn-success',
                             style: { position: 'absolute', right: 10, top: 5, fontSize: 12 } },
-                        'Chart'
-                    ) : __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        'button',
-                        { className: 'btn btn-success', style: { position: 'absolute', right: 10, top: 5, fontSize: 12 } },
                         'Add'
                     )
                 ),
@@ -30419,19 +30509,22 @@ function updateLink (link, options, obj) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return CHOOSE_OPTION_SIDEBAR; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "m", function() { return OPEN_SIDEBAR; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return GET_DATA_DEVICES; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return GET_DATA_VALUES; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return GET_DATA_USERS; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return GET_DATA_SOLUTIONS; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "l", function() { return GET_REAL_CHART_BASED_ON_HOUR; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "k", function() { return GET_REAL_CHART_BASED_ON_DAY; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "j", function() { return GET_OLD_CHART_BASED_ON_HOUR; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return GET_OLD_CHART_BASED_ON_DAY; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return GET_DEVICES_OF_USER; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "o", function() { return OPEN_SIDEBAR; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return GET_DATA_DEVICES; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return GET_DATA_VALUES; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return GET_DATA_USERS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return GET_DATA_SOLUTIONS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "m", function() { return GET_REAL_CHART_BASED_ON_HOUR; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "l", function() { return GET_REAL_CHART_BASED_ON_DAY; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "k", function() { return GET_OLD_CHART_BASED_ON_HOUR; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "j", function() { return GET_OLD_CHART_BASED_ON_DAY; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return GET_DEVICES_OF_USER; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CHANGE_DISPLAY_DATA_SCREEN; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return CHANGE_INTERVAL; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "n", function() { return SAVE_DEVICE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "p", function() { return SAVE_DEVICE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "n", function() { return OPEN_MODAL; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return CLOSE_MODAL; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "q", function() { return SAVE_INPUT_TEXT; });
 var CHOOSE_OPTION_SIDEBAR = 'CHOOSE_OPTION_SIDEBAR';
 var OPEN_SIDEBAR = 'OPEN_SIDEBAR';
 //table
@@ -30449,6 +30542,10 @@ var GET_DEVICES_OF_USER = "GET_DEVICES_OF_USER";
 var CHANGE_DISPLAY_DATA_SCREEN = 'CHANGE_DISPLAY_DATA_SCREEN';
 var CHANGE_INTERVAL = 'CHANGE_INTERVAL';
 var SAVE_DEVICE = 'SAVE_DEVICE';
+//modal
+var OPEN_MODAL = 'OPEN_MODAL';
+var CLOSE_MODAL = 'CLOSE_MODAL';
+var SAVE_INPUT_TEXT = 'SAVE_INPUT_TEXT';
 
 /***/ }),
 /* 140 */
@@ -75233,13 +75330,18 @@ module.exports = ReactDOMInvalidARIAHook;
 
 var mapStateToProps = function mapStateToProps(state) {
     return {
-        sideBar: state.sideBar
+        sideBar: state.sideBar,
+        modal: state.modal,
+        object: state.object_form
     };
 };
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     return {
         getDevicesOfUser: function getDevicesOfUser() {
-            Object(__WEBPACK_IMPORTED_MODULE_2__api_api__["e" /* getDeviceOfUserAPI */])(dispatch, __WEBPACK_IMPORTED_MODULE_3__actions_Action__["h" /* getDeviceOfUser */]);
+            Object(__WEBPACK_IMPORTED_MODULE_2__api_api__["e" /* getDeviceOfUserAPI */])(dispatch, __WEBPACK_IMPORTED_MODULE_3__actions_Action__["i" /* getDeviceOfUser */]);
+        },
+        closeModal: function closeModal() {
+            dispatch(Object(__WEBPACK_IMPORTED_MODULE_3__actions_Action__["d" /* closeModal */])());
         }
     };
 };
@@ -76397,6 +76499,7 @@ function verifySubselectors(mapStateToProps, mapDispatchToProps, mergeProps, dis
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__containers_SideBarContainer__ = __webpack_require__(442);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_Content__ = __webpack_require__(471);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_react_router_dom__ = __webpack_require__(37);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__templates_Modal__ = __webpack_require__(648);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -76404,6 +76507,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
 
 
 
@@ -76438,7 +76543,9 @@ var Index = function (_Component) {
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('img', { src: '/images/farmintro.jpg', style: style.img }),
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__containers_TopBarContainer__["a" /* default */], null),
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__containers_SideBarContainer__["a" /* default */], null),
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__components_Content__["a" /* default */], { sideBar: this.props.sideBar })
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__components_Content__["a" /* default */], { sideBar: this.props.sideBar }),
+                    this.props.modal ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_6__templates_Modal__["a" /* default */], { closeModal: this.props.closeModal,
+                        object: this.props.object }) : null
                 )
             );
         }
@@ -76480,7 +76587,7 @@ var mapStateToProps = function mapStateToProps(state) {
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     return {
         openSidebar: function openSidebar() {
-            dispatch(Object(__WEBPACK_IMPORTED_MODULE_2__actions_Action__["m" /* openSidebar */])());
+            dispatch(Object(__WEBPACK_IMPORTED_MODULE_2__actions_Action__["o" /* openSidebar */])());
         }
     };
 };
@@ -80174,7 +80281,10 @@ var mapStateToProps = function mapStateToProps(state) {
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     return {
         getDataDevices: function getDataDevices() {
-            Object(__WEBPACK_IMPORTED_MODULE_3__api_api__["a" /* getDataDevicesAPI */])(dispatch, __WEBPACK_IMPORTED_MODULE_2__actions_Action__["d" /* getDataDevices */]);
+            Object(__WEBPACK_IMPORTED_MODULE_3__api_api__["a" /* getDataDevicesAPI */])(dispatch, __WEBPACK_IMPORTED_MODULE_2__actions_Action__["e" /* getDataDevices */]);
+        },
+        openModal: function openModal(object) {
+            dispatch(Object(__WEBPACK_IMPORTED_MODULE_2__actions_Action__["n" /* openModal */])(object));
         }
     };
 };
@@ -80217,7 +80327,13 @@ var DevicesComponent = function (_React$Component) {
     }, {
         key: 'render',
         value: function render() {
-            return this.props.dataSet.length > 0 ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__templates_Table__["a" /* Table */], { dataSet: this.props.dataSet, columns: columns, sideBar: this.props.sideBar, name: 'Device' }) : null;
+            return this.props.dataSet.length > 0 ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__templates_Table__["a" /* Table */], { dataSet: this.props.dataSet,
+                columns: columns,
+                sideBar: this.props.sideBar,
+                name: 'Device',
+                openModal: this.props.openModal,
+                object: objectDevice
+            }) : null;
         }
     }]);
 
@@ -80227,46 +80343,12 @@ var DevicesComponent = function (_React$Component) {
 /* harmony default export */ __webpack_exports__["a"] = (DevicesComponent);
 
 
-var columns = [{ title: "ID" }, { title: "Name" }, { title: "Manufacturing Date" }, { title: "Status" }, { title: "Updated Date" }, { title: "Action" }];
+var objectDevice = {
+    title: "ADD DEVICE",
+    property: [{ name: "Name", placeholder: 'Please input name' }, { name: "Manufacturing Date", placeholder: 'Please input Manufacturing Date' }]
+};
 
-// var dataSet = [
-//     ["Tiger Nixon", "System Architect", "Edinburgh", "5421", "2011/04/25", action],
-//     ["Garrett Winters", "Accountant", "Tokyo", "8422", "2011/07/25", action],
-//     ["Ashton Cox", "Junior Technical Author", "San Francisco", "1562", "2009/01/12", action],
-//     ["Cedric Kelly", "Senior Javascript Developer", "Edinburgh", "6224", "2012/03/29", action],
-//     ["Airi Satou", "Accountant", "Tokyo", "5407", "2008/11/28", action],
-//     ["Brielle Williamson", "Integration Specialist", "New York", "4804", "2012/12/02", action],
-//     ["Herrod Chandler", "Sales Assistant", "San Francisco", "9608", "2012/08/06", action],
-//     ["Rhona Davidson", "Integration Specialist", "Tokyo", "6200", "2010/10/14", action],
-//     ["Colleen Hurst", "Javascript Developer", "San Francisco", "2360", "2009/09/15", action],
-//     ["Sonya Frost", "Software Engineer", "Edinburgh", "1667", "2008/12/13", action],
-//     ["Jena Gaines", "Office Manager", "London", "3814", "2008/12/19", action],
-//     ["Quinn Flynn", "Support Lead", "Edinburgh", "9497", "2013/03/03", action],
-//     ["Charde Marshall", "Regional Director", "San Francisco", "6741", "2008/10/16", action],
-//     ["Haley Kennedy", "Senior Marketing Designer", "London", "3597", "2012/12/18", action],
-//     ["Tatyana Fitzpatrick", "Regional Director", "London", "1965", "2010/03/17", action],
-//     ["Michael Silva", "Marketing Designer", "London", "1581", "2012/11/27", action],
-//     ["Paul Byrd", "Chief Financial Officer (CFO)", "New York", "3059", "2010/06/09", action],
-//     ["Gloria Little", "Systems Administrator", "New York", "1721", "2009/04/10", action],
-//     ["Bradley Greer", "Software Engineer", "London", "2558", "2012/10/13", action],
-//     ["Dai Rios", "Personnel Lead", "Edinburgh", "2290", "2012/09/26", action],
-//     ["Jenette Caldwell", "Development Lead", "New York", "1937", "2011/09/03", action],
-//     ["Yuri Berry", "Chief Marketing Officer (CMO)", "New York", "6154", "2009/06/25", action],
-//     ["Caesar Vance", "Pre-Sales Support", "New York", "8330", "2011/12/12", action],
-//     ["Doris Wilder", "Sales Assistant", "Sidney", "3023", "2010/09/20", action],
-//     ["Angelica Ramos", "Chief Executive Officer (CEO)", "London", "5797", "2009/10/09", action],
-//     ["Gavin Joyce", "Developer", "Edinburgh", "8822", "2010/12/22", action],
-//     ["Jennifer Chang", "Regional Director", "Singapore", "9239", "2010/11/14", action],
-//     ["Brenden Wagner", "Software Engineer", "San Francisco", "1314", "2011/06/07", action],
-//     ["Fiona Green", "Chief Operating Officer (COO)", "San Francisco", "2947", "2010/03/11", action],
-//     ["Shou Itou", "Regional Marketing", "Tokyo", "8899", "2011/08/14", action],
-//     ["Michelle House", "Integration Specialist", "Sidney", "2769", "2011/06/02", action],
-//     ["Suki Burks", "Developer", "London", "6832", "2009/10/22", "$114,500"],
-//     ["Prescott Bartlett", "Technical Author", "London", "3606", "2011/05/07", action],
-//     ["Gavin Cortez", "Team Leader", "San Francisco", "2860", "2008/10/26", action],
-//     ["Martena Mccray", "Post-Sales support", "Edinburgh", "8240", "2011/03/09", action],
-//     ["Unity Butler", "Marketing Designer", "San Francisco", "5384", "2009/12/09", action]
-// ];
+var columns = [{ title: "ID" }, { title: "Name" }, { title: "Manufacturing Date" }, { title: "Status" }, { title: "Updated Date" }, { title: "Action" }];
 
 /***/ }),
 /* 474 */
@@ -95616,7 +95698,10 @@ var mapStateToProps = function mapStateToProps(state) {
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     return {
         getDataUsers: function getDataUsers() {
-            Object(__WEBPACK_IMPORTED_MODULE_2__api_api__["c" /* getDataUsersAPI */])(dispatch, __WEBPACK_IMPORTED_MODULE_3__actions_Action__["f" /* getDataUsers */]);
+            Object(__WEBPACK_IMPORTED_MODULE_2__api_api__["c" /* getDataUsersAPI */])(dispatch, __WEBPACK_IMPORTED_MODULE_3__actions_Action__["g" /* getDataUsers */]);
+        },
+        openModal: function openModal(object) {
+            dispatch(Object(__WEBPACK_IMPORTED_MODULE_3__actions_Action__["n" /* openModal */])(object));
         }
     };
 };
@@ -95659,7 +95744,11 @@ var UserComponent = function (_React$Component) {
     }, {
         key: 'render',
         value: function render() {
-            return this.props.dataSet.length > 0 ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__templates_Table__["a" /* Table */], { dataSet: this.props.dataSet, columns: columns, sideBar: this.props.sideBar, name: "User" }) : null;
+            return this.props.dataSet.length > 0 ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__templates_Table__["a" /* Table */], { dataSet: this.props.dataSet,
+                columns: columns,
+                object: objectUser,
+                openModal: this.props.openModal,
+                sideBar: this.props.sideBar, name: "User" }) : null;
         }
     }]);
 
@@ -95668,6 +95757,11 @@ var UserComponent = function (_React$Component) {
 
 /* harmony default export */ __webpack_exports__["a"] = (UserComponent);
 
+
+var objectUser = {
+    title: "ADD USER",
+    property: [{ name: "Username", placeholder: 'Please input username' }, { name: "Password", placeholder: 'Please input password' }, { name: "Full name", placeholder: 'Please input full name' }, { name: "Address", placeholder: 'Please input address' }, { name: "Phone", placeholder: 'Please input phone' }, { name: "Role", role: [{ id: '0', name: "Admin" }, { id: '1', name: "User" }] }]
+};
 
 var columns = [{ title: "ID" }, { title: "Username" }, { title: "Full Name" }, { title: "Address" }, { title: "Phone" }, { title: "Action" }];
 
@@ -95702,26 +95796,31 @@ var mapStateToProps = function mapStateToProps(state) {
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     return {
         getDataValuesonTable: function getDataValuesonTable() {
-            Object(__WEBPACK_IMPORTED_MODULE_2__api_api__["d" /* getDataValuesAPI */])(dispatch, __WEBPACK_IMPORTED_MODULE_3__actions_Action__["g" /* getDataValues */]);
-        },
-        getOldDataOnChart: function getOldDataOnChart(device, date, interval, time) {
-            if (interval) {
-                Object(__WEBPACK_IMPORTED_MODULE_2__api_api__["f" /* getOldChartBasedOnDayAPI */])(dispatch, __WEBPACK_IMPORTED_MODULE_3__actions_Action__["i" /* getOldChartBasedOnDay */], device, date, time);
-            } else {
-                Object(__WEBPACK_IMPORTED_MODULE_2__api_api__["g" /* getOldChartBasedOnHourAPI */])(dispatch, __WEBPACK_IMPORTED_MODULE_3__actions_Action__["j" /* getOldChartBasedOnHour */], device, date, time);
-            }
+            Object(__WEBPACK_IMPORTED_MODULE_2__api_api__["d" /* getDataValuesAPI */])(dispatch, __WEBPACK_IMPORTED_MODULE_3__actions_Action__["h" /* getDataValues */]);
         },
         changeDisplayDataScreen: function changeDisplayDataScreen() {
             dispatch(Object(__WEBPACK_IMPORTED_MODULE_3__actions_Action__["a" /* changeDisplayDataScreen */])());
         },
-        changeInterval: function changeInterval(option) {
-            dispatch(Object(__WEBPACK_IMPORTED_MODULE_3__actions_Action__["b" /* changeInterval */])(option));
+        changeInterval: function changeInterval(option, device, date, subDate) {
+            var time = new Date();
+            if (time.toDateString() == date.toDateString()) {
+                Object(__WEBPACK_IMPORTED_MODULE_2__api_api__["k" /* getRealChartWithIntervalAPI */])(dispatch, __WEBPACK_IMPORTED_MODULE_3__actions_Action__["b" /* changeInterval */], device, date, subDate, option);
+            } else {
+                Object(__WEBPACK_IMPORTED_MODULE_2__api_api__["h" /* getOldChartWithIntervalAPI */])(dispatch, __WEBPACK_IMPORTED_MODULE_3__actions_Action__["b" /* changeInterval */], device, date, subDate, option);
+            }
+        },
+        getOldDataOnChart: function getOldDataOnChart(device, date, interval, time) {
+            if (interval) {
+                Object(__WEBPACK_IMPORTED_MODULE_2__api_api__["f" /* getOldChartBasedOnDayAPI */])(dispatch, __WEBPACK_IMPORTED_MODULE_3__actions_Action__["j" /* getOldChartBasedOnDay */], device, date, time);
+            } else {
+                Object(__WEBPACK_IMPORTED_MODULE_2__api_api__["g" /* getOldChartBasedOnHourAPI */])(dispatch, __WEBPACK_IMPORTED_MODULE_3__actions_Action__["k" /* getOldChartBasedOnHour */], device, date, time);
+            }
         },
         getRealDataOnChart: function getRealDataOnChart(device, interval) {
             if (interval) {
-                Object(__WEBPACK_IMPORTED_MODULE_2__api_api__["h" /* getRealChartBasedOnDayAPI */])(dispatch, __WEBPACK_IMPORTED_MODULE_3__actions_Action__["k" /* getRealChartBasedOnDay */], device);
+                Object(__WEBPACK_IMPORTED_MODULE_2__api_api__["i" /* getRealChartBasedOnDayAPI */])(dispatch, __WEBPACK_IMPORTED_MODULE_3__actions_Action__["l" /* getRealChartBasedOnDay */], device);
             } else {
-                Object(__WEBPACK_IMPORTED_MODULE_2__api_api__["i" /* getRealChartBasedOnHourAPI */])(dispatch, __WEBPACK_IMPORTED_MODULE_3__actions_Action__["l" /* getRealChartBasedOnHour */], device);
+                Object(__WEBPACK_IMPORTED_MODULE_2__api_api__["j" /* getRealChartBasedOnHourAPI */])(dispatch, __WEBPACK_IMPORTED_MODULE_3__actions_Action__["m" /* getRealChartBasedOnHour */], device);
             }
         }
     };
@@ -95834,15 +95933,8 @@ var Chart = function (_React$Component) {
     _createClass(Chart, [{
         key: 'changeInterval',
         value: function changeInterval(option) {
-            this.props.changeInterval(option.target.value);
-            var time = new Date();
-            if (time.toDateString() == this.props.date.toDateString()) {
-                this.props.getRealDataOnChart(this.props.device, this.props.checkInterval);
-            } else {
-                var date = configDate(this.props.date, this.props.checkInterval);
-                console.log(date);
-                this.props.getOldDataOnChart(this.props.device, date, this.props.checkInterval, this.props.date);
-            }
+            var subDate = configDate(this.props.date, this.props.checkInterval);
+            this.props.changeInterval(option.target.value, this.props.device, this.props.date, subDate);
         }
     }, {
         key: 'chooseDate',
@@ -101345,7 +101437,10 @@ var mapStateToProps = function mapStateToProps(state) {
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     return {
         getDataSolutions: function getDataSolutions() {
-            Object(__WEBPACK_IMPORTED_MODULE_2__api_api__["b" /* getDataSolutionsAPI */])(dispatch, __WEBPACK_IMPORTED_MODULE_3__actions_Action__["e" /* getDataSolutions */]);
+            Object(__WEBPACK_IMPORTED_MODULE_2__api_api__["b" /* getDataSolutionsAPI */])(dispatch, __WEBPACK_IMPORTED_MODULE_3__actions_Action__["f" /* getDataSolutions */]);
+        },
+        openModal: function openModal(object) {
+            dispatch(Object(__WEBPACK_IMPORTED_MODULE_3__actions_Action__["n" /* openModal */])(object));
         }
     };
 };
@@ -101386,7 +101481,11 @@ var SolutionComponent = function (_React$Component) {
     }, {
         key: "render",
         value: function render() {
-            return this.props.dataSet.length > 0 ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(Table, { dataSet: this.props.dataSet, columns: columns, sideBar: this.props.sideBar, name: "Solution" }) : null;
+            return this.props.dataSet.length > 0 ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(Table, { dataSet: this.props.dataSet,
+                object: objectSolution,
+                openModal: this.props.openModal,
+                columns: columns, sideBar: this.props.sideBar,
+                name: "Solution" }) : null;
         }
     }]);
 
@@ -101395,6 +101494,11 @@ var SolutionComponent = function (_React$Component) {
 
 /* harmony default export */ __webpack_exports__["a"] = (SolutionComponent);
 
+
+var objectSolution = {
+    title: "ADD SOLUTION",
+    property: [{ name: "Temperature", placeholder: 'Please input temperature' }, { name: "Humidity", placeholder: 'Please input humidity' }, { name: "Solution", placeholder: 'Please input solution' }]
+};
 
 var columns = [{ title: "ID" }, { title: "Temperature" }, { title: "Humidity" }, { title: "Solution" }, { title: "Updated Date" }];
 
@@ -101511,13 +101615,13 @@ var LoginComponent = function (_React$Component) {
 
 var style = {
     overview: {
-        backgroundColor: 'black',
+        // backgroundColor: 'black',
         position: 'absolute',
         top: 0,
         right: 0,
         bottom: 0,
         left: 0,
-        opacity: 0.9,
+        // opacity: 0.9,
         zIndex: 99999
 
     },
@@ -101535,9 +101639,9 @@ var style = {
     img_smartphone: {
         position: 'absolute',
         zIndex: 99999,
-        bottom: -60,
+        bottom: 0,
         width: '40%',
-        animation: '6s',
+        animation: '4s',
         animationName: __WEBPACK_IMPORTED_MODULE_2_radium__["b" /* default */].keyframes(__WEBPACK_IMPORTED_MODULE_1_react_animations__["bounceInLeft"], 'bounceInLeft')
     },
     intro: {
@@ -108412,7 +108516,11 @@ var initialState = {
     select_device: '',
     select_date: '',
     checkInterval: false,
-    interval: 0
+    interval: 0,
+    modal: false,
+    object_form: null,
+    value_input_device: ''
+
 };
 
 var edit = function edit(id) {
@@ -108421,9 +108529,13 @@ var edit = function edit(id) {
 var remove = function remove(id) {
     return '<a href="" style="border-radius: 5px; padding: 5px 7px 5px 7px; background-color:#e74c3c; color:#fff" class="fa fa-remove"></a>';
 };
+var actRemove = function actRemove(id) {
+    return '<div style="text-align: center">' + remove(id) + '</div>';
+};
 var act = function act(id) {
     return '<div style="text-align: center">' + edit(id) + remove(id) + '</div>';
 };
+
 var initValueHour = function initValueHour() {
     var array = [];
     for (var i = 0; i < 60; i++) {
@@ -108444,100 +108556,116 @@ var Reducer = function Reducer() {
     var action = arguments[1];
 
     switch (action.type) {
-        case __WEBPACK_IMPORTED_MODULE_0__actions_TypeAction__["d" /* GET_DATA_DEVICES */]:
+        case __WEBPACK_IMPORTED_MODULE_0__actions_TypeAction__["e" /* GET_DATA_DEVICES */]:
             var data = [];
             var dt = action.loadData;
-            dt.forEach(function (obj) {
-                data.push([obj.id, obj.name, obj.manufacturing_date, obj.status, obj.updated_at, act(obj.id)]);
-            });
+            if (dt.length > 0) {
+                dt.forEach(function (obj) {
+                    data.push([obj.id, obj.name, obj.manufacturing_date, obj.status, obj.updated_at, act(obj.id)]);
+                });
+            }
             return _extends({}, state, {
                 data_devices: data
             });
-        case __WEBPACK_IMPORTED_MODULE_0__actions_TypeAction__["g" /* GET_DATA_VALUES */]:
+        case __WEBPACK_IMPORTED_MODULE_0__actions_TypeAction__["h" /* GET_DATA_VALUES */]:
             var data = [];
             var dt = action.loadData;
-            dt.forEach(function (obj) {
-                data.push([obj.id, obj.name, obj.humidity, obj.temperature, obj.updated_at, obj.status, act]);
-            });
+            if (dt.length > 0) {
+                dt.forEach(function (obj) {
+                    data.push([obj.id, obj.name, obj.humidity, obj.temperature, obj.updated_at, obj.status, actRemove]);
+                });
+            }
             return _extends({}, state, {
                 data_values: data
             });
-        case __WEBPACK_IMPORTED_MODULE_0__actions_TypeAction__["f" /* GET_DATA_USERS */]:
+        case __WEBPACK_IMPORTED_MODULE_0__actions_TypeAction__["g" /* GET_DATA_USERS */]:
             var data = [];
             var dt = action.loadData;
-            dt.forEach(function (obj) {
-                data.push([obj.id, obj.username, obj.fullname, obj.address, obj.phone, act]);
-            });
+            if (dt.length > 0) {
+                dt.forEach(function (obj) {
+                    data.push([obj.id, obj.username, obj.fullname, obj.address, obj.phone, act]);
+                });
+            }
             return _extends({}, state, {
                 data_users: data
             });
-        case __WEBPACK_IMPORTED_MODULE_0__actions_TypeAction__["e" /* GET_DATA_SOLUTIONS */]:
+        case __WEBPACK_IMPORTED_MODULE_0__actions_TypeAction__["f" /* GET_DATA_SOLUTIONS */]:
             var data = [];
             var dt = action.loadData;
-            dt.forEach(function (obj) {
-                data.push([obj.id, obj.temperature, obj.humidity, obj.solution, obj.updated_at, act]);
-            });
+            if (dt.length > 0) {
+                dt.forEach(function (obj) {
+                    data.push([obj.id, obj.temperature, obj.humidity, obj.solution, obj.updated_at, act]);
+                });
+            }
             return _extends({}, state, {
                 data_solutions: data
             });
-        case __WEBPACK_IMPORTED_MODULE_0__actions_TypeAction__["l" /* GET_REAL_CHART_BASED_ON_HOUR */]:
+        case __WEBPACK_IMPORTED_MODULE_0__actions_TypeAction__["m" /* GET_REAL_CHART_BASED_ON_HOUR */]:
             var humidity = initValueHour();
             var temperature = initValueHour();
-            action.loadData.forEach(function (element) {
-                humidity.splice(parseInt(element.min), 1, element.humidity);
-                temperature.splice(parseInt(element.min), 1, element.temperature);
-            });
+            if (action.loadData.length > 0) {
+                action.loadData.forEach(function (element) {
+                    humidity.splice(parseInt(element.min), 1, element.humidity);
+                    temperature.splice(parseInt(element.min), 1, element.temperature);
+                });
+            }
             return _extends({}, state, {
                 humidity_chart: humidity,
                 temperature_chart: temperature,
                 select_device: action.device,
                 select_date: action.date
             });
-        case __WEBPACK_IMPORTED_MODULE_0__actions_TypeAction__["k" /* GET_REAL_CHART_BASED_ON_DAY */]:
+        case __WEBPACK_IMPORTED_MODULE_0__actions_TypeAction__["l" /* GET_REAL_CHART_BASED_ON_DAY */]:
             var humidity = initValueDay();
             var temperature = initValueDay();
-            action.loadData.forEach(function (element) {
-                humidity.splice(parseInt(element.min), 1, element.humidity);
-                temperature.splice(parseInt(element.min), 1, element.temperature);
-            });
+            if (action.loadData.length > 0) {
+                action.loadData.forEach(function (element) {
+                    humidity.splice(parseInt(element.h), 1, element.humidity);
+                    temperature.splice(parseInt(element.h), 1, element.temperature);
+                });
+            }
             return _extends({}, state, {
                 humidity_chart: humidity,
                 temperature_chart: temperature,
                 select_device: action.device,
                 select_date: action.date
             });
-        case __WEBPACK_IMPORTED_MODULE_0__actions_TypeAction__["j" /* GET_OLD_CHART_BASED_ON_HOUR */]:
+        case __WEBPACK_IMPORTED_MODULE_0__actions_TypeAction__["k" /* GET_OLD_CHART_BASED_ON_HOUR */]:
             var humidity = initValueHour();
             var temperature = initValueHour();
-            action.loadData.forEach(function (element) {
-                humidity.splice(parseInt(element.min), 1, element.humidity);
-                temperature.splice(parseInt(element.min), 1, element.temperature);
-            });
+            if (action.loadData.length > 0) {
+                action.loadData.forEach(function (element) {
+                    humidity.splice(parseInt(element.min), 1, element.humidity);
+                    temperature.splice(parseInt(element.min), 1, element.temperature);
+                });
+            }
             return _extends({}, state, {
                 humidity_chart: humidity,
                 temperature_chart: temperature,
                 select_device: action.device,
                 select_date: action.date
             });
-        case __WEBPACK_IMPORTED_MODULE_0__actions_TypeAction__["i" /* GET_OLD_CHART_BASED_ON_DAY */]:
+        case __WEBPACK_IMPORTED_MODULE_0__actions_TypeAction__["j" /* GET_OLD_CHART_BASED_ON_DAY */]:
             var humidity = initValueDay();
             var temperature = initValueDay();
-            action.loadData.forEach(function (element) {
-                humidity.splice(parseInt(element.h), 1, element.humidity);
-                temperature.splice(parseInt(element.h), 1, element.temperature);
-            });
+            if (action.loadData.length > 0) {
+                action.loadData.forEach(function (element) {
+                    humidity.splice(parseInt(element.h), 1, element.humidity);
+                    temperature.splice(parseInt(element.h), 1, element.temperature);
+                });
+            }
             return _extends({}, state, {
                 humidity_chart: humidity,
                 temperature_chart: temperature,
                 select_device: action.device,
                 select_date: action.date
             });
-        case __WEBPACK_IMPORTED_MODULE_0__actions_TypeAction__["h" /* GET_DEVICES_OF_USER */]:
+        case __WEBPACK_IMPORTED_MODULE_0__actions_TypeAction__["i" /* GET_DEVICES_OF_USER */]:
             return _extends({}, state, {
                 all_devices: action.loadData,
                 select_device: action.loadData[0].id
             });
-        case __WEBPACK_IMPORTED_MODULE_0__actions_TypeAction__["n" /* SAVE_DEVICE */]:
+        case __WEBPACK_IMPORTED_MODULE_0__actions_TypeAction__["p" /* SAVE_DEVICE */]:
             return _extends({}, state, {
                 select_device: state.all_devices[0].id
             });
@@ -108578,15 +108706,58 @@ var Reducer = function Reducer() {
                 default:
                     return _extends({}, state);
             }
-        case __WEBPACK_IMPORTED_MODULE_0__actions_TypeAction__["m" /* OPEN_SIDEBAR */]:
+        case __WEBPACK_IMPORTED_MODULE_0__actions_TypeAction__["o" /* OPEN_SIDEBAR */]:
             return _extends({}, state, {
                 sideBar: !state.sideBar
             });
         case __WEBPACK_IMPORTED_MODULE_0__actions_TypeAction__["b" /* CHANGE_INTERVAL */]:
+            if (action.option == "1 Hour") {
+                var humidity = initValueHour();
+                var temperature = initValueHour();
+                if (action.loadData.length > 0) {
+                    action.loadData.forEach(function (element) {
+                        humidity.splice(parseInt(element.min), 1, element.humidity);
+                        temperature.splice(parseInt(element.min), 1, element.temperature);
+                    });
+                }
+            } else {
+                var humidity = initValueDay();
+                var temperature = initValueDay();
+                if (action.loadData.length > 0) {
+                    action.loadData.forEach(function (element) {
+                        humidity.splice(parseInt(element.h), 1, element.humidity);
+                        temperature.splice(parseInt(element.h), 1, element.temperature);
+                    });
+                }
+            }
             return _extends({}, state, {
                 checkInterval: !state.checkInterval,
-                interval: action.option
+                interval: action.option,
+                humidity_chart: humidity,
+                temperature_chart: temperature,
+                select_device: action.device,
+                select_date: action.date
             });
+        case __WEBPACK_IMPORTED_MODULE_0__actions_TypeAction__["n" /* OPEN_MODAL */]:
+            return _extends({}, state, {
+                modal: true,
+                object_form: action.object
+            });
+        case __WEBPACK_IMPORTED_MODULE_0__actions_TypeAction__["d" /* CLOSE_MODAL */]:
+            return _extends({}, state, {
+                modal: false
+            });
+        case __WEBPACK_IMPORTED_MODULE_0__actions_TypeAction__["q" /* SAVE_INPUT_TEXT */]:
+            console.log(action.value);
+            // switch (action.name) {
+            //     case '':
+
+            //         break;
+
+            //     default:
+            //         break;
+            // }
+            return _extends({}, state);
         default:
             return _extends({}, state);
     }
@@ -108628,6 +108799,396 @@ exports['default'] = thunk;
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 639 */,
+/* 640 */,
+/* 641 */,
+/* 642 */,
+/* 643 */,
+/* 644 */,
+/* 645 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return InputText; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return InputCalendar; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return InputPassword; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return SelectBox; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_datetime__ = __webpack_require__(487);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_datetime___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_datetime__);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+
+var today = __WEBPACK_IMPORTED_MODULE_1_react_datetime___default.a.moment();
+var valid = function valid(current) {
+    return current.isBefore(today);
+};
+
+var InputText = function (_React$Component) {
+    _inherits(InputText, _React$Component);
+
+    function InputText(props) {
+        _classCallCheck(this, InputText);
+
+        return _possibleConstructorReturn(this, (InputText.__proto__ || Object.getPrototypeOf(InputText)).call(this, props));
+    }
+
+    _createClass(InputText, [{
+        key: 'render',
+        value: function render() {
+            var _this2 = this;
+
+            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'div',
+                { className: 'form-group' },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'label',
+                    null,
+                    this.props.element.name
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'text', placeholder: this.props.element.placeholder,
+                    onChange: function onChange(text) {
+                        return _this2.props.saveInputText(_this2.props.name, text.target.value);
+                    },
+                    className: 'form-control' })
+            );
+        }
+    }]);
+
+    return InputText;
+}(__WEBPACK_IMPORTED_MODULE_0_react___default.a.Component);
+
+var InputCalendar = function (_React$Component2) {
+    _inherits(InputCalendar, _React$Component2);
+
+    function InputCalendar(props) {
+        _classCallCheck(this, InputCalendar);
+
+        return _possibleConstructorReturn(this, (InputCalendar.__proto__ || Object.getPrototypeOf(InputCalendar)).call(this, props));
+    }
+
+    _createClass(InputCalendar, [{
+        key: 'render',
+        value: function render() {
+            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'div',
+                { className: 'form-group' },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'label',
+                    null,
+                    this.props.element.name
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_datetime___default.a, {
+                    isValidDate: valid,
+                    timeFormat: false,
+                    defaultValue: new Date()
+                })
+            );
+        }
+    }]);
+
+    return InputCalendar;
+}(__WEBPACK_IMPORTED_MODULE_0_react___default.a.Component);
+
+var InputPassword = function (_React$Component3) {
+    _inherits(InputPassword, _React$Component3);
+
+    function InputPassword(props) {
+        _classCallCheck(this, InputPassword);
+
+        return _possibleConstructorReturn(this, (InputPassword.__proto__ || Object.getPrototypeOf(InputPassword)).call(this, props));
+    }
+
+    _createClass(InputPassword, [{
+        key: 'render',
+        value: function render() {
+            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'div',
+                { className: 'form-group' },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'label',
+                    null,
+                    this.props.element.name
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'passowrd', placeholder: this.props.element.placeholder, className: 'form-control' })
+            );
+        }
+    }]);
+
+    return InputPassword;
+}(__WEBPACK_IMPORTED_MODULE_0_react___default.a.Component);
+
+var SelectBox = function (_React$Component4) {
+    _inherits(SelectBox, _React$Component4);
+
+    function SelectBox(props) {
+        _classCallCheck(this, SelectBox);
+
+        return _possibleConstructorReturn(this, (SelectBox.__proto__ || Object.getPrototypeOf(SelectBox)).call(this, props));
+    }
+
+    _createClass(SelectBox, [{
+        key: 'render',
+        value: function render() {
+            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'div',
+                { className: 'form-group' },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'label',
+                    null,
+                    this.props.element.name
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'select',
+                    { className: 'form-control' },
+                    this.props.element.role.map(function (option) {
+                        return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'option',
+                            { key: option.id, value: option.id },
+                            option.name
+                        );
+                    })
+                )
+            );
+        }
+    }]);
+
+    return SelectBox;
+}(__WEBPACK_IMPORTED_MODULE_0_react___default.a.Component);
+
+/***/ }),
+/* 646 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react_redux__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_AddDeviceComponent__ = __webpack_require__(647);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__actions_Action__ = __webpack_require__(24);
+
+
+
+
+var mapStateToProps = function mapStateToProps(state) {
+    return {};
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+    return {
+        saveInputText: function saveInputText(name, value) {
+            dispatch(Object(__WEBPACK_IMPORTED_MODULE_2__actions_Action__["p" /* saveInputText */])(name, value));
+        }
+    };
+};
+
+/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_0_react_redux__["b" /* connect */])(mapStateToProps, mapDispatchToProps)(__WEBPACK_IMPORTED_MODULE_1__components_AddDeviceComponent__["a" /* AddDeviceComponent */]));
+
+/***/ }),
+/* 647 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AddDeviceComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__templates_InputForm__ = __webpack_require__(645);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+
+var AddDeviceComponent = function (_React$Component) {
+    _inherits(AddDeviceComponent, _React$Component);
+
+    function AddDeviceComponent(props) {
+        _classCallCheck(this, AddDeviceComponent);
+
+        return _possibleConstructorReturn(this, (AddDeviceComponent.__proto__ || Object.getPrototypeOf(AddDeviceComponent)).call(this, props));
+    }
+
+    _createClass(AddDeviceComponent, [{
+        key: 'render',
+        value: function render() {
+            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'form',
+                null,
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'div',
+                    null,
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__templates_InputForm__["c" /* InputText */], {
+                        element: this.props.property[0],
+                        name: 'device',
+                        saveInputText: this.props.saveInputText }),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__templates_InputForm__["a" /* InputCalendar */], { element: this.props.property[1] })
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'submit', className: 'btn btn-success col-md-2', value: 'Add' })
+            );
+        }
+    }]);
+
+    return AddDeviceComponent;
+}(__WEBPACK_IMPORTED_MODULE_0_react___default.a.Component);
+
+/***/ }),
+/* 648 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__templates_InputForm__ = __webpack_require__(645);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_animations__ = __webpack_require__(507);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_animations___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_react_animations__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_radium__ = __webpack_require__(585);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__containers_AddDeviceContainer__ = __webpack_require__(646);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+
+
+
+
+
+var Modal = function (_React$Component) {
+    _inherits(Modal, _React$Component);
+
+    function Modal(props) {
+        _classCallCheck(this, Modal);
+
+        var _this = _possibleConstructorReturn(this, (Modal.__proto__ || Object.getPrototypeOf(Modal)).call(this, props));
+
+        _this.handleSubmit = _this.handleSubmit.bind(_this);
+        return _this;
+    }
+
+    _createClass(Modal, [{
+        key: 'handleSubmit',
+        value: function handleSubmit(event) {
+            event.preventDefault();
+            console.log(this.state.value);
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            var _this2 = this;
+
+            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'div',
+                null,
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div', { style: style.overview,
+                    onClick: function onClick() {
+                        return _this2.props.closeModal();
+                    } }),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    __WEBPACK_IMPORTED_MODULE_3_radium__["a" /* StyleRoot */],
+                    null,
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'div',
+                        { style: style.form, className: 'col-md-6 col-md-offset-3' },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'h3',
+                            { style: style.title },
+                            this.props.object.title,
+                            ' FORM'
+                        ),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('hr', null),
+                        bodyModal(this.props.object)
+                    )
+                )
+            );
+        }
+    }]);
+
+    return Modal;
+}(__WEBPACK_IMPORTED_MODULE_0_react___default.a.Component);
+
+/* harmony default export */ __webpack_exports__["a"] = (Modal);
+
+
+var bodyModal = function bodyModal(object) {
+    switch (object.title) {
+        case 'ADD DEVICE':
+            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__containers_AddDeviceContainer__["a" /* default */], { property: object.property });
+        case 'ADD USER':
+            return addUser(object.property);
+    }
+};
+
+// const addDevice = (property) => (
+//     <form onSubmit={this.handleSubmit}>
+
+//         <div>
+//             <InputText element={property[0]} />
+//             <InputCalendar element={property[1]} />
+//         </div>
+//         <input type="submit" className="btn btn-success col-md-2" value="Add" />
+//     </form>
+// );
+
+var addUser = function addUser(property) {
+    return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        'div',
+        null,
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__templates_InputForm__["c" /* InputText */], { element: property[0] }),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__templates_InputForm__["b" /* InputPassword */], { element: property[1] }),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('hr', null),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__templates_InputForm__["c" /* InputText */], { element: property[2] }),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__templates_InputForm__["c" /* InputText */], { element: property[3] }),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__templates_InputForm__["c" /* InputText */], { element: property[4] }),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__templates_InputForm__["d" /* SelectBox */], { element: property[5] })
+    );
+};
+
+var style = {
+    overview: {
+        position: 'absolute',
+        backgroundColor: 'black',
+        opacity: 0.4,
+        top: 0,
+        right: 0,
+        left: 0,
+        bottom: 0,
+        zIndex: 99999
+    },
+    form: {
+        position: 'absolute',
+        top: '15%',
+        padding: 20,
+        borderRadius: 5,
+        backgroundColor: 'white',
+        zIndex: 99999,
+        animation: "0.5s",
+        animationName: __WEBPACK_IMPORTED_MODULE_3_radium__["b" /* default */].keyframes(__WEBPACK_IMPORTED_MODULE_2_react_animations__["fadeInDown"], 'fadeInDown')
+    },
+    title: {
+        textAlign: 'center',
+        fontWeight: 'bold',
+        color: '#5e8000'
+    }
+};
 
 /***/ })
 /******/ ]);

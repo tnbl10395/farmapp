@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import SolutionComponent from '../components/SolutionComponent';
 import { getDataSolutionsAPI } from '../api/api';
-import { getDataSolutions } from '../actions/Action';
+import { getDataSolutions, openModal } from '../actions/Action';
 
 const mapStateToProps = (state) => ({
     sideBar: state.sideBar,
@@ -10,6 +10,9 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
     getDataSolutions: () => {
         getDataSolutionsAPI(dispatch, getDataSolutions);
+    },
+    openModal: (object) => {
+        dispatch(openModal(object));
     }
 });
 

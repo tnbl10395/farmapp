@@ -8,20 +8,13 @@ export class Chart extends React.Component {
     }
 
     changeInterval(option) {
-        this.props.changeInterval(option.target.value);
-        var time = new Date();
-        if(time.toDateString()==this.props.date.toDateString()){
-            this.props.getRealDataOnChart(this.props.device,this.props.checkInterval);
-        }else {
-            var date = configDate(this.props.date,this.props.checkInterval);
-            console.log(date);
-            this.props.getOldDataOnChart(this.props.device, date, this.props.checkInterval, this.props.date);
-        }
+        var subDate = configDate(this.props.date, this.props.checkInterval);
+        this.props.changeInterval(option.target.value, this.props.device, this.props.date, subDate);
     }
 
     chooseDate(option) {
         var time = new Date(option._d);
-        var date  = configDate(time,this.props.checkInterval);
+        var date = configDate(time, this.props.checkInterval);
         this.props.getOldDataOnChart(this.props.device, date, this.props.checkInterval, time);
     }
 
@@ -104,7 +97,7 @@ export class Chart extends React.Component {
                         </div>
                     </div>
                     <div className="col-sx-10 col-sm-10 col-md-10">
-                        <LineChart data={chartData} options={chartOptions} style={style.chart} redraw  width="600" height="300" />
+                        <LineChart data={chartData} options={chartOptions} style={style.chart} redraw width="600" height="300" />
                     </div>
                 </div>
             </div>
@@ -112,7 +105,7 @@ export class Chart extends React.Component {
     }
 }
 
-const configDate = (time,interval) => {
+const configDate = (time, interval) => {
     var date = '';
     if (parseInt(time.getDate()) < 10) {
         var dd = '0' + time.getDate();
