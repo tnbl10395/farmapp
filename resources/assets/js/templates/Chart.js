@@ -7,28 +7,33 @@ export class Chart extends React.Component {
         super(props);
         var time = new Date();
         this.state = {
-            date: time.getDate(),
-            month: (time.getMonth() + 1),
+            date: (time.getDate() < 10 ? "0" : "") + time.getDate(),
+            month: (time.getMonth() < 10 ? "0" : "") + (time.getMonth() + 1),
             year: time.getFullYear(),
-            hour: time.getHours(),
-            minute: time.getMinutes(),
-            second: time.getSeconds(),
+            hour: (time.getHours() < 10 ? "0" : "") + time.getHours(),
+            minute: (time.getMinutes() < 10 ? "0" : "") + time.getMinutes(),
+            second: (time.getSeconds() < 10 ? "0" : "") + time.getSeconds(),
+            humidity: true,
+            temperature: true
         }
     }
 
     componentDidMount() {
-        this.interval = setInterval(() => {
+        var intervalTime = this.props.checkInterval ? 3600000 : 60000
+        this.intervalDate = setInterval(() => {
             var time = new Date();
             this.setState({
-                date: time.getDate(),
-                month: (time.getMonth() + 1),
+                date: (time.getDate() < 10 ? "0" : "") + time.getDate(),
+                month: (time.getMonth() < 10 ? "0" : "") + (time.getMonth() + 1),
                 year: time.getFullYear(),
-                hour: time.getHours(),
-                minute: time.getMinutes(),
-                second: time.getSeconds(),
+                hour: (time.getHours() < 10 ? "0" : "") + time.getHours(),
+                minute: (time.getMinutes() < 10 ? "0" : "") + time.getMinutes(),
+                second: (time.getSeconds() < 10 ? "0" : "") + time.getSeconds(),
             });
-            this.props.getRealDataOnChart(this.props.device, this.props.checkInterval);
         }, 1000);
+        this.interval = setInterval(() => {
+            this.props.getRealDataOnChart(this.props.device, this.props.checkInterval);
+        }, intervalTime);
     }
 
     componentWillUnmount() {
@@ -36,23 +41,119 @@ export class Chart extends React.Component {
     }
 
     changeInterval(option) {
+        clearInterval(this.interval);
+        var subDate = configDate(this.props.date, !this.props.checkInterval);
+        var currentTime = new Date();
+        if (this.props.date.toDateString() == currentTime.toDateString()) {
+            this.props.changeInterval(option.target.value, this.props.device, this.props.date, subDate);
+            var intervalTime = this.props.checkInterval ? 3600000 : 60000
+            this.interval = setInterval(() => {
+                this.props.getRealDataOnChart(this.props.device, this.props.checkInterval);
+            }, intervalTime);
+        } else {
+            var time = this.props.date;
+            if (option.target.value) {
+                this.setState({
+                    date: (time.getDate() < 10 ? "0" : "") + time.getDate(),
+                    month: (time.getMonth() < 10 ? "0" : "") + (time.getMonth() + 1),
+                    year: time.getFullYear(),
+                    hour: (time.getHours() < 10 ? "0" : "") + time.getHours(),
+                    minute: null,
+                    second: null,
+                });
+            } else {
+                this.setState({
+                    date: (time.getDate() < 10 ? "0" : "") + time.getDate(),
+                    month: (time.getMonth() < 10 ? "0" : "") + (time.getMonth() + 1),
+                    year: time.getFullYear(),
+                    hour: null,
+                    minute: null,
+                    second: null
+                });
+            }
+            this.props.changeInterval(option.target.value, this.props.device, this.props.date, subDate);
+        }
+    }
+
+    chooseDevice(device) {
+        clearInterval(this.interval);
+        var currentTime = new Date();
         var subDate = configDate(this.props.date, this.props.checkInterval);
-        this.props.changeInterval(option.target.value, this.props.device, this.props.date, subDate);
+        if (this.props.date.toDateString() == currentTime.toDateString()) {
+            this.props.getRealDataOnChart(device.target.value, this.props.checkInterval);
+            var intervalTime = this.props.checkInterval ? 3600000 : 60000
+            this.interval = setInterval(() => {
+                this.props.getRealDataOnChart(this.props.device, this.props.checkInterval);
+            }, intervalTime);
+        } else {
+            this.props.getOldDataOnChart(device.target.value, subDate, this.props.checkInterval, this.props.date)
+        }
     }
 
     chooseDate(option) {
+        clearInterval(this.interval);
         var time = new Date(option._d);
         var currentTime = new Date();
-        var date = configDate(time, this.props.checkInterval);
-        this.props.getOldDataOnChart(this.props.device, date, this.props.checkInterval, time);
-        // if (time.toDateString() == currentTime.toDateString()) {
-        //     this.interval = setInterval(() => {
-        //         console.log('ok');
-        //         this.props.getRealDataOnChart(this.props.device, this.props.checkInterval);
-        //     }, 1000);
-        // } else {
-        clearInterval(this.interval);
-        // }
+        var subDate = configDate(time, this.props.checkInterval);
+        if (time.toDateString() == currentTime.toDateString()) {
+            this.intervalDate = setInterval(() => {
+                var time = new Date();
+                this.setState({
+                    date: (time.getDate() < 10 ? "0" : "") + time.getDate(),
+                    month: (time.getMonth() < 10 ? "0" : "") + (time.getMonth() + 1),
+                    year: time.getFullYear(),
+                    hour: (time.getHours() < 10 ? "0" : "") + time.getHours(),
+                    minute: (time.getMinutes() < 10 ? "0" : "") + time.getMinutes(),
+                    second: (time.getSeconds() < 10 ? "0" : "") + time.getSeconds(),
+                });
+            }, 1000);
+            this.props.getRealDataOnChart(this.props.device, this.props.checkInterval);
+            var intervalTime = this.props.checkInterval ? 3600000 : 60000
+            this.interval = setInterval(() => {
+                this.props.getRealDataOnChart(this.props.device, this.props.checkInterval);
+            }, intervalTime);
+        } else {
+            clearInterval(this.intervalDate);
+            if (!this.props.checkInterval) {
+                this.setState({
+                    date: (time.getDate() < 10 ? "0" : "") + time.getDate(),
+                    month: (time.getMonth() < 10 ? "0" : "") + (time.getMonth() + 1),
+                    year: time.getFullYear(),
+                    hour: (time.getHours() < 10 ? "0" : "") + time.getHours(),
+                    minute: null,
+                    second: null,
+                });
+            } else {
+                this.setState({
+                    date: (time.getDate() < 10 ? "0" : "") + time.getDate(),
+                    month: (time.getMonth() < 10 ? "0" : "") + (time.getMonth() + 1),
+                    year: time.getFullYear(),
+                    hour: null,
+                    minute: null,
+                    second: null
+                });
+            }
+            this.props.getOldDataOnChart(this.props.device, subDate, this.props.checkInterval, time);
+        }
+    }
+
+    showValue() {
+        if (this.state.humidity && this.state.temperature) {
+            return [
+                humidity(this.props.humidity),
+                temperature(this.props.temperature)
+            ];
+        } else if (!this.state.humidity && this.state.temperature) {
+            return [
+                temperature(this.props.temperature)
+            ];
+        } else if (this.state.humidity && !this.state.temperature) {
+            return [
+                humidity(this.props.humidity)
+            ];
+        } else {
+            return [{ data: null }];
+        }
     }
 
     render() {
@@ -61,28 +162,7 @@ export class Chart extends React.Component {
         var array = this.props.all_devices;
         var chartData = {
             labels: arrayHour,
-            datasets: [
-                {
-                    label: "Humidity",
-                    fillColor: "rgba(39, 174, 96,0.2)",
-                    strokeColor: "green",
-                    pointColor: "green",
-                    pointStrokeColor: "#fff",
-                    pointHighlightFill: "#fff",
-                    pointHighlightStroke: "green",
-                    data: this.props.humidity
-                },
-                {
-                    label: "Temperature",
-                    fillColor: "rgba(52, 152, 219,0.2)",
-                    strokeColor: "blue",
-                    pointColor: "blue",
-                    pointStrokeColor: "#fff",
-                    pointHighlightFill: "#fff",
-                    pointHighlightStroke: "blue",
-                    data: this.props.temperature
-                }
-            ]
+            datasets: this.showValue()
         };
         return (
             <div style={this.props.sideBar ? style.main_content_true : style.main_content_false}>
@@ -124,7 +204,7 @@ export class Chart extends React.Component {
                             <h5 style={{ fontWeight: 'bold' }}>Devices</h5>
                             <select className="form-control"
                                 value={this.props.device}
-                                onChange={(device) => this.props.getOldDataOnChart(device.target.value, this.props.date, this.props.checkInterval, this.props.date)}>
+                                onChange={(device) => this.chooseDevice(device)}>
                                 {
                                     array.map(element => {
                                         return <option key={element.id} value={element.id}>{element.name}</option>
@@ -134,21 +214,73 @@ export class Chart extends React.Component {
                         </div>
                     </div>
                     <div className="col-sx-10 col-sm-10 col-md-10" style={{ marginTop: 10 }}>
-                        <div className="label label-success col-md-2" style={{ fontSize: 15, padding: 10 }}>Humidity</div>
-                        <div className="label label-primary col-md-2 col-md-offset-1" style={{ fontSize: 15, padding: 10 }}>Temperature</div>
-                        <div className="col-md-6 col-md-offset-1">
-                            <div className="col-md-6 label label-default" style={{ fontSize: 15, padding: 10 }}>
+                        <div className="col-md-6">
+                            <div className="col-md-5 label label-default" style={{ fontSize: 20, marginRight: 10, fontFamily: "Helvetica", backgroundColor:'black' }}>
                                 {this.state.year}-{this.state.month}-{this.state.date}
                             </div>
-                            <div className="col-md-4 col-md-offset-1 label label-default" style={{ fontSize: 15, padding: 10 }}>
-                                {this.state.hour}:{this.state.minute}:{this.state.second}
+                            <div className="col-md-2 label label-default" style={{ fontSize: 20, marginRight: 1, fontFamily: "Helvetica", backgroundColor:'black' }}>
+                                {this.state.hour}
+                            </div>
+                            <div className="col-md-2 label label-default" style={{ fontSize: 20, marginRight: 1, fontFamily: "Helvetica", backgroundColor:'black' }}>
+                                {this.state.minute}
+                            </div>
+                            <div className="col-md-2 label label-default" style={{ fontSize: 20, marginRight: 1, fontFamily: "Helvetica", backgroundColor:'black' }}>
+                                {this.state.second}
                             </div>
                         </div>
-                        <LineChart data={chartData} options={chartOptions} style={style.chart} redraw width="600" height="300" />
+                        <div
+                            className="label label-success col-md-2 col-md-offset-1"
+                            onClick={() => this.setState({ humidity: !this.state.humidity })}
+                            style={
+                                !this.state.humidity ?
+                                    { fontSize: 20, cursor: 'pointer', fontFamily: "Helvetica", backgroundColor: 'green' }
+                                    :
+                                    { fontSize: 20, cursor: 'pointer', fontFamily: "Helvetica" }
+                            }>
+                            Humidity
+                        </div>
+                        <div
+                            className="label label-primary col-md-2"
+                            onClick={() => this.setState({ temperature: !this.state.temperature })}
+                            style={
+                                !this.state.temperature ?
+                                    { fontSize: 20, cursor: 'pointer', fontFamily: "Helvetica", backgroundColor: 'blue' }
+                                    :
+                                    { fontSize: 20, cursor: 'pointer', fontFamily: "Helvetica" }
+                            }>
+                            Temperature
+                        </div>
+                        <LineChart data={chartData} options={chartOptions} style={style.chart} redraw width="600" height="250" />
                     </div>
                 </div>
             </div>
         )
+    }
+}
+
+const humidity = (humidity) => {
+    return {
+        label: "Humidity",
+        fillColor: "rgba(39, 174, 96,0.2)",
+        strokeColor: "green",
+        pointColor: "#5cb85c",
+        pointStrokeColor: "#fff",
+        pointHighlightFill: "#fff",
+        pointHighlightStroke: "green",
+        data: humidity
+    }
+}
+
+const temperature = (temperature) => {
+    return {
+        label: "Temperature",
+        fillColor: "rgba(52, 152, 219,0.2)",
+        strokeColor: "blue",
+        pointColor: "#428bca",
+        pointStrokeColor: "#fff",
+        pointHighlightFill: "#fff",
+        pointHighlightStroke: "#428bca",
+        data: temperature
     }
 }
 

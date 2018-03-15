@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import 'font-awesome/css/font-awesome.css';
 
 export default class Profile extends React.Component {
     constructor(props) {
@@ -8,9 +9,10 @@ export default class Profile extends React.Component {
     render() {
         return (
             <div style={this.props.sideBar?style.overview_true:style.overview_false}>
-                <div style={this.props.sideBar?style.avatar_true:style.avatar_false}>
-                    <img src="/images/avatar.jpg" style={this.props.sideBar?style.avatar_true:style.avatar_false}/>
-                </div>
+                {/* <div style={this.props.sideBar?style.avatar_true:style.avatar_false}> */}
+                    <i className="fa fa-user-circle" style={this.props.sideBar?style.avatar_true:style.avatar_false}/>
+                    {/* <img src="/images/avatar.jpg" style={this.props.sideBar?style.avatar_true:style.avatar_false}/> */}
+                {/* </div> */}
             </div>
         );
     }
@@ -34,13 +36,14 @@ const style = {
         marginLeft:5,
     },
     avatar_true: {        
-        height:120,
-        width:120,
-        borderRadius: 100,
+        // height:120,
+        // width:120,
+        // borderRadius: 100,
+        color:'green',
+        fontSize:100
     },
     avatar_false: {        
-        height:30,
-        width:30,
-        borderRadius: 100,
+        color:'green',
+        fontSize:30
     }
 }

@@ -121,7 +121,7 @@ export const getRealChartWithIntervalAPI = (dispatch, changeInterval, device, da
 
 export const getOldChartWithIntervalAPI = (dispatch, changeInterval, device, date, subDate, option) => {
     var link = (option == "1 Hour") ? "hour" : "day";
-    var variable = (option == "1 Hour") ? "hour" : "day";
+    var variable = (option == "1 Hour") ? JSON.stringify({ deviceId: device, hour: subDate }) : JSON.stringify({ deviceId: device, day: subDate });
     try {
         var data = [];
         fetch(URL + "api/data-old-chart-" + link, {
@@ -130,10 +130,7 @@ export const getOldChartWithIntervalAPI = (dispatch, changeInterval, device, dat
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({
-                deviceId: device,
-                variable: subDate,
-            })
+            body: variable
         })
             .then((response) => response.json())
             .then((res) => {

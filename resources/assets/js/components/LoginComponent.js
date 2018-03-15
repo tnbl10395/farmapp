@@ -2,11 +2,14 @@ import React, { Component } from 'react';
 import { bounceInLeft, bounce } from 'react-animations';
 import Radium, { StyleRoot } from 'radium';
 
+var w = window.innerWidth;
+
 export default class LoginComponent extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             location: false,
+            // X: 0
         }
     }
 
@@ -15,24 +18,39 @@ export default class LoginComponent extends React.Component {
             this.setState({ location: true });
             setInterval(() => {
                 this.setState({ location: !this.state.location });
-            }, 800)
+            }, 700)
         }, 1900);
     }
 
+    // moveMouse(e) {
+    //     if ((e.pageX / w * 100) > 60) {
+    //         this.setState({ X: 0 })
+    //     }
+    //     else {
+    //         this.setState({ X: e.pageX - 380 })
+    //     }
+    // }
+
     render() {
         return (
-            <div style={{ backgroundColor: 'gray' }} 
-                // onMouseMoveCapture={()=>console.log('ok')}
-                >
+            <div style={{ backgroundColor: 'gray' }} >
                 <img src="/images/farmintro.jpg" style={style.img} />
                 <div style={style.overview}></div>
-                <div className="col-md-8" style={style.intro}>
+                <div
+                    // onMouseMove={(e) => this.moveMouse(e)}
+                    className="col-md-8" style={style.intro} >
                     <StyleRoot>
-                        <img src="/images/smartphone.png" className="col-md-offset-3" style={style.img_smartphone} />
+                        <img src="/images/smartphone.png" className="col-md-offset-3" 
+                            style={[
+                                style.img_smartphone, 
+                                // { left: this.state.X }
+                            ]}
+                        // onMouseMoveOver={(e) => this.setState({ X: e.pageX })}
+                        />
 
                     </StyleRoot>
                     {
-                        this.state.location ? <img src="/images/location.png" className="col-md-offset-6" style={style.img_location} /> : null
+                        this.state.location ? <img src="/images/location.png" style={style.img_location} /> : null
                     }
                 </div>
                 <div className="col-md-3 col-md-offset-8" style={style.form}>
@@ -82,7 +100,7 @@ const style = {
         position: 'absolute',
         zIndex: 999999,
         bottom: 0,
-        // width: '40%',
+        width: 400,
         animation: '4s',
         animationName: Radium.keyframes(bounceInLeft, 'bounceInLeft'),
     },
@@ -91,7 +109,7 @@ const style = {
         zIndex: 99999,
         width: '10%',
         bottom: 300,
-        // left: '4%',
+        left: '45%',
         // animation: '1s',
         // animationName: Radium.keyframes(bounce, 'bounce'),
     },

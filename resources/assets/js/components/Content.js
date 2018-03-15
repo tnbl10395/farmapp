@@ -18,7 +18,7 @@ export default class Content extends React.Component {
                     <div style={this.props.sideBar ? style.content_true : style.content_false}>
                     </div>
                     <div style={style.breadcrumb}>
-                        <a style={style.tag_a}>Home</a> > Table
+                        {/* <a style={style.tag_a}>Home</a> > Table */}
                     </div>
                     <Switch>
                         <Route exact path="/" component={Devices} />

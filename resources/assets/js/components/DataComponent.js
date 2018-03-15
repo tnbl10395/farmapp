@@ -9,9 +9,9 @@ export default class DataComponent extends React.Component {
 
     componentDidMount() {
         this.props.getDataValuesonTable();
-        setTimeout(()=>{
-            this.props.getRealDataOnChart(this.props.device,this.props.checkInterval);
-        },1000);
+        setTimeout(() => {
+            this.props.getRealDataOnChart(this.props.device, this.props.checkInterval);
+        }, 1000);
     }
 
     render() {
@@ -25,12 +25,12 @@ export default class DataComponent extends React.Component {
                                 columns={columns}
                                 sideBar={this.props.sideBar}
                                 name={"Data"}
-                                change={this.props.changeDisplayDataScreen}/>
+                                change={this.props.changeDisplayDataScreen} />
                             :
                             <Chart
                                 sideBar={this.props.sideBar}
                                 change={this.props.changeDisplayDataScreen}
-                                getOldDataOnChart={this.props.getOldDataOnChart} 
+                                getOldDataOnChart={this.props.getOldDataOnChart}
                                 getRealDataOnChart={this.props.getRealDataOnChart}
                                 device={this.props.device}
                                 date={this.props.date}
@@ -41,7 +41,7 @@ export default class DataComponent extends React.Component {
                                 checkInterval={this.props.checkInterval}
                                 interval={this.props.interval}
                                 getRealDataOnChart={this.props.getRealDataOnChart}
-                                />
+                            />
                     }
                 </div>
                 : null

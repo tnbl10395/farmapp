@@ -7661,7 +7661,7 @@ var getRealChartWithIntervalAPI = function getRealChartWithIntervalAPI(dispatch,
 
 var getOldChartWithIntervalAPI = function getOldChartWithIntervalAPI(dispatch, changeInterval, device, date, subDate, option) {
     var link = option == "1 Hour" ? "hour" : "day";
-    var variable = option == "1 Hour" ? "hour" : "day";
+    var variable = option == "1 Hour" ? JSON.stringify({ deviceId: device, hour: subDate }) : JSON.stringify({ deviceId: device, day: subDate });
     try {
         var data = [];
         fetch(URL + "api/data-old-chart-" + link, {
@@ -7670,10 +7670,7 @@ var getOldChartWithIntervalAPI = function getOldChartWithIntervalAPI(dispatch, c
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({
-                deviceId: device,
-                variable: subDate
-            })
+            body: variable
         }).then(function (response) {
             return response.json();
         }).then(function (res) {
@@ -78139,28 +78136,28 @@ var SideBar = function (_React$Component) {
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'div',
                     { style: style.div_ul },
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__templates_Element__["a" /* default */], { icon: 'fa fa-home',
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__templates_Element__["a" /* default */], { icon: 'fa fa-cog',
                         name: "Manage Devices",
                         choose: this.props.admin_device_component,
                         chooseOption: this.props.chooseOption,
                         link: "device",
                         sideBar: this.props.sideBar
                     }),
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__templates_Element__["a" /* default */], { icon: 'fa fa-home',
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__templates_Element__["a" /* default */], { icon: 'fa fa-users',
                         name: "Manage User",
                         choose: this.props.admin_user_component,
                         chooseOption: this.props.chooseOption,
                         link: "user",
                         sideBar: this.props.sideBar
                     }),
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__templates_Element__["a" /* default */], { icon: 'fa fa-home',
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__templates_Element__["a" /* default */], { icon: 'fa fa-database',
                         name: "Manage Data",
                         choose: this.props.admin_data_component,
                         chooseOption: this.props.chooseOption,
                         link: "data",
                         sideBar: this.props.sideBar
                     }),
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__templates_Element__["a" /* default */], { icon: 'fa fa-home',
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__templates_Element__["a" /* default */], { icon: 'fa fa-book',
                         name: "Manage Solution",
                         choose: this.props.admin_solution_component,
                         chooseOption: this.props.chooseOption,
@@ -81296,6 +81293,8 @@ var withRouter = function withRouter(Component) {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_font_awesome_css_font_awesome_css__ = __webpack_require__(51);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_font_awesome_css_font_awesome_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_font_awesome_css_font_awesome_css__);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -81303,6 +81302,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
 
 
 
@@ -81321,11 +81321,7 @@ var Profile = function (_React$Component) {
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'div',
                 { style: this.props.sideBar ? style.overview_true : style.overview_false },
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    'div',
-                    { style: this.props.sideBar ? style.avatar_true : style.avatar_false },
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('img', { src: '/images/avatar.jpg', style: this.props.sideBar ? style.avatar_true : style.avatar_false })
-                )
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'fa fa-user-circle', style: this.props.sideBar ? style.avatar_true : style.avatar_false })
             );
         }
     }]);
@@ -81354,14 +81350,15 @@ var style = {
         marginLeft: 5
     },
     avatar_true: {
-        height: 120,
-        width: 120,
-        borderRadius: 100
+        // height:120,
+        // width:120,
+        // borderRadius: 100,
+        color: 'green',
+        fontSize: 100
     },
     avatar_false: {
-        height: 30,
-        width: 30,
-        borderRadius: 100
+        color: 'green',
+        fontSize: 30
     }
 };
 
@@ -81409,16 +81406,7 @@ var Content = function (_React$Component) {
                 'div',
                 null,
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div', { style: this.props.sideBar ? style.content_true : style.content_false }),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    'div',
-                    { style: style.breadcrumb },
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        'a',
-                        { style: style.tag_a },
-                        'Home'
-                    ),
-                    ' > Table'
-                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div', { style: style.breadcrumb }),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     __WEBPACK_IMPORTED_MODULE_1_react_router_dom__["d" /* Switch */],
                     null,
@@ -97166,12 +97154,14 @@ var Chart = function (_React$Component) {
 
         var time = new Date();
         _this.state = {
-            date: time.getDate(),
-            month: time.getMonth() + 1,
+            date: (time.getDate() < 10 ? "0" : "") + time.getDate(),
+            month: (time.getMonth() < 10 ? "0" : "") + (time.getMonth() + 1),
             year: time.getFullYear(),
-            hour: time.getHours(),
-            minute: time.getMinutes(),
-            second: time.getSeconds()
+            hour: (time.getHours() < 10 ? "0" : "") + time.getHours(),
+            minute: (time.getMinutes() < 10 ? "0" : "") + time.getMinutes(),
+            second: (time.getSeconds() < 10 ? "0" : "") + time.getSeconds(),
+            humidity: true,
+            temperature: true
         };
         return _this;
     }
@@ -97181,18 +97171,21 @@ var Chart = function (_React$Component) {
         value: function componentDidMount() {
             var _this2 = this;
 
-            this.interval = setInterval(function () {
+            var intervalTime = this.props.checkInterval ? 3600000 : 60000;
+            this.intervalDate = setInterval(function () {
                 var time = new Date();
                 _this2.setState({
-                    date: time.getDate(),
-                    month: time.getMonth() + 1,
+                    date: (time.getDate() < 10 ? "0" : "") + time.getDate(),
+                    month: (time.getMonth() < 10 ? "0" : "") + (time.getMonth() + 1),
                     year: time.getFullYear(),
-                    hour: time.getHours(),
-                    minute: time.getMinutes(),
-                    second: time.getSeconds()
+                    hour: (time.getHours() < 10 ? "0" : "") + time.getHours(),
+                    minute: (time.getMinutes() < 10 ? "0" : "") + time.getMinutes(),
+                    second: (time.getSeconds() < 10 ? "0" : "") + time.getSeconds()
                 });
-                _this2.props.getRealDataOnChart(_this2.props.device, _this2.props.checkInterval);
             }, 1000);
+            this.interval = setInterval(function () {
+                _this2.props.getRealDataOnChart(_this2.props.device, _this2.props.checkInterval);
+            }, intervalTime);
         }
     }, {
         key: 'componentWillUnmount',
@@ -97202,54 +97195,133 @@ var Chart = function (_React$Component) {
     }, {
         key: 'changeInterval',
         value: function changeInterval(option) {
+            var _this3 = this;
+
+            clearInterval(this.interval);
+            var subDate = configDate(this.props.date, !this.props.checkInterval);
+            var currentTime = new Date();
+            if (this.props.date.toDateString() == currentTime.toDateString()) {
+                this.props.changeInterval(option.target.value, this.props.device, this.props.date, subDate);
+                var intervalTime = this.props.checkInterval ? 3600000 : 60000;
+                this.interval = setInterval(function () {
+                    _this3.props.getRealDataOnChart(_this3.props.device, _this3.props.checkInterval);
+                }, intervalTime);
+            } else {
+                var time = this.props.date;
+                if (option.target.value) {
+                    this.setState({
+                        date: (time.getDate() < 10 ? "0" : "") + time.getDate(),
+                        month: (time.getMonth() < 10 ? "0" : "") + (time.getMonth() + 1),
+                        year: time.getFullYear(),
+                        hour: (time.getHours() < 10 ? "0" : "") + time.getHours(),
+                        minute: null,
+                        second: null
+                    });
+                } else {
+                    this.setState({
+                        date: (time.getDate() < 10 ? "0" : "") + time.getDate(),
+                        month: (time.getMonth() < 10 ? "0" : "") + (time.getMonth() + 1),
+                        year: time.getFullYear(),
+                        hour: null,
+                        minute: null,
+                        second: null
+                    });
+                }
+                this.props.changeInterval(option.target.value, this.props.device, this.props.date, subDate);
+            }
+        }
+    }, {
+        key: 'chooseDevice',
+        value: function chooseDevice(device) {
+            var _this4 = this;
+
+            clearInterval(this.interval);
+            var currentTime = new Date();
             var subDate = configDate(this.props.date, this.props.checkInterval);
-            this.props.changeInterval(option.target.value, this.props.device, this.props.date, subDate);
+            if (this.props.date.toDateString() == currentTime.toDateString()) {
+                this.props.getRealDataOnChart(device.target.value, this.props.checkInterval);
+                var intervalTime = this.props.checkInterval ? 3600000 : 60000;
+                this.interval = setInterval(function () {
+                    _this4.props.getRealDataOnChart(_this4.props.device, _this4.props.checkInterval);
+                }, intervalTime);
+            } else {
+                this.props.getOldDataOnChart(device.target.value, subDate, this.props.checkInterval, this.props.date);
+            }
         }
     }, {
         key: 'chooseDate',
         value: function chooseDate(option) {
+            var _this5 = this;
+
+            clearInterval(this.interval);
             var time = new Date(option._d);
             var currentTime = new Date();
-            var date = configDate(time, this.props.checkInterval);
-            this.props.getOldDataOnChart(this.props.device, date, this.props.checkInterval, time);
-            // if (time.toDateString() == currentTime.toDateString()) {
-            //     this.interval = setInterval(() => {
-            //         console.log('ok');
-            //         this.props.getRealDataOnChart(this.props.device, this.props.checkInterval);
-            //     }, 1000);
-            // } else {
-            clearInterval(this.interval);
-            // }
+            var subDate = configDate(time, this.props.checkInterval);
+            if (time.toDateString() == currentTime.toDateString()) {
+                this.intervalDate = setInterval(function () {
+                    var time = new Date();
+                    _this5.setState({
+                        date: (time.getDate() < 10 ? "0" : "") + time.getDate(),
+                        month: (time.getMonth() < 10 ? "0" : "") + (time.getMonth() + 1),
+                        year: time.getFullYear(),
+                        hour: (time.getHours() < 10 ? "0" : "") + time.getHours(),
+                        minute: (time.getMinutes() < 10 ? "0" : "") + time.getMinutes(),
+                        second: (time.getSeconds() < 10 ? "0" : "") + time.getSeconds()
+                    });
+                }, 1000);
+                this.props.getRealDataOnChart(this.props.device, this.props.checkInterval);
+                var intervalTime = this.props.checkInterval ? 3600000 : 60000;
+                this.interval = setInterval(function () {
+                    _this5.props.getRealDataOnChart(_this5.props.device, _this5.props.checkInterval);
+                }, intervalTime);
+            } else {
+                clearInterval(this.intervalDate);
+                if (!this.props.checkInterval) {
+                    this.setState({
+                        date: (time.getDate() < 10 ? "0" : "") + time.getDate(),
+                        month: (time.getMonth() < 10 ? "0" : "") + (time.getMonth() + 1),
+                        year: time.getFullYear(),
+                        hour: (time.getHours() < 10 ? "0" : "") + time.getHours(),
+                        minute: null,
+                        second: null
+                    });
+                } else {
+                    this.setState({
+                        date: (time.getDate() < 10 ? "0" : "") + time.getDate(),
+                        month: (time.getMonth() < 10 ? "0" : "") + (time.getMonth() + 1),
+                        year: time.getFullYear(),
+                        hour: null,
+                        minute: null,
+                        second: null
+                    });
+                }
+                this.props.getOldDataOnChart(this.props.device, subDate, this.props.checkInterval, time);
+            }
+        }
+    }, {
+        key: 'showValue',
+        value: function showValue() {
+            if (this.state.humidity && this.state.temperature) {
+                return [humidity(this.props.humidity), temperature(this.props.temperature)];
+            } else if (!this.state.humidity && this.state.temperature) {
+                return [temperature(this.props.temperature)];
+            } else if (this.state.humidity && !this.state.temperature) {
+                return [humidity(this.props.humidity)];
+            } else {
+                return [{ data: null }];
+            }
         }
     }, {
         key: 'render',
         value: function render() {
-            var _this3 = this;
+            var _this6 = this;
 
             var arrayHour = this.props.checkInterval ? labelDay() : labelHour();
             var arrayDay = labelDay();
             var array = this.props.all_devices;
             var chartData = {
                 labels: arrayHour,
-                datasets: [{
-                    label: "Humidity",
-                    fillColor: "rgba(39, 174, 96,0.2)",
-                    strokeColor: "green",
-                    pointColor: "green",
-                    pointStrokeColor: "#fff",
-                    pointHighlightFill: "#fff",
-                    pointHighlightStroke: "green",
-                    data: this.props.humidity
-                }, {
-                    label: "Temperature",
-                    fillColor: "rgba(52, 152, 219,0.2)",
-                    strokeColor: "blue",
-                    pointColor: "blue",
-                    pointStrokeColor: "#fff",
-                    pointHighlightFill: "#fff",
-                    pointHighlightStroke: "blue",
-                    data: this.props.temperature
-                }]
+                datasets: this.showValue()
             };
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'div',
@@ -97269,7 +97341,7 @@ var Chart = function (_React$Component) {
                         'button',
                         {
                             onClick: function onClick() {
-                                return _this3.props.change();
+                                return _this6.props.change();
                             },
                             className: 'btn btn-success',
                             style: { position: 'absolute', right: 10, top: 5, fontSize: 12 } },
@@ -97296,7 +97368,7 @@ var Chart = function (_React$Component) {
                                 { className: 'form-control',
                                     value: this.props.interval,
                                     onChange: function onChange(option) {
-                                        return _this3.changeInterval(option);
+                                        return _this6.changeInterval(option);
                                     } },
                                 interval.map(function (element) {
                                     return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -97321,7 +97393,7 @@ var Chart = function (_React$Component) {
                                 timeFormat: !this.props.checkInterval ? "HH" : false,
                                 isValidDate: valid,
                                 onChange: function onChange(option) {
-                                    return _this3.chooseDate(option);
+                                    return _this6.chooseDate(option);
                                 } })
                         ),
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -97337,7 +97409,7 @@ var Chart = function (_React$Component) {
                                 { className: 'form-control',
                                     value: this.props.device,
                                     onChange: function onChange(device) {
-                                        return _this3.props.getOldDataOnChart(device.target.value, _this3.props.date, _this3.props.checkInterval, _this3.props.date);
+                                        return _this6.chooseDevice(device);
                                     } },
                                 array.map(function (element) {
                                     return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -97354,20 +97426,10 @@ var Chart = function (_React$Component) {
                         { className: 'col-sx-10 col-sm-10 col-md-10', style: { marginTop: 10 } },
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                             'div',
-                            { className: 'label label-success col-md-2', style: { fontSize: 15, padding: 10 } },
-                            'Humidity'
-                        ),
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            'div',
-                            { className: 'label label-primary col-md-2 col-md-offset-1', style: { fontSize: 15, padding: 10 } },
-                            'Temperature'
-                        ),
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            'div',
-                            { className: 'col-md-6 col-md-offset-1' },
+                            { className: 'col-md-6' },
                             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                 'div',
-                                { className: 'col-md-6 label label-default', style: { fontSize: 15, padding: 10 } },
+                                { className: 'col-md-5 label label-default', style: { fontSize: 20, marginRight: 10, fontFamily: "Helvetica", backgroundColor: 'black' } },
                                 this.state.year,
                                 '-',
                                 this.state.month,
@@ -97376,15 +97438,41 @@ var Chart = function (_React$Component) {
                             ),
                             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                 'div',
-                                { className: 'col-md-4 col-md-offset-1 label label-default', style: { fontSize: 15, padding: 10 } },
-                                this.state.hour,
-                                ':',
-                                this.state.minute,
-                                ':',
+                                { className: 'col-md-2 label label-default', style: { fontSize: 20, marginRight: 1, fontFamily: "Helvetica", backgroundColor: 'black' } },
+                                this.state.hour
+                            ),
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                'div',
+                                { className: 'col-md-2 label label-default', style: { fontSize: 20, marginRight: 1, fontFamily: "Helvetica", backgroundColor: 'black' } },
+                                this.state.minute
+                            ),
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                'div',
+                                { className: 'col-md-2 label label-default', style: { fontSize: 20, marginRight: 1, fontFamily: "Helvetica", backgroundColor: 'black' } },
                                 this.state.second
                             )
                         ),
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(LineChart, { data: chartData, options: chartOptions, style: style.chart, redraw: true, width: '600', height: '300' })
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'div',
+                            {
+                                className: 'label label-success col-md-2 col-md-offset-1',
+                                onClick: function onClick() {
+                                    return _this6.setState({ humidity: !_this6.state.humidity });
+                                },
+                                style: !this.state.humidity ? { fontSize: 20, cursor: 'pointer', fontFamily: "Helvetica", backgroundColor: 'green' } : { fontSize: 20, cursor: 'pointer', fontFamily: "Helvetica" } },
+                            'Humidity'
+                        ),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'div',
+                            {
+                                className: 'label label-primary col-md-2',
+                                onClick: function onClick() {
+                                    return _this6.setState({ temperature: !_this6.state.temperature });
+                                },
+                                style: !this.state.temperature ? { fontSize: 20, cursor: 'pointer', fontFamily: "Helvetica", backgroundColor: 'blue' } : { fontSize: 20, cursor: 'pointer', fontFamily: "Helvetica" } },
+                            'Temperature'
+                        ),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(LineChart, { data: chartData, options: chartOptions, style: style.chart, redraw: true, width: '600', height: '250' })
                     )
                 )
             );
@@ -97393,6 +97481,32 @@ var Chart = function (_React$Component) {
 
     return Chart;
 }(__WEBPACK_IMPORTED_MODULE_0_react___default.a.Component);
+
+var humidity = function humidity(_humidity) {
+    return {
+        label: "Humidity",
+        fillColor: "rgba(39, 174, 96,0.2)",
+        strokeColor: "green",
+        pointColor: "#5cb85c",
+        pointStrokeColor: "#fff",
+        pointHighlightFill: "#fff",
+        pointHighlightStroke: "green",
+        data: _humidity
+    };
+};
+
+var temperature = function temperature(_temperature) {
+    return {
+        label: "Temperature",
+        fillColor: "rgba(52, 152, 219,0.2)",
+        strokeColor: "blue",
+        pointColor: "#428bca",
+        pointStrokeColor: "#fff",
+        pointHighlightFill: "#fff",
+        pointHighlightStroke: "#428bca",
+        data: _temperature
+    };
+};
 
 var configDate = function configDate(time, interval) {
     var date = '';
@@ -109054,6 +109168,8 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 
+var w = window.innerWidth;
+
 var LoginComponent = function (_React$Component) {
     _inherits(LoginComponent, _React$Component);
 
@@ -109064,6 +109180,7 @@ var LoginComponent = function (_React$Component) {
 
         _this.state = {
             location: false
+            // X: 0
         };
         return _this;
     }
@@ -109077,28 +109194,41 @@ var LoginComponent = function (_React$Component) {
                 _this2.setState({ location: true });
                 setInterval(function () {
                     _this2.setState({ location: !_this2.state.location });
-                }, 800);
+                }, 700);
             }, 1900);
         }
+
+        // moveMouse(e) {
+        //     if ((e.pageX / w * 100) > 60) {
+        //         this.setState({ X: 0 })
+        //     }
+        //     else {
+        //         this.setState({ X: e.pageX - 380 })
+        //     }
+        // }
+
     }, {
         key: 'render',
         value: function render() {
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'div',
-                { style: { backgroundColor: 'gray' }
-                    // onMouseMoveCapture={()=>console.log('ok')}
-                },
+                { style: { backgroundColor: 'gray' } },
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('img', { src: '/images/farmintro.jpg', style: style.img }),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div', { style: style.overview }),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'div',
-                    { className: 'col-md-8', style: style.intro },
+                    {
+                        // onMouseMove={(e) => this.moveMouse(e)}
+                        className: 'col-md-8', style: style.intro },
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         __WEBPACK_IMPORTED_MODULE_2_radium__["a" /* StyleRoot */],
                         null,
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('img', { src: '/images/smartphone.png', className: 'col-md-offset-3', style: style.img_smartphone })
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('img', { src: '/images/smartphone.png', className: 'col-md-offset-3',
+                            style: [style.img_smartphone]
+                            // onMouseMoveOver={(e) => this.setState({ X: e.pageX })}
+                        })
                     ),
-                    this.state.location ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('img', { src: '/images/location.png', className: 'col-md-offset-6', style: style.img_location }) : null
+                    this.state.location ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('img', { src: '/images/location.png', style: style.img_location }) : null
                 ),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'div',
@@ -109170,7 +109300,7 @@ var style = {
         position: 'absolute',
         zIndex: 999999,
         bottom: 0,
-        // width: '40%',
+        width: 400,
         animation: '4s',
         animationName: __WEBPACK_IMPORTED_MODULE_2_radium__["b" /* default */].keyframes(__WEBPACK_IMPORTED_MODULE_1_react_animations__["bounceInLeft"], 'bounceInLeft')
     },
@@ -109178,8 +109308,8 @@ var style = {
         position: 'absolute',
         zIndex: 99999,
         width: '10%',
-        bottom: 300
-        // left: '4%',
+        bottom: 300,
+        left: '45%'
         // animation: '1s',
         // animationName: Radium.keyframes(bounce, 'bounce'),
     },

@@ -22,28 +22,28 @@ export default class SideBar extends React.Component {
                     <div style={style.line}></div>
                 </div>
                 <div style={style.div_ul}>
-                    <Element icon={'fa fa-home'}
+                    <Element icon={'fa fa-cog'}
                         name={"Manage Devices"}
                         choose={this.props.admin_device_component}
                         chooseOption={this.props.chooseOption}
                         link={"device"} 
                         sideBar={this.props.sideBar}
                         />
-                    <Element icon={'fa fa-home'}
+                    <Element icon={'fa fa-users'}
                         name={"Manage User"}
                         choose={this.props.admin_user_component}
                         chooseOption={this.props.chooseOption}
                         link={"user"} 
                         sideBar={this.props.sideBar}
                         />
-                    <Element icon={'fa fa-home'}
+                    <Element icon={'fa fa-database'}
                         name={"Manage Data"}
                         choose={this.props.admin_data_component}
                         chooseOption={this.props.chooseOption}
                         link={"data"} 
                         sideBar={this.props.sideBar}
                         />
-                    <Element icon={'fa fa-home'}
+                    <Element icon={'fa fa-book'}
                         name={"Manage Solution"}
                         choose={this.props.admin_solution_component}
                         chooseOption={this.props.chooseOption}
