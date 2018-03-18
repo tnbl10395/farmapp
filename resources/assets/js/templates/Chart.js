@@ -89,13 +89,14 @@ export class Chart extends React.Component {
             this.props.getOldDataOnChart(device.target.value, subDate, this.props.checkInterval, this.props.date)
         }
     }
-
+    
     chooseDate(option) {
         clearInterval(this.interval);
+        clearInterval(this.intervalDate);
         var time = new Date(option._d);
         var currentTime = new Date();
         var subDate = configDate(time, this.props.checkInterval);
-        if (time.toDateString() == currentTime.toDateString()) {
+        if (time.toDateString() == currentTime.toDateString() && time.getHours() == currentTime.getHours()) {
             this.intervalDate = setInterval(() => {
                 var time = new Date();
                 this.setState({
@@ -113,7 +114,6 @@ export class Chart extends React.Component {
                 this.props.getRealDataOnChart(this.props.device, this.props.checkInterval);
             }, intervalTime);
         } else {
-            clearInterval(this.intervalDate);
             if (!this.props.checkInterval) {
                 this.setState({
                     date: (time.getDate() < 10 ? "0" : "") + time.getDate(),
@@ -215,40 +215,42 @@ export class Chart extends React.Component {
                     </div>
                     <div className="col-sx-10 col-sm-10 col-md-10" style={{ marginTop: 10 }}>
                         <div className="col-md-6">
-                            <div className="col-md-5 label label-default" style={{ fontSize: 20, marginRight: 10, fontFamily: "Helvetica", backgroundColor:'black' }}>
+                            <div className="col-md-5 label label-default" style={{ fontSize: 20, marginRight: 10, fontFamily: "Helvetica", backgroundColor: 'black' }}>
                                 {this.state.year}-{this.state.month}-{this.state.date}
                             </div>
-                            <div className="col-md-2 label label-default" style={{ fontSize: 20, marginRight: 1, fontFamily: "Helvetica", backgroundColor:'black' }}>
+                            <div className="col-md-2 label label-default" style={{ fontSize: 20, marginRight: 1, fontFamily: "Helvetica", backgroundColor: 'black' }}>
                                 {this.state.hour}
                             </div>
-                            <div className="col-md-2 label label-default" style={{ fontSize: 20, marginRight: 1, fontFamily: "Helvetica", backgroundColor:'black' }}>
+                            <div className="col-md-2 label label-default" style={{ fontSize: 20, marginRight: 1, fontFamily: "Helvetica", backgroundColor: 'black' }}>
                                 {this.state.minute}
                             </div>
-                            <div className="col-md-2 label label-default" style={{ fontSize: 20, marginRight: 1, fontFamily: "Helvetica", backgroundColor:'black' }}>
+                            <div className="col-md-2 label label-default" style={{ fontSize: 20, marginRight: 1, fontFamily: "Helvetica", backgroundColor: 'black' }}>
                                 {this.state.second}
                             </div>
                         </div>
-                        <div
-                            className="label label-success col-md-2 col-md-offset-1"
-                            onClick={() => this.setState({ humidity: !this.state.humidity })}
-                            style={
-                                !this.state.humidity ?
-                                    { fontSize: 20, cursor: 'pointer', fontFamily: "Helvetica", backgroundColor: 'green' }
-                                    :
-                                    { fontSize: 20, cursor: 'pointer', fontFamily: "Helvetica" }
-                            }>
-                            Humidity
+                        <div className="col-md-6">
+                            <div
+                                className="label label-success col-md-5 col-md-offset-1"
+                                onClick={() => this.setState({ humidity: !this.state.humidity })}
+                                style={
+                                    !this.state.humidity ?
+                                        { fontSize: 20, cursor: 'pointer', fontFamily: "Helvetica", backgroundColor: 'green' }
+                                        :
+                                        { fontSize: 20, cursor: 'pointer', fontFamily: "Helvetica" }
+                                }>
+                                Humidity
                         </div>
-                        <div
-                            className="label label-primary col-md-2"
-                            onClick={() => this.setState({ temperature: !this.state.temperature })}
-                            style={
-                                !this.state.temperature ?
-                                    { fontSize: 20, cursor: 'pointer', fontFamily: "Helvetica", backgroundColor: 'blue' }
-                                    :
-                                    { fontSize: 20, cursor: 'pointer', fontFamily: "Helvetica" }
-                            }>
-                            Temperature
+                            <div
+                                className="label label-primary col-md-5"
+                                onClick={() => this.setState({ temperature: !this.state.temperature })}
+                                style={
+                                    !this.state.temperature ?
+                                        { fontSize: 20, cursor: 'pointer', fontFamily: "Helvetica", backgroundColor: 'blue' }
+                                        :
+                                        { fontSize: 20, cursor: 'pointer', fontFamily: "Helvetica" }
+                                }>
+                                Temperature
+                        </div>
                         </div>
                         <LineChart data={chartData} options={chartOptions} style={style.chart} redraw width="600" height="250" />
                     </div>
@@ -379,9 +381,9 @@ const style = {
         backgroundColor: '#9E9E9E',
         position: 'absolute',
         padding: 10,
-        left: '11%',
+        left: '4%',
         top: 120,
-        width: '88%',
+        width: '95%',
         fontSize: 12,
         opacity: 0.8,
         borderRadius: 5,

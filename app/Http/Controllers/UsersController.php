@@ -45,7 +45,7 @@ class UsersController extends Controller
     }
 
     public function getUserInfo(Request $request){
-        $user = JWTAuth::toUser($request->token);
+        $user = JWTAuth::toUser($request->header('token'));
         return response()->json(['result' => $user]);
     }
 

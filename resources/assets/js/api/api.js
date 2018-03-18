@@ -1,5 +1,5 @@
-export const URL = "http://116.98.208.44:3000/";
-// export const URL = "http://localhost:3000/";
+// export const URL = "http://116.98.208.44:3000/";
+export const URL = "http://localhost:3000/";
 
 export const getDataDevicesAPI = (dispatch, getDataDevices) => {
     try {
@@ -270,5 +270,55 @@ export const submitAddUserFormAPI = (dispatch, submitAddUserForm, username, pass
                 }
             })
     } catch (error) {
+    }
+}
+//login
+export const loginAPI = (dispatch, login, username, password) => {
+    try {
+        fetch(URL + "api/auth/login", {
+            method: "POST",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                username: username,
+                password: password
+            })
+        })
+            .then((response) => response.json())
+            .then((res) => {
+                if (res.token != null) {
+                    dispatch(login(res.token));
+                    window.location.href = '/';
+                } else {
+                    alert('Username or password is invalid!')
+                }
+            })
+    } catch (error) {
+
+    }
+}
+//getUser 
+export const getUserAPI = (dispatch, checkToken, token) => {
+    try {
+        fetch(URL + "api/user-info", {
+            method: "GET",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'token': token
+            }
+        })
+            .then((response) => response.json())
+            .then((res) => {
+                if(res.result != null) {
+                    dispatch(checkToken());
+                }else{
+                    alert('Token is expired!')
+                }
+            })
+    } catch (error) {
+
     }
 }

@@ -63,7 +63,7 @@ var style = {
         backgroundColor: 'black',
         top: 60,
         left: 0,
-        width: 220,
+        width: '15%',
         height: '100%',
         float: 'left',
         opacity: 0.8,
