@@ -17,7 +17,9 @@ import {
     CLOSE_MODAL,
     SAVE_INPUT,
     SUBMIT_ADD_DEVICE_FORM,
-    SUBMIT_ADD_USER_FORM
+    SUBMIT_ADD_USER_FORM,
+    SUBMIT_LOGIN,
+    TOKEN_EXPIRED
 } from "./TypeAction";
 
 export const chooseOptionSidebar = (option) => {
@@ -157,5 +159,18 @@ export const submitAddDeviceForm = () => {
 export const submitAddUserForm = () => {
     return {
         type: SUBMIT_ADD_USER_FORM
+    }
+}
+
+export const login = (token) => {
+    return {
+        type: SUBMIT_LOGIN,
+        token
+    }
+}
+
+export const checkToken = () => {
+    return {
+        type: TOKEN_EXPIRED
     }
 }

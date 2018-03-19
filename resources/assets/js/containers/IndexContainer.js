@@ -7,6 +7,7 @@ const mapStateToProps = (state) => ({
     sideBar: state.sideBar,
     modal: state.modal,
     object: state.object_form,
+    token: state.token
 });
 const mapDispatchToProps = (dispatch) => ({
     getDevicesOfUser: () => {

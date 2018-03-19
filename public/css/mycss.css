@@ -43,6 +43,9 @@
   
   .rdtPicker .rdtTimeToggle {
     text-align: center;
+    font-size: 25px;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
   }
   
   .rdtPicker table {
@@ -215,7 +218,9 @@
   }
   .rdtCounter .rdtCount {
     height: 20%;
-    font-size: 1.2em;
+    font-size: 15px;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
   }
   
   .rdtMilli {
@@ -234,9 +239,3 @@
     cursor: default;
   }
 
-  .img_smartphone {
-    position:'absolute';
-    z-index: 99999;
-    bottom: -60px;
-    width: 40%;
-  }

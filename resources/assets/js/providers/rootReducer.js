@@ -17,10 +17,14 @@ import {
     CLOSE_MODAL,
     SAVE_INPUT,
     SUBMIT_ADD_DEVICE_FORM,
-    SUBMIT_ADD_USER_FORM
+    SUBMIT_ADD_USER_FORM,
+    SUBMIT_LOGIN,
+    TOKEN_EXPIRED
 } from "../actions/TypeAction";
 
 const initialState = {
+    token: null,
+    token_expired: false,
     admin_device_component: true,
     admin_user_component: false,
     admin_data_component: false,
@@ -51,7 +55,7 @@ const initialState = {
     value_role_user: '0',
 };
 
-const edit = (direct, id) => ('<a href="/#/'+direct+'/' + id + '" style="border-radius: 5px; padding: 5px 5px 5px 6px; background-color:#3498db; color:#fff;margin-right:10px;" class="fa fa-edit"></a>');
+const edit = (direct, id) => ('<a href="/#/' + direct + '/' + id + '" style="border-radius: 5px; padding: 5px 5px 5px 6px; background-color:#3498db; color:#fff;margin-right:10px;" class="fa fa-edit"></a>');
 const remove = (direct, id) => ('<a href="" style="border-radius: 5px; padding: 5px 7px 5px 7px; background-color:#e74c3c; color:#fff" class="fa fa-remove"></a>');
 const actRemove = (direct, id) => ('<div style="text-align: center">' + remove(direct, id) + '</div>');
 const act = (direct, id) => ('<div style="text-align: center">' + edit(direct, id) + remove(direct, id) + '</div>');
@@ -90,7 +94,7 @@ const Reducer = (state = initialState, action) => {
                         obj.code,
                         label,
                         obj.updated_at,
-                        act("device",obj.id)]);
+                        act("device", obj.id)]);
                 });
             }
             return {
@@ -109,7 +113,7 @@ const Reducer = (state = initialState, action) => {
                         obj.temperature,
                         obj.updated_at,
                         obj.status,
-                        actRemove("data",obj.id)]);
+                        actRemove("data", obj.id)]);
                 });
             }
             return {
@@ -127,7 +131,7 @@ const Reducer = (state = initialState, action) => {
                         obj.fullname,
                         obj.address,
                         obj.phone,
-                        act("user",obj.id)]);
+                        act("user", obj.id)]);
                 });
             }
             return {
@@ -145,7 +149,7 @@ const Reducer = (state = initialState, action) => {
                         obj.humidity,
                         obj.solution,
                         obj.updated_at,
-                        act("solution",obj.id)]);
+                        act("solution", obj.id)]);
                 });
             }
             return {
@@ -380,6 +384,17 @@ const Reducer = (state = initialState, action) => {
                 value_address_user: '',
                 value_phone_user: '',
                 value_role_user: '0',
+            }
+        case SUBMIT_LOGIN:
+            sessionStorage.setItem('token', action.token);
+            return {
+                ...state,
+                token: action.token
+            }
+        case TOKEN_EXPIRED:
+            return {
+                ...state,
+                token_expired: true
             }
         default:
             return {

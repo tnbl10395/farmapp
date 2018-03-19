@@ -8,18 +8,16 @@ export default class LoginComponent extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            location: false,
-            // X: 0
+            // X: 0,
+            username: '',
+            password: '',
         }
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    componentDidMount() {
-        setTimeout(() => {
-            this.setState({ location: true });
-            setInterval(() => {
-                this.setState({ location: !this.state.location });
-            }, 700)
-        }, 1900);
+    handleSubmit(e) {
+        e.preventDefault();
+        this.props.login(this.state.username, this.state.password);
     }
 
     // moveMouse(e) {
@@ -40,28 +38,26 @@ export default class LoginComponent extends React.Component {
                     // onMouseMove={(e) => this.moveMouse(e)}
                     className="col-md-8" style={style.intro} >
                     <StyleRoot>
-                        <img src="/images/smartphone.png" className="col-md-offset-3" 
+                        <img src="/images/smartphone.png" className="col-md-offset-3"
                             style={[
-                                style.img_smartphone, 
+                                style.img_smartphone,
                                 // { left: this.state.X }
                             ]}
                         // onMouseMoveOver={(e) => this.setState({ X: e.pageX })}
                         />
-
                     </StyleRoot>
-                    {
-                        this.state.location ? <img src="/images/location.png" style={style.img_location} /> : null
-                    }
+                    <LocationComponent token_expired={this.props.token_expired} />
                 </div>
-                <div className="col-md-3 col-md-offset-8" style={style.form}>
+                <div className="col-md-3 col-md-offset-8" style={style.frame}></div>
+                <div className="col-md-3 col-md-offset-8" style={style.formBlock}>
                     <h3 style={style.title}>LOGIN</h3>
                     <hr />
-                    <form>
+                    <form onSubmit={this.handleSubmit}>
                         <div className="form-group">
-                            <input type="text" placeholder="Username" className="form-control" />
+                            <input type="text" placeholder="Username" className="form-control" onChange={(username) => this.setState({ username: username.target.value })} value={this.state.username} />
                         </div>
                         <div className="form-group">
-                            <input type="password" placeholder="Password" className="form-control" />
+                            <input type="password" placeholder="Password" className="form-control" onChange={(password) => this.setState({ password: password.target.value })} value={this.state.password} />
                         </div>
                         <div className="form-group">
                             <button className="btn btn-success col-md-8 col-md-offset-2">SUBMIT</button>
@@ -70,6 +66,46 @@ export default class LoginComponent extends React.Component {
                 </div>
             </div>
         )
+    }
+}
+
+export class LogoComponent extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            logo: false
+        }
+    }
+    render() {
+        return (
+            <div></div>
+        )
+    }
+}
+
+export class LocationComponent extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            location: false
+        }
+    }
+    componentDidMount() {
+        setTimeout(() => {
+            if (this.props.token_expired == true) {
+                this.setState({ location: true });
+                this.interval = setInterval(() => {
+                    this.setState({ location: !this.state.location });
+                }, 700)
+            } else {
+                clearInterval(this.interval);
+            }
+        }, 1900);
+    }
+    render() {
+        return (
+            this.state.location ? <img src="/images/location.png" style={style.img_location} /> : null
+        );
     }
 }
 
@@ -100,36 +136,51 @@ const style = {
         position: 'absolute',
         zIndex: 999999,
         bottom: 0,
-        width: 400,
+        width: '30%',
+        // left:'30%',
         animation: '4s',
         animationName: Radium.keyframes(bounceInLeft, 'bounceInLeft'),
     },
     img_location: {
         position: 'absolute',
         zIndex: 99999,
-        width: '10%',
-        bottom: 300,
-        left: '45%',
+        width: '5%',
+        bottom: '30%',
+        left: '42%',
         // animation: '1s',
         // animationName: Radium.keyframes(bounce, 'bounce'),
     },
     intro: {
         position: 'absolute',
         left: 0,
+        height: '100%',
         // top: 0,
         bottom: 0,
     },
-    form: {
-        backgroundColor: 'black',
+    formBlock: {
         position: 'absolute',
         zIndex: 99999,
         borderRadius: 10,
         top: '25%',
-        opacity: 0.6,
-        padding: 20
+        padding: 20,
+    },
+    form: {
+        // position: 'absolute',
+        zIndex: 99999,
+    },
+    frame: {
+        backgroundColor: 'black',
+        position: 'absolute',
+        zIndex: 99999,
+        borderRadius: 10,
+        opacity: 0.5,
+        padding: 20,
+        top: '25%',
+        height: 280
     },
     title: {
         fontWeight: 'bold',
         textAlign: 'center',
+        color: 'white'
     },
 }
