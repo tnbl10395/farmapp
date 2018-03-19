@@ -12,15 +12,11 @@ export default class App extends React.Component {
         super(props);
     }
 
-    componentWillMount() {
-        this.props.checkToken(token);
-    }
-
     render() {
         return (
             <div>
                 {
-                    <Route path="/" component={this.props.token_expired ? Index : Login} />
+                    <Route path="/" component={token!=null ? Index : Login} />
                 }
                 {/* <Route path="/login" component={Login} /> */}
             </div>

@@ -14,7 +14,6 @@ export default class Modal extends React.Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        console.log(this.state.value);
     }
 
     render() {

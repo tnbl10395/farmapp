@@ -38,6 +38,7 @@ export class Chart extends React.Component {
 
     componentWillUnmount() {
         clearInterval(this.interval);
+        clearInterval(this.intervalDate);
     }
 
     changeInterval(option) {

@@ -6,7 +6,7 @@ import Content from '../components/Content';
 
 import { HashRouter } from 'react-router-dom';
 import Modal from '../templates/Modal';
-
+import { Alert } from '../templates/Alert';
 
 export default class Index extends Component {
     constructor(props) {
@@ -27,9 +27,14 @@ export default class Index extends Component {
                     <Content sideBar={this.props.sideBar} />
                     {
                         this.props.modal ?
-                        <Modal closeModal={this.props.closeModal}
-                            object={this.props.object} />
-                        : null
+                            <Modal closeModal={this.props.closeModal}
+                                object={this.props.object} />
+                            : null
+                    }
+                    {
+                        this.props.alert ?
+                            <Alert closeAlert={this.props.closeAlert} />
+                            : null
                     }
                 </div>
             </HashRouter>

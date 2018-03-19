@@ -1,5 +1,5 @@
-// export const URL = "http://116.98.208.44:3000/";
-export const URL = "http://localhost:3000/";
+export const URL = "http://116.98.208.44:3000/";
+// export const URL = "http://localhost:3000/";
 
 export const getDataDevicesAPI = (dispatch, getDataDevices) => {
     try {
@@ -314,8 +314,6 @@ export const getUserAPI = (dispatch, checkToken, token) => {
             .then((res) => {
                 if(res.result != null) {
                     dispatch(checkToken());
-                }else{
-                    alert('Token is expired!')
                 }
             })
     } catch (error) {

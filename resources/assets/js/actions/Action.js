@@ -19,9 +19,11 @@ import {
     SUBMIT_ADD_DEVICE_FORM,
     SUBMIT_ADD_USER_FORM,
     SUBMIT_LOGIN,
-    TOKEN_EXPIRED
+    TOKEN_EXPIRED,
+    OPEN_ALERT,
+    CLOSE_ALERT
 } from "./TypeAction";
-
+//Custom UI
 export const chooseOptionSidebar = (option) => {
     return {
         type: CHOOSE_OPTION_SIDEBAR,
@@ -34,21 +36,21 @@ export const openSidebar = () => {
         type: OPEN_SIDEBAR,
     }
 }
-
+//Get all information of devices to show it on table
 export const getDataDevices = (loadData) => {
     return {
         type: GET_DATA_DEVICES,
         loadData
     }
 }
-
+//Get all value of devices to show it on table
 export const getDataValues = (loadData) => {
     return {
         type: GET_DATA_VALUES,
         loadData
     }
 }
-
+//get all information of users to show it on table
 export const getDataUsers = (loadData) => {
     return {
         type: GET_DATA_USERS,
@@ -172,5 +174,17 @@ export const login = (token) => {
 export const checkToken = () => {
     return {
         type: TOKEN_EXPIRED
+    }
+}
+
+export const openAlert = () => {
+    return {
+        type: OPEN_ALERT
+    }
+}
+
+export const closeAlert = () => {
+    return {
+        type: CLOSE_ALERT
     }
 }
