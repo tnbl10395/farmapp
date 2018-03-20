@@ -14,18 +14,6 @@ class ManagesTableSeeder extends Seeder
         DB::table('manages')->insert(
             [
                 [
-                    'userId' => '1',
-                    'deviceId' => '1',
-                    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
-                    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()
-                ],
-                [
-                    'userId' => '1',
-                    'deviceId' => '2',
-                    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
-                    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()
-                ],
-                [
                     'userId' => '2',
                     'deviceId' => '1',
                     'created_at' => \Carbon\Carbon::now()->toDateTimeString(),

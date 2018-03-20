@@ -8,10 +8,10 @@ export default class Profile extends React.Component {
 
     render() {
         return (
-            <div style={this.props.sideBar?style.overview_true:style.overview_false}>
+            <div style={this.props.sideBar ? style.overview_true : style.overview_false}>
                 {/* <div style={this.props.sideBar?style.avatar_true:style.avatar_false}> */}
-                    <i className="fa fa-user-circle" style={this.props.sideBar?style.avatar_true:style.avatar_false}/>
-                    {/* <img src="/images/avatar.jpg" style={this.props.sideBar?style.avatar_true:style.avatar_false}/> */}
+                <i className="fa fa-user-circle" style={this.props.sideBar ? style.avatar_true : style.avatar_false} />
+                {/* <img src="/images/avatar.jpg" style={this.props.sideBar?style.avatar_true:style.avatar_false}/> */}
                 {/* </div> */}
             </div>
         );
@@ -22,28 +22,25 @@ const style = {
     overview_true: {
         height: 170,
         width: '100%',
-        display:'flex',
+        display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        marginLeft:5,
+        marginLeft: 5,
     },
     overview_false: {
         height: 70,
         width: '100%',
-        display:'flex',
+        display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        marginLeft:5,
+        marginLeft: 5,
     },
-    avatar_true: {        
-        // height:120,
-        // width:120,
-        // borderRadius: 100,
-        color:'green',
-        fontSize:100
+    avatar_true: {
+        color: 'green',
+        fontSize: '8vw'
     },
-    avatar_false: {        
-        color:'green',
-        fontSize:30
+    avatar_false: {
+        color: 'green',
+        fontSize: 30
     }
 }

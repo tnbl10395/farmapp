@@ -60,7 +60,7 @@ class UsersController extends Controller
         if(count($users) > 0){
             return response()->json($users);
         }else{
-            return response()->json('nodata');
+            return response()->json(null);
         }  
     }
 

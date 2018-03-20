@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Device;
+use App\Manage;
+use JWTAuth;
 
 class DevicesController extends Controller
 {
@@ -12,13 +14,18 @@ class DevicesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {   
-        $devices = Device::all();
-        if(count($devices) > 0){
+        $user = JWTAuth::toUser($request->header('token'));
+        if($user->role == '1') {
+            $devices = Device::all();
             return response()->json($devices);
-        }else{
-            return response()->json('No data');
+        }else if($user->role == '0'){
+            $device = Device::join('manages','devices.id','=','manages.deviceId')
+                            ->join('users','manages.userId','=','users.id')
+                            ->where('users.id',$user->id)
+                            ->get();
+            return response()->json($device);
         }      
     }
 
@@ -56,7 +63,7 @@ class DevicesController extends Controller
         if(!is_null($device)){
             return response()->json($device);
         }else{
-            return response()->json('message','nodata');
+            return response()->json('message', 'nodata');
         } 
     }
 
@@ -74,7 +81,7 @@ class DevicesController extends Controller
         $device->manufacturing_date = $request->manufacturing_date;
         $device->status = $request->status;
         $device->save();
-        return response()->json('message','updated');
+        return response()->json('message', 'updated');
     }
 
     /**
@@ -87,6 +94,30 @@ class DevicesController extends Controller
     {
         $device = Device::findOrFail($id);
         $device->delete();
-        return response()->json('message','deleted');
+        return response()->json('message', 'deleted');
+    }
+
+    public function userAddDevice(Request $request) 
+    {
+        $user = JWTAuth::toUser($request->header('token'));
+        $device = Device::where('code',$request->code)
+                            ->where('status','0')
+                            ->select('id')
+                            ->first();
+        // $checkDevice = Manage::where('deviceId',$device->id)->first();
+        if ($device == null) {
+            return response()->json(false);
+        }else {
+            $manage = new Manage();
+            $manage->userId = $user->id;
+            $manage->deviceId = $device->id;
+            $manage->save();
+            if ($manage == true) {
+                Device::where('id',$device->id)->update(['status' => '1']);
+                return response()->json(true);
+            }else {
+                return response()->json(false);
+            }
+        }
     }
 }

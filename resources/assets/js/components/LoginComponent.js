@@ -48,8 +48,8 @@ export default class LoginComponent extends React.Component {
                     </StyleRoot>
                     <LocationComponent token_expired={this.props.token_expired} />
                 </div>
-                <div className="col-md-3 col-md-offset-8" style={style.frame}></div>
-                <div className="col-md-3 col-md-offset-8" style={style.formBlock}>
+                <div className="col-xs-8 col-xs-offset-2 col-sm-6 col-sm-offset-3 col-md-3 col-md-offset-8" style={style.frame}></div>
+                <div className="col-xs-8 col-xs-offset-2 col-sm-6 col-sm-offset-3 col-md-3 col-md-offset-8" style={style.formBlock}>
                     <h3 style={style.title}>LOGIN</h3>
                     <hr />
                     <form onSubmit={this.handleSubmit}>
@@ -60,7 +60,7 @@ export default class LoginComponent extends React.Component {
                             <input type="password" placeholder="Password" className="form-control" onChange={(password) => this.setState({ password: password.target.value })} value={this.state.password} />
                         </div>
                         <div className="form-group">
-                            <button className="btn btn-success col-md-8 col-md-offset-2">SUBMIT</button>
+                            <button className="btn btn-success col-xs-8 col-xs-offset-2 col-sm-8 col-sm-offset-2 col-md-8 col-md-offset-2">SUBMIT</button>
                         </div>
                     </form>
                 </div>

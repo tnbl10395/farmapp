@@ -23,7 +23,7 @@ export class Table extends React.Component {
 
     render() {
         return (
-            <div style={this.props.sideBar ? style.main_content_true : style.main_content_false}>
+            <div style={this.props.sideBar ? style.main_content_true : style.main_content_false} className="col-md-10">
                 <div>
                     <lable style={{ color: 'white', fontWeight: 'bold', fontSize: 20 }}>{this.props.name} Table</lable>
                     {
@@ -58,9 +58,9 @@ const style = {
         backgroundColor: '#9E9E9E',
         position: 'absolute',
         padding: 10,
-        left: '16%',
+        left: '15.5%',
         top: 120,
-        width: '83%',
+        // width: '83%',
         fontSize: 12,
         opacity: 0.8,
         borderRadius: 5,

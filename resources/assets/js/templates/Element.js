@@ -51,6 +51,7 @@ const style = {
         marginLeft: 20,
         cursor: 'pointer',
         padding: 10,
+        fontSize: '1vw'
     },
     div_li_false: {
         marginLeft: 20,
@@ -63,12 +64,13 @@ const style = {
     },
     icon_false: {
         marginRight: 25,
-        fontSize:24
+        fontSize: 24
     },
     font_true: {
         fontWeight: 'bold',
         textDecoration: 'none',
-        color: 'white'
+        color: 'white',
+        fontSize: '1vw'
     },
     font_false: {
         fontWeight: 'bold',
