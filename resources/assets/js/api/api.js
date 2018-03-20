@@ -1,18 +1,33 @@
 export const URL = "http://116.98.208.44:3000/";
 // export const URL = "http://localhost:3000/";
+const token = sessionStorage.getItem('token');
+
+const removeToken = () => {
+        sessionStorage.removeItem('token');
+        window.location.href="/";
+}
 
 export const getDataDevicesAPI = (dispatch, getDataDevices) => {
     try {
         var data = [];
         fetch(URL + "api/devices", {
-            method: 'GET'
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'token': token
+            },
         })
             .then((response) => response.json())
             .then((res) => {
-                res.forEach(element => {
-                    data.push(element)
-                });
-                dispatch(getDataDevices(data));
+                if(res.message == "Token has expired"){
+                    removeToken()
+                }else{
+                    res.forEach(element => {
+                        data.push(element)
+                    });
+                    dispatch(getDataDevices(data));
+                }
             });
     } catch (error) {
     }
@@ -202,15 +217,24 @@ export const getOldChartBasedOnDayAPI = (dispatch, getOldChartBasedOnDay, device
 export const getDeviceOfUserAPI = (dispatch, getDeviceOfUser) => {
     try {
         var data = [];
-        fetch(URL + "api/manages")
+        fetch(URL + "api/manages", {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'token': token
+            }
+        })
             .then((response) => response.json())
             .then((res) => {
-                if (res.length > 0) {
+                if (res.message == 'Token has expired') {
+                    removeToken()
+                }else {
                     res.forEach(element => {
                         data.push(element)
                     });
+                    dispatch(getDeviceOfUser(data));
                 }
-                dispatch(getDeviceOfUser(data));
             });
     } catch (error) {
     }
@@ -234,7 +258,7 @@ export const submitAddDeviceFormAPI = (dispatch, submitAddDeviceForm, name, date
             .then((res) => {
                 if (res) {
                     dispatch(submitAddDeviceForm());
-                    window.location.reload();
+                    // window.location.reload();
                 } else {
                     alert('Code is unique');
                 }
@@ -314,8 +338,6 @@ export const getUserAPI = (dispatch, checkToken, token) => {
             .then((res) => {
                 if(res.result != null) {
                     dispatch(checkToken());
-                }else{
-                    alert('Token is expired!')
                 }
             })
     } catch (error) {

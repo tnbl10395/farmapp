@@ -93,16 +93,16 @@ export class LocationComponent extends React.Component {
     
     componentDidMount() {
         this.timeout = setTimeout(() => {
-                this.setState({ location: true });
-                this.interval = setInterval(() => {
-                    this.setState({ location: !this.state.location });
-                }, 700)
+            this.setState({ location: true });
+            this.interval = setInterval(() => {
+                this.setState({ location: !this.state.location });
+            }, 700)
         }, 1900);
     }
 
     componentWillUnmount() {
-        clearTimeout(this.timeout);
         clearInterval(this.interval);
+        clearTimeout(this.timeout)
     }
 
     render() {

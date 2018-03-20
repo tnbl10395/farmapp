@@ -26,3 +26,6 @@ export const SUBMIT_ADD_USER_FORM = 'SUBMIT_ADD_USER_FORM';
 export const SUBMIT_LOGIN = 'SUBMIT_LOGIN';
 //checkToken
 export const TOKEN_EXPIRED = 'TOKEN_EXPIRED';
+//Alert
+export const OPEN_ALERT = 'OPEN_ALERT';
+export const CLOSE_ALERT = 'CLOSE_ALERT';

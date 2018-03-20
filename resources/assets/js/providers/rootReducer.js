@@ -19,7 +19,9 @@ import {
     SUBMIT_ADD_DEVICE_FORM,
     SUBMIT_ADD_USER_FORM,
     SUBMIT_LOGIN,
-    TOKEN_EXPIRED
+    TOKEN_EXPIRED,
+    OPEN_ALERT,
+    CLOSE_ALERT
 } from "../actions/TypeAction";
 
 const initialState = {
@@ -46,13 +48,14 @@ const initialState = {
     object_form: null,
     value_name_device: '',
     value_code_device: '',
-    value_date_device: '',
+    value_date_device: new Date(),
     value_username_user: '',
     value_password_user: '',
     value_fullname_user: '',
     value_address_user: '',
     value_phone_user: '',
     value_role_user: '0',
+    alert: false
 };
 
 const edit = (direct, id) => ('<a href="/#/' + direct + '/' + id + '" style="border-radius: 5px; padding: 5px 5px 5px 6px; background-color:#3498db; color:#fff;margin-right:10px;" class="fa fa-edit"></a>');
@@ -88,10 +91,9 @@ const Reducer = (state = initialState, action) => {
                         var label = "<div class='label label-primary col-xs-12 col-sm-12 col-md-10' style='padding:5px;font-size:15px'>Inactive</div>";
                     }
                     data.push([
-                        obj.id,
+                        obj.code,
                         obj.name,
                         obj.manufacturing_date,
-                        obj.code,
                         label,
                         obj.updated_at,
                         act("device", obj.id)]);
@@ -373,7 +375,7 @@ const Reducer = (state = initialState, action) => {
                 ...state,
                 value_name_device: '',
                 value_code_device: '',
-                value_date_device: '',
+                // value_date_device: new Date(),
             }
         case SUBMIT_ADD_USER_FORM:
             return {
@@ -395,6 +397,16 @@ const Reducer = (state = initialState, action) => {
             return {
                 ...state,
                 token_expired: true
+            }
+        case OPEN_ALERT:
+            return {
+                ...state,
+                alert: true
+            }
+        case CLOSE_ALERT:
+            return {
+                ...state,
+                alert: false
             }
         default:
             return {
