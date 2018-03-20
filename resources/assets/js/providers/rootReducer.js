@@ -48,7 +48,7 @@ const initialState = {
     object_form: null,
     value_name_device: '',
     value_code_device: '',
-    value_date_device: '',
+    value_date_device: new Date(),
     value_username_user: '',
     value_password_user: '',
     value_fullname_user: '',
@@ -91,10 +91,9 @@ const Reducer = (state = initialState, action) => {
                         var label = "<div class='label label-primary col-xs-12 col-sm-12 col-md-10' style='padding:5px;font-size:15px'>Inactive</div>";
                     }
                     data.push([
-                        obj.id,
+                        obj.code,
                         obj.name,
                         obj.manufacturing_date,
-                        obj.code,
                         label,
                         obj.updated_at,
                         act("device", obj.id)]);
@@ -376,7 +375,7 @@ const Reducer = (state = initialState, action) => {
                 ...state,
                 value_name_device: '',
                 value_code_device: '',
-                value_date_device: '',
+                // value_date_device: new Date(),
             }
         case SUBMIT_ADD_USER_FORM:
             return {

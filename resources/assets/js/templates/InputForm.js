@@ -36,7 +36,7 @@ export class InputCalendar extends React.Component {
                 <Datetime
                     isValidDate={valid}
                     timeFormat={false}
-                    defaultValue={new Date()}
+                    value={this.props.inputDate}
                     onChange={(date) => this.props.saveInput(this.props.name, date._d)}
                 />
             </div>

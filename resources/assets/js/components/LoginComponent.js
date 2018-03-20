@@ -90,6 +90,7 @@ export class LocationComponent extends React.Component {
             location: false
         }
     }
+    
     componentDidMount() {
         this.timeout = setTimeout(() => {
             this.setState({ location: true });
