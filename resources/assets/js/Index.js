@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import Index from './containers/IndexContainer';
 import Login from './containers/LoginContainer';
 
-import { Route } from 'react-router-dom';
+import { Route, Redirect } from 'react-router-dom';
 
 const token = sessionStorage.getItem('token');
 
@@ -19,10 +19,7 @@ export default class App extends React.Component {
     render() {
         return (
             <div>
-                {
-                    <Route path="/" component={this.props.token_expired ? Index : Login} />
-                }
-                {/* <Route path="/login" component={Login} /> */}
+                <Route exact path="/" component={this.props.token_expired? Index : Login} />
             </div>
         );
     }

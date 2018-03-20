@@ -1,5 +1,5 @@
-// export const URL = "http://116.98.208.44:3000/";
-export const URL = "http://localhost:3000/";
+export const URL = "http://116.98.208.44:3000/";
+// export const URL = "http://localhost:3000/";
 
 export const getDataDevicesAPI = (dispatch, getDataDevices) => {
     try {

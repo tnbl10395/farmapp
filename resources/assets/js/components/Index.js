@@ -27,7 +27,8 @@ export default class Index extends Component {
                     <Content sideBar={this.props.sideBar} />
                     {
                         this.props.modal ?
-                        <Modal closeModal={this.props.closeModal}
+                        <Modal 
+                            closeModal={this.props.closeModal}
                             object={this.props.object} />
                         : null
                     }

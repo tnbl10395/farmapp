@@ -90,18 +90,21 @@ export class LocationComponent extends React.Component {
             location: false
         }
     }
+    
     componentDidMount() {
-        setTimeout(() => {
-            if (this.props.token_expired == true) {
+        this.timeout = setTimeout(() => {
                 this.setState({ location: true });
                 this.interval = setInterval(() => {
                     this.setState({ location: !this.state.location });
                 }, 700)
-            } else {
-                clearInterval(this.interval);
-            }
         }, 1900);
     }
+
+    componentWillUnmount() {
+        clearTimeout(this.timeout);
+        clearInterval(this.interval);
+    }
+
     render() {
         return (
             this.state.location ? <img src="/images/location.png" style={style.img_location} /> : null
