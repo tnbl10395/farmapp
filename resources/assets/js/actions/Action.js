@@ -21,7 +21,8 @@ import {
     SUBMIT_LOGIN,
     TOKEN_EXPIRED,
     OPEN_ALERT,
-    CLOSE_ALERT
+    CLOSE_ALERT,
+    SUBMIT_ADD_DEVICE_USER_FORM
 } from "./TypeAction";
 //Custom UI
 export const chooseOptionSidebar = (option) => {
@@ -158,15 +159,22 @@ export const submitAddDeviceForm = () => {
     }
 }
 
+export const submitAddDeviceUserForm = () => {
+    return {
+        type: SUBMIT_ADD_DEVICE_USER_FORM
+    }
+}
+
 export const submitAddUserForm = () => {
     return {
         type: SUBMIT_ADD_USER_FORM
     }
 }
 
-export const login = (token) => {
+export const login = (user, token) => {
     return {
         type: SUBMIT_LOGIN,
+        user,
         token
     }
 }
@@ -177,9 +185,10 @@ export const checkToken = () => {
     }
 }
 
-export const openAlert = () => {
+export const openAlert = (title) => {
     return {
-        type: OPEN_ALERT
+        type: OPEN_ALERT,
+        title
     }
 }
 

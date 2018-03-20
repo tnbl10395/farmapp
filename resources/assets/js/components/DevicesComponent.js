@@ -18,19 +18,28 @@ export default class DevicesComponent extends React.Component {
                         sideBar={this.props.sideBar} 
                         name={'Device'}
                         openModal={this.props.openModal}
-                        object={objectDevice}
+                        object={profile.role == "1" ? objectDeviceAdmin : objectDeviceUser}
                         /> 
                 : null
         );
     }
 }
 
-var objectDevice = {
+const profile = JSON.parse(sessionStorage.getItem('profile')); 
+
+var objectDeviceAdmin = {
     title: "ADD DEVICE",
     property: [
         {name:"Name",placeholder:'Please input name'},
         {name:"Code",placeholder:'Please input code'},
         {name:"Manufacturing Date", placeholder:'Please input Manufacturing Date'}
+    ]
+};
+
+var objectDeviceUser = {
+    title: "ADD DEVICE",
+    property: [
+        {name:"Code",placeholder:'Please input code'},
     ]
 };
 

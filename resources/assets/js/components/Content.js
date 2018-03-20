@@ -14,20 +14,24 @@ export default class Content extends React.Component {
 
     render() {
         return (
-                <div>
-                    <div style={this.props.sideBar ? style.content_true : style.content_false}>
-                    </div>
-                    <div style={style.breadcrumb}>
-                        {/* <a style={style.tag_a}>Home</a> > Table */}
-                    </div>
-                    <Switch>
-                        <Route exact path="/" component={Devices} />
-                        <Route exact path="/device" component={Devices} />
-                        <Route exact path="/user" component={User} />
-                        <Route exact path="/data" component={Data} />
-                        <Route exact path="/solution" component={Solution} />
-                    </Switch>
+            <div>
+                <div style={this.props.sideBar ? style.content_true : style.content_false}>
                 </div>
+                <div style={style.breadcrumb}>
+                    {/* <a style={style.tag_a}>Home</a> > Table */}
+                </div>
+                <Switch>
+                    <Route exact path="/" component={Devices} />
+                    <Route exact path="/device" component={Devices} />
+                    {
+                        this.props.profile.role == "1" ?
+                            <Route exact path="/user" component={User} />
+                            : null
+                    }
+                    <Route exact path="/data" component={Data} />
+                    <Route exact path="/solution" component={Solution} />
+                </Switch>
+            </div>
 
         )
     }

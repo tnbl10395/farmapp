@@ -8,6 +8,8 @@ import { HashRouter } from 'react-router-dom';
 import Modal from '../templates/Modal';
 import { Alert } from '../templates/Alert';
 
+const profile = JSON.parse(sessionStorage.getItem('profile'));
+
 export default class Index extends Component {
     constructor(props) {
         super(props);
@@ -23,8 +25,9 @@ export default class Index extends Component {
                 <div className="container-fluid">
                     <img src="/images/farmintro.jpg" style={style.img} />
                     <TopBar />
-                    <SideBar />
-                    <Content sideBar={this.props.sideBar} />
+                    <SideBar profile={profile} />
+                    <Content sideBar={this.props.sideBar} 
+                             profile={profile} />
                     {
                         this.props.modal ?
                             <Modal closeModal={this.props.closeModal}
@@ -33,7 +36,8 @@ export default class Index extends Component {
                     }
                     {
                         this.props.alert ?
-                            <Alert closeAlert={this.props.closeAlert} />
+                            <Alert closeAlert={this.props.closeAlert} 
+                                   title={this.props.title }/>
                             : null
                     }
                 </div>

@@ -5,16 +5,20 @@ export default class TopBar extends React.Component {
     constructor(props) {
         super(props);
     }
-//this.props.openAlert()
+
     render() {
         return (
             <div>
                 <div style={style.topBar} className="row">
                     <div style={style.divTitle} className="col-md-3 col-sm-3 col-3">
                         <p style={style.title}>LP<a href="/" style={style.a}>Farm</a></p>
-                        <a onClick={() => this.props.openSidebar()} style={style.a_bar}><i className="fa fa-bars" /></a>
+                        <a onClick={() => this.props.openSidebar()} style={style.a_bar}>
+                            {this.props.sideBar ? <i className="fa fa-caret-left" /> : <i className="fa fa-caret-right" />}
+                        </a>
                     </div>
-                    <a onClick={() => {sessionStorage.removeItem('token');window.location.href="/"}} style={style.a_out}><i className="fa fa-sign-out" /></a>
+                    <a onClick={() => {
+                        this.props.openAlert('LOGOUT');
+                    }} style={style.a_out}><i className="fa fa-sign-out" /></a>
                 </div>
             </div>
         );
@@ -29,7 +33,7 @@ var style = {
         height: 60,
         zIndex: 99999,
         boxShadow: "1px 7px 3px black",
-        // opacity: 0.7,
+        // opacity: 0.8,
     },
     divTitle: {
         position: 'fixed',

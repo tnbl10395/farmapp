@@ -18,12 +18,13 @@ use Illuminate\Http\Request;
 // });
 
 Route::post('auth/login', 'UsersController@login');
-// Route::group(['middleware' => 'jwt.auth'], function () {
+Route::group(['middleware' => 'jwt.auth'], function () {
     Route::get('user-info', 'UsersController@getUserInfo');
     //Devices
     Route::get('devices', 'DevicesController@index');
     Route::get('devices/{id}', 'DevicesController@show');
     Route::post('devices', 'DevicesController@store');
+    Route::post('user-add-device', 'DevicesController@userAddDevice');
     Route::post('devices/{id}', 'DevicesController@update');
     Route::delete('devices/{id}', 'DevicesController@destroy');
 
@@ -62,7 +63,7 @@ Route::post('auth/login', 'UsersController@login');
 
     //Location 
     Route::get('location/{id}','LocationsController@show');
-// });
+});
 Route::group(['middleware' => 'key'], function () {
     Route::get('send-data', 'DataController@store');
     Route::get('send-location','LocationsController@store');

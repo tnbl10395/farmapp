@@ -21,7 +21,8 @@ import {
     SUBMIT_LOGIN,
     TOKEN_EXPIRED,
     OPEN_ALERT,
-    CLOSE_ALERT
+    CLOSE_ALERT,
+    SUBMIT_ADD_DEVICE_USER_FORM
 } from "../actions/TypeAction";
 
 const initialState = {
@@ -55,7 +56,8 @@ const initialState = {
     value_address_user: '',
     value_phone_user: '',
     value_role_user: '0',
-    alert: false
+    alert: false,
+    title_alert: ''
 };
 
 const edit = (direct, id) => ('<a href="/#/' + direct + '/' + id + '" style="border-radius: 5px; padding: 5px 5px 5px 6px; background-color:#3498db; color:#fff;margin-right:10px;" class="fa fa-edit"></a>');
@@ -375,7 +377,11 @@ const Reducer = (state = initialState, action) => {
                 ...state,
                 value_name_device: '',
                 value_code_device: '',
-                // value_date_device: new Date(),
+            }
+        case SUBMIT_ADD_DEVICE_USER_FORM:
+            return {
+                ...state,
+                value_code_device: '',
             }
         case SUBMIT_ADD_USER_FORM:
             return {
@@ -389,6 +395,7 @@ const Reducer = (state = initialState, action) => {
             }
         case SUBMIT_LOGIN:
             sessionStorage.setItem('token', action.token);
+            sessionStorage.setItem('profile',JSON.stringify(action.user));
             return {
                 ...state,
                 token: action.token
@@ -401,7 +408,8 @@ const Reducer = (state = initialState, action) => {
         case OPEN_ALERT:
             return {
                 ...state,
-                alert: true
+                alert: true,
+                title_alert: action.title 
             }
         case CLOSE_ALERT:
             return {

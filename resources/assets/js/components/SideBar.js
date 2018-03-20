@@ -16,9 +16,9 @@ export default class SideBar extends React.Component {
 
     render() {
         return (
-            <div style={ this.props.sideBar ? style.sideBar_true : style.sideBar_false} className="row">
+            <div style={this.props.sideBar ? style.sideBar_true : style.sideBar_false} className="row">
                 <div>
-                    <Profile sideBar={this.props.sideBar}/>
+                    <Profile sideBar={this.props.sideBar} />
                     <div style={style.line}></div>
                 </div>
                 <div style={style.div_ul}>
@@ -26,32 +26,38 @@ export default class SideBar extends React.Component {
                         name={"Manage Devices"}
                         choose={this.props.admin_device_component}
                         chooseOption={this.props.chooseOption}
-                        link={"device"} 
+                        link={"device"}
                         sideBar={this.props.sideBar}
-                        />
-                    <Element icon={'fa fa-users'}
-                        name={"Manage User"}
-                        choose={this.props.admin_user_component}
-                        chooseOption={this.props.chooseOption}
-                        link={"user"} 
-                        sideBar={this.props.sideBar}
-                        />
+                    />
+                    {
+                        this.props.profile.role == "1" ?
+                            <Element icon={'fa fa-users'}
+                                name={"Manage User"}
+                                choose={this.props.admin_user_component}
+                                chooseOption={this.props.chooseOption}
+                                link={"user"}
+                                sideBar={this.props.sideBar}
+                            />
+                            : null
+                    }
                     <Element icon={'fa fa-database'}
                         name={"Manage Data"}
                         choose={this.props.admin_data_component}
                         chooseOption={this.props.chooseOption}
-                        link={"data"} 
+                        link={"data"}
                         sideBar={this.props.sideBar}
-                        />
+                    />
                     <Element icon={'fa fa-book'}
                         name={"Manage Solution"}
                         choose={this.props.admin_solution_component}
                         chooseOption={this.props.chooseOption}
-                        link={"solution"} 
+                        link={"solution"}
                         sideBar={this.props.sideBar}
-                        />
-
+                    />
                 </div>
+                {   
+                    this.props.sideBar ? <div style={style.footer}>Enc@Lewis</div> : null
+                }
             </div>
         )
     }
@@ -66,7 +72,7 @@ var style = {
         width: '15%',
         height: '100%',
         float: 'left',
-        opacity: 0.8,
+        opacity: 0.9,
         zIndex: 1,
         boxShadow: "1px 7px 3px black",
     },
@@ -90,5 +96,12 @@ var style = {
         opacity: 0.3,
         width: '100%',
         height: 0.5
+    },
+    footer: {
+        position: 'fixed',
+        left: '4%',
+        bottom: 5,
+        fontSize: '1vw',
+        color: 'white'
     }
 }

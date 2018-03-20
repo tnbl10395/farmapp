@@ -18,7 +18,7 @@ class SolutionsController extends Controller
         if(count($solutions) > 0){
             return response()->json($solutions);
         }else{
-            return response()->json([$message=>'nodata']);
+            return response()->json(null);
         }      
     }
 

@@ -1,28 +1,36 @@
 export const URL = "http://116.98.208.44:3000/";
 // export const URL = "http://localhost:3000/";
+
 const token = sessionStorage.getItem('token');
 
+const headers = {
+    'Accept': 'application/json',
+    'Content-Type': 'application/json',
+    'token': token
+}
+
+const method = {
+    GET: "GET",
+    POST: "POST",
+}
+
 const removeToken = () => {
-        sessionStorage.removeItem('token');
-        window.location.href="/";
+    sessionStorage.removeItem('token');
+    window.location.href = "/";
 }
 
 export const getDataDevicesAPI = (dispatch, getDataDevices) => {
     try {
         var data = [];
         fetch(URL + "api/devices", {
-            method: 'GET',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                'token': token
-            },
+            method: method.GET,
+            headers: headers,
         })
             .then((response) => response.json())
             .then((res) => {
-                if(res.message == "Token has expired"){
+                if (res.message == "Token has expired") {
                     removeToken()
-                }else{
+                } else {
                     res.forEach(element => {
                         data.push(element)
                     });
@@ -36,7 +44,10 @@ export const getDataDevicesAPI = (dispatch, getDataDevices) => {
 export const getDataValuesAPI = (dispatch, getDataValues) => {
     try {
         var data = [];
-        fetch(URL + "api/data")
+        fetch(URL + "api/data", {
+            method: method.GET,
+            headers: headers
+        })
             .then((response) => response.json())
             .then((res) => {
                 if (res.length > 0) {
@@ -53,7 +64,10 @@ export const getDataValuesAPI = (dispatch, getDataValues) => {
 export const getDataUsersAPI = (dispatch, getDataUsers) => {
     try {
         var data = [];
-        fetch(URL + "api/users")
+        fetch(URL + "api/users", {
+            method: method.GET,
+            headers: headers
+        })
             .then((response) => response.json())
             .then((res) => {
                 res.forEach(element => {
@@ -68,12 +82,17 @@ export const getDataUsersAPI = (dispatch, getDataUsers) => {
 export const getDataSolutionsAPI = (dispatch, getDataSolutions) => {
     try {
         var data = [];
-        fetch(URL + "api/solutions")
+        fetch(URL + "api/solutions", {
+            method: method.GET,
+            headers: headers
+        })
             .then((response) => response.json())
             .then((res) => {
-                res.forEach(element => {
-                    data.push(element)
-                });
+                if (res.length > 0) {
+                    res.forEach(element => {
+                        data.push(element)
+                    });
+                }
                 dispatch(getDataSolutions(data));
             });
     } catch (error) {
@@ -83,7 +102,10 @@ export const getDataSolutionsAPI = (dispatch, getDataSolutions) => {
 export const getRealChartBasedOnHourAPI = (dispatch, getRealChartBasedOnHour, device) => {
     try {
         var data = [];
-        fetch(URL + "api/data-real-chart-hour/" + device)
+        fetch(URL + "api/data-real-chart-hour/" + device, {
+            method: method.GET,
+            headers: headers
+        })
             .then((response) => response.json())
             .then((res) => {
                 if (res.length > 0) {
@@ -101,7 +123,10 @@ export const getRealChartBasedOnHourAPI = (dispatch, getRealChartBasedOnHour, de
 export const getRealChartBasedOnDayAPI = (dispatch, getRealChartBasedOnDay, device) => {
     try {
         var data = [];
-        fetch(URL + "api/data-real-chart-day/" + device)
+        fetch(URL + "api/data-real-chart-day/" + device, {
+            method: method.GET,
+            headers: headers
+        })
             .then((response) => response.json())
             .then((res) => {
                 if (res.length > 0) {
@@ -120,7 +145,10 @@ export const getRealChartWithIntervalAPI = (dispatch, changeInterval, device, da
     var link = (option == "1 Hour") ? "hour" : "day";
     try {
         var data = [];
-        fetch(URL + "api/data-real-chart-" + link + "/" + device)
+        fetch(URL + "api/data-real-chart-" + link + "/" + device, {
+            method: method.GET,
+            headers: headers
+        })
             .then((response) => response.json())
             .then((res) => {
                 if (res.length > 0) {
@@ -140,11 +168,8 @@ export const getOldChartWithIntervalAPI = (dispatch, changeInterval, device, dat
     try {
         var data = [];
         fetch(URL + "api/data-old-chart-" + link, {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            },
+            method: method.POST,
+            headers: headers,
             body: variable
         })
             .then((response) => response.json())
@@ -164,11 +189,8 @@ export const getOldChartBasedOnHourAPI = (dispatch, getOldChartBasedOnHour, devi
     try {
         var data = [];
         fetch(URL + "api/data-old-chart-hour", {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            },
+            method: method.POST,
+            headers: headers,
             body: JSON.stringify({
                 deviceId: device,
                 hour: date,
@@ -191,11 +213,8 @@ export const getOldChartBasedOnDayAPI = (dispatch, getOldChartBasedOnDay, device
     try {
         var data = [];
         fetch(URL + "api/data-old-chart-day", {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            },
+            method: method.POST,
+            headers: headers,
             body: JSON.stringify({
                 deviceId: device,
                 day: date,
@@ -218,18 +237,14 @@ export const getDeviceOfUserAPI = (dispatch, getDeviceOfUser) => {
     try {
         var data = [];
         fetch(URL + "api/manages", {
-            method: 'GET',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                'token': token
-            }
+            method: method.GET,
+            headers: headers
         })
             .then((response) => response.json())
             .then((res) => {
                 if (res.message == 'Token has expired') {
                     removeToken()
-                }else {
+                } else {
                     res.forEach(element => {
                         data.push(element)
                     });
@@ -243,11 +258,8 @@ export const getDeviceOfUserAPI = (dispatch, getDeviceOfUser) => {
 export const submitAddDeviceFormAPI = (dispatch, submitAddDeviceForm, name, date, code) => {
     try {
         fetch(URL + "api/devices", {
-            method: "POST",
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            },
+            method: method.POST,
+            headers: headers,
             body: JSON.stringify({
                 name: name,
                 code: code,
@@ -258,9 +270,31 @@ export const submitAddDeviceFormAPI = (dispatch, submitAddDeviceForm, name, date
             .then((res) => {
                 if (res) {
                     dispatch(submitAddDeviceForm());
-                    // window.location.reload();
+                    window.location.reload();
                 } else {
                     alert('Code is unique');
+                }
+            })
+    } catch (error) {
+    }
+}
+
+export const submitAddDeviceUserFormAPI = (dispatch, submitAddDeviceUserForm, code) => {
+    try {
+        fetch(URL + "api/user-add-device", {
+            method: method.POST,
+            headers: headers,
+            body: JSON.stringify({
+                code: code
+            })
+        })
+            .then((response) => response.json())
+            .then((res) => {
+                if (res) {
+                    dispatch(submitAddDeviceUserForm());
+                    window.location.reload();
+                }else {
+                    alert('Please check code again!')
                 }
             })
     } catch (error) {
@@ -270,11 +304,8 @@ export const submitAddDeviceFormAPI = (dispatch, submitAddDeviceForm, name, date
 export const submitAddUserFormAPI = (dispatch, submitAddUserForm, username, password, fullname, address, phone, role) => {
     try {
         fetch(URL + "api/users", {
-            method: "POST",
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            },
+            method: method.POST,
+            headers: headers,
             body: JSON.stringify({
                 username: username,
                 password: password,
@@ -300,10 +331,10 @@ export const submitAddUserFormAPI = (dispatch, submitAddUserForm, username, pass
 export const loginAPI = (dispatch, login, username, password) => {
     try {
         fetch(URL + "api/auth/login", {
-            method: "POST",
+            method: method.POST,
             headers: {
                 'Accept': 'application/json',
-                'Content-Type': 'application/json',
+                'Content-Type': 'application/json'
             },
             body: JSON.stringify({
                 username: username,
@@ -313,8 +344,7 @@ export const loginAPI = (dispatch, login, username, password) => {
             .then((response) => response.json())
             .then((res) => {
                 if (res.token != null) {
-                    dispatch(login(res.token));
-                    window.location.href = '/';
+                    getUserAPI(dispatch, login, res.token);
                 } else {
                     alert('Username or password is invalid!')
                 }
@@ -324,10 +354,10 @@ export const loginAPI = (dispatch, login, username, password) => {
     }
 }
 //getUser 
-export const getUserAPI = (dispatch, checkToken, token) => {
+export const getUserAPI = (dispatch, login, token) => {
     try {
         fetch(URL + "api/user-info", {
-            method: "GET",
+            method: method.GET,
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
@@ -336,9 +366,8 @@ export const getUserAPI = (dispatch, checkToken, token) => {
         })
             .then((response) => response.json())
             .then((res) => {
-                if(res.result != null) {
-                    dispatch(checkToken());
-                }
+                dispatch(login(res.result, token));
+                window.location.href = '/';
             })
     } catch (error) {
 
