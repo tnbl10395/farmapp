@@ -5,7 +5,7 @@ export default class TopBar extends React.Component {
     constructor(props) {
         super(props);
     }
-
+//this.props.openAlert()
     render() {
         return (
             <div>
@@ -14,7 +14,7 @@ export default class TopBar extends React.Component {
                         <p style={style.title}>LP<a href="/" style={style.a}>Farm</a></p>
                         <a onClick={() => this.props.openSidebar()} style={style.a_bar}><i className="fa fa-bars" /></a>
                     </div>
-                    <a onClick={() => this.props.openAlert()} style={style.a_out}><i className="fa fa-sign-out" /></a>
+                    <a onClick={() => {sessionStorage.removeItem('token');window.location.href="/"}} style={style.a_out}><i className="fa fa-sign-out" /></a>
                 </div>
             </div>
         );

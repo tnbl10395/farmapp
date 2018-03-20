@@ -32,6 +32,7 @@ export class AddDeviceComponent extends React.Component {
                     <InputCalendar
                         element={this.props.property[2]}
                         name={'DEVICE_DATE'}
+                        inputDate={this.props.inputDate}
                         saveInput={this.props.saveInput} />
                 </div>
                 <input type="submit" className="btn btn-success col-md-2" value="Add" />

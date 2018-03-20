@@ -35,10 +35,9 @@ var objectDevice = {
 };
 
 var columns = [
-    { title: "ID" },
+    { title: "Code"},
     { title: "Name" },
     { title: "Manufacturing Date" },
-    { title: "Code"},
     { title: "Status" },
     { title: "Updated Date" },
     { title: "Action" }

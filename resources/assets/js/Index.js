@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import Index from './containers/IndexContainer';
 import Login from './containers/LoginContainer';
 
-import { Route } from 'react-router-dom';
+import { Route, Redirect } from 'react-router-dom';
 
 const token = sessionStorage.getItem('token');
 
