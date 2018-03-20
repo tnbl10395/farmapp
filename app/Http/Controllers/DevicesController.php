@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Device;
+use JWTAuth;
 
 class DevicesController extends Controller
 {
@@ -12,13 +13,18 @@ class DevicesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {   
-        $devices = Device::all();
-        if(count($devices) > 0){
+        $user = JWTAuth::toUser($request->header('token'));
+        if($user->role == '1') {
+            $devices = Device::all();
             return response()->json($devices);
-        }else{
-            return response()->json('No data');
+        }else if($user->role == '0'){
+            $device = Device::join('manages','devices.id','=','manages.deviceId')
+                            ->join('users','manages.userId','=','users.id')
+                            ->where('users.id',$user->id)
+                            ->get();
+            return response()->json($device);
         }      
     }
 

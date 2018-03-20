@@ -16,17 +16,21 @@ class ManagesController extends Controller
      */
     public function index(Request $request)
     {   
-        // $user = JWTAuth::toUser($request->token);
-        $manages = Manage::join('devices','manages.deviceId','=','devices.id')
-                        ->where('userId',1)
-                        ->select('manages.deviceId as id','devices.name')
-                        ->orderBy('id')
-                        ->get();
-        if(count($manages) > 0){
+        $user = JWTAuth::toUser($request->header('token'));
+        if($user->role == '1'){
+            $manages = Manage::join('devices','manages.deviceId','=','devices.id')
+            ->select('manages.deviceId as id','devices.name')
+            ->orderBy('id')
+            ->get();
             return response()->json($manages);
         }else{
-            return response()->json([$message=>'nodata']);
-        }      
+            $manages = Manage::join('devices','manages.deviceId','=','devices.id')
+            ->where('userId',$user->id)
+            ->select('manages.deviceId as id','devices.name')
+            ->orderBy('id')
+            ->get();
+            return response()->json($manages);
+        }
     }
 
     /**
