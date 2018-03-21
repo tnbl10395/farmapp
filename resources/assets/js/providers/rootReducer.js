@@ -60,8 +60,8 @@ const initialState = {
     title_alert: ''
 };
 
-const edit = (direct, id) => ('<a href="/#/' + direct + '/' + id + '" style="border-radius: 5px; padding: 5px 5px 5px 6px; background-color:#3498db; color:#fff;margin-right:10px;" class="fa fa-edit"></a>');
-const remove = (direct, id) => ('<a href="" style="border-radius: 5px; padding: 5px 7px 5px 7px; background-color:#e74c3c; color:#fff" class="fa fa-remove"></a>');
+const edit = (direct, id) => ('<a href="/#/' + direct + '/update/' + id + '" style="border-radius: 5px; padding: 5px 5px 5px 6px; background-color:#3498db; color:#fff;margin-right:10px;" class="fa fa-edit"></a>');
+const remove = (direct, id) => ('<a href="/#/' + direct + '/delete/' + id + '" style="border-radius: 5px; padding: 5px 7px 5px 7px; background-color:#e74c3c; color:#fff" class="fa fa-remove"></a>');
 const actRemove = (direct, id) => ('<div style="text-align: center">' + remove(direct, id) + '</div>');
 const act = (direct, id) => ('<div style="text-align: center">' + edit(direct, id) + remove(direct, id) + '</div>');
 

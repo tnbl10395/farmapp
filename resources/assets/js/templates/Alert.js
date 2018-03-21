@@ -7,7 +7,14 @@ export class Alert extends React.Component {
         super(props)
     }
 
+    componentDidMount() {
+        var url = window.location.toString();
+        var id = url.slice(url.indexOf('/#/') + 17);    
+        var name = url.slice(url.indexOf('/#/') + 3, url.indexOf(id) - 1);
+    }
+
     render() {
+
         return (
             <div>
                 <div style={style.overview}></div>
@@ -25,6 +32,10 @@ const body = (title, closeAlert) => {
     switch (title) {
         case 'LOGOUT':
             return confirmLogout(closeAlert);
+        // case 'DEVICE/DELETE':
+        //     return 
+        default: 
+            return null;
     }
 };
 
