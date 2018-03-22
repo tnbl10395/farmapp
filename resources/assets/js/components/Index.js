@@ -37,7 +37,7 @@ export default class Index extends Component {
                     {
                         this.props.alert ?
                             <Alert closeAlert={this.props.closeAlert} 
-                                   title={this.props.title }/>
+                                   title={this.props.title} />
                             : null
                     }
                 </div>

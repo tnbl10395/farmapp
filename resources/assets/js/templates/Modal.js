@@ -23,7 +23,7 @@ export default class Modal extends React.Component {
                     onClick={() => this.props.closeModal()}>
                 </div>
                 <StyleRoot>
-                    <div style={style.form} className="col-md-6 col-md-offset-3">
+                    <div style={style.form} className="col-xs-8 col-xs-offset-2 col-md-6 col-md-offset-3">
                         <h3 style={style.title}>{this.props.object.title} FORM</h3>
                         <hr />
                         {
