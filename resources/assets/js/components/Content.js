@@ -5,7 +5,7 @@ import User from '../containers/UserContainer';
 import Data from '../containers/DataContainer';
 import Solution from '../containers/SolutionContainer';
 import { HashRouter } from 'react-router-dom';
-import { Alert } from '../templates/Alert';
+import List from '../templates/List';
 
 export default class Content extends React.Component {
     constructor(props) {
@@ -30,7 +30,7 @@ export default class Content extends React.Component {
                     }
                     <Route exact path="/data" component={Data} />
                     <Route exact path="/solution" component={Solution} />
-                    <Route path="/device/:number" component={Alert} />
+                    <Route path="/list" component={List} />
                 </Switch>
             </div>
 

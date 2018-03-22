@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Table } from '../templates/Table';
+import List from '../templates/List';
 
 export default class UserComponent extends React.Component {
     constructor(props) {
@@ -12,13 +13,20 @@ export default class UserComponent extends React.Component {
 
     render() {
         return (
+            // this.props.dataSet.length > 0 ?
+            //     <Table dataSet={this.props.dataSet}
+            //         columns={columns}
+            //         object={objectUser}
+            //         openModal={this.props.openModal}
+            //         sideBar={this.props.sideBar} name={"User"} />
+            //     : null
             this.props.dataSet.length > 0 ?
-                <Table dataSet={this.props.dataSet}
-                    columns={columns}
-                    object={objectUser}
-                    openModal={this.props.openModal}
-                    sideBar={this.props.sideBar} name={"User"} />
-                : null
+            <List 
+                dataSet={this.props.dataSet}
+                object={objectUser}
+                openModal={this.props.openModal}
+                sideBar={this.props.sideBar} name={"User"} />
+            : null
         );
     }
 }

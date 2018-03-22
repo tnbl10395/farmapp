@@ -4,7 +4,7 @@ import { InputText, InputCalendar } from '../templates/InputForm';
 export class AddDeviceComponent extends React.Component {
     constructor(props) {
         super(props);
-        this.handleSubmit = this.handleSubmitAdmin.bind(this);
+        this.handleSubmitAdmin = this.handleSubmitAdmin.bind(this);
         this.handleSubmitUser = this.handleSubmitUser.bind(this);
     }
 

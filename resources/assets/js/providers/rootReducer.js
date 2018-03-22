@@ -103,7 +103,7 @@ const Reducer = (state = initialState, action) => {
             }
             return {
                 ...state,
-                data_devices: data
+                data_devices: action.loadData
             }
         case GET_DATA_VALUES:
             var data = [];
@@ -140,7 +140,7 @@ const Reducer = (state = initialState, action) => {
             }
             return {
                 ...state,
-                data_users: data
+                data_users: action.loadData
             }
         case GET_DATA_SOLUTIONS:
             var data = [];
