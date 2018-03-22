@@ -94,7 +94,7 @@ class DevicesController extends Controller
     {
         $device = Device::findOrFail($id);
         $device->delete();
-        return response()->json('message', 'deleted');
+        return response()->json($device);
     }
 
     public function userAddDevice(Request $request) 

@@ -17,7 +17,7 @@ export default class TopBar extends React.Component {
                         </a>
                     </div>
                     <a onClick={() => {
-                        this.props.openAlert('LOGOUT');
+                        this.props.openAlert('LOGOUT', '');
                     }} style={style.a_out}><i className="fa fa-sign-out" /></a>
                 </div>
             </div>

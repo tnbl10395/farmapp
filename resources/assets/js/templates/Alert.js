@@ -7,12 +7,6 @@ export class Alert extends React.Component {
         super(props)
     }
 
-    componentDidMount() {
-        var url = window.location.toString();
-        var id = url.slice(url.indexOf('/#/') + 17);    
-        var name = url.slice(url.indexOf('/#/') + 3, url.indexOf(id) - 1);
-    }
-
     render() {
 
         return (
@@ -20,7 +14,7 @@ export class Alert extends React.Component {
                 <div style={style.overview}></div>
                 <StyleRoot>
                     <div style={style.alert} className="col-xs-6 col-xs-offset-3 col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
-                        {bodyAlert(this.props.title, this.props.closeAlert)}
+                        {bodyAlert(this.props.title, this.props.closeAlert, this.props.id, this.props.delete)}
                     </div>
                 </StyleRoot>
             </div>
@@ -34,66 +28,37 @@ const confirm = () => {
     window.location.href = "/";
 }
 
-const bodyAlert = (title, closeAlert) => {
+const bodyAlert = (title, closeAlert, id, del) => {
     switch (title) {
         case 'LOGOUT':
             return confirmLogout(closeAlert);
+        case 'DELETE_DEVICE':
+            return deleteDevice(closeAlert, id, del);
     }
 };
+
+const deleteDevice = (closeAlert, id, del) => (
+    <div>
+        <div style={{textAlign: 'center'}}>
+            <i className="fa fa-exclamation-triangle" style={style.icon}/>
+            <h3>Are you sure you want to delete this device?</h3>
+            <p>You can lose all data of this device</p>
+        </div>
+        <hr />
+        <div className="row">
+            <button onClick={() => closeAlert()} className="btn btn-default col-xs-5 col-sm-5 col-md-3 col-xs-offset-1 col-sm-offset-1 col-md-offset-5" style={{ marginRight: 5 }}>Cancel</button>
+            <button onClick={() => del(id)} className="btn btn-success col-xs-5 col-sm-5 col-md-3">Yes</button>
+        </div>
+    </div>
+);
 
 const confirmLogout = (closeAlert) => (
     <div>
         <h3>Are you sure logout?</h3>
         <hr />
         <div className="row">
-            <button onClick={() => closeAlert()} className="btn btn-default col-md-3 col-md-offset-5" style={{ marginRight: 10 }}>Cancel</button>
-            <button onClick={() => confirm()} className="btn btn-success col-md-3">Yes</button>
-        </div>
-    </div>
-);
-
-export class AlertDelete extends React.Component {
-        constructor(props) {
-        super(props)
-    }
-
-    render() {
-
-        var url = window.location.toString();
-        var id = url.slice(url.indexOf('/#/') + 17);    
-        var name = url.slice(url.indexOf('/#/') + 3, url.indexOf(id) - 1);
-
-        return (
-            <div>
-                <div style={style.overview}></div>
-                <StyleRoot>
-                    <div style={style.alert} className="col-xs-6 col-xs-offset-3 col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
-                        {bodyAlertDelete(name, id)}
-                    </div>
-                </StyleRoot>
-            </div>
-        );
-    }
-}
-
-const bodyAlertDelete = (name, id) => {
-    switch (name) {
-        case 'device/delete':
-            return confirmDeleteDevice(id);
-    }
-};
-
-const confirmDeleteDevice = () => (
-    <div>
-        <div style={{textAlign: 'center'}}>
-            <i className="fa fa-exclamation-circle" style={style.iconAlert}/> 
-            <h3 style={style.title}>Are you sure you want to deleve this device?</h3>
-            <p style={style.content}>You can lose all data when you delete this device</p>
-            <hr />
-        </div>
-        <div className="row">
-            <button onClick={() => closeAlert()} className="btn btn-default col-md-3 col-md-offset-5" style={{ marginRight: 10 }}>Cancel</button>
-            <button onClick={() => confirm()} className="btn btn-success col-md-3">Yes</button>
+        <button onClick={() => closeAlert()} className="btn btn-default col-xs-5 col-sm-5 col-md-3 col-xs-offset-1 col-sm-offset-1 col-md-offset-5" style={{ marginRight: 5 }}>Cancel</button>
+            <button onClick={() => confirm()} className="btn btn-success col-xs-5 col-sm-5 col-md-3">Yes</button>
         </div>
     </div>
 );
@@ -119,9 +84,9 @@ const style = {
         animation: "0.5s",
         animationName: Radium.keyframes(fadeInDown, 'fadeInDown')
     },
-    iconAlert: {
+    icon: {
         fontSize: 100,
-        color: '#E7505A',
+        color: '#eccc68',
     },
     title: {
         fontWeight: 'bold'

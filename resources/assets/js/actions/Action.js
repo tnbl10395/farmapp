@@ -22,7 +22,8 @@ import {
     TOKEN_EXPIRED,
     OPEN_ALERT,
     CLOSE_ALERT,
-    SUBMIT_ADD_DEVICE_USER_FORM
+    SUBMIT_ADD_DEVICE_USER_FORM,
+    DELETE_DEVICE
 } from "./TypeAction";
 //Custom UI
 export const chooseOptionSidebar = (option) => {
@@ -185,15 +186,22 @@ export const checkToken = () => {
     }
 }
 
-export const openAlert = (title) => {
+export const openAlert = (title, id) => {
     return {
         type: OPEN_ALERT,
-        title
+        title,
+        id
     }
 }
 
 export const closeAlert = () => {
     return {
         type: CLOSE_ALERT
+    }
+}
+
+export const deleteDevice = () => {
+    return {
+        type: DELETE_DEVICE,
     }
 }

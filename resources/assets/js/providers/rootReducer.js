@@ -22,7 +22,8 @@ import {
     TOKEN_EXPIRED,
     OPEN_ALERT,
     CLOSE_ALERT,
-    SUBMIT_ADD_DEVICE_USER_FORM
+    SUBMIT_ADD_DEVICE_USER_FORM,
+    DELETE_DEVICE
 } from "../actions/TypeAction";
 
 const initialState = {
@@ -57,7 +58,8 @@ const initialState = {
     value_phone_user: '',
     value_role_user: '0',
     alert: false,
-    title_alert: ''
+    title_alert: '',
+    id_delete: '',
 };
 
 const edit = (direct, id) => ('<a href="/#/' + direct + '/update/' + id + '" style="border-radius: 5px; padding: 5px 5px 5px 6px; background-color:#3498db; color:#fff;margin-right:10px;" class="fa fa-edit"></a>');
@@ -83,24 +85,6 @@ const initValueDay = () => {
 const Reducer = (state = initialState, action) => {
     switch (action.type) {
         case GET_DATA_DEVICES:
-            var data = [];
-            var dt = action.loadData;
-            if (dt.length > 0) {
-                dt.forEach(obj => {
-                    if (obj.status == 1) {
-                        var label = "<div class='label label-success col-xs-12 col-sm-12 col-md-10' style='padding:5px;font-size:15px'>Active</div>";
-                    } else {
-                        var label = "<div class='label label-primary col-xs-12 col-sm-12 col-md-10' style='padding:5px;font-size:15px'>Inactive</div>";
-                    }
-                    data.push([
-                        obj.code,
-                        obj.name,
-                        obj.manufacturing_date,
-                        label,
-                        obj.updated_at,
-                        act("device", obj.id)]);
-                });
-            }
             return {
                 ...state,
                 data_devices: action.loadData
@@ -409,12 +393,18 @@ const Reducer = (state = initialState, action) => {
             return {
                 ...state,
                 alert: true,
-                title_alert: action.title 
+                title_alert: action.title,
+                id_delete: action.id 
             }
         case CLOSE_ALERT:
             return {
                 ...state,
                 alert: false
+            }
+        case DELETE_DEVICE:
+            return {
+                ...state,
+                alert: false,
             }
         default:
             return {

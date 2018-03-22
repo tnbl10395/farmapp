@@ -216,16 +216,16 @@ export class Chart extends React.Component {
                     </div>
                     <div className="col-sx-10 col-sm-10 col-md-10" style={{ marginTop: 10 }}>
                         <div className="col-md-6">
-                            <div className="col-md-5 label label-default" style={{ fontSize: 20, marginRight: 10, fontFamily: "Helvetica", backgroundColor: 'black' }}>
+                            <div className="col-md-5 label label-default" style={{ fontSize: 20, marginRight: 10, fontFamily: "Helvetica", backgroundColor: 'grey' }}>
                                 {this.state.year}-{this.state.month}-{this.state.date}
                             </div>
-                            <div className="col-md-2 label label-default" style={{ fontSize: 20, marginRight: 1, fontFamily: "Helvetica", backgroundColor: 'black' }}>
+                            <div className="col-md-2 label label-default" style={{ fontSize: 20, marginRight: 1, fontFamily: "Helvetica", backgroundColor: 'grey' }}>
                                 {this.state.hour}
                             </div>
-                            <div className="col-md-2 label label-default" style={{ fontSize: 20, marginRight: 1, fontFamily: "Helvetica", backgroundColor: 'black' }}>
+                            <div className="col-md-2 label label-default" style={{ fontSize: 20, marginRight: 1, fontFamily: "Helvetica", backgroundColor: 'grey' }}>
                                 {this.state.minute}
                             </div>
-                            <div className="col-md-2 label label-default" style={{ fontSize: 20, marginRight: 1, fontFamily: "Helvetica", backgroundColor: 'black' }}>
+                            <div className="col-md-2 label label-default" style={{ fontSize: 20, marginRight: 1, fontFamily: "Helvetica", backgroundColor: 'grey' }}>
                                 {this.state.second}
                             </div>
                         </div>
@@ -365,7 +365,7 @@ var chartOptions = {
 const style = {
     main_content_true: {
         color: 'black',
-        backgroundColor: '#9E9E9E',
+        backgroundColor: 'black',
         position: 'absolute',
         padding: 10,
         left: '15.5%',
@@ -386,7 +386,7 @@ const style = {
         top: 100,
         width: '95%',
         fontSize: 12,
-        opacity: 0.8,
+        opacity: 0.7,
         borderRadius: 5,
         fontWeight: 'bold',
         boxShadow: "1px 7px 3px black",

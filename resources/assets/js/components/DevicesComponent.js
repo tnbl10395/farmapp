@@ -29,6 +29,7 @@ export default class DevicesComponent extends React.Component {
                 name={'Device'}
                 openModal={this.props.openModal}
                 object={profile.role == "1" ? objectDeviceAdmin : objectDeviceUser}
+                openAlert={this.props.openAlert}
             />
             : null
         );

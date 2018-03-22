@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import Index from '../components/Index';
-import { getDeviceOfUserAPI } from '../api/api';
-import { getDeviceOfUser, closeModal, closeAlert, } from '../actions/Action';
+import { getDeviceOfUserAPI, deleteDeviceAPI } from '../api/api';
+import { getDeviceOfUser, closeModal, closeAlert, deleteDevice, } from '../actions/Action';
 
 const mapStateToProps = (state) => ({
     sideBar: state.sideBar,
@@ -9,7 +9,8 @@ const mapStateToProps = (state) => ({
     object: state.object_form,
     token: state.token,
     alert: state.alert,
-    title: state.title_alert
+    title: state.title_alert,
+    id: state.id_delete
 });
 const mapDispatchToProps = (dispatch) => ({
     getDevicesOfUser: () => {
@@ -20,6 +21,9 @@ const mapDispatchToProps = (dispatch) => ({
     },
     closeAlert: () => {
         dispatch(closeAlert());
+    },
+    delete: (id) => {
+        deleteDeviceAPI(dispatch, deleteDevice, id)
     }
 });
 
