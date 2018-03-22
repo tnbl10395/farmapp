@@ -27,17 +27,17 @@ export default class List extends React.Component {
                 <div className="col-xs-12 col-sm-12 col-md-10" style={style.list}>
                     <div className="row">
                         <div className="col-xs-12 col-sm-12 col-md-12">
-                            <div className="form-group has-feedback has-feedback-left col-md-2" style={style.search}>
+                            <button onClick={() => this.props.openModal(this.props.object)} className="btn btn-success pull-right" style={{ margin: 5 }}>
+                                <i className="fa fa-plus" /> New {this.props.name}
+                            </button>
+                            <div className="form-group has-feedback col-xs-3 col-sm-3 col-md-2 pull-right" style={style.search}>
                                 <input type="text" className="form-control" placeholder="Search ..." />
                                 <span className="form-control-feedback glyphicon glyphicon-search" style={{ marginRight: 10 }}></span>
                             </div>
-                            <button onClick={() => this.props.openModal(this.props.object)} className="btn btn-success" style={{ margin: 5 }}>
-                                <i className="fa fa-plus" /> New {this.props.name}
-                            </button>
                         </div>
                     </div>
                     {
-                        renderTable(this.props.name, currentData)
+                        renderTable(this.props.name, currentData, this.props.openAlert)
                     }
                     <div className="col-xs-12 col-sm-12 col-md-12">
                         <Pagination
@@ -61,16 +61,16 @@ export default class List extends React.Component {
     }
 }
 
-const renderTable = (name, currentData) => {
+const renderTable = (name, currentData, openAlert) => {
     switch (name) {
         case 'Device':
-            return device(currentData);
+            return device(currentData, openAlert);
         case 'User':
-            return user(currentData);
+            return user(currentData, openAlert);
     }
 }
 
-const device = (currentData) => (
+const device = (currentData, openAlert) => (
     currentData.map((element, index) =>
         <div key={index} style={style.item} className="col-xs-12 col-sm-12 col-md-12">
             <div className="col-xs-1 col-sm-1 col-md-1">
@@ -95,13 +95,13 @@ const device = (currentData) => (
             </div>
             <div className="col-xs-1 col-sm-1 col-md-1" style={style.button}>
                 <a style={style.edit} className="fa fa-edit"></a>
-                <a style={style.delete} className="fa fa-remove"></a>
+                <a onClick={() => openAlert('DELETE_DEVICE', element.id)} style={style.delete} className="fa fa-remove"></a>
             </div>
         </div>
     )
 )
 
-const user = (currentData) => (
+const user = (currentData, openAlert) => (
     currentData.map((element, index) =>
         <div key={index} style={style.item} className="col-xs-12 col-sm-12 col-md-12">
             <div className="col-xs-1 col-sm-1 col-md-1">
@@ -187,7 +187,7 @@ const style = {
         borderRadius: 100
     },
     search: {
-        margin: 5
+        margin: 5,
     },
     text: {
         fontSize: 15,

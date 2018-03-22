@@ -9,8 +9,8 @@ const mapDispatchToProps = (dispatch) => ({
     openSidebar: () => {
         dispatch(openSidebar());
     },
-    openAlert: (title) => {
-        dispatch(openAlert(title));
+    openAlert: (title, id) => {
+        dispatch(openAlert(title, id));
     }
 });
 

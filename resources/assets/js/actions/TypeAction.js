@@ -30,3 +30,5 @@ export const TOKEN_EXPIRED = 'TOKEN_EXPIRED';
 //Alert
 export const OPEN_ALERT = 'OPEN_ALERT';
 export const CLOSE_ALERT = 'CLOSE_ALERT';
+//delete
+export const DELETE_DEVICE = 'DELETE_DEVICE';

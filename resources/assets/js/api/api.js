@@ -12,6 +12,7 @@ const headers = {
 const method = {
     GET: "GET",
     POST: "POST",
+    DELETE: "DELETE"
 }
 
 const removeToken = () => {
@@ -373,4 +374,24 @@ export const getUserAPI = (dispatch, login, token) => {
 
     }
 }
-//git 
+//delete device
+export const deleteDeviceAPI = (dispatch, deleteDevice, id) => {
+    try {
+        fetch(URL + "api/devices/"+id, {
+            method: method.DELETE,
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'token': token
+            }
+        })
+            .then((response) => response.json())
+            .then((res) => {
+                if (res) {
+                    dispatch(deleteDevice());
+                }
+            })
+    } catch (error) {
+
+    }
+}
