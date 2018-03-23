@@ -6115,30 +6115,31 @@ module.exports = emptyFunction;
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return chooseOptionSidebar; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "t", function() { return openSidebar; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return getDataDevices; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "k", function() { return getDataValues; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "j", function() { return getDataUsers; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return getDataSolutions; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "u", function() { return openSidebar; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return getDataDevices; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "l", function() { return getDataValues; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "k", function() { return getDataUsers; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "j", function() { return getDataSolutions; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return changeDisplayDataScreen; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "p", function() { return getRealChartBasedOnHour; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "o", function() { return getRealChartBasedOnDay; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "n", function() { return getOldChartBasedOnHour; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "m", function() { return getOldChartBasedOnDay; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "l", function() { return getDeviceOfUser; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "q", function() { return getRealChartBasedOnHour; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "p", function() { return getRealChartBasedOnDay; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "o", function() { return getOldChartBasedOnHour; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "n", function() { return getOldChartBasedOnDay; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "m", function() { return getDeviceOfUser; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return changeInterval; });
 /* unused harmony export saveDevice */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "s", function() { return openModal; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return closeModal; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "u", function() { return saveInput; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "v", function() { return submitAddDeviceForm; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "w", function() { return submitAddDeviceUserForm; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "x", function() { return submitAddUserForm; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "q", function() { return login; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "t", function() { return openModal; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return closeModal; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "v", function() { return saveInput; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "w", function() { return submitAddDeviceForm; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "x", function() { return submitAddDeviceUserForm; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "y", function() { return submitAddUserForm; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "r", function() { return login; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return checkToken; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "r", function() { return openAlert; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "s", function() { return openAlert; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return closeAlert; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return deleteDevice; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return deleteDevice; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return closeMessage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__TypeAction__ = __webpack_require__(147);
 
 //Custom UI
@@ -6151,34 +6152,34 @@ var chooseOptionSidebar = function chooseOptionSidebar(option) {
 
 var openSidebar = function openSidebar() {
     return {
-        type: __WEBPACK_IMPORTED_MODULE_0__TypeAction__["r" /* OPEN_SIDEBAR */]
+        type: __WEBPACK_IMPORTED_MODULE_0__TypeAction__["s" /* OPEN_SIDEBAR */]
     };
 };
 //Get all information of devices to show it on table
 var getDataDevices = function getDataDevices(loadData) {
     return {
-        type: __WEBPACK_IMPORTED_MODULE_0__TypeAction__["g" /* GET_DATA_DEVICES */],
+        type: __WEBPACK_IMPORTED_MODULE_0__TypeAction__["h" /* GET_DATA_DEVICES */],
         loadData: loadData
     };
 };
 //Get all value of devices to show it on table
 var getDataValues = function getDataValues(loadData) {
     return {
-        type: __WEBPACK_IMPORTED_MODULE_0__TypeAction__["j" /* GET_DATA_VALUES */],
+        type: __WEBPACK_IMPORTED_MODULE_0__TypeAction__["k" /* GET_DATA_VALUES */],
         loadData: loadData
     };
 };
 //get all information of users to show it on table
 var getDataUsers = function getDataUsers(loadData) {
     return {
-        type: __WEBPACK_IMPORTED_MODULE_0__TypeAction__["i" /* GET_DATA_USERS */],
+        type: __WEBPACK_IMPORTED_MODULE_0__TypeAction__["j" /* GET_DATA_USERS */],
         loadData: loadData
     };
 };
 
 var getDataSolutions = function getDataSolutions(loadData) {
     return {
-        type: __WEBPACK_IMPORTED_MODULE_0__TypeAction__["h" /* GET_DATA_SOLUTIONS */],
+        type: __WEBPACK_IMPORTED_MODULE_0__TypeAction__["i" /* GET_DATA_SOLUTIONS */],
         loadData: loadData
     };
 };
@@ -6191,7 +6192,7 @@ var changeDisplayDataScreen = function changeDisplayDataScreen() {
 
 var getRealChartBasedOnHour = function getRealChartBasedOnHour(loadData, device, date) {
     return {
-        type: __WEBPACK_IMPORTED_MODULE_0__TypeAction__["o" /* GET_REAL_CHART_BASED_ON_HOUR */],
+        type: __WEBPACK_IMPORTED_MODULE_0__TypeAction__["p" /* GET_REAL_CHART_BASED_ON_HOUR */],
         loadData: loadData,
         device: device,
         date: date
@@ -6200,7 +6201,7 @@ var getRealChartBasedOnHour = function getRealChartBasedOnHour(loadData, device,
 
 var getRealChartBasedOnDay = function getRealChartBasedOnDay(loadData, device, date) {
     return {
-        type: __WEBPACK_IMPORTED_MODULE_0__TypeAction__["n" /* GET_REAL_CHART_BASED_ON_DAY */],
+        type: __WEBPACK_IMPORTED_MODULE_0__TypeAction__["o" /* GET_REAL_CHART_BASED_ON_DAY */],
         loadData: loadData,
         device: device,
         date: date
@@ -6209,7 +6210,7 @@ var getRealChartBasedOnDay = function getRealChartBasedOnDay(loadData, device, d
 
 var getOldChartBasedOnHour = function getOldChartBasedOnHour(loadData, device, date) {
     return {
-        type: __WEBPACK_IMPORTED_MODULE_0__TypeAction__["m" /* GET_OLD_CHART_BASED_ON_HOUR */],
+        type: __WEBPACK_IMPORTED_MODULE_0__TypeAction__["n" /* GET_OLD_CHART_BASED_ON_HOUR */],
         loadData: loadData,
         device: device,
         date: date
@@ -6218,7 +6219,7 @@ var getOldChartBasedOnHour = function getOldChartBasedOnHour(loadData, device, d
 
 var getOldChartBasedOnDay = function getOldChartBasedOnDay(loadData, device, date) {
     return {
-        type: __WEBPACK_IMPORTED_MODULE_0__TypeAction__["l" /* GET_OLD_CHART_BASED_ON_DAY */],
+        type: __WEBPACK_IMPORTED_MODULE_0__TypeAction__["m" /* GET_OLD_CHART_BASED_ON_DAY */],
         loadData: loadData,
         device: device,
         date: date
@@ -6227,7 +6228,7 @@ var getOldChartBasedOnDay = function getOldChartBasedOnDay(loadData, device, dat
 
 var getDeviceOfUser = function getDeviceOfUser(loadData) {
     return {
-        type: __WEBPACK_IMPORTED_MODULE_0__TypeAction__["k" /* GET_DEVICES_OF_USER */],
+        type: __WEBPACK_IMPORTED_MODULE_0__TypeAction__["l" /* GET_DEVICES_OF_USER */],
         loadData: loadData
     };
 };
@@ -6244,53 +6245,56 @@ var changeInterval = function changeInterval(option, loadData, device, date) {
 
 var saveDevice = function saveDevice() {
     return {
-        type: __WEBPACK_IMPORTED_MODULE_0__TypeAction__["s" /* SAVE_DEVICE */]
+        type: __WEBPACK_IMPORTED_MODULE_0__TypeAction__["t" /* SAVE_DEVICE */]
     };
 };
 
 var openModal = function openModal(object) {
     return {
-        type: __WEBPACK_IMPORTED_MODULE_0__TypeAction__["q" /* OPEN_MODAL */],
+        type: __WEBPACK_IMPORTED_MODULE_0__TypeAction__["r" /* OPEN_MODAL */],
         object: object
     };
 };
 
 var closeModal = function closeModal() {
     return {
-        type: __WEBPACK_IMPORTED_MODULE_0__TypeAction__["e" /* CLOSE_MODAL */]
+        type: __WEBPACK_IMPORTED_MODULE_0__TypeAction__["f" /* CLOSE_MODAL */]
 
     };
 };
 
 var saveInput = function saveInput(name, value) {
     return {
-        type: __WEBPACK_IMPORTED_MODULE_0__TypeAction__["t" /* SAVE_INPUT */],
+        type: __WEBPACK_IMPORTED_MODULE_0__TypeAction__["u" /* SAVE_INPUT */],
         name: name,
         value: value
     };
 };
 
-var submitAddDeviceForm = function submitAddDeviceForm() {
+var submitAddDeviceForm = function submitAddDeviceForm(message) {
     return {
-        type: __WEBPACK_IMPORTED_MODULE_0__TypeAction__["u" /* SUBMIT_ADD_DEVICE_FORM */]
+        type: __WEBPACK_IMPORTED_MODULE_0__TypeAction__["v" /* SUBMIT_ADD_DEVICE_FORM */],
+        message: message
     };
 };
 
-var submitAddDeviceUserForm = function submitAddDeviceUserForm() {
+var submitAddDeviceUserForm = function submitAddDeviceUserForm(message) {
     return {
-        type: __WEBPACK_IMPORTED_MODULE_0__TypeAction__["v" /* SUBMIT_ADD_DEVICE_USER_FORM */]
+        type: __WEBPACK_IMPORTED_MODULE_0__TypeAction__["w" /* SUBMIT_ADD_DEVICE_USER_FORM */],
+        message: message
     };
 };
 
-var submitAddUserForm = function submitAddUserForm() {
+var submitAddUserForm = function submitAddUserForm(message) {
     return {
-        type: __WEBPACK_IMPORTED_MODULE_0__TypeAction__["w" /* SUBMIT_ADD_USER_FORM */]
+        type: __WEBPACK_IMPORTED_MODULE_0__TypeAction__["x" /* SUBMIT_ADD_USER_FORM */],
+        message: message
     };
 };
 
 var login = function login(user, token) {
     return {
-        type: __WEBPACK_IMPORTED_MODULE_0__TypeAction__["x" /* SUBMIT_LOGIN */],
+        type: __WEBPACK_IMPORTED_MODULE_0__TypeAction__["y" /* SUBMIT_LOGIN */],
         user: user,
         token: token
     };
@@ -6298,13 +6302,13 @@ var login = function login(user, token) {
 
 var checkToken = function checkToken() {
     return {
-        type: __WEBPACK_IMPORTED_MODULE_0__TypeAction__["y" /* TOKEN_EXPIRED */]
+        type: __WEBPACK_IMPORTED_MODULE_0__TypeAction__["z" /* TOKEN_EXPIRED */]
     };
 };
 
 var openAlert = function openAlert(title, id) {
     return {
-        type: __WEBPACK_IMPORTED_MODULE_0__TypeAction__["p" /* OPEN_ALERT */],
+        type: __WEBPACK_IMPORTED_MODULE_0__TypeAction__["q" /* OPEN_ALERT */],
         title: title,
         id: id
     };
@@ -6318,7 +6322,13 @@ var closeAlert = function closeAlert() {
 
 var deleteDevice = function deleteDevice() {
     return {
-        type: __WEBPACK_IMPORTED_MODULE_0__TypeAction__["f" /* DELETE_DEVICE */]
+        type: __WEBPACK_IMPORTED_MODULE_0__TypeAction__["g" /* DELETE_DEVICE */]
+    };
+};
+
+var closeMessage = function closeMessage() {
+    return {
+        type: __WEBPACK_IMPORTED_MODULE_0__TypeAction__["e" /* CLOSE_MESSAGE */]
     };
 };
 
@@ -7171,7 +7181,7 @@ var getDeviceOfUserAPI = function getDeviceOfUserAPI(dispatch, getDeviceOfUser) 
     } catch (error) {}
 };
 //form
-var submitAddDeviceFormAPI = function submitAddDeviceFormAPI(dispatch, submitAddDeviceForm, name, date, code) {
+var submitAddDeviceFormAPI = function submitAddDeviceFormAPI(dispatch, submitAddDeviceForm, name, date, code, getDataDevices, getDataDevicesAPI) {
     try {
         fetch(URL + "api/devices", {
             method: method.POST,
@@ -7185,10 +7195,10 @@ var submitAddDeviceFormAPI = function submitAddDeviceFormAPI(dispatch, submitAdd
             return response.json();
         }).then(function (res) {
             if (res) {
-                dispatch(submitAddDeviceForm());
-                window.location.reload();
+                dispatch(submitAddDeviceForm(res));
+                getDataDevicesAPI(dispatch, getDataDevices);
             } else {
-                alert('Code is unique');
+                dispatch(submitAddDeviceForm(res));
             }
         });
     } catch (error) {}
@@ -7206,16 +7216,16 @@ var submitAddDeviceUserFormAPI = function submitAddDeviceUserFormAPI(dispatch, s
             return response.json();
         }).then(function (res) {
             if (res) {
-                dispatch(submitAddDeviceUserForm());
-                window.location.reload();
+                dispatch(submitAddDeviceUserForm(res));
+                getDataDevicesAPI(dispatch, getDataDevices);
             } else {
-                alert('Please check code again!');
+                dispatch(submitAddDeviceUserForm(res));
             }
         });
     } catch (error) {}
 };
 
-var submitAddUserFormAPI = function submitAddUserFormAPI(dispatch, submitAddUserForm, username, password, fullname, address, phone, role) {
+var submitAddUserFormAPI = function submitAddUserFormAPI(dispatch, submitAddUserForm, username, password, fullname, address, phone, role, getDataUsers, getDataUsersAPI) {
     try {
         fetch(URL + "api/users", {
             method: method.POST,
@@ -7232,10 +7242,10 @@ var submitAddUserFormAPI = function submitAddUserFormAPI(dispatch, submitAddUser
             return response.json();
         }).then(function (res) {
             if (res) {
-                dispatch(submitAddUserForm());
-                window.location.reload();
+                dispatch(submitAddUserForm(res));
+                getDataUsersAPI(dispatch, getDataUsers);
             } else {
-                alert('Username already have been registered');
+                dispatch(submitAddUserForm(res));
             }
         });
     } catch (error) {}
@@ -7283,7 +7293,7 @@ var getUserAPI = function getUserAPI(dispatch, login, token) {
     } catch (error) {}
 };
 //delete device
-var deleteDeviceAPI = function deleteDeviceAPI(dispatch, deleteDevice, id) {
+var deleteDeviceAPI = function deleteDeviceAPI(dispatch, deleteDevice, id, getDataDevices, getDataDevicesAPI) {
     try {
         fetch(URL + "api/devices/" + id, {
             method: method.DELETE,
@@ -7297,6 +7307,7 @@ var deleteDeviceAPI = function deleteDeviceAPI(dispatch, deleteDevice, id) {
         }).then(function (res) {
             if (res) {
                 dispatch(deleteDevice());
+                getDataDevicesAPI(dispatch, getDataDevices);
             }
         });
     } catch (error) {}
@@ -24283,7 +24294,7 @@ var List = function (_React$Component) {
         _this.state = {
             activePage: 1,
             data: _this.props.dataSet,
-            itemsCountPerPage: 10
+            itemsCountPerPage: 5
         };
         _this.handlePageChange = _this.handlePageChange.bind(_this);
         return _this;
@@ -24295,9 +24306,20 @@ var List = function (_React$Component) {
             this.setState({ activePage: pageNumber });
         }
     }, {
+        key: 'componentWillReceiveProps',
+        value: function componentWillReceiveProps(nextProps) {
+            var _this2 = this;
+
+            this.setState(nextProps, function () {
+                _this2.setState({
+                    data: nextProps.dataSet
+                });
+            });
+        }
+    }, {
         key: 'render',
         value: function render() {
-            var _this2 = this;
+            var _this3 = this;
 
             var _state = this.state,
                 data = _state.data,
@@ -24322,7 +24344,7 @@ var List = function (_React$Component) {
                             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                 'button',
                                 { onClick: function onClick() {
-                                        return _this2.props.openModal(_this2.props.object);
+                                        return _this3.props.openModal(_this3.props.object);
                                     }, className: 'btn btn-success pull-right', style: { margin: 5 } },
                                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'fa fa-plus' }),
                                 ' New ',
@@ -24356,7 +24378,75 @@ var List = function (_React$Component) {
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'div',
                     { className: 'col-xs-12 col-sm-12 col-md-2' },
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div', { style: style.filter })
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'div',
+                        { style: style.filter },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'div',
+                            { className: 'form-group col-md-12' },
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                'select',
+                                { value: this.state.itemsCountPerPage,
+                                    style: style.selectNumberPageDisplay,
+                                    className: 'form-control',
+                                    onChange: function onChange(event) {
+                                        return _this3.setState({ itemsCountPerPage: event.target.value });
+                                    } },
+                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                    'option',
+                                    { value: 5 },
+                                    '5'
+                                ),
+                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                    'option',
+                                    { value: 10 },
+                                    '10'
+                                ),
+                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                    'option',
+                                    { value: 50 },
+                                    '50'
+                                ),
+                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                    'option',
+                                    { value: 100 },
+                                    '100'
+                                )
+                            )
+                        ),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'div',
+                            { className: 'form-group col-md-12' },
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                'div',
+                                { className: 'form-check' },
+                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                    'label',
+                                    { className: 'form-check-lable' },
+                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'checkbox', className: 'form-check-input-lg', style: style.checkbox })
+                                ),
+                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                    'span',
+                                    { style: style.textCheckbox },
+                                    ' Active'
+                                )
+                            ),
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                'div',
+                                { className: 'form-check' },
+                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                    'label',
+                                    { className: 'form-check-lable' },
+                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'checkbox', className: 'form-check-input', style: style.checkbox })
+                                ),
+                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                    'span',
+                                    { style: style.textCheckbox },
+                                    ' Inactive'
+                                )
+                            )
+                        )
+                    )
                 )
             );
         }
@@ -24548,8 +24638,8 @@ var style = {
         height: 200
     },
     avatar: {
-        width: 70,
-        height: 70,
+        width: 65,
+        height: 65,
         marginTop: 5
     },
     picture: {
@@ -24596,6 +24686,17 @@ var style = {
         backgroundColor: '#e74c3c',
         color: '#fff',
         cursor: 'pointer'
+    },
+    checkbox: {
+        width: 20,
+        height: 20
+    },
+    selectNumberPageDisplay: {
+        marginTop: 5
+    },
+    textCheckbox: {
+        fontSize: 18,
+        color: 'grey'
     }
 };
 
@@ -24654,7 +24755,8 @@ var InputText = function (_React$Component) {
                     onChange: function onChange(text) {
                         return _this2.props.saveInput(_this2.props.name, text.target.value);
                     },
-                    className: 'form-control' })
+                    className: 'form-control',
+                    value: this.props.inputValue })
             );
         }
     }]);
@@ -24721,7 +24823,10 @@ var InputPassword = function (_React$Component3) {
                     null,
                     this.props.element.name
                 ),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'password', placeholder: this.props.element.placeholder, required: true,
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'password',
+                    placeholder: this.props.element.placeholder,
+                    required: true,
+                    value: this.props.inputValue,
                     onChange: function onChange(text) {
                         return _this6.props.saveInput(_this6.props.name, text.target.value);
                     },
@@ -24757,7 +24862,7 @@ var SelectBox = function (_React$Component4) {
                 ),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'select',
-                    { className: 'form-control', onChange: function onChange(option) {
+                    { value: this.props.inputValue, className: 'form-control', onChange: function onChange(option) {
                             return _this8.props.saveInput(_this8.props.name, option.target.value);
                         } },
                     this.props.element.role.map(function (option) {
@@ -31819,30 +31924,31 @@ function verifyPlainObject(value, displayName, methodName) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return CHOOSE_OPTION_SIDEBAR; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "r", function() { return OPEN_SIDEBAR; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return GET_DATA_DEVICES; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "j", function() { return GET_DATA_VALUES; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return GET_DATA_USERS; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return GET_DATA_SOLUTIONS; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "o", function() { return GET_REAL_CHART_BASED_ON_HOUR; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "n", function() { return GET_REAL_CHART_BASED_ON_DAY; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "m", function() { return GET_OLD_CHART_BASED_ON_HOUR; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "l", function() { return GET_OLD_CHART_BASED_ON_DAY; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "k", function() { return GET_DEVICES_OF_USER; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "s", function() { return OPEN_SIDEBAR; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return GET_DATA_DEVICES; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "k", function() { return GET_DATA_VALUES; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "j", function() { return GET_DATA_USERS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return GET_DATA_SOLUTIONS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "p", function() { return GET_REAL_CHART_BASED_ON_HOUR; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "o", function() { return GET_REAL_CHART_BASED_ON_DAY; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "n", function() { return GET_OLD_CHART_BASED_ON_HOUR; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "m", function() { return GET_OLD_CHART_BASED_ON_DAY; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "l", function() { return GET_DEVICES_OF_USER; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CHANGE_DISPLAY_DATA_SCREEN; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return CHANGE_INTERVAL; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "s", function() { return SAVE_DEVICE; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "q", function() { return OPEN_MODAL; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return CLOSE_MODAL; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "t", function() { return SAVE_INPUT; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "u", function() { return SUBMIT_ADD_DEVICE_FORM; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "v", function() { return SUBMIT_ADD_DEVICE_USER_FORM; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "w", function() { return SUBMIT_ADD_USER_FORM; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "x", function() { return SUBMIT_LOGIN; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "y", function() { return TOKEN_EXPIRED; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "p", function() { return OPEN_ALERT; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "t", function() { return SAVE_DEVICE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "r", function() { return OPEN_MODAL; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return CLOSE_MODAL; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "u", function() { return SAVE_INPUT; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "v", function() { return SUBMIT_ADD_DEVICE_FORM; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "w", function() { return SUBMIT_ADD_DEVICE_USER_FORM; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "x", function() { return SUBMIT_ADD_USER_FORM; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "y", function() { return SUBMIT_LOGIN; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "z", function() { return TOKEN_EXPIRED; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "q", function() { return OPEN_ALERT; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return CLOSE_ALERT; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return DELETE_DEVICE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return DELETE_DEVICE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return CLOSE_MESSAGE; });
 var CHOOSE_OPTION_SIDEBAR = 'CHOOSE_OPTION_SIDEBAR';
 var OPEN_SIDEBAR = 'OPEN_SIDEBAR';
 //table
@@ -31877,6 +31983,8 @@ var OPEN_ALERT = 'OPEN_ALERT';
 var CLOSE_ALERT = 'CLOSE_ALERT';
 //delete
 var DELETE_DEVICE = 'DELETE_DEVICE';
+//message
+var CLOSE_MESSAGE = 'CLOSE_MESSAGE';
 
 /***/ }),
 /* 148 */
@@ -81295,16 +81403,16 @@ var mapStateToProps = function mapStateToProps(state) {
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     return {
         getDevicesOfUser: function getDevicesOfUser() {
-            Object(__WEBPACK_IMPORTED_MODULE_2__api_api__["f" /* getDeviceOfUserAPI */])(dispatch, __WEBPACK_IMPORTED_MODULE_3__actions_Action__["l" /* getDeviceOfUser */]);
+            Object(__WEBPACK_IMPORTED_MODULE_2__api_api__["f" /* getDeviceOfUserAPI */])(dispatch, __WEBPACK_IMPORTED_MODULE_3__actions_Action__["m" /* getDeviceOfUser */]);
         },
         closeModal: function closeModal() {
-            dispatch(Object(__WEBPACK_IMPORTED_MODULE_3__actions_Action__["f" /* closeModal */])());
+            dispatch(Object(__WEBPACK_IMPORTED_MODULE_3__actions_Action__["g" /* closeModal */])());
         },
         closeAlert: function closeAlert() {
             dispatch(Object(__WEBPACK_IMPORTED_MODULE_3__actions_Action__["e" /* closeAlert */])());
         },
         delete: function _delete(id) {
-            Object(__WEBPACK_IMPORTED_MODULE_2__api_api__["a" /* deleteDeviceAPI */])(dispatch, __WEBPACK_IMPORTED_MODULE_3__actions_Action__["g" /* deleteDevice */], id);
+            Object(__WEBPACK_IMPORTED_MODULE_2__api_api__["a" /* deleteDeviceAPI */])(dispatch, __WEBPACK_IMPORTED_MODULE_3__actions_Action__["h" /* deleteDevice */], id, __WEBPACK_IMPORTED_MODULE_3__actions_Action__["i" /* getDataDevices */], __WEBPACK_IMPORTED_MODULE_2__api_api__["b" /* getDataDevicesAPI */]);
         }
     };
 };
@@ -81423,10 +81531,10 @@ var mapStateToProps = function mapStateToProps(state) {
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     return {
         openSidebar: function openSidebar() {
-            dispatch(Object(__WEBPACK_IMPORTED_MODULE_2__actions_Action__["t" /* openSidebar */])());
+            dispatch(Object(__WEBPACK_IMPORTED_MODULE_2__actions_Action__["u" /* openSidebar */])());
         },
         openAlert: function openAlert(title, id) {
-            dispatch(Object(__WEBPACK_IMPORTED_MODULE_2__actions_Action__["r" /* openAlert */])(title, id));
+            dispatch(Object(__WEBPACK_IMPORTED_MODULE_2__actions_Action__["s" /* openAlert */])(title, id));
         }
     };
 };
@@ -82204,21 +82312,19 @@ var style = {
 var mapStateToProps = function mapStateToProps(state) {
     return {
         sideBar: state.sideBar,
-        dataSet: state.data_devices,
-        id: state.id_delete,
-        alert: state.alert
+        dataSet: state.data_devices
     };
 };
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     return {
         getDataDevices: function getDataDevices() {
-            Object(__WEBPACK_IMPORTED_MODULE_3__api_api__["b" /* getDataDevicesAPI */])(dispatch, __WEBPACK_IMPORTED_MODULE_2__actions_Action__["h" /* getDataDevices */]);
+            Object(__WEBPACK_IMPORTED_MODULE_3__api_api__["b" /* getDataDevicesAPI */])(dispatch, __WEBPACK_IMPORTED_MODULE_2__actions_Action__["i" /* getDataDevices */]);
         },
         openModal: function openModal(object) {
-            dispatch(Object(__WEBPACK_IMPORTED_MODULE_2__actions_Action__["s" /* openModal */])(object));
+            dispatch(Object(__WEBPACK_IMPORTED_MODULE_2__actions_Action__["t" /* openModal */])(object));
         },
         openAlert: function openAlert(title, id) {
-            dispatch(Object(__WEBPACK_IMPORTED_MODULE_2__actions_Action__["r" /* openAlert */])(title, id));
+            dispatch(Object(__WEBPACK_IMPORTED_MODULE_2__actions_Action__["s" /* openAlert */])(title, id));
         }
     };
 };
@@ -82303,7 +82409,14 @@ var objectDeviceUser = {
     property: [{ name: "Code", placeholder: 'Please input code' }]
 };
 
-var columns = [{ title: "Code" }, { title: "Name" }, { title: "Manufacturing Date" }, { title: "Status" }, { title: "Updated Date" }, { title: "Action" }];
+// var columns = [
+//     { title: "Code" },
+//     { title: "Name" },
+//     { title: "Manufacturing Date" },
+//     { title: "Status" },
+//     { title: "Updated Date" },
+//     { title: "Action" }
+// ];
 
 /***/ }),
 /* 482 */
@@ -97761,10 +97874,10 @@ var mapStateToProps = function mapStateToProps(state) {
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     return {
         getDataUsers: function getDataUsers() {
-            Object(__WEBPACK_IMPORTED_MODULE_2__api_api__["d" /* getDataUsersAPI */])(dispatch, __WEBPACK_IMPORTED_MODULE_3__actions_Action__["j" /* getDataUsers */]);
+            Object(__WEBPACK_IMPORTED_MODULE_2__api_api__["d" /* getDataUsersAPI */])(dispatch, __WEBPACK_IMPORTED_MODULE_3__actions_Action__["k" /* getDataUsers */]);
         },
         openModal: function openModal(object) {
-            dispatch(Object(__WEBPACK_IMPORTED_MODULE_3__actions_Action__["s" /* openModal */])(object));
+            dispatch(Object(__WEBPACK_IMPORTED_MODULE_3__actions_Action__["t" /* openModal */])(object));
         }
     };
 };
@@ -97837,7 +97950,14 @@ var objectUser = {
     property: [{ name: "Username", placeholder: 'Please input username' }, { name: "Password", placeholder: 'Please input password' }, { name: "Full name", placeholder: 'Please input full name' }, { name: "Address", placeholder: 'Please input address' }, { name: "Phone", placeholder: 'Please input phone' }, { name: "Role", role: [{ id: '0', name: "Admin" }, { id: '1', name: "User" }] }]
 };
 
-var columns = [{ title: "ID" }, { title: "Username" }, { title: "Full Name" }, { title: "Address" }, { title: "Phone" }, { title: "Action" }];
+// var columns = [
+//     { title: "ID" },
+//     { title: "Username" },
+//     { title: "Full Name" },
+//     { title: "Address" },
+//     { title: "Phone" },
+//     { title: "Action" },
+// ];
 
 /***/ }),
 /* 495 */
@@ -97870,7 +97990,7 @@ var mapStateToProps = function mapStateToProps(state) {
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     return {
         getDataValuesonTable: function getDataValuesonTable() {
-            Object(__WEBPACK_IMPORTED_MODULE_2__api_api__["e" /* getDataValuesAPI */])(dispatch, __WEBPACK_IMPORTED_MODULE_3__actions_Action__["k" /* getDataValues */]);
+            Object(__WEBPACK_IMPORTED_MODULE_2__api_api__["e" /* getDataValuesAPI */])(dispatch, __WEBPACK_IMPORTED_MODULE_3__actions_Action__["l" /* getDataValues */]);
         },
         changeDisplayDataScreen: function changeDisplayDataScreen() {
             dispatch(Object(__WEBPACK_IMPORTED_MODULE_3__actions_Action__["a" /* changeDisplayDataScreen */])());
@@ -97885,16 +98005,16 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
         },
         getOldDataOnChart: function getOldDataOnChart(device, date, interval, time) {
             if (interval) {
-                Object(__WEBPACK_IMPORTED_MODULE_2__api_api__["g" /* getOldChartBasedOnDayAPI */])(dispatch, __WEBPACK_IMPORTED_MODULE_3__actions_Action__["m" /* getOldChartBasedOnDay */], device, date, time);
+                Object(__WEBPACK_IMPORTED_MODULE_2__api_api__["g" /* getOldChartBasedOnDayAPI */])(dispatch, __WEBPACK_IMPORTED_MODULE_3__actions_Action__["n" /* getOldChartBasedOnDay */], device, date, time);
             } else {
-                Object(__WEBPACK_IMPORTED_MODULE_2__api_api__["h" /* getOldChartBasedOnHourAPI */])(dispatch, __WEBPACK_IMPORTED_MODULE_3__actions_Action__["n" /* getOldChartBasedOnHour */], device, date, time);
+                Object(__WEBPACK_IMPORTED_MODULE_2__api_api__["h" /* getOldChartBasedOnHourAPI */])(dispatch, __WEBPACK_IMPORTED_MODULE_3__actions_Action__["o" /* getOldChartBasedOnHour */], device, date, time);
             }
         },
         getRealDataOnChart: function getRealDataOnChart(device, interval) {
             if (interval) {
-                Object(__WEBPACK_IMPORTED_MODULE_2__api_api__["j" /* getRealChartBasedOnDayAPI */])(dispatch, __WEBPACK_IMPORTED_MODULE_3__actions_Action__["o" /* getRealChartBasedOnDay */], device);
+                Object(__WEBPACK_IMPORTED_MODULE_2__api_api__["j" /* getRealChartBasedOnDayAPI */])(dispatch, __WEBPACK_IMPORTED_MODULE_3__actions_Action__["p" /* getRealChartBasedOnDay */], device);
             } else {
-                Object(__WEBPACK_IMPORTED_MODULE_2__api_api__["k" /* getRealChartBasedOnHourAPI */])(dispatch, __WEBPACK_IMPORTED_MODULE_3__actions_Action__["p" /* getRealChartBasedOnHour */], device);
+                Object(__WEBPACK_IMPORTED_MODULE_2__api_api__["k" /* getRealChartBasedOnHourAPI */])(dispatch, __WEBPACK_IMPORTED_MODULE_3__actions_Action__["q" /* getRealChartBasedOnHour */], device);
             }
         }
     };
@@ -103243,10 +103363,10 @@ var mapStateToProps = function mapStateToProps(state) {
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     return {
         getDataSolutions: function getDataSolutions() {
-            Object(__WEBPACK_IMPORTED_MODULE_2__api_api__["c" /* getDataSolutionsAPI */])(dispatch, __WEBPACK_IMPORTED_MODULE_3__actions_Action__["i" /* getDataSolutions */]);
+            Object(__WEBPACK_IMPORTED_MODULE_2__api_api__["c" /* getDataSolutionsAPI */])(dispatch, __WEBPACK_IMPORTED_MODULE_3__actions_Action__["j" /* getDataSolutions */]);
         },
         openModal: function openModal(object) {
-            dispatch(Object(__WEBPACK_IMPORTED_MODULE_3__actions_Action__["s" /* openModal */])(object));
+            dispatch(Object(__WEBPACK_IMPORTED_MODULE_3__actions_Action__["t" /* openModal */])(object));
         }
     };
 };
@@ -109774,20 +109894,25 @@ var mapStateToProps = function mapStateToProps(state) {
     return {
         inputName: state.value_name_device,
         inputCode: state.value_code_device,
-        inputDate: state.value_date_device
+        inputDate: state.value_date_device,
+        messageSuccess: state.message_success,
+        messageFail: state.message_fail
     };
 };
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     return {
         saveInput: function saveInput(name, value) {
-            dispatch(Object(__WEBPACK_IMPORTED_MODULE_2__actions_Action__["u" /* saveInput */])(name, value));
+            dispatch(Object(__WEBPACK_IMPORTED_MODULE_2__actions_Action__["v" /* saveInput */])(name, value));
         },
         submitFormAdmin: function submitFormAdmin(name, date, code) {
-            Object(__WEBPACK_IMPORTED_MODULE_3__api_api__["o" /* submitAddDeviceFormAPI */])(dispatch, __WEBPACK_IMPORTED_MODULE_2__actions_Action__["v" /* submitAddDeviceForm */], name, date, code);
+            Object(__WEBPACK_IMPORTED_MODULE_3__api_api__["o" /* submitAddDeviceFormAPI */])(dispatch, __WEBPACK_IMPORTED_MODULE_2__actions_Action__["w" /* submitAddDeviceForm */], name, date, code, __WEBPACK_IMPORTED_MODULE_2__actions_Action__["i" /* getDataDevices */], __WEBPACK_IMPORTED_MODULE_3__api_api__["b" /* getDataDevicesAPI */]);
         },
         submitFormUser: function submitFormUser(code) {
-            Object(__WEBPACK_IMPORTED_MODULE_3__api_api__["p" /* submitAddDeviceUserFormAPI */])(dispatch, __WEBPACK_IMPORTED_MODULE_2__actions_Action__["w" /* submitAddDeviceUserForm */], code);
+            Object(__WEBPACK_IMPORTED_MODULE_3__api_api__["p" /* submitAddDeviceUserFormAPI */])(dispatch, __WEBPACK_IMPORTED_MODULE_2__actions_Action__["x" /* submitAddDeviceUserForm */], code);
+        },
+        closeMessage: function closeMessage() {
+            dispatch(Object(__WEBPACK_IMPORTED_MODULE_2__actions_Action__["f" /* closeMessage */])());
         }
     };
 };
@@ -109847,39 +109972,120 @@ var AddDeviceComponent = function (_React$Component) {
     }, {
         key: 'render',
         value: function render() {
+            var _this2 = this;
+
             return this.props.property.length > 1 ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                'form',
-                { onSubmit: this.handleSubmitAdmin },
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'div',
+                null,
+                this.props.messageSuccess ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'div',
-                    null,
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__templates_InputForm__["c" /* InputText */], {
-                        element: this.props.property[0],
-                        name: 'DEVICE_NAME',
-                        saveInput: this.props.saveInput }),
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__templates_InputForm__["c" /* InputText */], {
-                        element: this.props.property[1],
-                        name: 'DEVICE_CODE',
-                        saveInput: this.props.saveInput }),
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__templates_InputForm__["a" /* InputCalendar */], {
-                        element: this.props.property[2],
-                        name: 'DEVICE_DATE',
-                        inputDate: this.props.inputDate,
-                        saveInput: this.props.saveInput })
-                ),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'submit', className: 'btn btn-success col-md-2', value: 'Add' })
+                    { className: 'alert alert-success alert-dismissible fade in' },
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'a',
+                        { href: '#', onClick: function onClick() {
+                                return _this2.props.closeMessage();
+                            }, className: 'close', 'data-dismiss': 'alert', 'aria-label': 'close' },
+                        '\xD7'
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'strong',
+                        null,
+                        'Success!'
+                    ),
+                    ' The new user has just created!'
+                ) : null,
+                this.props.messageFail ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'div',
+                    { className: 'alert alert-danger alert-dismissible fade in' },
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'a',
+                        { href: '#', onClick: function onClick() {
+                                return _this2.props.closeMessage();
+                            }, className: 'close', 'data-dismiss': 'alert', 'aria-label': 'close' },
+                        '\xD7'
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'strong',
+                        null,
+                        'Fail!'
+                    ),
+                    ' You should check code!'
+                ) : null,
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'form',
+                    { onSubmit: this.handleSubmitAdmin },
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'div',
+                        null,
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__templates_InputForm__["c" /* InputText */], {
+                            element: this.props.property[0],
+                            name: 'DEVICE_NAME',
+                            inputValue: this.props.inputName,
+                            saveInput: this.props.saveInput }),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__templates_InputForm__["c" /* InputText */], {
+                            element: this.props.property[1],
+                            name: 'DEVICE_CODE',
+                            inputValue: this.props.inputCode,
+                            saveInput: this.props.saveInput }),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__templates_InputForm__["a" /* InputCalendar */], {
+                            element: this.props.property[2],
+                            name: 'DEVICE_DATE',
+                            inputDate: this.props.inputDate,
+                            saveInput: this.props.saveInput })
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'submit', className: 'btn btn-success col-md-2', value: 'Add' })
+                )
             ) : __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                'form',
-                { onSubmit: this.handleSubmitUser },
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'div',
+                null,
+                this.props.messageSuccess ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'div',
-                    null,
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__templates_InputForm__["c" /* InputText */], {
-                        element: this.props.property[0],
-                        name: 'DEVICE_CODE',
-                        saveInput: this.props.saveInput })
-                ),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'submit', className: 'btn btn-success col-md-2', value: 'Add' })
+                    { className: 'alert alert-success alert-dismissible fade in' },
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'a',
+                        { href: '#', onClick: function onClick() {
+                                return _this2.props.closeMessage();
+                            }, className: 'close', 'data-dismiss': 'alert', 'aria-label': 'close' },
+                        '\xD7'
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'strong',
+                        null,
+                        'Success!'
+                    ),
+                    ' The new device has just added!'
+                ) : null,
+                this.props.messageFail ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'div',
+                    { className: 'alert alert-danger alert-dismissible fade in' },
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'a',
+                        { href: '#', onClick: function onClick() {
+                                return _this2.props.closeMessage();
+                            }, className: 'close', 'data-dismiss': 'alert', 'aria-label': 'close' },
+                        '\xD7'
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'strong',
+                        null,
+                        'Fail!'
+                    ),
+                    ' You should check code!'
+                ) : null,
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'form',
+                    { onSubmit: this.handleSubmitUser },
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'div',
+                        null,
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__templates_InputForm__["c" /* InputText */], {
+                            element: this.props.property[0],
+                            name: 'DEVICE_CODE',
+                            inputValue: this.props.inputCode,
+                            saveInput: this.props.saveInput })
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'submit', className: 'btn btn-success col-md-2', value: 'Add' })
+                )
             );
         }
     }]);
@@ -109908,17 +110114,22 @@ var mapStateToProps = function mapStateToProps(state) {
         inputFullname: state.value_fullname_user,
         inputAddress: state.value_address_user,
         inputPhone: state.value_phone_user,
-        inputRole: state.value_role_user
+        inputRole: state.value_role_user,
+        messageSuccess: state.message_success,
+        messageFail: state.message_fail
     };
 };
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     return {
         saveInput: function saveInput(name, value) {
-            dispatch(Object(__WEBPACK_IMPORTED_MODULE_2__actions_Action__["u" /* saveInput */])(name, value));
+            dispatch(Object(__WEBPACK_IMPORTED_MODULE_2__actions_Action__["v" /* saveInput */])(name, value));
         },
         submitForm: function submitForm(username, password, fullname, address, phone, role) {
-            Object(__WEBPACK_IMPORTED_MODULE_3__api_api__["q" /* submitAddUserFormAPI */])(dispatch, __WEBPACK_IMPORTED_MODULE_2__actions_Action__["x" /* submitAddUserForm */], username, password, fullname, address, phone, role);
+            Object(__WEBPACK_IMPORTED_MODULE_3__api_api__["q" /* submitAddUserFormAPI */])(dispatch, __WEBPACK_IMPORTED_MODULE_2__actions_Action__["y" /* submitAddUserForm */], username, password, fullname, address, phone, role, __WEBPACK_IMPORTED_MODULE_2__actions_Action__["k" /* getDataUsers */], __WEBPACK_IMPORTED_MODULE_3__api_api__["d" /* getDataUsersAPI */]);
+        },
+        closeMessage: function closeMessage() {
+            dispatch(Object(__WEBPACK_IMPORTED_MODULE_2__actions_Action__["f" /* closeMessage */])());
         }
     };
 };
@@ -109965,42 +110176,88 @@ var AddUserComponent = function (_React$Component) {
     }, {
         key: 'render',
         value: function render() {
+            var _this2 = this;
+
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                'form',
-                { onSubmit: this.handleSubmit },
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'div',
+                null,
+                this.props.messageSuccess ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'div',
-                    { className: 'col-md-6' },
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__templates_InputForm__["c" /* InputText */], {
-                        element: this.props.property[0],
-                        name: 'USER_USERNAME',
-                        saveInput: this.props.saveInput }),
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__templates_InputForm__["b" /* InputPassword */], {
-                        element: this.props.property[1],
-                        name: 'USER_PASSWORD',
-                        saveInput: this.props.saveInput })
-                ),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    { className: 'alert alert-success alert-dismissible fade in' },
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'a',
+                        { href: '#', onClick: function onClick() {
+                                return _this2.props.closeMessage();
+                            }, className: 'close', 'data-dismiss': 'alert', 'aria-label': 'close' },
+                        '\xD7'
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'strong',
+                        null,
+                        'Success!'
+                    ),
+                    ' The new device has just created!'
+                ) : null,
+                this.props.messageFail ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'div',
-                    { className: 'col-md-6' },
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__templates_InputForm__["c" /* InputText */], {
-                        element: this.props.property[2],
-                        name: 'USER_FULLNAME',
-                        saveInput: this.props.saveInput }),
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__templates_InputForm__["c" /* InputText */], {
-                        element: this.props.property[3],
-                        name: 'USER_ADDRESS',
-                        saveInput: this.props.saveInput }),
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__templates_InputForm__["c" /* InputText */], {
-                        element: this.props.property[4],
-                        name: 'USER_PHONE',
-                        saveInput: this.props.saveInput }),
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__templates_InputForm__["d" /* SelectBox */], {
-                        element: this.props.property[5],
-                        name: 'USER_ROLE',
-                        saveInput: this.props.saveInput })
-                ),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'submit', className: 'btn btn-success col-md-2', value: 'Add' })
+                    { className: 'alert alert-danger alert-dismissible fade in' },
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'a',
+                        { href: '#', onClick: function onClick() {
+                                return _this2.props.closeMessage();
+                            }, className: 'close', 'data-dismiss': 'alert', 'aria-label': 'close' },
+                        '\xD7'
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'strong',
+                        null,
+                        'Fail!'
+                    ),
+                    ' Username has been registered!'
+                ) : null,
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'form',
+                    { onSubmit: this.handleSubmit },
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'div',
+                        { className: 'col-md-6' },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__templates_InputForm__["c" /* InputText */], {
+                            element: this.props.property[0],
+                            name: 'USER_USERNAME',
+                            inputValue: this.props.inputUsername,
+                            saveInput: this.props.saveInput }),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__templates_InputForm__["b" /* InputPassword */], {
+                            element: this.props.property[1],
+                            name: 'USER_PASSWORD',
+                            saveValue: this.props.inputPassword,
+                            saveInput: this.props.saveInput })
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'div',
+                        { className: 'col-md-6' },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__templates_InputForm__["c" /* InputText */], {
+                            element: this.props.property[2],
+                            name: 'USER_FULLNAME',
+                            inputValue: this.props.inputFullname,
+                            saveInput: this.props.saveInput }),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__templates_InputForm__["c" /* InputText */], {
+                            element: this.props.property[3],
+                            name: 'USER_ADDRESS',
+                            inputValue: this.props.inputAddress,
+                            saveInput: this.props.saveInput }),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__templates_InputForm__["c" /* InputText */], {
+                            element: this.props.property[4],
+                            name: 'USER_PHONE',
+                            inputValue: this.props.inputPhone,
+                            saveInput: this.props.saveInput }),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__templates_InputForm__["d" /* SelectBox */], {
+                            element: this.props.property[5],
+                            name: 'USER_ROLE',
+                            inputValue: this.props.inputRole,
+                            saveInput: this.props.saveInput })
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'submit', className: 'btn btn-success col-md-2', value: 'Add' })
+                )
             );
         }
     }]);
@@ -110209,7 +110466,7 @@ var mapStateToProps = function mapStateToProps(state) {
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     return {
         login: function login(username, password) {
-            Object(__WEBPACK_IMPORTED_MODULE_3__api_api__["n" /* loginAPI */])(dispatch, __WEBPACK_IMPORTED_MODULE_2__actions_Action__["q" /* login */], username, password);
+            Object(__WEBPACK_IMPORTED_MODULE_3__api_api__["n" /* loginAPI */])(dispatch, __WEBPACK_IMPORTED_MODULE_2__actions_Action__["r" /* login */], username, password);
         }
     };
 };
@@ -110522,6 +110779,7 @@ var initialState = {
     interval: 0,
     modal: false,
     object_form: null,
+    //save value of input form
     value_name_device: '',
     value_code_device: '',
     value_date_device: new Date(),
@@ -110531,8 +110789,13 @@ var initialState = {
     value_address_user: '',
     value_phone_user: '',
     value_role_user: '0',
+    //call message
+    message_success: false,
+    message_fail: false,
+    //call alert
     alert: false,
     title_alert: '',
+    //save id to delete
     id_delete: ''
 };
 
@@ -110569,11 +110832,12 @@ var Reducer = function Reducer() {
     var action = arguments[1];
 
     switch (action.type) {
-        case __WEBPACK_IMPORTED_MODULE_0__actions_TypeAction__["g" /* GET_DATA_DEVICES */]:
+        case __WEBPACK_IMPORTED_MODULE_0__actions_TypeAction__["h" /* GET_DATA_DEVICES */]:
             return _extends({}, state, {
                 data_devices: action.loadData
             });
-        case __WEBPACK_IMPORTED_MODULE_0__actions_TypeAction__["j" /* GET_DATA_VALUES */]:
+
+        case __WEBPACK_IMPORTED_MODULE_0__actions_TypeAction__["k" /* GET_DATA_VALUES */]:
             var data = [];
             var dt = action.loadData;
             if (dt.length > 0) {
@@ -110584,7 +110848,8 @@ var Reducer = function Reducer() {
             return _extends({}, state, {
                 data_values: data
             });
-        case __WEBPACK_IMPORTED_MODULE_0__actions_TypeAction__["i" /* GET_DATA_USERS */]:
+
+        case __WEBPACK_IMPORTED_MODULE_0__actions_TypeAction__["j" /* GET_DATA_USERS */]:
             var data = [];
             var dt = action.loadData;
             if (dt.length > 0) {
@@ -110595,7 +110860,8 @@ var Reducer = function Reducer() {
             return _extends({}, state, {
                 data_users: action.loadData
             });
-        case __WEBPACK_IMPORTED_MODULE_0__actions_TypeAction__["h" /* GET_DATA_SOLUTIONS */]:
+
+        case __WEBPACK_IMPORTED_MODULE_0__actions_TypeAction__["i" /* GET_DATA_SOLUTIONS */]:
             var data = [];
             var dt = action.loadData;
             if (dt.length > 0) {
@@ -110606,7 +110872,8 @@ var Reducer = function Reducer() {
             return _extends({}, state, {
                 data_solutions: data
             });
-        case __WEBPACK_IMPORTED_MODULE_0__actions_TypeAction__["o" /* GET_REAL_CHART_BASED_ON_HOUR */]:
+
+        case __WEBPACK_IMPORTED_MODULE_0__actions_TypeAction__["p" /* GET_REAL_CHART_BASED_ON_HOUR */]:
             var humidity = initValueHour();
             var temperature = initValueHour();
             if (action.loadData.length > 0) {
@@ -110621,7 +110888,8 @@ var Reducer = function Reducer() {
                 select_device: action.device,
                 select_date: action.date
             });
-        case __WEBPACK_IMPORTED_MODULE_0__actions_TypeAction__["n" /* GET_REAL_CHART_BASED_ON_DAY */]:
+
+        case __WEBPACK_IMPORTED_MODULE_0__actions_TypeAction__["o" /* GET_REAL_CHART_BASED_ON_DAY */]:
             var humidity = initValueDay();
             var temperature = initValueDay();
             if (action.loadData.length > 0) {
@@ -110636,7 +110904,8 @@ var Reducer = function Reducer() {
                 select_device: action.device,
                 select_date: action.date
             });
-        case __WEBPACK_IMPORTED_MODULE_0__actions_TypeAction__["m" /* GET_OLD_CHART_BASED_ON_HOUR */]:
+
+        case __WEBPACK_IMPORTED_MODULE_0__actions_TypeAction__["n" /* GET_OLD_CHART_BASED_ON_HOUR */]:
             var humidity = initValueHour();
             var temperature = initValueHour();
             if (action.loadData.length > 0) {
@@ -110651,7 +110920,8 @@ var Reducer = function Reducer() {
                 select_device: action.device,
                 select_date: action.date
             });
-        case __WEBPACK_IMPORTED_MODULE_0__actions_TypeAction__["l" /* GET_OLD_CHART_BASED_ON_DAY */]:
+
+        case __WEBPACK_IMPORTED_MODULE_0__actions_TypeAction__["m" /* GET_OLD_CHART_BASED_ON_DAY */]:
             var humidity = initValueDay();
             var temperature = initValueDay();
             if (action.loadData.length > 0) {
@@ -110666,19 +110936,23 @@ var Reducer = function Reducer() {
                 select_device: action.device,
                 select_date: action.date
             });
-        case __WEBPACK_IMPORTED_MODULE_0__actions_TypeAction__["k" /* GET_DEVICES_OF_USER */]:
+
+        case __WEBPACK_IMPORTED_MODULE_0__actions_TypeAction__["l" /* GET_DEVICES_OF_USER */]:
             return _extends({}, state, {
                 all_devices: action.loadData,
                 select_device: action.loadData[0].id
             });
-        case __WEBPACK_IMPORTED_MODULE_0__actions_TypeAction__["s" /* SAVE_DEVICE */]:
+
+        case __WEBPACK_IMPORTED_MODULE_0__actions_TypeAction__["t" /* SAVE_DEVICE */]:
             return _extends({}, state, {
                 select_device: state.all_devices[0].id
             });
+
         case __WEBPACK_IMPORTED_MODULE_0__actions_TypeAction__["a" /* CHANGE_DISPLAY_DATA_SCREEN */]:
             return _extends({}, state, {
                 table: !state.table
             });
+
         case __WEBPACK_IMPORTED_MODULE_0__actions_TypeAction__["c" /* CHOOSE_OPTION_SIDEBAR */]:
             switch (action.option) {
                 case "device":
@@ -110712,10 +110986,12 @@ var Reducer = function Reducer() {
                 default:
                     return _extends({}, state);
             }
-        case __WEBPACK_IMPORTED_MODULE_0__actions_TypeAction__["r" /* OPEN_SIDEBAR */]:
+
+        case __WEBPACK_IMPORTED_MODULE_0__actions_TypeAction__["s" /* OPEN_SIDEBAR */]:
             return _extends({}, state, {
                 sideBar: !state.sideBar
             });
+
         case __WEBPACK_IMPORTED_MODULE_0__actions_TypeAction__["b" /* CHANGE_INTERVAL */]:
             if (action.option == "1 Hour") {
                 var humidity = initValueHour();
@@ -110744,16 +111020,21 @@ var Reducer = function Reducer() {
                 select_device: action.device,
                 select_date: action.date
             });
-        case __WEBPACK_IMPORTED_MODULE_0__actions_TypeAction__["q" /* OPEN_MODAL */]:
+
+        case __WEBPACK_IMPORTED_MODULE_0__actions_TypeAction__["r" /* OPEN_MODAL */]:
             return _extends({}, state, {
                 modal: true,
-                object_form: action.object
+                object_form: action.object,
+                message_success: false,
+                message_fail: false
             });
-        case __WEBPACK_IMPORTED_MODULE_0__actions_TypeAction__["e" /* CLOSE_MODAL */]:
+
+        case __WEBPACK_IMPORTED_MODULE_0__actions_TypeAction__["f" /* CLOSE_MODAL */]:
             return _extends({}, state, {
                 modal: false
             });
-        case __WEBPACK_IMPORTED_MODULE_0__actions_TypeAction__["t" /* SAVE_INPUT */]:
+
+        case __WEBPACK_IMPORTED_MODULE_0__actions_TypeAction__["u" /* SAVE_INPUT */]:
             switch (action.name) {
                 case 'DEVICE_NAME':
                     return _extends({}, state, {
@@ -110792,48 +111073,92 @@ var Reducer = function Reducer() {
                         value_role_user: action.value
                     });
             }
-        case __WEBPACK_IMPORTED_MODULE_0__actions_TypeAction__["u" /* SUBMIT_ADD_DEVICE_FORM */]:
-            return _extends({}, state, {
-                value_name_device: '',
-                value_code_device: ''
-            });
-        case __WEBPACK_IMPORTED_MODULE_0__actions_TypeAction__["v" /* SUBMIT_ADD_DEVICE_USER_FORM */]:
-            return _extends({}, state, {
-                value_code_device: ''
-            });
-        case __WEBPACK_IMPORTED_MODULE_0__actions_TypeAction__["w" /* SUBMIT_ADD_USER_FORM */]:
-            return _extends({}, state, {
-                value_username_user: '',
-                value_password_user: '',
-                value_fullname_user: '',
-                value_address_user: '',
-                value_phone_user: '',
-                value_role_user: '0'
-            });
-        case __WEBPACK_IMPORTED_MODULE_0__actions_TypeAction__["x" /* SUBMIT_LOGIN */]:
+
+        case __WEBPACK_IMPORTED_MODULE_0__actions_TypeAction__["v" /* SUBMIT_ADD_DEVICE_FORM */]:
+            if (action.message == true) {
+                return _extends({}, state, {
+                    message_success: true,
+                    message_fail: false,
+                    value_name_device: '',
+                    value_code_device: ''
+                });
+            } else {
+                return _extends({}, state, {
+                    message_fail: true,
+                    message_success: false
+                });
+            }
+
+        case __WEBPACK_IMPORTED_MODULE_0__actions_TypeAction__["w" /* SUBMIT_ADD_DEVICE_USER_FORM */]:
+            if (action.message == true) {
+                return _extends({}, state, {
+                    message_success: true,
+                    message_fail: false,
+                    value_code_device: ''
+                });
+            } else {
+                return _extends({}, state, {
+                    message_fail: true,
+                    message_success: false,
+                    value_code_device: ''
+                });
+            }
+
+        case __WEBPACK_IMPORTED_MODULE_0__actions_TypeAction__["x" /* SUBMIT_ADD_USER_FORM */]:
+            if (action.message == true) {
+                return _extends({}, state, {
+                    message_success: true,
+                    message_fail: false,
+                    value_username_user: '',
+                    value_password_user: '',
+                    value_fullname_user: '',
+                    value_address_user: '',
+                    value_phone_user: '',
+                    value_role_user: '0'
+                });
+            } else {
+                return _extends({}, state, {
+                    message_fail: true,
+                    message_success: false
+                });
+            }
+
+        case __WEBPACK_IMPORTED_MODULE_0__actions_TypeAction__["y" /* SUBMIT_LOGIN */]:
             sessionStorage.setItem('token', action.token);
             sessionStorage.setItem('profile', JSON.stringify(action.user));
             return _extends({}, state, {
                 token: action.token
             });
-        case __WEBPACK_IMPORTED_MODULE_0__actions_TypeAction__["y" /* TOKEN_EXPIRED */]:
+
+        case __WEBPACK_IMPORTED_MODULE_0__actions_TypeAction__["z" /* TOKEN_EXPIRED */]:
             return _extends({}, state, {
                 token_expired: true
             });
-        case __WEBPACK_IMPORTED_MODULE_0__actions_TypeAction__["p" /* OPEN_ALERT */]:
+
+        case __WEBPACK_IMPORTED_MODULE_0__actions_TypeAction__["q" /* OPEN_ALERT */]:
             return _extends({}, state, {
                 alert: true,
                 title_alert: action.title,
                 id_delete: action.id
             });
+
         case __WEBPACK_IMPORTED_MODULE_0__actions_TypeAction__["d" /* CLOSE_ALERT */]:
             return _extends({}, state, {
                 alert: false
             });
-        case __WEBPACK_IMPORTED_MODULE_0__actions_TypeAction__["f" /* DELETE_DEVICE */]:
+
+        case __WEBPACK_IMPORTED_MODULE_0__actions_TypeAction__["g" /* DELETE_DEVICE */]:
             return _extends({}, state, {
-                alert: false
+                alert: false,
+                id_delete: ''
             });
+
+        case __WEBPACK_IMPORTED_MODULE_0__actions_TypeAction__["e" /* CLOSE_MESSAGE */]:
+            return _extends({}, state, {
+                message_success: false,
+                message_fail: false
+            });
+
         default:
             return _extends({}, state);
     }

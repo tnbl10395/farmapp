@@ -256,7 +256,7 @@ export const getDeviceOfUserAPI = (dispatch, getDeviceOfUser) => {
     }
 }
 //form
-export const submitAddDeviceFormAPI = (dispatch, submitAddDeviceForm, name, date, code) => {
+export const submitAddDeviceFormAPI = (dispatch, submitAddDeviceForm, name, date, code, getDataDevices, getDataDevicesAPI) => {
     try {
         fetch(URL + "api/devices", {
             method: method.POST,
@@ -270,10 +270,10 @@ export const submitAddDeviceFormAPI = (dispatch, submitAddDeviceForm, name, date
             .then((response) => response.json())
             .then((res) => {
                 if (res) {
-                    dispatch(submitAddDeviceForm());
-                    window.location.reload();
+                    dispatch(submitAddDeviceForm(res));
+                    getDataDevicesAPI(dispatch, getDataDevices); 
                 } else {
-                    alert('Code is unique');
+                    dispatch(submitAddDeviceForm(res));
                 }
             })
     } catch (error) {
@@ -292,17 +292,17 @@ export const submitAddDeviceUserFormAPI = (dispatch, submitAddDeviceUserForm, co
             .then((response) => response.json())
             .then((res) => {
                 if (res) {
-                    dispatch(submitAddDeviceUserForm());
-                    window.location.reload();
+                    dispatch(submitAddDeviceUserForm(res));
+                    getDataDevicesAPI(dispatch, getDataDevices); 
                 }else {
-                    alert('Please check code again!')
+                    dispatch(submitAddDeviceUserForm(res));
                 }
             })
     } catch (error) {
     }
 }
 
-export const submitAddUserFormAPI = (dispatch, submitAddUserForm, username, password, fullname, address, phone, role) => {
+export const submitAddUserFormAPI = (dispatch, submitAddUserForm, username, password, fullname, address, phone, role, getDataUsers, getDataUsersAPI) => {
     try {
         fetch(URL + "api/users", {
             method: method.POST,
@@ -319,10 +319,10 @@ export const submitAddUserFormAPI = (dispatch, submitAddUserForm, username, pass
             .then((response) => response.json())
             .then((res) => {
                 if (res) {
-                    dispatch(submitAddUserForm());
-                    window.location.reload();
+                    dispatch(submitAddUserForm(res));
+                    getDataUsersAPI(dispatch, getDataUsers); 
                 } else {
-                    alert('Username already have been registered');
+                    dispatch(submitAddUserForm(res));
                 }
             })
     } catch (error) {
@@ -375,7 +375,7 @@ export const getUserAPI = (dispatch, login, token) => {
     }
 }
 //delete device
-export const deleteDeviceAPI = (dispatch, deleteDevice, id) => {
+export const deleteDeviceAPI = (dispatch, deleteDevice, id, getDataDevices, getDataDevicesAPI) => {
     try {
         fetch(URL + "api/devices/"+id, {
             method: method.DELETE,
@@ -389,6 +389,7 @@ export const deleteDeviceAPI = (dispatch, deleteDevice, id) => {
             .then((res) => {
                 if (res) {
                     dispatch(deleteDevice());
+                    getDataDevicesAPI(dispatch, getDataDevices);
                 }
             })
     } catch (error) {

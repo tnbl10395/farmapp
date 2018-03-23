@@ -6,8 +6,6 @@ import { getDataDevicesAPI } from '../api/api';
 const mapStateToProps = (state) => ({
     sideBar: state.sideBar,
     dataSet: state.data_devices,
-    id: state.id_delete,
-    alert: state.alert
 });
 const mapDispatchToProps = (dispatch) => ({
     getDataDevices: () => {

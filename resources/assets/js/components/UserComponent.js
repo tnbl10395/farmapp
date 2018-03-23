@@ -43,11 +43,11 @@ var objectUser = {
     ]
 };
 
-var columns = [
-    { title: "ID" },
-    { title: "Username" },
-    { title: "Full Name" },
-    { title: "Address" },
-    { title: "Phone" },
-    { title: "Action" },
-];
+// var columns = [
+//     { title: "ID" },
+//     { title: "Username" },
+//     { title: "Full Name" },
+//     { title: "Address" },
+//     { title: "Phone" },
+//     { title: "Action" },
+// ];

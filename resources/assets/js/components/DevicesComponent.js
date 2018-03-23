@@ -54,12 +54,12 @@ var objectDeviceUser = {
     ]
 };
 
-var columns = [
-    { title: "Code" },
-    { title: "Name" },
-    { title: "Manufacturing Date" },
-    { title: "Status" },
-    { title: "Updated Date" },
-    { title: "Action" }
-];
+// var columns = [
+//     { title: "Code" },
+//     { title: "Name" },
+//     { title: "Manufacturing Date" },
+//     { title: "Status" },
+//     { title: "Updated Date" },
+//     { title: "Action" }
+// ];
 

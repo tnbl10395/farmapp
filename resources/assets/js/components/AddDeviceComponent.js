@@ -21,40 +21,78 @@ export class AddDeviceComponent extends React.Component {
     handleSubmitUser(e) {
         e.preventDefault();
         this.props.submitFormUser(this.props.inputCode);
-    }   
+    }
 
     render() {
         return (
             this.props.property.length > 1 ?
-                <form onSubmit={this.handleSubmitAdmin}>
-                    <div>
-                        <InputText
-                            element={this.props.property[0]}
-                            name={'DEVICE_NAME'}
-                            saveInput={this.props.saveInput} />
-                        <InputText
-                            element={this.props.property[1]}
-                            name={'DEVICE_CODE'}
-                            saveInput={this.props.saveInput} />
-                        <InputCalendar
-                            element={this.props.property[2]}
-                            name={'DEVICE_DATE'}
-                            inputDate={this.props.inputDate}
-                            saveInput={this.props.saveInput} />
-                    </div>
-                    <input type="submit" className="btn btn-success col-md-2" value="Add" />
-                </form>
+                <div>
+                    {
+                        this.props.messageSuccess ?
+                            <div className="alert alert-success alert-dismissible fade in">
+                                <a href="#" onClick={() => this.props.closeMessage()} className="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                <strong>Success!</strong> The new user has just created!
+                            </div>
+                            : null
+                    }
+                    {
+                        this.props.messageFail ?
+                            <div className="alert alert-danger alert-dismissible fade in">
+                                <a href="#" onClick={() => this.props.closeMessage()} className="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                <strong>Fail!</strong> You should check code!
+                            </div>
+                            : null
+                    }
+                    <form onSubmit={this.handleSubmitAdmin}>
+                        <div>
+                            <InputText
+                                element={this.props.property[0]}
+                                name={'DEVICE_NAME'}
+                                inputValue={this.props.inputName}
+                                saveInput={this.props.saveInput} />
+                            <InputText
+                                element={this.props.property[1]}
+                                name={'DEVICE_CODE'}
+                                inputValue={this.props.inputCode}
+                                saveInput={this.props.saveInput} />
+                            <InputCalendar
+                                element={this.props.property[2]}
+                                name={'DEVICE_DATE'}
+                                inputDate={this.props.inputDate}
+                                saveInput={this.props.saveInput} />
+                        </div>
+                        <input type="submit" className="btn btn-success col-md-2" value="Add" />
+                    </form>
+                </div>
                 :
-                <form onSubmit={this.handleSubmitUser}>
-                    <div>
-                        <InputText
-                            element={this.props.property[0]}
-                            name={'DEVICE_CODE'}
-                            saveInput={this.props.saveInput} />
-                    </div>
-                    <input type="submit" className="btn btn-success col-md-2" value="Add" />
-                </form>
+                <div>
+                    {
+                        this.props.messageSuccess ?
+                            <div className="alert alert-success alert-dismissible fade in">
+                                <a href="#" onClick={() => this.props.closeMessage()} className="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                <strong>Success!</strong> The new device has just added!
+                        </div>
+                            : null
+                    }
+                    {
+                        this.props.messageFail ?
+                            <div className="alert alert-danger alert-dismissible fade in">
+                                <a href="#" onClick={() => this.props.closeMessage()} className="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                <strong>Fail!</strong> You should check code!
+                        </div>
+                            : null
+                    }
+                    <form onSubmit={this.handleSubmitUser}>
+                        <div>
+                            <InputText
+                                element={this.props.property[0]}
+                                name={'DEVICE_CODE'}
+                                inputValue={this.props.inputCode}
+                                saveInput={this.props.saveInput} />
+                        </div>
+                        <input type="submit" className="btn btn-success col-md-2" value="Add" />
+                    </form>
+                </div>
         )
     }
 }
-

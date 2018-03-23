@@ -7,13 +7,21 @@ export default class List extends React.Component {
         this.state = {
             activePage: 1,
             data: this.props.dataSet,
-            itemsCountPerPage: 10
+            itemsCountPerPage: 5
         };
         this.handlePageChange = this.handlePageChange.bind(this);
     }
 
     handlePageChange(pageNumber) {
         this.setState({ activePage: pageNumber });
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.setState(nextProps, () => {
+            this.setState({
+                data: nextProps.dataSet
+            })
+        });
     }
 
     render() {
@@ -54,7 +62,31 @@ export default class List extends React.Component {
                     </div>
                 </div>
                 <div className="col-xs-12 col-sm-12 col-md-2">
-                    <div style={style.filter}></div>
+                    <div style={style.filter}>
+                        <div className="form-group col-md-12">
+                            <select value={this.state.itemsCountPerPage}
+                                style={style.selectNumberPageDisplay}
+                                className="form-control"
+                                onChange={(event) => this.setState({ itemsCountPerPage: event.target.value })}>
+                                <option value={5}>5</option>
+                                <option value={10}>10</option>
+                                <option value={50}>50</option>
+                                <option value={100}>100</option>
+                            </select>
+                        </div>
+                        <div className="form-group col-md-12">
+                            <div className="form-check">
+                                <label className="form-check-lable">
+                                    <input type="checkbox" className="form-check-input-lg" style={style.checkbox} />
+                                </label><span style={style.textCheckbox}> Active</span>
+                            </div>
+                            <div className="form-check">
+                                <label className="form-check-lable">
+                                    <input type="checkbox" className="form-check-input" style={style.checkbox} />
+                                </label><span style={style.textCheckbox}> Inactive</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         )
@@ -174,8 +206,8 @@ const style = {
         height: 200,
     },
     avatar: {
-        width: 70,
-        height: 70,
+        width: 65,
+        height: 65,
         marginTop: 5,
     },
     picture: {
@@ -222,5 +254,16 @@ const style = {
         backgroundColor: '#e74c3c',
         color: '#fff',
         cursor: 'pointer'
+    },
+    checkbox: {
+        width: 20,
+        height: 20
+    },
+    selectNumberPageDisplay: {
+        marginTop: 5
+    },
+    textCheckbox: {
+        fontSize: 18,
+        color: 'grey',
     }
 }

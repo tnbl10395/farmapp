@@ -23,7 +23,8 @@ import {
     OPEN_ALERT,
     CLOSE_ALERT,
     SUBMIT_ADD_DEVICE_USER_FORM,
-    DELETE_DEVICE
+    DELETE_DEVICE,
+    CLOSE_MESSAGE
 } from "../actions/TypeAction";
 
 const initialState = {
@@ -48,6 +49,7 @@ const initialState = {
     interval: 0,
     modal: false,
     object_form: null,
+    //save value of input form
     value_name_device: '',
     value_code_device: '',
     value_date_device: new Date(),
@@ -57,8 +59,13 @@ const initialState = {
     value_address_user: '',
     value_phone_user: '',
     value_role_user: '0',
+    //call message
+    message_success: false,
+    message_fail: false,
+    //call alert
     alert: false,
     title_alert: '',
+    //save id to delete
     id_delete: '',
 };
 
@@ -89,6 +96,7 @@ const Reducer = (state = initialState, action) => {
                 ...state,
                 data_devices: action.loadData
             }
+
         case GET_DATA_VALUES:
             var data = [];
             var dt = action.loadData;
@@ -108,6 +116,7 @@ const Reducer = (state = initialState, action) => {
                 ...state,
                 data_values: data
             }
+
         case GET_DATA_USERS:
             var data = [];
             var dt = action.loadData;
@@ -126,6 +135,7 @@ const Reducer = (state = initialState, action) => {
                 ...state,
                 data_users: action.loadData
             }
+
         case GET_DATA_SOLUTIONS:
             var data = [];
             var dt = action.loadData;
@@ -144,6 +154,7 @@ const Reducer = (state = initialState, action) => {
                 ...state,
                 data_solutions: data
             }
+
         case GET_REAL_CHART_BASED_ON_HOUR:
             var humidity = initValueHour();
             var temperature = initValueHour();
@@ -160,6 +171,7 @@ const Reducer = (state = initialState, action) => {
                 select_device: action.device,
                 select_date: action.date
             }
+
         case GET_REAL_CHART_BASED_ON_DAY:
             var humidity = initValueDay();
             var temperature = initValueDay();
@@ -176,6 +188,7 @@ const Reducer = (state = initialState, action) => {
                 select_device: action.device,
                 select_date: action.date
             }
+
         case GET_OLD_CHART_BASED_ON_HOUR:
             var humidity = initValueHour();
             var temperature = initValueHour();
@@ -192,6 +205,7 @@ const Reducer = (state = initialState, action) => {
                 select_device: action.device,
                 select_date: action.date
             }
+
         case GET_OLD_CHART_BASED_ON_DAY:
             var humidity = initValueDay();
             var temperature = initValueDay();
@@ -208,22 +222,26 @@ const Reducer = (state = initialState, action) => {
                 select_device: action.device,
                 select_date: action.date
             }
+
         case GET_DEVICES_OF_USER:
             return {
                 ...state,
                 all_devices: action.loadData,
                 select_device: action.loadData[0].id,
             }
+
         case SAVE_DEVICE:
             return {
                 ...state,
                 select_device: state.all_devices[0].id,
             }
+
         case CHANGE_DISPLAY_DATA_SCREEN:
             return {
                 ...state,
                 table: !state.table,
             }
+
         case CHOOSE_OPTION_SIDEBAR:
             switch (action.option) {
                 case "device":
@@ -263,11 +281,13 @@ const Reducer = (state = initialState, action) => {
                         ...state,
                     }
             }
+
         case OPEN_SIDEBAR:
             return {
                 ...state,
                 sideBar: !state.sideBar
             }
+
         case CHANGE_INTERVAL:
             if (action.option == "1 Hour") {
                 var humidity = initValueHour();
@@ -297,17 +317,22 @@ const Reducer = (state = initialState, action) => {
                 select_device: action.device,
                 select_date: action.date
             }
+
         case OPEN_MODAL:
             return {
                 ...state,
                 modal: true,
-                object_form: action.object
+                object_form: action.object,
+                message_success: false,
+                message_fail: false,
             }
+
         case CLOSE_MODAL:
             return {
                 ...state,
                 modal: false,
             }
+
         case SAVE_INPUT:
             switch (action.name) {
                 case 'DEVICE_NAME':
@@ -356,56 +381,104 @@ const Reducer = (state = initialState, action) => {
                         value_role_user: action.value
                     }
             }
+
         case SUBMIT_ADD_DEVICE_FORM:
-            return {
-                ...state,
-                value_name_device: '',
-                value_code_device: '',
+            if (action.message == true) {
+                return {
+                    ...state,
+                    message_success: true,
+                    message_fail: false,
+                    value_name_device: '',
+                    value_code_device: '',
+                }
+            } else {
+                return {
+                    ...state,
+                    message_fail: true,
+                    message_success: false,
+                }
             }
+
         case SUBMIT_ADD_DEVICE_USER_FORM:
-            return {
-                ...state,
-                value_code_device: '',
+            if (action.message == true) {
+                return {
+                    ...state,
+                    message_success: true,
+                    message_fail: false,
+                    value_code_device: '',
+                }
+            } else {
+                return {
+                    ...state,
+                    message_fail: true,
+                    message_success: false,
+                    value_code_device: '',
+                }
             }
+
         case SUBMIT_ADD_USER_FORM:
-            return {
-                ...state,
-                value_username_user: '',
-                value_password_user: '',
-                value_fullname_user: '',
-                value_address_user: '',
-                value_phone_user: '',
-                value_role_user: '0',
+            if (action.message == true) {
+                return {
+                    ...state,
+                    message_success: true,
+                    message_fail: false,
+                    value_username_user: '',
+                    value_password_user: '',
+                    value_fullname_user: '',
+                    value_address_user: '',
+                    value_phone_user: '',
+                    value_role_user: '0',
+                }
+            } else {
+                return {
+                    ...state,
+                    message_fail: true,
+                    message_success: false,
+                }
             }
+
         case SUBMIT_LOGIN:
             sessionStorage.setItem('token', action.token);
-            sessionStorage.setItem('profile',JSON.stringify(action.user));
+            sessionStorage.setItem('profile', JSON.stringify(action.user));
             return {
                 ...state,
                 token: action.token
             }
+
         case TOKEN_EXPIRED:
             return {
                 ...state,
                 token_expired: true
             }
+
         case OPEN_ALERT:
             return {
                 ...state,
                 alert: true,
                 title_alert: action.title,
-                id_delete: action.id 
+                id_delete: action.id
             }
+
         case CLOSE_ALERT:
             return {
                 ...state,
                 alert: false
             }
+
         case DELETE_DEVICE:
             return {
                 ...state,
                 alert: false,
+                id_delete: '',
             }
+
+        case CLOSE_MESSAGE:
+            return {
+                ...state,
+                message_success: false,
+                message_fail: false
+            }
+
         default:
             return {
                 ...state,

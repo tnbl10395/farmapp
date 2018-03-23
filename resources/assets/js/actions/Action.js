@@ -23,7 +23,8 @@ import {
     OPEN_ALERT,
     CLOSE_ALERT,
     SUBMIT_ADD_DEVICE_USER_FORM,
-    DELETE_DEVICE
+    DELETE_DEVICE,
+    CLOSE_MESSAGE
 } from "./TypeAction";
 //Custom UI
 export const chooseOptionSidebar = (option) => {
@@ -154,21 +155,24 @@ export const saveInput = (name, value) => {
     }
 }
 
-export const submitAddDeviceForm = () => {
+export const submitAddDeviceForm = (message) => {
     return {
-        type: SUBMIT_ADD_DEVICE_FORM
+        type: SUBMIT_ADD_DEVICE_FORM,
+        message
     }
 }
 
-export const submitAddDeviceUserForm = () => {
+export const submitAddDeviceUserForm = (message) => {
     return {
-        type: SUBMIT_ADD_DEVICE_USER_FORM
+        type: SUBMIT_ADD_DEVICE_USER_FORM,
+        message
     }
 }
 
-export const submitAddUserForm = () => {
+export const submitAddUserForm = (message) => {
     return {
-        type: SUBMIT_ADD_USER_FORM
+        type: SUBMIT_ADD_USER_FORM,
+        message
     }
 }
 
@@ -203,5 +207,11 @@ export const closeAlert = () => {
 export const deleteDevice = () => {
     return {
         type: DELETE_DEVICE,
+    }
+}
+
+export const closeMessage = () => {
+    return {
+        type:CLOSE_MESSAGE
     }
 }
