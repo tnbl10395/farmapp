@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Pagination from 'react-js-pagination';
+import { Link } from 'react-router-dom';
 
 export default class List extends React.Component {
     constructor(props) {
@@ -31,13 +32,25 @@ export default class List extends React.Component {
         const indexOfFirstTodo = indexOfLastTodo - itemsCountPerPage;
         const currentData = data.slice(indexOfFirstTodo, indexOfLastTodo);
         return (
-            <div style={this.props.sideBar ? style.main_content_true : style.main_content_false} className="col-md-10">
+            <div style={this.props.sideBar ? style.main_content_true : style.main_content_false}>
                 <div className="col-xs-12 col-sm-12 col-md-10" style={style.list}>
                     <div className="row">
                         <div className="col-xs-12 col-sm-12 col-md-12">
-                            <button onClick={() => this.props.openModal(this.props.object)} className="btn btn-success pull-right" style={{ margin: 5 }}>
-                                <i className="fa fa-plus" /> New {this.props.name}
-                            </button>
+                            {
+                                this.props.name == "Data"
+                                    ? <div className="pull-right" style={{ margin: 5 }}>
+                                        <button
+                                            // onClick={() => this.props.change()}
+                                            className="btn btn-success" style={{ marginRight: 10 }}><i className="fa fa-file-excel-o" style={{ marginRight: 5 }} />Export</button>
+                                        <button
+                                            onClick={() => this.props.change()}
+                                            className="btn btn-success"><i className="fa fa-bar-chart" style={{ marginRight: 5 }} /> Chart</button>
+                                    </div>
+                                    : <button onClick={() => this.props.openModal(this.props.object)} className="btn btn-success pull-right" style={{ margin: 5 }}>
+                                        <i className="fa fa-plus" /> New {this.props.name}
+                                    </button>
+                            }
+
                             <div className="form-group has-feedback col-xs-3 col-sm-3 col-md-2 pull-right" style={style.search}>
                                 <input type="text" className="form-control" placeholder="Search ..." />
                                 <span className="form-control-feedback glyphicon glyphicon-search" style={{ marginRight: 10 }}></span>
@@ -99,6 +112,8 @@ const renderTable = (name, currentData, openAlert) => {
             return device(currentData, openAlert);
         case 'User':
             return user(currentData, openAlert);
+        case 'Data':
+            return data(currentData, openAlert);
     }
 }
 
@@ -126,7 +141,7 @@ const device = (currentData, openAlert) => (
                 }
             </div>
             <div className="col-xs-1 col-sm-1 col-md-1" style={style.button}>
-                <a style={style.edit} className="fa fa-edit"></a>
+                <Link to={'device/'+element.id} style={style.edit} className="fa fa-edit"></Link>
                 <a onClick={() => openAlert('DELETE_DEVICE', element.id)} style={style.delete} className="fa fa-remove"></a>
             </div>
         </div>
@@ -136,7 +151,7 @@ const device = (currentData, openAlert) => (
 const user = (currentData, openAlert) => (
     currentData.map((element, index) =>
         <div key={index} style={style.item} className="col-xs-12 col-sm-12 col-md-12">
-            <div className="col-xs-1 col-sm-1 col-md-1">
+            <div className="col-xs-1 col-sm-1 col-md-1" style={{ display: 'flex', alignItems: 'center', height: 70 }}>
                 <img src="/images/avatar.png" style={style.avatar} />
             </div>
             <div className="col-xs-2 col-sm-2 col-md-2" style={style.text}>
@@ -153,7 +168,33 @@ const user = (currentData, openAlert) => (
             </div>
             <div className="col-xs-1 col-sm-1 col-md-1" style={style.button}>
                 <a style={style.edit} className="fa fa-edit"></a>
-                <a style={style.delete} className="fa fa-remove"></a>
+                <a onClick={() => openAlert('DELETE_USER', element.id)} style={style.delete} className="fa fa-remove"></a>
+            </div>
+        </div>
+    )
+)
+
+const data = (currentData, openAlert) => (
+    currentData.map((element, index) =>
+        <div key={index} style={style.item} className="col-xs-12 col-sm-12 col-md-12">
+            <div className="col-xs-1 col-sm-1 col-md-1" style={style.text}>
+                {/* <h6>Device</h6> */}
+                <p>{element.name}</p>
+            </div>
+            <div className="col-xs-3 col-sm-3 col-md-3" style={style.text}>
+                <h6 style={style.title}>Humidity</h6>
+                <p><i className="fa fa-tint" style={style.icon_humidity}/>{element.humidity} %</p>
+            </div>
+            <div className="col-xs-3 col-sm-3 col-md-3" style={style.text}>
+                <h6 style={style.title}>Temperature</h6>
+                <p><i className="fa fa-thermometer-empty" style={style.icon_temperature}/>{element.temperature} °C</p>
+            </div>
+            <div className="col-xs-3 col-sm-3 col-md-3" style={style.text}>
+                <h6 style={style.title}>Date</h6>
+                <p>{element.updated_at}</p>
+            </div>
+            <div className="col-xs-1 col-sm-1 col-md-1" style={style.button}>
+                <a onClick={() => openAlert('DELETE_DATA', element.id)} style={style.delete} className="fa fa-remove"></a>
             </div>
         </div>
     )
@@ -162,53 +203,57 @@ const user = (currentData, openAlert) => (
 const style = {
     main_content_true: {
         color: 'black',
-        backgroundColor: 'black',
+        backgroundColor: 'white',
         position: 'absolute',
-        left: '15.5%',
-        top: 80,
+        left: 10,
+        top: 50,
+        right: 10,
         // width: '83%',
         fontSize: 12,
-        opacity: 0.7,
+        // opacity: 0.7,
         borderRadius: 5,
         fontWeight: 'bold',
-        boxShadow: "1px 7px 3px black"
+        boxShadow: "0.5px 5px 3px grey",
+        borderTop: '4px #2ab27b solid'
     },
     main_content_false: {
         color: 'black',
-        backgroundColor: 'black',
+        backgroundColor: 'white',
         position: 'absolute',
-        padding: 10,
-        left: '4%',
-        top: 80,
-        width: '95%',
+        left: 10,
+        top: 50,
+        right: 10,
+        // width: '95%',
         fontSize: 12,
-        opacity: 0.7,
+        // opacity: 0.7,
         borderRadius: 5,
         fontWeight: 'bold',
-        boxShadow: "1px 7px 3px black"
+        boxShadow: "0.5px 5px 3px grey",
+        borderTop: '4px #2ab27b solid'
     },
     list: {
         marginTop: 10,
         backgroundColor: '#fff',
         borderRadius: 5,
-        display: 'inline-block'
+        // display: 'inline-block'
     },
     item: {
         border: '2px solid gray',
-        backgroundColor: '#fff',
+        backgroundColor: '#ecf0f5',
         borderRadius: 5,
         margin: 2,
     },
     filter: {
-        backgroundColor: '#fff',
+        backgroundColor: '#ecf0f5',
         borderRadius: 5,
         marginTop: 10,
         height: 200,
     },
     avatar: {
-        width: 65,
-        height: 65,
-        marginTop: 5,
+        width: 35,
+        height: 35,
+        // marginTop: 20,
+        borderRadius: 100
     },
     picture: {
         marginTop: 10,
@@ -222,7 +267,8 @@ const style = {
         margin: 5,
     },
     text: {
-        fontSize: 15,
+        fontSize: 11,
+        fontFamily: "Helvetica",
         marginTop: 10,
     },
     status: {
@@ -256,14 +302,27 @@ const style = {
         cursor: 'pointer'
     },
     checkbox: {
-        width: 20,
-        height: 20
+        width: 18,
+        height: 18
     },
     selectNumberPageDisplay: {
         marginTop: 5
     },
     textCheckbox: {
-        fontSize: 18,
-        color: 'grey',
+        fontSize: 12,
+        color: '#777',
+    },
+    icon_humidity: {
+        fontSize: 15,
+        marginRight: 10,
+        color: '#0984e3'
+    },
+    icon_temperature: {
+        fontSize: 15,
+        marginRight: 10,
+        color: '#ff7675'
+    },
+    title: {
+        color: '#777',
     }
 }

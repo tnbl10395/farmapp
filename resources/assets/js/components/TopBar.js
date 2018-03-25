@@ -8,10 +8,10 @@ export default class TopBar extends React.Component {
 
     render() {
         return (
-            <div>
                 <div style={style.topBar} className="row">
                     <div style={style.divTitle} className="col-md-3 col-sm-3 col-3">
-                        <p style={style.title}>LP<a href="/" style={style.a}>Farm</a></p>
+                        <a href="/"><img src="/images/logo4.png" style={style.logo}/></a>
+                        {/* <p style={style.title}>LP<a href="/" style={style.a}>Farm</a></p> */}
                         <a onClick={() => this.props.openSidebar()} style={style.a_bar}>
                             {this.props.sideBar ? <i className="fa fa-caret-left" /> : <i className="fa fa-caret-right" />}
                         </a>
@@ -20,7 +20,6 @@ export default class TopBar extends React.Component {
                         this.props.openAlert('LOGOUT', '');
                     }} style={style.a_out}><i className="fa fa-sign-out" /></a>
                 </div>
-            </div>
         );
     }
 }
@@ -28,11 +27,11 @@ export default class TopBar extends React.Component {
 var style = {
     topBar: {
         position: 'fixed',
-        backgroundColor: 'black',
+        backgroundColor: '#2ab27b',
         width: '100%',
-        height: 60,
+        height: 50,
         zIndex: 99999,
-        boxShadow: "1px 7px 3px black",
+        boxShadow: "1px 1px 1px black",
         // opacity: 0.8,
     },
     divTitle: {
@@ -57,16 +56,21 @@ var style = {
         position: 'relative',
         top: 5,
         left: 65,
-        fontSize: 30,
+        fontSize: 20,
         color: 'white'
     },
     a_out: {
         cursor: 'pointer',
         position: 'absolute',
-        top: 15,
+        top: 10,
         right: 40,
         fontSize: 20,
         color: 'white'
+    },
+    logo: {
+        width: 100,
+        marginLeft: 35,
+        marginTop: 5
     }
 
 }

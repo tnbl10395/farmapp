@@ -24,7 +24,10 @@ import {
     CLOSE_ALERT,
     SUBMIT_ADD_DEVICE_USER_FORM,
     DELETE_DEVICE,
-    CLOSE_MESSAGE
+    CLOSE_MESSAGE,
+    DELETE_USER,
+    DELETE_DATA,
+    LOAD_DEVICE_UPDATE
 } from "../actions/TypeAction";
 
 const initialState = {
@@ -67,6 +70,8 @@ const initialState = {
     title_alert: '',
     //save id to delete
     id_delete: '',
+    //breadcrumb
+    breadcrumb: '',
 };
 
 const edit = (direct, id) => ('<a href="/#/' + direct + '/update/' + id + '" style="border-radius: 5px; padding: 5px 5px 5px 6px; background-color:#3498db; color:#fff;margin-right:10px;" class="fa fa-edit"></a>');
@@ -98,61 +103,21 @@ const Reducer = (state = initialState, action) => {
             }
 
         case GET_DATA_VALUES:
-            var data = [];
-            var dt = action.loadData;
-            if (dt.length > 0) {
-                dt.forEach(obj => {
-                    data.push([
-                        obj.id,
-                        obj.name,
-                        obj.humidity,
-                        obj.temperature,
-                        obj.updated_at,
-                        obj.status,
-                        actRemove("data", obj.id)]);
-                });
-            }
             return {
                 ...state,
-                data_values: data
+                data_values: action.loadData
             }
 
         case GET_DATA_USERS:
-            var data = [];
-            var dt = action.loadData;
-            if (dt.length > 0) {
-                dt.forEach(obj => {
-                    data.push([
-                        obj.id,
-                        obj.username,
-                        obj.fullname,
-                        obj.address,
-                        obj.phone,
-                        act("user", obj.id)]);
-                });
-            }
             return {
                 ...state,
                 data_users: action.loadData
             }
 
         case GET_DATA_SOLUTIONS:
-            var data = [];
-            var dt = action.loadData;
-            if (dt.length > 0) {
-                dt.forEach(obj => {
-                    data.push([
-                        obj.id,
-                        obj.temperature,
-                        obj.humidity,
-                        obj.solution,
-                        obj.updated_at,
-                        act("solution", obj.id)]);
-                });
-            }
             return {
                 ...state,
-                data_solutions: data
+                data_solutions: action.loadData
             }
 
         case GET_REAL_CHART_BASED_ON_HOUR:
@@ -247,6 +212,7 @@ const Reducer = (state = initialState, action) => {
                 case "device":
                     return {
                         ...state,
+                        breadcrumb: 'Device',
                         admin_device_component: true,
                         admin_user_component: false,
                         admin_data_component: false,
@@ -255,6 +221,7 @@ const Reducer = (state = initialState, action) => {
                 case "user":
                     return {
                         ...state,
+                        breadcrumb: 'User',
                         admin_device_component: false,
                         admin_user_component: true,
                         admin_data_component: false,
@@ -263,6 +230,7 @@ const Reducer = (state = initialState, action) => {
                 case "data":
                     return {
                         ...state,
+                        breadcrumb: 'Data',
                         admin_device_component: false,
                         admin_user_component: false,
                         admin_data_component: true,
@@ -271,6 +239,7 @@ const Reducer = (state = initialState, action) => {
                 case "solution":
                     return {
                         ...state,
+                        breadcrumb: 'Solution',
                         admin_device_component: false,
                         admin_user_component: false,
                         admin_data_component: false,
@@ -472,13 +441,34 @@ const Reducer = (state = initialState, action) => {
                 id_delete: '',
             }
 
+        case DELETE_USER:
+            return {
+                ...state,
+                alert: false,
+                id_delete: '',
+            }
+
+        case DELETE_DATA:
+            return {
+                ...state,
+                alert: false,
+                id_delete: '',
+            }
+
         case CLOSE_MESSAGE:
             return {
                 ...state,
                 message_success: false,
                 message_fail: false
             }
-
+        case LOAD_DEVICE_UPDATE:
+            console.log(action.loadData)
+            return {
+                ...state,
+                // value_name_device: action.loadData.name,
+                // value_code_device: action.loadData.code,
+                // value_date_device: action.loadData.date,
+            }
         default:
             return {
                 ...state,

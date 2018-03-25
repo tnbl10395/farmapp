@@ -100,7 +100,7 @@ class DataController extends Controller
     {
         $data = Data::findOrFail($id);
         $data->delete();
-        return response()->json('Deleted');
+        return response()->json($data);
     }
     //real - hour
     public function getRealChartBasedOnHour(Request $request, $deviceId)

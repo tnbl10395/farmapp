@@ -23,25 +23,32 @@ export default class Index extends Component {
         return (
             <HashRouter>
                 <div className="container-fluid">
-                    <img src="/images/farmintro.jpg" style={style.img} />
+                    {/* <img src="/images/farmintro.jpg" style={style.img} /> */}
+                    {/* <div style={style.background}></div> */}
                     <TopBar />
-                    <SideBar profile={profile} />
-                    <Content sideBar={this.props.sideBar} 
-                             profile={profile} />
+                    <div className="row">
+                        <SideBar profile={profile} />
+                        <Content sideBar={this.props.sideBar}
+                                 profile={profile}
+                                 breadcrumb={this.props.breadcrumb} />
+                    </div>
                     {
                         this.props.modal ?
                             <Modal closeModal={this.props.closeModal}
-                                object={this.props.object} />
+                                   object={this.props.object} />
                             : null
                     }
                     {
                         this.props.alert ?
-                            <Alert closeAlert={this.props.closeAlert} 
-                                   title={this.props.title} 
+                            <Alert closeAlert={this.props.closeAlert}
+                                   title={this.props.title}
                                    delete={this.props.delete}
                                    id={this.props.id} />
                             : null
                     }
+                    {/* <div style={{borderTop: '1px #777 solid', position: 'fixed', bottom: 0, left: 210, right: 0, height: 50, zIndex: 3, alignItems: 'center'}}>
+                        <h6>Enc © 2018 - Lewis</h6>
+                    </div> */}
                 </div>
             </HashRouter>
         );
@@ -49,13 +56,15 @@ export default class Index extends Component {
 }
 
 var style = {
-    img: {
+    background: {
+        background: '#ecf0f5',
+        // opacity: 0.7,
         position: 'fixed',
         left: 0,
         top: 0,
         bottom: 0,
         right: 0,
-        filter: 'blur(3px)',
+        // filter: 'contrast(200%)',
         // maxWidth:'100%',
     }
 }

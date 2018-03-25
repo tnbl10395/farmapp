@@ -24,7 +24,10 @@ import {
     CLOSE_ALERT,
     SUBMIT_ADD_DEVICE_USER_FORM,
     DELETE_DEVICE,
-    CLOSE_MESSAGE
+    CLOSE_MESSAGE,
+    DELETE_USER,
+    DELETE_DATA,
+    LOAD_DEVICE_UPDATE
 } from "./TypeAction";
 //Custom UI
 export const chooseOptionSidebar = (option) => {
@@ -210,8 +213,26 @@ export const deleteDevice = () => {
     }
 }
 
+export const deleteUser = () => {
+    return {
+        type: DELETE_USER,
+    }
+}
+
+export const deleteData = () => {
+    return {
+        type: DELETE_DATA,
+    }
+}
+
 export const closeMessage = () => {
     return {
-        type:CLOSE_MESSAGE
+        type: CLOSE_MESSAGE
+    }
+}
+
+export const loadDeviceUpdate = (loadData) => {
+    return {
+        type: LOAD_DEVICE_UPDATE
     }
 }

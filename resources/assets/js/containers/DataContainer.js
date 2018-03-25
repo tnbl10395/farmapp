@@ -17,7 +17,8 @@ import {
     getOldChartBasedOnHour,
     changeInterval,
     getOldChartBasedOnDay,
-    getRealChartBasedOnDay
+    getRealChartBasedOnDay,
+    openAlert
 } from '../actions/Action';
 
 const mapStateToProps = (state) => ({
@@ -60,6 +61,9 @@ const mapDispatchToProps = (dispatch) => ({
         } else {
             getRealChartBasedOnHourAPI(dispatch, getRealChartBasedOnHour, device);
         }
+    },
+    openAlert: (title, id) => {
+        dispatch(openAlert(title, id));
     },
 });
 

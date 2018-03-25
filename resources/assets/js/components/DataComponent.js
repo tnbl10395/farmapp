@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Table } from '../templates/Table';
 import { Chart } from '../templates/Chart';
+import List from '../templates/List';
 
 export default class DataComponent extends React.Component {
     constructor(props) {
@@ -9,9 +10,13 @@ export default class DataComponent extends React.Component {
 
     componentDidMount() {
         this.props.getDataValuesonTable();
-        setTimeout(() => {
+        this.timeout = setTimeout(() => {
             this.props.getRealDataOnChart(this.props.device, this.props.checkInterval);
         }, 1000);
+    }
+
+    componentWillUnmount() {
+        clearTimeout(this.timeout);
     }
 
     render() {
@@ -20,12 +25,18 @@ export default class DataComponent extends React.Component {
                 <div>
                     {
                         this.props.table ?
-                            <Table
+                            // <Table
+                            //     dataSet={this.props.dataSet}
+                            //     columns={columns}
+                            //     sideBar={this.props.sideBar}
+                            //     name={"Data"}
+                            //     change={this.props.changeDisplayDataScreen} />
+                            <List
                                 dataSet={this.props.dataSet}
-                                columns={columns}
                                 sideBar={this.props.sideBar}
                                 name={"Data"}
-                                change={this.props.changeDisplayDataScreen} />
+                                change={this.props.changeDisplayDataScreen} 
+                                openAlert={this.props.openAlert} />
                             :
                             <Chart
                                 sideBar={this.props.sideBar}
@@ -49,12 +60,12 @@ export default class DataComponent extends React.Component {
     }
 }
 
-var columns = [
-    { title: "ID" },
-    { title: "Device" },
-    { title: "Humidity" },
-    { title: "Temperature" },
-    { title: "Date" },
-    { title: "Status" },
-    { title: "Action" },
-];
+// var columns = [
+//     { title: "ID" },
+//     { title: "Device" },
+//     { title: "Humidity" },
+//     { title: "Temperature" },
+//     { title: "Date" },
+//     { title: "Status" },
+//     { title: "Action" },
+// ];

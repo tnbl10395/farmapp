@@ -57,14 +57,10 @@ class DevicesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
         $device = Device::findOrFail($id);
-        if(!is_null($device)){
-            return response()->json($device);
-        }else{
-            return response()->json('message', 'nodata');
-        } 
+        return response()->json($device);
     }
 
     /**

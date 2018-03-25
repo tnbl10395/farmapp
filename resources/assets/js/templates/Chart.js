@@ -171,11 +171,11 @@ export class Chart extends React.Component {
                     <button
                         // onClick={() => this.props.change()}
                         className="btn btn-success"
-                        style={{ position: 'absolute', right: 80, top: 5, fontSize: 12 }}>Export</button>
+                        style={{ position: 'absolute', right: 90, top: 5, fontSize: 12 }}><i className="fa fa-file-excel-o" style={{ marginRight: 5 }} />Export</button>
                     <button
                         onClick={() => this.props.change()}
                         className="btn btn-success"
-                        style={{ position: 'absolute', right: 10, top: 5, fontSize: 12 }}>Table</button>
+                        style={{ position: 'absolute', right: 10, top: 5, fontSize: 12 }}><i className="fa fa-table" style={{ marginRight: 5 }} /> Table</button>
                 </div>
                 <hr style={{ opacity: 0.2, marginTop: 0, marginBottom: 0 }} />
                 <div>
@@ -240,7 +240,7 @@ export class Chart extends React.Component {
                                         { fontSize: 20, cursor: 'pointer', fontFamily: "Helvetica" }
                                 }>
                                 Humidity
-                        </div>
+                            </div>
                             <div
                                 className="label label-primary col-md-5"
                                 onClick={() => this.setState({ temperature: !this.state.temperature })}
@@ -251,9 +251,9 @@ export class Chart extends React.Component {
                                         { fontSize: 20, cursor: 'pointer', fontFamily: "Helvetica" }
                                 }>
                                 Temperature
+                            </div>
                         </div>
-                        </div>
-                        <LineChart data={chartData} options={chartOptions} style={style.chart} redraw width="600" height="250" />
+                        <LineChart data={chartData} options={chartOptions} style={style.chart} redraw width='600' height='250'/>
                     </div>
                 </div>
             </div>
@@ -365,36 +365,37 @@ var chartOptions = {
 const style = {
     main_content_true: {
         color: 'black',
-        backgroundColor: 'black',
+        backgroundColor: 'white',
         position: 'absolute',
-        padding: 10,
-        left: '15.5%',
-        top: 100,
-        width: '83%',
+        left: 10,
+        top: 50,
+        right: 10,
         fontSize: 12,
-        opacity: 0.8,
         borderRadius: 5,
         fontWeight: 'bold',
-        boxShadow: "1px 7px 3px black",
+        boxShadow: "0.5px 5px 3px grey",
+        borderTop: '4px #2ab27b solid'
     },
     main_content_false: {
         color: 'black',
-        backgroundColor: '#9E9E9E',
+        backgroundColor: 'white',
         position: 'absolute',
-        padding: 10,
-        left: '4%',
-        top: 100,
-        width: '95%',
+        left: 10,
+        top: 50,
+        right: 10,
+        // width: '95%',
         fontSize: 12,
-        opacity: 0.7,
         borderRadius: 5,
         fontWeight: 'bold',
-        boxShadow: "1px 7px 3px black",
+        boxShadow: "0.5px 5px 3px grey",
+        borderTop: '4px #2ab27b solid'
+
     },
     chart: {
-        marginTop: 20,
-        backgroundColor: 'white',
-        borderRadius: 2,
+        marginTop: 2,
+        backgroundColor: '#ecf0f5',
+        borderRadius: 5,
+        border: '1px solid grey',
     },
     button_div: {
         height: 35,

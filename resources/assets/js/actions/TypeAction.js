@@ -32,5 +32,9 @@ export const OPEN_ALERT = 'OPEN_ALERT';
 export const CLOSE_ALERT = 'CLOSE_ALERT';
 //delete
 export const DELETE_DEVICE = 'DELETE_DEVICE';
+export const DELETE_USER = 'DELETE_USER';
+export const DELETE_DATA = 'DELETE_DATA';
 //message
 export const CLOSE_MESSAGE = 'CLOSE_MESSAGE';
+//load data update
+export const LOAD_DEVICE_UPDATE = 'LOAD_DEVICE_UPDATE';

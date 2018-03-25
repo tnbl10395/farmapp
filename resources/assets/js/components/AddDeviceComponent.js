@@ -44,7 +44,6 @@ export class AddDeviceComponent extends React.Component {
                             : null
                     }
                     <form onSubmit={this.handleSubmitAdmin}>
-                        <div>
                             <InputText
                                 element={this.props.property[0]}
                                 name={'DEVICE_NAME'}
@@ -60,7 +59,6 @@ export class AddDeviceComponent extends React.Component {
                                 name={'DEVICE_DATE'}
                                 inputDate={this.props.inputDate}
                                 saveInput={this.props.saveInput} />
-                        </div>
                         <input type="submit" className="btn btn-success col-md-2" value="Add" />
                     </form>
                 </div>

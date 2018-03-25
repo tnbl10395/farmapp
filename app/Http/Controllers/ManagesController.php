@@ -93,6 +93,6 @@ class ManagesController extends Controller
     {
         $manage = Manage::findOrFail($id);
         $manage->delete();
-        return response()->json([$message=>'deleted']);
+        return response()->json($manage);
     }
 }

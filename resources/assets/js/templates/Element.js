@@ -51,13 +51,13 @@ const style = {
         marginLeft: 20,
         cursor: 'pointer',
         padding: 10,
-        fontSize: '1vw'
+        // fontSize: 24
     },
     div_li_false: {
         marginLeft: 20,
         cursor: 'pointer',
         padding: 10,
-        backgroundColor: 'green',
+        backgroundColor: '#2ab27b',
     },
     icon_true: {
         marginRight: 25,
@@ -70,11 +70,11 @@ const style = {
         fontWeight: 'bold',
         textDecoration: 'none',
         color: 'white',
-        fontSize: '1vw'
+        // fontSize: 24
     },
     font_false: {
         fontWeight: 'bold',
         textDecoration: 'none',
-        color: 'green'
+        color: '#2ab27b'
     }
 }

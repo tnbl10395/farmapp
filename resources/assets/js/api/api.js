@@ -271,7 +271,7 @@ export const submitAddDeviceFormAPI = (dispatch, submitAddDeviceForm, name, date
             .then((res) => {
                 if (res) {
                     dispatch(submitAddDeviceForm(res));
-                    getDataDevicesAPI(dispatch, getDataDevices); 
+                    getDataDevicesAPI(dispatch, getDataDevices);
                 } else {
                     dispatch(submitAddDeviceForm(res));
                 }
@@ -293,8 +293,8 @@ export const submitAddDeviceUserFormAPI = (dispatch, submitAddDeviceUserForm, co
             .then((res) => {
                 if (res) {
                     dispatch(submitAddDeviceUserForm(res));
-                    getDataDevicesAPI(dispatch, getDataDevices); 
-                }else {
+                    getDataDevicesAPI(dispatch, getDataDevices);
+                } else {
                     dispatch(submitAddDeviceUserForm(res));
                 }
             })
@@ -320,7 +320,7 @@ export const submitAddUserFormAPI = (dispatch, submitAddUserForm, username, pass
             .then((res) => {
                 if (res) {
                     dispatch(submitAddUserForm(res));
-                    getDataUsersAPI(dispatch, getDataUsers); 
+                    getDataUsersAPI(dispatch, getDataUsers);
                 } else {
                     dispatch(submitAddUserForm(res));
                 }
@@ -371,13 +371,12 @@ export const getUserAPI = (dispatch, login, token) => {
                 window.location.href = '/';
             })
     } catch (error) {
-
     }
 }
 //delete device
 export const deleteDeviceAPI = (dispatch, deleteDevice, id, getDataDevices, getDataDevicesAPI) => {
     try {
-        fetch(URL + "api/devices/"+id, {
+        fetch(URL + "api/devices/" + id, {
             method: method.DELETE,
             headers: {
                 'Accept': 'application/json',
@@ -393,6 +392,67 @@ export const deleteDeviceAPI = (dispatch, deleteDevice, id, getDataDevices, getD
                 }
             })
     } catch (error) {
+    }
+}
 
+export const deleteUserAPI = (dispatch, deleteUser, id, getDataUsers, getDataUsersAPI) => {
+    try {
+        fetch(URL + "api/users/" + id, {
+            method: method.DELETE,
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'token': token
+            }
+        })
+            .then((response) => response.json())
+            .then((res) => {
+                if (res) {
+                    dispatch(deleteUser());
+                    getDataUsersAPI(dispatch, getDataUsers);
+                }
+            })
+    } catch (error) {
+    }
+}
+
+export const deleteDataAPI = (dispatch, deleteData, id, getDataValues, getDataValuesAPI) => {
+    try {
+        fetch(URL + "api/data/" + id, {
+            method: method.DELETE,
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'token': token
+            }
+        })
+            .then((response) => response.json())
+            .then((res) => {
+                if (res) {
+                    dispatch(deleteData());
+                    getDataValuesAPI(dispatch, getDataValues);
+                }
+            })
+    } catch (error) {
+    }
+}
+
+export const loadDeviceUpdateAPI = (dispatch, loadDeviceUpdate, id) => {
+    try {
+        fetch(URL + "api/devices/" + id, {
+            method: method.GET,
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'token': token
+            }
+        })
+            .then((response) => response.json())
+            .then((res) => {
+                if (res != false) {
+                    dispatch(loadDeviceUpdate(res));
+                }
+            })
+    } catch (error) {
     }
 }

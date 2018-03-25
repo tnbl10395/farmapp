@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import UserComponent from '../components/UserComponent';
 import { getDataUsersAPI } from '../api/api';
-import { getDataUsers, openModal } from '../actions/Action';
+import { getDataUsers, openModal, openAlert } from '../actions/Action';
 
 
 const mapStateToProps = (state) => ({
@@ -15,6 +15,9 @@ const mapDispatchToProps = (dispatch) => ({
     openModal: (object) => {
         dispatch(openModal(object));
     },
+    openAlert: (title, id) => {
+        dispatch(openAlert(title, id));
+    }
 });
 
 export default connect (mapStateToProps,mapDispatchToProps)(UserComponent);

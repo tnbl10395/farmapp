@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import Index from '../components/Index';
-import { getDeviceOfUserAPI, deleteDeviceAPI, getDataDevicesAPI } from '../api/api';
-import { getDeviceOfUser, closeModal, closeAlert, deleteDevice, getDataDevices, } from '../actions/Action';
+import { getDeviceOfUserAPI, deleteDeviceAPI, getDataDevicesAPI, deleteUserAPI, getDataUsersAPI, deleteDataAPI, getDataValuesAPI } from '../api/api';
+import { getDeviceOfUser, closeModal, closeAlert, deleteDevice, getDataDevices, deleteUser, getDataUsers, deleteData, getDataValues, } from '../actions/Action';
 
 const mapStateToProps = (state) => ({
     sideBar: state.sideBar,
@@ -10,7 +10,8 @@ const mapStateToProps = (state) => ({
     token: state.token,
     alert: state.alert,
     title: state.title_alert,
-    id: state.id_delete
+    id: state.id_delete,
+    breadcrumb: state.breadcrumb,
 });
 const mapDispatchToProps = (dispatch) => ({
     getDevicesOfUser: () => {
@@ -22,8 +23,18 @@ const mapDispatchToProps = (dispatch) => ({
     closeAlert: () => {
         dispatch(closeAlert());
     },
-    delete: (id) => {
-        deleteDeviceAPI(dispatch, deleteDevice, id, getDataDevices, getDataDevicesAPI)
+    delete: (title, id) => {
+        switch (title) {
+            case 'DELETE_DEVICE':
+                deleteDeviceAPI(dispatch, deleteDevice, id, getDataDevices, getDataDevicesAPI)
+                break;
+            case 'DELETE_USER':
+                deleteUserAPI(dispatch, deleteUser, id, getDataUsers, getDataUsersAPI)
+                break;
+            case 'DELETE_DATA':
+                deleteDataAPI(dispatch, deleteData, id, getDataValues, getDataValuesAPI)
+                break;
+        }
     }
 });
 

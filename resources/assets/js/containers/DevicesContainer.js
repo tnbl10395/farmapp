@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import DevicesComponent from '../components/DevicesComponent';
 import { chooseOptionSidebar, getDataDevices, openModal, openAlert } from "../actions/Action";
-import { getDataDevicesAPI } from '../api/api';
+import { getDataDevicesAPI, loadDeviceUpdateAPI } from '../api/api';
 
 const mapStateToProps = (state) => ({
     sideBar: state.sideBar,
@@ -17,6 +17,9 @@ const mapDispatchToProps = (dispatch) => ({
     openAlert: (title, id) => {
         dispatch(openAlert(title, id));
     },
+    // openUpdate: (id) => {
+    //     loadDeviceUpdateAPI(dispatch, loadDeviceUpdate, id);
+    // }
 });
 
 export default connect (mapStateToProps,mapDispatchToProps)(DevicesComponent);

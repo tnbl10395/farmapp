@@ -18,7 +18,7 @@ class CreateManagesTable extends Migration
             $table->integer('userId')->unsigned();
             $table->foreign('userId')->references('id')->on('users');
             $table->integer('deviceId')->unsigned();
-            $table->foreign('deviceId')->references('id')->on('devices');
+            $table->foreign('deviceId')->references('id')->on('devices')->onDelete('cascade');
             $table->timestamps();
         });
     }

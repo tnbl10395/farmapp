@@ -25,7 +25,8 @@ export default class UserComponent extends React.Component {
                 dataSet={this.props.dataSet}
                 object={objectUser}
                 openModal={this.props.openModal}
-                sideBar={this.props.sideBar} name={"User"} />
+                sideBar={this.props.sideBar} name={"User"} 
+                openAlert={this.props.openAlert} />
             : null
         );
     }

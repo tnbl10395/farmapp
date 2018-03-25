@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Route, Switch } from "react-router-dom";
 import Devices from '../containers/DevicesContainer';
+import UpdateDevice from '../containers/UpdateDeviceContainer';
 import User from '../containers/UserContainer';
 import Data from '../containers/DataContainer';
 import Solution from '../containers/SolutionContainer';
@@ -14,24 +15,31 @@ export default class Content extends React.Component {
 
     render() {
         return (
-            <div>
-                <div style={this.props.sideBar ? style.content_true : style.content_false}>
+            <div style={this.props.sideBar ? style.content_true : style.content_false}>
+                <div className="row">
+                    <div className="row">
+                        <div style={style.breadcrumb}>
+                            {/* <div style={style.head} className=""> */}
+                                {/* <span style={style.head}>{this.props.breadcrumb}</span> */}
+                            {/* </div> */}
+                            <div className="pull-right">
+                                <a style={style.tag_a}><i className="fa fa-tachometer" style={{ marginRight: 10 }} />Home</a><span style={style.go}>></span> {this.props.breadcrumb}
+                            </div>
+                        </div>
+                    </div>
+                    <Switch>
+                        <Route exact path="/" component={Devices} />
+                        <Route exact path="/device" component={Devices} />
+                        <Route path="/device/:number" component={UpdateDevice} />
+                        {
+                            this.props.profile.role == "1" ?
+                                <Route exact path="/user" component={User} />
+                                : null
+                        }
+                        <Route exact path="/data" component={Data} />
+                        <Route exact path="/solution" component={Solution} />
+                    </Switch>
                 </div>
-                <div style={style.breadcrumb}>
-                    {/* <a style={style.tag_a}>Home</a> > Table */}
-                </div>
-                <Switch>
-                    <Route exact path="/" component={Devices} />
-                    <Route exact path="/device" component={Devices} />
-                    {
-                        this.props.profile.role == "1" ?
-                            <Route exact path="/user" component={User} />
-                            : null
-                    }
-                    <Route exact path="/data" component={Data} />
-                    <Route exact path="/solution" component={Solution} />
-                    <Route path="/list" component={List} />
-                </Switch>
             </div>
 
         )
@@ -40,49 +48,47 @@ export default class Content extends React.Component {
 
 var style = {
     content_true: {
-        position: 'fixed',
-        left: 200,
-        width: '100%',
-        height: '100%',
-        top: 60,
-        opacity: 0.7
+        position: 'absolute',
+        left: 215,
+        top: 50,
+        right: 0,
+        bottom: 0,
+        backgroundColor: '#ecf0f5',
+        fontFamily: 'Source Sans Pro, Helvetica Neue, Helvetica, Arial, sans-serif',
+        // opacity: 0.7
     },
     content_false: {
-        position: 'fixed',
-        left: 40,
-        width: '100%',
-        height: '100%',
-        top: 60,
-        opacity: 0.7
+        position: 'absolute',
+        left: 45,
+        bottom: 0,
+        top: 50,
+        right: 0,
+        // opacity: 0.7
+        backgroundColor: '#ecf0f5',
+        fontFamily: 'Source Sans Pro, Helvetica Neue, Helvetica, Arial, sans-serif',
     },
     breadcrumb: {
         position: 'absolute',
-        // right: '100%',
+        top: 15,
         right: 40,
-        top: 80,
-        color: 'white',
-        fontSize: 20,
+        left: 10,
+        color: '#777',
+        fontSize: 12,
+    },
+    head: {
+        fontSize: 25,
+        color: '#000',
+        fontFamily: 'Source Sans Pro, sans-serif'
     },
     tag_a: {
         cursor: 'pointer',
-        fontSize: 20,
-        color: 'green',
+        fontSize: 12,
+        color: '#444',
         textDecoration: 'none',
         fontWeight: 800
-
     },
-    sideBar: {
-        position: 'fixed',
-        backgroundColor: 'black',
-        top: 60,
-        left: 0,
-        width: 220,
-        height: '100%',
-        float: 'left',
-        opacity: 0.8,
-        zIndex: 1,
-    },
-    div_ul: {
-        listStyle: 'none',
-    },
+    go: {
+        margin: '0px 10px 0px 10px',
+        color: '#97a0b3'
+    }
 }

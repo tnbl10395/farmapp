@@ -24,6 +24,7 @@ export default class DevicesComponent extends React.Component {
             //     : null
             this.props.dataSet.length>0? 
             <List
+                // openUpdate={this.props.openUpdate}
                 dataSet={this.props.dataSet}
                 sideBar={this.props.sideBar}
                 name={'Device'}
