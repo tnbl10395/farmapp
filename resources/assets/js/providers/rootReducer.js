@@ -27,7 +27,8 @@ import {
     CLOSE_MESSAGE,
     DELETE_USER,
     DELETE_DATA,
-    LOAD_DEVICE_UPDATE
+    LOAD_DEVICE_UPDATE,
+    UPDATE_DEVICE
 } from "../actions/TypeAction";
 
 const initialState = {
@@ -462,12 +463,26 @@ const Reducer = (state = initialState, action) => {
                 message_fail: false
             }
         case LOAD_DEVICE_UPDATE:
-            console.log(action.loadData)
             return {
                 ...state,
-                // value_name_device: action.loadData.name,
-                // value_code_device: action.loadData.code,
-                // value_date_device: action.loadData.date,
+                value_name_device: action.loadData.name,
+                value_code_device: action.loadData.code,
+                value_date_device: action.loadData.manufacturing_date,
+            }
+        case UPDATE_DEVICE:
+            if (action.message == true) {
+                return {
+                    ...state,
+                    message_success: true,
+                    message_fail: false,
+
+                }
+            } else {
+                return {
+                    ...state,
+                    message_fail: true,
+                    message_success: false,
+                }
             }
         default:
             return {

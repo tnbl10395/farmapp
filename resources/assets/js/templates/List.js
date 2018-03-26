@@ -8,9 +8,31 @@ export default class List extends React.Component {
         this.state = {
             activePage: 1,
             data: this.props.dataSet,
-            itemsCountPerPage: 5
+            itemsCountPerPage: 5,
+            active: true,
+            inactive: true
         };
         this.handlePageChange = this.handlePageChange.bind(this);
+        this.filterList = this.filterList.bind(this);
+        this.selectActive = this.selectActive.bind(this);
+        this.selectInactive = this.selectInactive.bind(this);
+    }
+
+    selectActive(e) {
+        this.setState({active: !this.state.active});
+        console.log(e.target);
+    }
+
+    selectInactive(e) {
+        this.setState({inactive: !this.state.inactive})
+    }
+
+    filterList(e) {
+        var updateList = this.props.dataSet;
+        updateList = updateList.filter(item => {
+            return JSON.stringify(item).toLowerCase().includes(e.target.value.toLowerCase())
+        });
+        this.setState({data: updateList});
     }
 
     handlePageChange(pageNumber) {
@@ -51,8 +73,8 @@ export default class List extends React.Component {
                                     </button>
                             }
 
-                            <div className="form-group has-feedback col-xs-3 col-sm-3 col-md-2 pull-right" style={style.search}>
-                                <input type="text" className="form-control" placeholder="Search ..." />
+                            <div className="form-group has-feedback col-xs-3 col-sm-3 col-md-4 pull-right" style={style.search}>
+                                <input type="text" className="form-control" placeholder="Search ..." onChange={this.filterList}/>
                                 <span className="form-control-feedback glyphicon glyphicon-search" style={{ marginRight: 10 }}></span>
                             </div>
                         </div>
@@ -90,12 +112,12 @@ export default class List extends React.Component {
                         <div className="form-group col-md-12">
                             <div className="form-check">
                                 <label className="form-check-lable">
-                                    <input type="checkbox" className="form-check-input-lg" style={style.checkbox} />
+                                    <input type="checkbox" className="form-check-input-lg" style={style.checkbox} onChange={this.selectActive} defaultChecked={this.state.active} />
                                 </label><span style={style.textCheckbox}> Active</span>
                             </div>
                             <div className="form-check">
                                 <label className="form-check-lable">
-                                    <input type="checkbox" className="form-check-input" style={style.checkbox} />
+                                    <input type="checkbox" className="form-check-input" style={style.checkbox} onChange={this.selectInactive} defaultChecked={this.state.inactive}/>
                                 </label><span style={style.textCheckbox}> Inactive</span>
                             </div>
                         </div>
