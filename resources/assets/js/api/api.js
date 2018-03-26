@@ -1,3 +1,5 @@
+import { updateDevice } from "../actions/Action";
+
 export const URL = "http://116.98.208.44:3000/";
 // export const URL = "http://localhost:3000/";
 
@@ -378,11 +380,7 @@ export const deleteDeviceAPI = (dispatch, deleteDevice, id, getDataDevices, getD
     try {
         fetch(URL + "api/devices/" + id, {
             method: method.DELETE,
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                'token': token
-            }
+            headers: headers
         })
             .then((response) => response.json())
             .then((res) => {
@@ -399,11 +397,7 @@ export const deleteUserAPI = (dispatch, deleteUser, id, getDataUsers, getDataUse
     try {
         fetch(URL + "api/users/" + id, {
             method: method.DELETE,
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                'token': token
-            }
+            headers: headers
         })
             .then((response) => response.json())
             .then((res) => {
@@ -420,11 +414,7 @@ export const deleteDataAPI = (dispatch, deleteData, id, getDataValues, getDataVa
     try {
         fetch(URL + "api/data/" + id, {
             method: method.DELETE,
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                'token': token
-            }
+            headers: headers
         })
             .then((response) => response.json())
             .then((res) => {
@@ -436,16 +426,12 @@ export const deleteDataAPI = (dispatch, deleteData, id, getDataValues, getDataVa
     } catch (error) {
     }
 }
-
+//load object
 export const loadDeviceUpdateAPI = (dispatch, loadDeviceUpdate, id) => {
     try {
         fetch(URL + "api/devices/" + id, {
             method: method.GET,
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                'token': token
-            }
+            headers: headers
         })
             .then((response) => response.json())
             .then((res) => {
@@ -455,4 +441,22 @@ export const loadDeviceUpdateAPI = (dispatch, loadDeviceUpdate, id) => {
             })
     } catch (error) {
     }
+}
+//update
+export const updateDeviceAPI = (dispatch, updateDevice, id, object) => {
+    try {
+        fetch(URL + "api/devices/" + id, {
+            method: method.POST,
+            headers: headers,
+            body: JSON.stringify(object)
+        })
+            .then((response) => response.json())
+            .then((res) => {
+                if (res) {
+                    dispatch(updateDevice(res));
+                } else {
+                    dispatch(updateDevice(res));
+                }
+            })
+    } catch (error) { }
 }
