@@ -209,6 +209,15 @@ const Reducer = (state = initialState, action) => {
 
         case CHOOSE_OPTION_SIDEBAR:
             switch (action.option) {
+                case "dashboard":
+                    return {
+                        ...state,
+                        breadcrumb: 'Dashboard',
+                        admin_device_component: true,
+                        admin_user_component: false,
+                        admin_data_component: false,
+                        admin_solution_component: false,
+                    }
                 case "device":
                     return {
                         ...state,

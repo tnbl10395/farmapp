@@ -25,6 +25,11 @@ export default class SideBar extends React.Component {
                     <div style={style.line}></div>
                 </div>
                 <div style={style.div_ul}>
+                    <Element icon={'fa fa-tachometer'}
+                        name={"Dashboard"}
+                        link={"dashboard"}
+                        sideBar={this.props.sideBar}
+                    />
                     <Element icon={'fa fa-cogs'}
                         name={"Device"}
                         choose={this.props.admin_device_component}

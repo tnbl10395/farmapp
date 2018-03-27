@@ -11,7 +11,7 @@ export default class UpdateDeviceComponent extends React.Component {
         e.preventDefault();
     }
 
-    componentWillMount() {
+    componentDidMount() {
         var url = window.location.toString();
         var str = url.indexOf('/#/');
         this.timeout = setTimeout(() => {
