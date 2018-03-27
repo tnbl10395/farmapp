@@ -443,7 +443,7 @@ export const loadDeviceUpdateAPI = (dispatch, loadDeviceUpdate, id) => {
     }
 }
 //update
-export const updateDeviceAPI = (dispatch, updateDevice, id, object) => {
+export const updateDeviceAPI = (dispatch, updateDevice, id, object,  getDataDevices, getDataDevicesAPI) => {
     try {
         fetch(URL + "api/devices/" + id, {
             method: method.POST,
@@ -454,6 +454,7 @@ export const updateDeviceAPI = (dispatch, updateDevice, id, object) => {
             .then((res) => {
                 if (res) {
                     dispatch(updateDevice(res));
+                    getDataDevicesAPI(dispatch, getDataDevices);
                 } else {
                     dispatch(updateDevice(res));
                 }

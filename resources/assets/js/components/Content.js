@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Route, Switch } from "react-router-dom";
+import Dashboard from '../containers/DashboardContainer';
 import Devices from '../containers/DevicesContainer';
 import UpdateDevice from '../containers/UpdateDeviceContainer';
 import User from '../containers/UserContainer';
@@ -28,7 +29,7 @@ export default class Content extends React.Component {
                         </div>
                     </div>
                     <Switch>
-                        <Route exact path="/" component={Devices} />
+                        <Route exact path="/" component={Dashboard} />
                         <Route exact path="/device" component={Devices} />
                         <Route path="/device/:number" component={UpdateDevice} />
                         {

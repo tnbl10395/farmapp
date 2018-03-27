@@ -19,12 +19,12 @@ export default class List extends React.Component {
     }
 
     selectActive(e) {
-        this.setState({active: !this.state.active});
+        this.setState({ active: !this.state.active });
         console.log(e.target);
     }
 
     selectInactive(e) {
-        this.setState({inactive: !this.state.inactive})
+        this.setState({ inactive: !this.state.inactive })
     }
 
     filterList(e) {
@@ -32,7 +32,7 @@ export default class List extends React.Component {
         updateList = updateList.filter(item => {
             return JSON.stringify(item).toLowerCase().includes(e.target.value.toLowerCase())
         });
-        this.setState({data: updateList});
+        this.setState({ data: updateList });
     }
 
     handlePageChange(pageNumber) {
@@ -56,31 +56,45 @@ export default class List extends React.Component {
         return (
             <div style={this.props.sideBar ? style.main_content_true : style.main_content_false}>
                 <div className="col-xs-12 col-sm-12 col-md-10" style={style.list}>
-                    <div className="row">
-                        <div className="col-xs-12 col-sm-12 col-md-12">
-                            {
-                                this.props.name == "Data"
-                                    ? <div className="pull-right" style={{ margin: 5 }}>
+                    <div className="col-xs-12 col-sm-12 col-md-12">
+                        <div className="col-xs-sm-6 col-sm-6 col-md-6" style={{ marginTop: 20 }}> 
+                            <label>
+                                Show
+                                <select value={this.state.itemsCountPerPage}
+                                    style={style.selectNumberPageDisplay}
+                                    className="input-sm"
+                                    onChange={(event) => this.setState({ itemsCountPerPage: event.target.value })}>
+                                    <option value={5}>5</option>
+                                    <option value={10}>10</option>
+                                    <option value={50}>50</option>
+                                    <option value={100}>100</option>
+                                </select>
+                                entries
+                            </label>
+                        </div>
+                        {
+                            this.props.name == "Data"
+                                ?   <div className="pull-right" style={{ margin: 5, marginTop: 20 }}>
                                         <button
                                             // onClick={() => this.props.change()}
                                             className="btn btn-success" style={{ marginRight: 10 }}><i className="fa fa-file-excel-o" style={{ marginRight: 5 }} />Export</button>
-                                        <button
-                                            onClick={() => this.props.change()}
-                                            className="btn btn-success"><i className="fa fa-bar-chart" style={{ marginRight: 5 }} /> Chart</button>
+                                        <button onClick={() => this.props.change()}
+                                                className="btn btn-success">
+                                            <i className="fa fa-bar-chart" style={{ marginRight: 5 }} /> Chart
+                                        </button>
                                     </div>
-                                    : <button onClick={() => this.props.openModal(this.props.object)} className="btn btn-success pull-right" style={{ margin: 5 }}>
+                                :   <button onClick={() => this.props.openModal(this.props.object, null)} className="btn btn-success pull-right" style={{ margin: 5, marginTop: 20 }}>
                                         <i className="fa fa-plus" /> New {this.props.name}
                                     </button>
-                            }
+                        }
 
-                            <div className="form-group has-feedback col-xs-3 col-sm-3 col-md-4 pull-right" style={style.search}>
-                                <input type="text" className="form-control" placeholder="Search ..." onChange={this.filterList}/>
-                                <span className="form-control-feedback glyphicon glyphicon-search" style={{ marginRight: 10 }}></span>
-                            </div>
+                        <div className="form-group has-feedback col-xs-3 col-sm-3 col-md-3 pull-right" style={style.search}>
+                            <input type="text" className="form-control" placeholder="Search ..." onChange={this.filterList} />
+                            <span className="form-control-feedback glyphicon glyphicon-search" style={{ marginRight: 10 }}></span>
                         </div>
                     </div>
                     {
-                        renderTable(this.props.name, currentData, this.props.openAlert)
+                        renderTable(this.props.name, currentData, this.props.openAlert, this.props.openModal, this.props.objectUpdate)
                     }
                     <div className="col-xs-12 col-sm-12 col-md-12">
                         <Pagination
@@ -99,17 +113,6 @@ export default class List extends React.Component {
                 <div className="col-xs-12 col-sm-12 col-md-2">
                     <div style={style.filter}>
                         <div className="form-group col-md-12">
-                            <select value={this.state.itemsCountPerPage}
-                                style={style.selectNumberPageDisplay}
-                                className="form-control"
-                                onChange={(event) => this.setState({ itemsCountPerPage: event.target.value })}>
-                                <option value={5}>5</option>
-                                <option value={10}>10</option>
-                                <option value={50}>50</option>
-                                <option value={100}>100</option>
-                            </select>
-                        </div>
-                        <div className="form-group col-md-12">
                             <div className="form-check">
                                 <label className="form-check-lable">
                                     <input type="checkbox" className="form-check-input-lg" style={style.checkbox} onChange={this.selectActive} defaultChecked={this.state.active} />
@@ -117,7 +120,7 @@ export default class List extends React.Component {
                             </div>
                             <div className="form-check">
                                 <label className="form-check-lable">
-                                    <input type="checkbox" className="form-check-input" style={style.checkbox} onChange={this.selectInactive} defaultChecked={this.state.inactive}/>
+                                    <input type="checkbox" className="form-check-input" style={style.checkbox} onChange={this.selectInactive} defaultChecked={this.state.inactive} />
                                 </label><span style={style.textCheckbox}> Inactive</span>
                             </div>
                         </div>
@@ -128,10 +131,10 @@ export default class List extends React.Component {
     }
 }
 
-const renderTable = (name, currentData, openAlert) => {
+const renderTable = (name, currentData, openAlert, openModal, object) => {
     switch (name) {
         case 'Device':
-            return device(currentData, openAlert);
+            return device(currentData, openAlert, openModal, object);
         case 'User':
             return user(currentData, openAlert);
         case 'Data':
@@ -139,7 +142,7 @@ const renderTable = (name, currentData, openAlert) => {
     }
 }
 
-const device = (currentData, openAlert) => (
+const device = (currentData, openAlert, openModal, object) => (
     currentData.map((element, index) =>
         <div key={index} style={style.item} className="col-xs-12 col-sm-12 col-md-12">
             <div className="col-xs-1 col-sm-1 col-md-1">
@@ -163,7 +166,7 @@ const device = (currentData, openAlert) => (
                 }
             </div>
             <div className="col-xs-1 col-sm-1 col-md-1" style={style.button}>
-                <Link to={'device/'+element.id} style={style.edit} className="fa fa-edit"></Link>
+                <a onClick={() => openModal(object, element)} style={style.edit} className="fa fa-edit"></a>
                 <a onClick={() => openAlert('DELETE_DEVICE', element.id)} style={style.delete} className="fa fa-remove"></a>
             </div>
         </div>
@@ -190,7 +193,9 @@ const user = (currentData, openAlert) => (
             </div>
             <div className="col-xs-1 col-sm-1 col-md-1" style={style.button}>
                 <a style={style.edit} className="fa fa-edit"></a>
-                <a onClick={() => openAlert('DELETE_USER', element.id)} style={style.delete} className="fa fa-remove"></a>
+                {
+                    element.role == '0' ? <a onClick={() => openAlert('DELETE_USER', element.id)} style={style.delete} className="fa fa-remove"></a> : null
+                }
             </div>
         </div>
     )
@@ -205,11 +210,11 @@ const data = (currentData, openAlert) => (
             </div>
             <div className="col-xs-3 col-sm-3 col-md-3" style={style.text}>
                 <h6 style={style.title}>Humidity</h6>
-                <p><i className="fa fa-tint" style={style.icon_humidity}/>{element.humidity} %</p>
+                <p><i className="fa fa-tint" style={style.icon_humidity} />{element.humidity} %</p>
             </div>
             <div className="col-xs-3 col-sm-3 col-md-3" style={style.text}>
                 <h6 style={style.title}>Temperature</h6>
-                <p><i className="fa fa-thermometer-empty" style={style.icon_temperature}/>{element.temperature} °C</p>
+                <p><i className="fa fa-thermometer-empty" style={style.icon_temperature} />{element.temperature} °C</p>
             </div>
             <div className="col-xs-3 col-sm-3 col-md-3" style={style.text}>
                 <h6 style={style.title}>Date</h6>
@@ -254,7 +259,6 @@ const style = {
         borderTop: '4px #2ab27b solid'
     },
     list: {
-        marginTop: 10,
         backgroundColor: '#fff',
         borderRadius: 5,
         // display: 'inline-block'
@@ -268,7 +272,7 @@ const style = {
     filter: {
         backgroundColor: '#ecf0f5',
         borderRadius: 5,
-        marginTop: 10,
+        marginTop: 65,
         height: 200,
     },
     avatar: {
@@ -287,6 +291,7 @@ const style = {
     },
     search: {
         margin: 5,
+        marginTop: 20
     },
     text: {
         fontSize: 11,
@@ -328,7 +333,7 @@ const style = {
         height: 18
     },
     selectNumberPageDisplay: {
-        marginTop: 5
+        margin: 5
     },
     textCheckbox: {
         fontSize: 12,

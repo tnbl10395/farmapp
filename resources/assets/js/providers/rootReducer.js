@@ -34,11 +34,14 @@ import {
 const initialState = {
     token: null,
     token_expired: false,
-    admin_device_component: true,
+    //side bar
+    admin_dashboard_component: true,
+    admin_device_component: false,
     admin_user_component: false,
     admin_data_component: false,
     admin_solution_component: false,
     sideBar: true,
+    //
     data_devices: [],
     data_values: [],
     data_users: [],
@@ -69,10 +72,12 @@ const initialState = {
     //call alert
     alert: false,
     title_alert: '',
+    //save id to update
+    id_update: '',
     //save id to delete
     id_delete: '',
     //breadcrumb
-    breadcrumb: '',
+    breadcrumb: 'Dashboard',
 };
 
 const edit = (direct, id) => ('<a href="/#/' + direct + '/update/' + id + '" style="border-radius: 5px; padding: 5px 5px 5px 6px; background-color:#3498db; color:#fff;margin-right:10px;" class="fa fa-edit"></a>');
@@ -210,11 +215,12 @@ const Reducer = (state = initialState, action) => {
 
         case CHOOSE_OPTION_SIDEBAR:
             switch (action.option) {
-                case "dashboard":
+                case "":
                     return {
                         ...state,
                         breadcrumb: 'Dashboard',
-                        admin_device_component: true,
+                        admin_dashboard_component: true,
+                        admin_device_component: false,
                         admin_user_component: false,
                         admin_data_component: false,
                         admin_solution_component: false,
@@ -223,6 +229,7 @@ const Reducer = (state = initialState, action) => {
                     return {
                         ...state,
                         breadcrumb: 'Device',
+                        admin_dashboard_component: false,
                         admin_device_component: true,
                         admin_user_component: false,
                         admin_data_component: false,
@@ -232,6 +239,7 @@ const Reducer = (state = initialState, action) => {
                     return {
                         ...state,
                         breadcrumb: 'User',
+                        admin_dashboard_component: false,
                         admin_device_component: false,
                         admin_user_component: true,
                         admin_data_component: false,
@@ -241,6 +249,7 @@ const Reducer = (state = initialState, action) => {
                     return {
                         ...state,
                         breadcrumb: 'Data',
+                        admin_dashboard_component: false,
                         admin_device_component: false,
                         admin_user_component: false,
                         admin_data_component: true,
@@ -250,6 +259,7 @@ const Reducer = (state = initialState, action) => {
                     return {
                         ...state,
                         breadcrumb: 'Solution',
+                        admin_dashboard_component: false,
                         admin_device_component: false,
                         admin_user_component: false,
                         admin_data_component: false,
@@ -298,6 +308,12 @@ const Reducer = (state = initialState, action) => {
             }
 
         case OPEN_MODAL:
+            if (action.element != null) {
+                state.id_update = action.element.id,
+                state.value_name_device = action.element.name,
+                state.value_code_device = action.element.code,
+                state.value_date_device = action.element.manufacturing_date
+            }
             return {
                 ...state,
                 modal: true,
@@ -484,7 +500,6 @@ const Reducer = (state = initialState, action) => {
                     ...state,
                     message_success: true,
                     message_fail: false,
-
                 }
             } else {
                 return {
