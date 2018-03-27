@@ -39,9 +39,11 @@ export default class Modal extends React.Component {
 const bodyModal = (object) => {
     switch (object.title) {
         case 'ADD DEVICE':
-            return <AddDevice property={object.property}/>;
+            return <AddDevice object={object}/>;
         case 'ADD USER':
-            return <AddUser property={object.property}/>;
+            return <AddUser object={object}/>;
+        case 'UPDATE DEVICE':
+            return <AddDevice object={object}/>;
     }
 }
 

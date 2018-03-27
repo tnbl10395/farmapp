@@ -11,15 +11,12 @@ const mapDispatchToProps = (dispatch) => ({
     getDataDevices: () => {
         getDataDevicesAPI(dispatch,getDataDevices);
     },
-    openModal: (object) => {
-        dispatch(openModal(object));
+    openModal: (object, element) => {
+        dispatch(openModal(object, element));
     },
     openAlert: (title, id) => {
         dispatch(openAlert(title, id));
     },
-    // openUpdate: (id) => {
-    //     loadDeviceUpdateAPI(dispatch, loadDeviceUpdate, id);
-    // }
 });
 
 export default connect (mapStateToProps,mapDispatchToProps)(DevicesComponent);

@@ -15,7 +15,16 @@ export class AddDeviceComponent extends React.Component {
         var day = (getDate.getDate() < 10) ? "0" + getDate.getDate() : getDate.getDate();
         var year = getDate.getFullYear();
         var date = year + "-" + month + "-" + day;
-        this.props.submitFormAdmin(this.props.inputName, date, this.props.inputCode);
+        if (this.props.object.title == 'ADD DEVICE') {
+            this.props.submitFormAdmin(this.props.inputName, date, this.props.inputCode);
+        }else {
+            var object = {
+                name: this.props.inputName,
+                code: this.props.inputCode,
+                manufacturing_date: date
+            } 
+            this.props.updateFormAdmin(this.props.id, object);
+        }
     }
 
     handleSubmitUser(e) {
@@ -25,7 +34,7 @@ export class AddDeviceComponent extends React.Component {
 
     render() {
         return (
-            this.props.property.length > 1 ?
+            this.props.object.property.length > 1 ?
                 <div>
                     {
                         this.props.messageSuccess ?
@@ -45,21 +54,22 @@ export class AddDeviceComponent extends React.Component {
                     }
                     <form onSubmit={this.handleSubmitAdmin}>
                             <InputText
-                                element={this.props.property[0]}
+                                element={this.props.object.property[0]}
                                 name={'DEVICE_NAME'}
                                 inputValue={this.props.inputName}
                                 saveInput={this.props.saveInput} />
                             <InputText
-                                element={this.props.property[1]}
+                                element={this.props.object.property[1]}
                                 name={'DEVICE_CODE'}
                                 inputValue={this.props.inputCode}
                                 saveInput={this.props.saveInput} />
                             <InputCalendar
-                                element={this.props.property[2]}
+                                element={this.props.object.property[2]}
                                 name={'DEVICE_DATE'}
                                 inputDate={this.props.inputDate}
                                 saveInput={this.props.saveInput} />
-                        <input type="submit" className="btn btn-success col-md-2" value="Add" />
+                        <input type="submit" className="btn btn-success col-md-2" 
+                               value={this.props.object.title == 'ADD DEVICE' ? 'Add' : 'Update'} />
                     </form>
                 </div>
                 :
@@ -83,7 +93,7 @@ export class AddDeviceComponent extends React.Component {
                     <form onSubmit={this.handleSubmitUser}>
                         <div>
                             <InputText
-                                element={this.props.property[0]}
+                                element={this.props.object.property[0]}
                                 name={'DEVICE_CODE'}
                                 inputValue={this.props.inputCode}
                                 saveInput={this.props.saveInput} />

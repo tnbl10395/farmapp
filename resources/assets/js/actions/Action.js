@@ -137,10 +137,11 @@ export const saveDevice = () => {
     }
 }
 
-export const openModal = (object) => {
+export const openModal = (object, element) => {
     return {
         type: OPEN_MODAL,
-        object
+        object,
+        element
     }
 }
 
