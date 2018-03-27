@@ -75,9 +75,9 @@ class DevicesController extends Controller
         $device = Device::findOrFail($id);
         $device->name = $request->name;
         $device->manufacturing_date = $request->manufacturing_date;
-        $device->status = $request->status;
+        $device->code = $request->code;
         $device->save();
-        return response()->json('message', 'updated');
+        return response()->json(true);
     }
 
     /**

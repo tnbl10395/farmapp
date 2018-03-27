@@ -27,7 +27,8 @@ import {
     CLOSE_MESSAGE,
     DELETE_USER,
     DELETE_DATA,
-    LOAD_DEVICE_UPDATE
+    LOAD_DEVICE_UPDATE,
+    UPDATE_DEVICE
 } from "./TypeAction";
 //Custom UI
 export const chooseOptionSidebar = (option) => {
@@ -206,7 +207,14 @@ export const closeAlert = () => {
         type: CLOSE_ALERT
     }
 }
-
+//action update
+export const updateDevice = (message) => {
+    return {
+        type: UPDATE_DEVICE,
+        message
+    }
+}
+//action delete
 export const deleteDevice = () => {
     return {
         type: DELETE_DEVICE,
@@ -233,6 +241,7 @@ export const closeMessage = () => {
 
 export const loadDeviceUpdate = (loadData) => {
     return {
-        type: LOAD_DEVICE_UPDATE
+        type: LOAD_DEVICE_UPDATE,
+        loadData
     }
 }
