@@ -19,8 +19,9 @@ export default class Modal extends React.Component {
     render() {
         return (
             <div>
-                <div style={style.overview}
-                    onClick={() => this.props.closeModal()}>
+                <div 
+                    //  onClick={() => this.props.closeModal()}
+                     style={style.overview}>
                 </div>
                 <StyleRoot>
                     <div style={style.form} className="col-xs-8 col-xs-offset-2 col-md-6 col-md-offset-3">
@@ -44,6 +45,8 @@ const bodyModal = (object) => {
             return <AddUser object={object}/>;
         case 'UPDATE DEVICE':
             return <AddDevice object={object}/>;
+        case 'UPDATE USER':
+            return <AddUser object={object}/>;
     }
 }
 

@@ -443,7 +443,7 @@ export const loadDeviceUpdateAPI = (dispatch, loadDeviceUpdate, id) => {
     }
 }
 //update
-export const updateDeviceAPI = (dispatch, updateDevice, id, object,  getDataDevices, getDataDevicesAPI) => {
+export const updateDeviceAPI = (dispatch, showMessage, id, object, getDataDevices, getDataDevicesAPI) => {
     try {
         fetch(URL + "api/devices/" + id, {
             method: method.POST,
@@ -453,11 +453,32 @@ export const updateDeviceAPI = (dispatch, updateDevice, id, object,  getDataDevi
             .then((response) => response.json())
             .then((res) => {
                 if (res) {
-                    dispatch(updateDevice(res));
+                    dispatch(showMessage(res));
                     getDataDevicesAPI(dispatch, getDataDevices);
                 } else {
-                    dispatch(updateDevice(res));
+                    dispatch(showMessage(res));
                 }
             })
     } catch (error) { }
+}
+export const updateDeviceOfUserAPI = () => { }
+
+export const updateUserAPI = (dispatch, showMessage, id, object, getDataUsers, getDataUsersAPI) => {
+    try {
+        fetch(URL + "api/users/" + id, {
+            method: method.POST,
+            headers: headers,
+            body: JSON.stringify(object)
+        })
+            .then((response) => response.json())
+            .then((res) => {
+                if (res) {
+                    dispatch(showMessage(res));
+                    getDataUsersAPI(dispatch, getDataUsers);
+                } else {
+                    dispatch(showMessage(res));
+                }
+            })
+    } catch (error) {
+    }
 }

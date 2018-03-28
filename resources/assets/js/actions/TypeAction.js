@@ -30,8 +30,8 @@ export const TOKEN_EXPIRED = 'TOKEN_EXPIRED';
 //Alert
 export const OPEN_ALERT = 'OPEN_ALERT';
 export const CLOSE_ALERT = 'CLOSE_ALERT';
-//update
-export const UPDATE_DEVICE = 'UPDATE_DEVICE';
+//show message
+export const SHOW_MESSAGE = 'SHOW_MESSAGE';
 //delete
 export const DELETE_DEVICE = 'DELETE_DEVICE';
 export const DELETE_USER = 'DELETE_USER';
@@ -40,3 +40,4 @@ export const DELETE_DATA = 'DELETE_DATA';
 export const CLOSE_MESSAGE = 'CLOSE_MESSAGE';
 //load data update
 export const LOAD_DEVICE_UPDATE = 'LOAD_DEVICE_UPDATE';
+export const LOAD_USER_UPDATE = 'LOAD_USER_UPDATE';

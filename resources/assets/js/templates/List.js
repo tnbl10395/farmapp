@@ -55,7 +55,7 @@ export default class List extends React.Component {
         const currentData = data.slice(indexOfFirstTodo, indexOfLastTodo);
         return (
             <div style={this.props.sideBar ? style.main_content_true : style.main_content_false}>
-                <div className="col-xs-12 col-sm-12 col-md-10" style={style.list}>
+                <div className="col-xs-12 col-sm-12 col-md-12" style={style.list}>
                     <div className="col-xs-12 col-sm-12 col-md-12">
                         <div className="col-xs-sm-6 col-sm-6 col-md-6" style={{ marginTop: 20 }}> 
                             <label>
@@ -110,7 +110,7 @@ export default class List extends React.Component {
                         />
                     </div>
                 </div>
-                <div className="col-xs-12 col-sm-12 col-md-2">
+                {/* <div className="col-xs-12 col-sm-12 col-md-2">
                     <div style={style.filter}>
                         <div className="form-group col-md-12">
                             <div className="form-check">
@@ -125,18 +125,20 @@ export default class List extends React.Component {
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> */}
             </div>
         )
     }
 }
+
+const profile = JSON.parse(sessionStorage.getItem('profile'));
 
 const renderTable = (name, currentData, openAlert, openModal, object) => {
     switch (name) {
         case 'Device':
             return device(currentData, openAlert, openModal, object);
         case 'User':
-            return user(currentData, openAlert);
+            return user(currentData, openAlert, openModal, object);
         case 'Data':
             return data(currentData, openAlert);
     }
@@ -173,7 +175,7 @@ const device = (currentData, openAlert, openModal, object) => (
     )
 )
 
-const user = (currentData, openAlert) => (
+const user = (currentData, openAlert, openModal, object) => (
     currentData.map((element, index) =>
         <div key={index} style={style.item} className="col-xs-12 col-sm-12 col-md-12">
             <div className="col-xs-1 col-sm-1 col-md-1" style={{ display: 'flex', alignItems: 'center', height: 70 }}>
@@ -192,9 +194,9 @@ const user = (currentData, openAlert) => (
                 <p>{element.address}</p>
             </div>
             <div className="col-xs-1 col-sm-1 col-md-1" style={style.button}>
-                <a style={style.edit} className="fa fa-edit"></a>
+                <a onClick={() => openModal(object, element)} style={style.edit} className="fa fa-edit"></a>
                 {
-                    element.role == '0' ? <a onClick={() => openAlert('DELETE_USER', element.id)} style={style.delete} className="fa fa-remove"></a> : null
+                    profile.id === element.id && element.role == '1' ? null : <a onClick={() => openAlert('DELETE_USER', element.id)} style={style.delete} className="fa fa-remove"></a>
                 }
             </div>
         </div>
