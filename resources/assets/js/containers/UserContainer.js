@@ -12,8 +12,8 @@ const mapDispatchToProps = (dispatch) => ({
     getDataUsers: () => {
         getDataUsersAPI(dispatch, getDataUsers);
     },
-    openModal: (object) => {
-        dispatch(openModal(object));
+    openModal: (object, element) => {
+        dispatch(openModal(object, element));
     },
     openAlert: (title, id) => {
         dispatch(openAlert(title, id));

@@ -26,7 +26,8 @@ export default class UserComponent extends React.Component {
                 object={objectUser}
                 openModal={this.props.openModal}
                 sideBar={this.props.sideBar} name={"User"} 
-                openAlert={this.props.openAlert} />
+                openAlert={this.props.openAlert} 
+                objectUpdate={objectUpdate}/>
             : null
         );
     }
@@ -44,6 +45,17 @@ var objectUser = {
     ]
 };
 
+var objectUpdate = {
+    title: "UPDATE USER",
+    property: [
+        { name: "Username", placeholder: 'Please input username' },
+        { name: "Password", placeholder: 'Please input password' },
+        { name: "Full name", placeholder: 'Please input full name' },
+        { name: "Address", placeholder: 'Please input address' },
+        { name: "Phone", placeholder: 'Please input phone' },
+        { name: "Role", role: [{ id: '0', name: "Admin" }, { id: '1', name: "User" }] },
+    ]
+};
 // var columns = [
 //     { title: "ID" },
 //     { title: "Username" },

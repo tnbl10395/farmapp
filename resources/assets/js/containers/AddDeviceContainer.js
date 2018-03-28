@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { AddDeviceComponent } from '../components/AddDeviceComponent';
-import { saveInput, submitAddDeviceForm, submitAddDeviceUserForm, getDataDevices, closeMessage, updateDevice } from '../actions/Action';
+import { saveInput, submitAddDeviceForm, submitAddDeviceUserForm, getDataDevices, closeMessage, closeModal, showMessage } from '../actions/Action';
 import { submitAddDeviceFormAPI, submitAddDeviceUserFormAPI, getDataDevicesAPI, updateDeviceAPI } from '../api/api';
 
 const mapStateToProps = (state) => ({
@@ -26,7 +26,13 @@ const mapDispatchToProps = (dispatch) => ({
         dispatch(closeMessage());
     },
     updateFormAdmin: (id, object) => {
-        updateDeviceAPI(dispatch, updateDevice, id, object, getDataDevices, getDataDevicesAPI);
+        updateDeviceAPI(dispatch, showMessage, id, object, getDataDevices, getDataDevicesAPI);
+    },
+    updateFormUser: (id, code) => {
+        //
+    },
+    closeModal: () => {
+        dispatch(closeModal());
     },
 });
 

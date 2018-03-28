@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Route, Switch } from "react-router-dom";
 import Dashboard from '../containers/DashboardContainer';
 import Devices from '../containers/DevicesContainer';
-import UpdateDevice from '../containers/UpdateDeviceContainer';
 import User from '../containers/UserContainer';
 import Data from '../containers/DataContainer';
 import Solution from '../containers/SolutionContainer';
@@ -31,7 +30,6 @@ export default class Content extends React.Component {
                     <Switch>
                         <Route exact path="/" component={Dashboard} />
                         <Route exact path="/device" component={Devices} />
-                        <Route path="/device/:number" component={UpdateDevice} />
                         {
                             this.props.profile.role == "1" ?
                                 <Route exact path="/user" component={User} />

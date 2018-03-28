@@ -29,7 +29,11 @@ export class AddDeviceComponent extends React.Component {
 
     handleSubmitUser(e) {
         e.preventDefault();
-        this.props.submitFormUser(this.props.inputCode);
+        if (this.props.object.title == 'ADD DEVICE') {
+            this.props.submitFormUser(this.props.inputCode);
+        }else {
+            this.props.updateFormUser(this.props.id, this.props.inputCode);
+        }
     }
 
     render() {
@@ -69,7 +73,8 @@ export class AddDeviceComponent extends React.Component {
                                 inputDate={this.props.inputDate}
                                 saveInput={this.props.saveInput} />
                         <input type="submit" className="btn btn-success col-md-2" 
-                               value={this.props.object.title == 'ADD DEVICE' ? 'Add' : 'Update'} />
+                               value={this.props.object.title == 'ADD DEVICE' ? 'Add' : 'Update'} style={{ marginRight: 10 }}/>
+                        <input type="button" onClick={() => this.props.closeModal()} className="btn btn-default col-md-2" value="Cancel" />
                     </form>
                 </div>
                 :
@@ -98,7 +103,9 @@ export class AddDeviceComponent extends React.Component {
                                 inputValue={this.props.inputCode}
                                 saveInput={this.props.saveInput} />
                         </div>
-                        <input type="submit" className="btn btn-success col-md-2" value="Add" />
+                        <input type="submit" className="btn btn-success col-md-2" 
+                               value={this.props.object.title == 'ADD DEVICE' ? 'Add' : 'Update'} style={{ marginRight: 10 }}/>
+                        <input type="button" onClick={() => this.props.closeModal()} className="btn btn-default col-md-2" value="Cancel" />
                     </form>
                 </div>
         )

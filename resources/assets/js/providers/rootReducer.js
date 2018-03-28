@@ -28,7 +28,8 @@ import {
     DELETE_USER,
     DELETE_DATA,
     LOAD_DEVICE_UPDATE,
-    UPDATE_DEVICE
+    LOAD_USER_UPDATE,
+    SHOW_MESSAGE
 } from "../actions/TypeAction";
 
 const initialState = {
@@ -308,11 +309,20 @@ const Reducer = (state = initialState, action) => {
             }
 
         case OPEN_MODAL:
-            if (action.element != null) {
-                state.id_update = action.element.id,
-                state.value_name_device = action.element.name,
-                state.value_code_device = action.element.code,
-                state.value_date_device = action.element.manufacturing_date
+            switch (action.object.title) {
+                case 'UPDATE DEVICE':
+                    state.id_update = action.element.id;
+                    state.value_name_device = action.element.name;
+                    state.value_code_device = action.element.code;
+                    state.value_date_device = action.element.manufacturing_date;
+                    break;
+                case 'UPDATE USER':
+                    state.id_update = action.element.id;
+                    state.value_fullname_user = action.element.fullname;
+                    state.value_address_user = action.element.address;
+                    state.value_phone_user = action.element.phone;
+                    state.value_role_user = action.element.role;
+                    break;
             }
             return {
                 ...state,
@@ -326,6 +336,15 @@ const Reducer = (state = initialState, action) => {
             return {
                 ...state,
                 modal: false,
+                value_name_device: '',
+                value_code_device: '',
+                value_date_device: new Date(),
+                value_username_user: '',
+                value_password_user: '',
+                value_fullname_user: '',
+                value_address_user: '',
+                value_phone_user: '',
+                value_role_user: '0',
             }
 
         case SAVE_INPUT:
@@ -494,7 +513,15 @@ const Reducer = (state = initialState, action) => {
                 value_code_device: action.loadData.code,
                 value_date_device: action.loadData.manufacturing_date,
             }
-        case UPDATE_DEVICE:
+        case LOAD_USER_UPDATE:
+            return {
+                ...state,
+                value_fullname_user: action.loadData.fullname,
+                value_address_user: action.loadData.address,
+                value_phone_user: action.loadData.phone,
+                value_role_user: action.loadData.role,
+            }
+        case SHOW_MESSAGE:
             if (action.message == true) {
                 return {
                     ...state,

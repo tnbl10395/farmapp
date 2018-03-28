@@ -17,9 +17,6 @@ const mapDispatchToProps = (dispatch) => ({
     getDevicesOfUser: () => {
         getDeviceOfUserAPI(dispatch, getDeviceOfUser);
     },
-    closeModal: () => {
-        dispatch(closeModal());
-    },
     closeAlert: () => {
         dispatch(closeAlert());
     },

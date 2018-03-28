@@ -121,7 +121,7 @@ class UsersController extends Controller
         $user->phone = $request->phone;
         $user->role = $request->role;
         $user->save();
-        return response()->json('updated');
+        return response()->json(true);
     }
 
     /**
