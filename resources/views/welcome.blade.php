@@ -8,6 +8,7 @@
         <title>Happy Farm</title>
         <link href="{{asset('css/app.css')}}" rel="stylesheet" type="text/css">
         <link href="{{asset('css/mycss.css')}}" rel="stylesheet" type="text/css">
+        <link href="{{asset('css/loader.css')}}" rel="stylesheet" type="text/css">
     </head>
     <body>
         <div id="happyfarm"></div>
