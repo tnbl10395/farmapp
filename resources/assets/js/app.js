@@ -7,13 +7,15 @@ import { Provider, connect } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import Reducer from './providers/rootReducer';
 import thunk from 'redux-thunk';
+import Loader from './templates/Loader';
 
 const store = createStore(Reducer, applyMiddleware(thunk));
 
 render(
     <HashRouter>
         <Provider store={store}>
-            <App />
+            {/* <App /> */}
+            <Loader />
         </Provider>
     </HashRouter>
     , document.getElementById('happyfarm'));
