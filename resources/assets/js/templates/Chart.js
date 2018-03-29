@@ -231,29 +231,31 @@ export class Chart extends React.Component {
                         </div>
                         <div className="col-md-6">
                             <div
-                                className="label label-success col-md-5 col-md-offset-1"
+                                className="label label-primary col-md-5 col-md-offset-1"
                                 onClick={() => this.setState({ humidity: !this.state.humidity })}
                                 style={
                                     !this.state.humidity ?
-                                        { fontSize: 20, cursor: 'pointer', fontFamily: "Helvetica", backgroundColor: 'green' }
+                                        { fontSize: 20, cursor: 'pointer', fontFamily: "Helvetica", backgroundColor: 'blue' }
                                         :
                                         { fontSize: 20, cursor: 'pointer', fontFamily: "Helvetica" }
                                 }>
                                 Humidity
                             </div>
                             <div
-                                className="label label-primary col-md-5"
+                                className="label label-success col-md-5"
                                 onClick={() => this.setState({ temperature: !this.state.temperature })}
                                 style={
                                     !this.state.temperature ?
-                                        { fontSize: 20, cursor: 'pointer', fontFamily: "Helvetica", backgroundColor: 'blue' }
+                                        { fontSize: 20, cursor: 'pointer', fontFamily: "Helvetica", backgroundColor: 'green' }
                                         :
                                         { fontSize: 20, cursor: 'pointer', fontFamily: "Helvetica" }
                                 }>
                                 Temperature
                             </div>
                         </div>
-                        <LineChart data={chartData} options={chartOptions} style={style.chart} redraw width='600' height='250'/>
+                        {/* <div style={style.boxChart}> */}
+                            <LineChart data={chartData} options={chartOptions} style={style.chart} redraw width='600' height='200'/>
+                        {/* </div> */}
                     </div>
                 </div>
             </div>
@@ -264,12 +266,12 @@ export class Chart extends React.Component {
 const humidity = (humidity) => {
     return {
         label: "Humidity",
-        fillColor: "rgba(39, 174, 96,0.2)",
-        strokeColor: "green",
-        pointColor: "#5cb85c",
+        fillColor: "rgba(52, 152, 219,0.2)",
+        strokeColor: "blue",
+        pointColor: "#428bca",
         pointStrokeColor: "#fff",
         pointHighlightFill: "#fff",
-        pointHighlightStroke: "green",
+        pointHighlightStroke: "#428bca",
         data: humidity
     }
 }
@@ -277,12 +279,12 @@ const humidity = (humidity) => {
 const temperature = (temperature) => {
     return {
         label: "Temperature",
-        fillColor: "rgba(52, 152, 219,0.2)",
-        strokeColor: "blue",
-        pointColor: "#428bca",
+        fillColor: "rgba(39, 174, 96,0.2)",
+        strokeColor: "green",
+        pointColor: "#5cb85c",
         pointStrokeColor: "#fff",
         pointHighlightFill: "#fff",
-        pointHighlightStroke: "#428bca",
+        pointHighlightStroke: "#5cb85c",
         data: temperature
     }
 }
@@ -373,7 +375,7 @@ const style = {
         fontSize: 12,
         borderRadius: 5,
         fontWeight: 'bold',
-        boxShadow: "0.5px 5px 3px grey",
+        // boxShadow: "0.5px 5px 3px grey",
         borderTop: '4px #2ab27b solid'
     },
     main_content_false: {
@@ -387,17 +389,20 @@ const style = {
         fontSize: 12,
         borderRadius: 5,
         fontWeight: 'bold',
-        boxShadow: "0.5px 5px 3px grey",
+        // boxShadow: "0.5px 5px 3px grey",
         borderTop: '4px #2ab27b solid'
 
     },
     chart: {
-        marginTop: 2,
+        marginTop: 10,
         backgroundColor: '#ecf0f5',
-        borderRadius: 5,
-        border: '1px solid grey',
+        borderRadius: 3,
+        // border: '1px solid grey',
     },
     button_div: {
         height: 35,
-    }
+    },
+    // boxChart: {
+    //     padding: 10
+    // }
 }

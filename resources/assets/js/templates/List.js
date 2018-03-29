@@ -57,7 +57,7 @@ export default class List extends React.Component {
             <div style={this.props.sideBar ? style.main_content_true : style.main_content_false}>
                 <div className="col-xs-12 col-sm-12 col-md-12" style={style.list}>
                     <div className="col-xs-12 col-sm-12 col-md-12">
-                        <div className="col-xs-sm-6 col-sm-6 col-md-6" style={{ marginTop: 20 }}> 
+                        <div className="col-xs-sm-6 col-sm-6 col-md-6" style={{ marginTop: 20 }}>
                             <label>
                                 Show
                                 <select value={this.state.itemsCountPerPage}
@@ -74,18 +74,18 @@ export default class List extends React.Component {
                         </div>
                         {
                             this.props.name == "Data"
-                                ?   <div className="pull-right" style={{ margin: 5, marginTop: 20 }}>
-                                        <button
-                                            // onClick={() => this.props.change()}
-                                            className="btn btn-success" style={{ marginRight: 10 }}><i className="fa fa-file-excel-o" style={{ marginRight: 5 }} />Export</button>
-                                        <button onClick={() => this.props.change()}
-                                                className="btn btn-success">
-                                            <i className="fa fa-bar-chart" style={{ marginRight: 5 }} /> Chart
+                                ? <div className="pull-right" style={{ margin: 5, marginTop: 20 }}>
+                                    <button
+                                        // onClick={() => this.props.change()}
+                                        className="btn btn-success" style={{ marginRight: 10 }}><i className="fa fa-file-excel-o" style={{ marginRight: 5 }} />Export</button>
+                                    <button onClick={() => this.props.change()}
+                                        className="btn btn-success">
+                                        <i className="fa fa-bar-chart" style={{ marginRight: 5 }} /> Chart
                                         </button>
-                                    </div>
-                                :   <button onClick={() => this.props.openModal(this.props.object, null)} className="btn btn-success pull-right" style={{ margin: 5, marginTop: 20 }}>
-                                        <i className="fa fa-plus" /> New {this.props.name}
-                                    </button>
+                                </div>
+                                : <button onClick={() => this.props.openModal(this.props.object, null)} className="btn btn-success pull-right" style={{ margin: 5, marginTop: 20 }}>
+                                    <i className="fa fa-plus" /> New {this.props.name}
+                                </button>
                         }
 
                         <div className="form-group has-feedback col-xs-3 col-sm-3 col-md-3 pull-right" style={style.search}>
@@ -97,17 +97,22 @@ export default class List extends React.Component {
                         renderTable(this.props.name, currentData, this.props.openAlert, this.props.openModal, this.props.objectUpdate)
                     }
                     <div className="col-xs-12 col-sm-12 col-md-12">
-                        <Pagination
-                            prevPageText='prev'
-                            nextPageText='next'
-                            firstPageText='first'
-                            lastPageText='last'
-                            activePage={this.state.activePage}
-                            itemsCountPerPage={this.state.itemsCountPerPage}
-                            totalItemsCount={this.state.data.length}
-                            pageRangeDisplayed={5}
-                            onChange={this.handlePageChange}
-                        />
+                        <div className="col-md-6">
+                            <span>Showing 1 to {this.state.itemsCountPerPage < this.state.data.length ? this.state.itemsCountPerPage : this.state.data.length} of {this.state.data.length} entries</span>
+                        </div>
+                        <div className="col-md-6 pull-right">
+                            <Pagination
+                                prevPageText='prev'
+                                nextPageText='next'
+                                firstPageText='first'
+                                lastPageText='last'
+                                activePage={this.state.activePage}
+                                itemsCountPerPage={this.state.itemsCountPerPage}
+                                totalItemsCount={this.state.data.length}
+                                pageRangeDisplayed={5}
+                                onChange={this.handlePageChange}
+                            />
+                        </div>
                     </div>
                 </div>
                 {/* <div className="col-xs-12 col-sm-12 col-md-2">
@@ -242,7 +247,7 @@ const style = {
         // opacity: 0.7,
         borderRadius: 5,
         fontWeight: 'bold',
-        boxShadow: "0.5px 5px 3px grey",
+        // boxShadow: "0.5px 5px 3px grey",
         borderTop: '4px #2ab27b solid'
     },
     main_content_false: {
@@ -255,9 +260,9 @@ const style = {
         // width: '95%',
         fontSize: 12,
         // opacity: 0.7,
-        borderRadius: 5,
+        borderRadius: 3,
         fontWeight: 'bold',
-        boxShadow: "0.5px 5px 3px grey",
+        // boxShadow: "0.5px 5px 3px grey",
         borderTop: '4px #2ab27b solid'
     },
     list: {
