@@ -14,8 +14,8 @@ const store = createStore(Reducer, applyMiddleware(thunk));
 render(
     <HashRouter>
         <Provider store={store}>
-            {/* <App /> */}
-            <Loader />
+            <App />
+            {/* <Loader /> */}
         </Provider>
     </HashRouter>
     , document.getElementById('happyfarm'));

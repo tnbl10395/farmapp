@@ -138,33 +138,33 @@ export class Chart extends React.Component {
         }
     }
 
-    showValue() {
-        if (this.state.humidity && this.state.temperature) {
-            return [
-                humidity(this.props.humidity),
-                temperature(this.props.temperature)
-            ];
-        } else if (!this.state.humidity && this.state.temperature) {
-            return [
-                temperature(this.props.temperature)
-            ];
-        } else if (this.state.humidity && !this.state.temperature) {
-            return [
-                humidity(this.props.humidity)
-            ];
-        } else {
-            return [{ data: null }];
-        }
-    }
+    // showValue() {
+    //     if (this.state.humidity && this.state.temperature) {
+    //         return [
+    //             humidity(this.props.humidity),
+    //             temperature(this.props.temperature)
+    //         ];
+    //     } else if (!this.state.humidity && this.state.temperature) {
+    //         return [
+    //             temperature(this.props.temperature)
+    //         ];
+    //     } else if (this.state.humidity && !this.state.temperature) {
+    //         return [
+    //             humidity(this.props.humidity)
+    //         ];
+    //     } else {
+    //         return [{ data: null }];
+    //     }
+    // }
 
     render() {
-        var arrayHour = this.props.checkInterval ? labelDay() : labelHour();
-        var arrayDay = labelDay();
+        // var arrayHour = this.props.checkInterval ? labelDay() : labelHour();
+        // var arrayDay = labelDay();
         var array = this.props.all_devices;
-        var chartData = {
-            labels: arrayHour,
-            datasets: this.showValue()
-        };
+        // var chartData = {
+        //     labels: arrayHour,
+        //     datasets: this.showValue()
+        // };
         return (
             <div style={this.props.sideBar ? style.main_content_true : style.main_content_false}>
                 <div style={style.button_div}>
@@ -254,11 +254,53 @@ export class Chart extends React.Component {
                             </div>
                         </div>
                         {/* <div style={style.boxChart}> */}
-                            <LineChart data={chartData} options={chartOptions} style={style.chart} redraw width='600' height='200'/>
+                            <LineChartComponent stateHumidity={this.state.humidity}
+                                                stateTemperature={this.state.temperature}
+                                                propsHumidity={this.props.humidity}
+                                                propsTemperature={this.props.temperature}
+                                                checkInterval={this.props.checkInterval}
+                                                width={"600"} height={"250"}/>
                         {/* </div> */}
                     </div>
                 </div>
             </div>
+        )
+    }
+}
+
+export class LineChartComponent extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+
+    showValue() {
+        if (this.props.stateHumidity && this.props.stateTemperature) {
+            return [
+                humidity(this.props.propsHumidity),
+                temperature(this.props.propsTemperature)
+            ];
+        } else if (!this.props.stateHumidity && this.props.stateTemperature) {
+            return [
+                temperature(this.props.propsTemperature)
+            ];
+        } else if (this.props.stateHumidity && !this.props.stateTemperature) {
+            return [
+                humidity(this.props.propsHumidity),
+            ];
+        } else {
+            return [{ data: null }];
+        }
+    }
+
+    render() {
+        var arrayHour = this.props.checkInterval ? labelDay() : labelHour();
+        var arrayDay = labelDay();
+        var chartData = {
+            labels: arrayHour,
+            datasets: this.showValue()
+        };
+        return(
+            <LineChart data={chartData} options={chartOptions} style={style.chart} redraw width={this.props.width} height={this.props.height} />
         )
     }
 }
@@ -342,13 +384,13 @@ const labelDay = () => {
     return array;
 }
 
-var chartOptions = {
+const chartOptions = {
     scaleFontColor: "black",
     scaleShowGridLines: true,
     scaleGridLineColor: "#9E9E9E",
     scaleGridLineWidth: 1,
     scaleShowHorizontalLines: true,
-    scaleShowVerticalLines: true,
+    scaleShowVerticalLines: false,
     bezierCurve: true,
     bezierCurveTension: 0.4,
     pointDot: true,
@@ -394,15 +436,16 @@ const style = {
 
     },
     chart: {
-        marginTop: 10,
+        // marginTop: 10,
         backgroundColor: '#ecf0f5',
         borderRadius: 3,
         // border: '1px solid grey',
+        // padding: 10
     },
     button_div: {
         height: 35,
     },
     // boxChart: {
-    //     padding: 10
+    //     border: '1px grey',
     // }
 }

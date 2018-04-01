@@ -31,8 +31,8 @@ export default class LoginComponent extends React.Component {
 
     render() {
         return (
-            <div style={{ backgroundColor: 'gray' }} >
-                <img src="/images/farmintro.jpg" style={style.img} />
+            <div style={{ backgroundColor: 'black' }} >
+                {/* <img src="/images/farmintro.jpg" style={style.img} /> */}
                 <div style={style.overview}></div>
                 <div
                     // onMouseMove={(e) => this.moveMouse(e)}
@@ -114,7 +114,7 @@ export class LocationComponent extends React.Component {
 
 const style = {
     overview: {
-        // backgroundColor: 'black',
+        backgroundColor: 'rgba(0,0,0,0.15)',
         position: 'absolute',
         top: 0,
         right: 0,
