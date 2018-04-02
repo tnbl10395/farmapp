@@ -42,7 +42,7 @@ class LocationsController extends Controller
      */
     public function show(Request $request, $id)
     {
-        $locations = Location::where('deviceId',$id)->get();
+        $locations = Location::where('deviceId',$id)->orderBy('updated_at', 'desc')->first();
         return response()->json($locations);
     }
 

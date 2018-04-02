@@ -57,7 +57,7 @@ const style = {
         marginLeft: 20,
         cursor: 'pointer',
         padding: 10,
-        backgroundColor: '#2ab27b',
+        backgroundColor: '#5cb85c',
     },
     icon_true: {
         marginRight: 25,
@@ -75,6 +75,6 @@ const style = {
     font_false: {
         fontWeight: 'bold',
         textDecoration: 'none',
-        color: '#2ab27b'
+        color: '#5cb85c'
     }
 }

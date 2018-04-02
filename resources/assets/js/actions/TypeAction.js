@@ -1,5 +1,7 @@
 export const CHOOSE_OPTION_SIDEBAR = 'CHOOSE_OPTION_SIDEBAR';
 export const OPEN_SIDEBAR = 'OPEN_SIDEBAR';
+export const HIDE_SIDEBAR = 'HIDE_SIDEBAR';
+export const SHOW_SIDEBAR = 'SHOW_SIDEBAR';
 //table
 export const GET_DATA_DEVICES = 'GET_DATA_DEVICES';
 export const GET_DATA_VALUES = 'GET_DATA_VALUES';
@@ -41,3 +43,7 @@ export const CLOSE_MESSAGE = 'CLOSE_MESSAGE';
 //load data update
 export const LOAD_DEVICE_UPDATE = 'LOAD_DEVICE_UPDATE';
 export const LOAD_USER_UPDATE = 'LOAD_USER_UPDATE';
+//get one device 
+export const GET_ONE_DEVICE = 'GET_ONE_DEVICE';
+export const GET_CURRENT_DEVICE = 'GET_CURRENT_DEVICE';
+export const GET_ONE_LOCATION = 'GET_ONE_LOCATION';

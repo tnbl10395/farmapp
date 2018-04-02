@@ -73,7 +73,7 @@ var style = {
         backgroundColor: '#222d32',
         top: 50,
         left: 0,
-        width: 230,
+        width: 200,
         height: '100%',
         // opacity: 0.9,
         zIndex: 4,

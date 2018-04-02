@@ -48,7 +48,7 @@ export default class Content extends React.Component {
 var style = {
     content_true: {
         position: 'absolute',
-        left: 215,
+        left: 185,
         top: 50,
         right: 0,
         bottom: 0,

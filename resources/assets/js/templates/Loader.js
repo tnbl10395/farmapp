@@ -20,7 +20,7 @@ export default class Loader extends React.Component{
 
 const style = {
     wrapper: {
-        backgroundColor: 'black',
+        backgroundColor: 'transparent',
         position: 'fixed',
         width: '100%',
         height: '100%',

@@ -1,9 +1,16 @@
 import React from 'react';
 import 'font-awesome/css/font-awesome.css';
 
+const width = window.innerWidth;
+
 export default class TopBar extends React.Component {
     constructor(props) {
         super(props);
+    }
+
+    componentWillMount() {
+        if (width <= 414) this.props.hideSideBar();
+        else this.props.showSideBar();
     }
 
     render() {
@@ -27,7 +34,7 @@ export default class TopBar extends React.Component {
 var style = {
     topBar: {
         position: 'fixed',
-        backgroundColor: '#2ab27b',
+        backgroundColor: '#5cb85c',
         width: '100%',
         height: 50,
         zIndex: 99999,

@@ -29,12 +29,24 @@ import {
     DELETE_DATA,
     LOAD_DEVICE_UPDATE,
     LOAD_USER_UPDATE,
-    SHOW_MESSAGE
+    SHOW_MESSAGE,
+    GET_ONE_DEVICE,
+    GET_CURRENT_DEVICE,
+    GET_ONE_LOCATION,
+    SHOW_SIDEBAR,
+    HIDE_SIDEBAR
 } from "../actions/TypeAction";
 
 const initialState = {
     token: null,
     token_expired: false,
+    //dashboard
+    nameDevice: null,
+    codeDevice: null,
+    currentHumidity: null,
+    currentTemperature: null,
+    latitude: null,
+    longitude: null,
     //side bar
     admin_dashboard_component: true,
     admin_device_component: false,
@@ -51,7 +63,7 @@ const initialState = {
     humidity_chart: [],
     temperature_chart: [],
     all_devices: [],
-    select_device: '',
+    select_device: null,
     select_date: '',
     checkInterval: false,
     interval: 0,
@@ -276,6 +288,18 @@ const Reducer = (state = initialState, action) => {
             return {
                 ...state,
                 sideBar: !state.sideBar
+            }
+
+        case SHOW_SIDEBAR:
+            return {
+                ...state,
+                sideBar: true,
+            }
+
+        case HIDE_SIDEBAR:
+            return {
+                ...state,
+                sideBar: false,
             }
 
         case CHANGE_INTERVAL:
@@ -535,12 +559,29 @@ const Reducer = (state = initialState, action) => {
                     message_success: false,
                 }
             }
+        case GET_ONE_DEVICE:
+            return {
+                ...state,
+                nameDevice: action.loadData.name,
+                codeDevice: action.loadData.code,
+            }
+        case GET_CURRENT_DEVICE:
+            return {
+                ...state,
+                currentHumidity: action.loadData.humidity,
+                currentTemperature: action.loadData.temperature
+            }
+        case GET_ONE_LOCATION:
+            return {
+                ...state,
+                latitude: action.loadData.latitude,
+                longitude: action.loadData.longitude
+            }
         default:
             return {
                 ...state,
             }
     }
-
 }
 
 export default Reducer;

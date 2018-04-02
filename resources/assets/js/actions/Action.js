@@ -29,7 +29,12 @@ import {
     DELETE_DATA,
     LOAD_DEVICE_UPDATE,
     LOAD_USER_UPDATE,
-    SHOW_MESSAGE
+    SHOW_MESSAGE,
+    GET_ONE_DEVICE,
+    GET_CURRENT_DEVICE,
+    GET_ONE_LOCATION,
+    HIDE_SIDEBAR,
+    SHOW_SIDEBAR
 } from "./TypeAction";
 //Custom UI
 export const chooseOptionSidebar = (option) => {
@@ -252,5 +257,38 @@ export const loadUserUpdate = (loadData) => {
     return {
         type: LOAD_USER_UPDATE,
         loadData
+    }
+}
+
+export const getOneDevice = (loadData) => {
+    return {
+        type: GET_ONE_DEVICE,
+        loadData
+    }
+}
+
+export const getCurrentData = (loadData) => {
+    return {
+        type: GET_CURRENT_DEVICE,
+        loadData
+    } 
+}
+
+export const getOneLocation = (loadData) => {
+    return {
+        type: GET_ONE_LOCATION,
+        loadData
+    }
+}
+
+export const hideSidebar = () => {
+    return {
+        type: HIDE_SIDEBAR
+    }
+}
+
+export const showSidebar = () => {
+    return {
+        type: SHOW_SIDEBAR
     }
 }

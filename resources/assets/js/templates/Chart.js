@@ -418,7 +418,7 @@ const style = {
         borderRadius: 5,
         fontWeight: 'bold',
         // boxShadow: "0.5px 5px 3px grey",
-        borderTop: '4px #2ab27b solid'
+        borderTop: '4px #5cb85c solid'
     },
     main_content_false: {
         color: 'black',
@@ -432,7 +432,7 @@ const style = {
         borderRadius: 5,
         fontWeight: 'bold',
         // boxShadow: "0.5px 5px 3px grey",
-        borderTop: '4px #2ab27b solid'
+        borderTop: '4px #5cb85c solid'
 
     },
     chart: {

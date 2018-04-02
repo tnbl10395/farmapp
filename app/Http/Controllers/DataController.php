@@ -173,7 +173,6 @@ class DataController extends Controller
     //one-minute
     public function getOneValueBasedOnMinute(Request $request)
     {
-        $array = [];
         $data = Data::join('devices','data.deviceId','=','devices.id')
         ->whereRaw('substr(data.updated_at,1,16) = "'.$request->minute.'"')
         ->where('deviceId',$request->deviceId)
@@ -185,12 +184,21 @@ class DataController extends Controller
     //one-hour
     public function getOneValueBasedOnHour(Request $request)
     {
-        $array = [];
         $data = Data::join('devices','data.deviceId','=','devices.id')
         ->whereDate('data.updated_at',$request->hour)
         ->where('deviceId',$request->deviceId)
         ->selectRaw('data.id,data.deviceId,devices.name, substr(data.updated_at,12,2) as hour,
                 data.humidity,data.temperature,data.updated_at')
+        ->orderBy('id','desc')->first(); 
+        return response()->json($data);
+    }
+    //current value
+    public function getCurrentValue(Request $request, $id)
+    {
+        $data = Data::join('devices','data.deviceId','=','devices.id')
+        ->where('deviceId',$id)
+        ->selectRaw('data.id,data.deviceId,devices.name, substr(data.updated_at,15,2) as minute,
+                     data.humidity,data.temperature,data.updated_at')
         ->orderBy('id','desc')->first(); 
         return response()->json($data);
     }

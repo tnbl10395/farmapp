@@ -44,15 +44,15 @@ const style = {
         marginLeft: 5,
     },
     avatar_true: {
-        color: '#2ab27b',
+        color: '#5cb85c',
         fontSize: 55
     },
     avatar_false: {
-        color: '#2ab27b',
+        color: '#5cb85c',
         fontSize: 30
     },
     dot: {
-        color: '#2ab27b',
+        color: '#5cb85c',
         marginRight: 5,
         marginLeft: 20
     },

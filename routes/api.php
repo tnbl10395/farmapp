@@ -60,6 +60,7 @@ Route::group(['middleware' => 'jwt.auth'], function () {
     Route::post('data-old-chart-day', 'DataController@getOldChartBasedOnDay');
     Route::post('one-real-chart-hour','DataController@getOneValueBasedOnMinute');
     Route::post('one-real-chart-day','DataController@getOneValueBasedOnHour');
+    Route::get('current-data/{id}', 'DataController@getCurrentValue');
 
     //Location 
     Route::get('location/{id}','LocationsController@show');
