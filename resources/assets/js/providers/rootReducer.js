@@ -34,7 +34,9 @@ import {
     GET_CURRENT_DEVICE,
     GET_ONE_LOCATION,
     SHOW_SIDEBAR,
-    HIDE_SIDEBAR
+    HIDE_SIDEBAR,
+    CHANGE_INTERVAL_DASHBOARD,
+    CHECK_VALIDATE_LOGIN
 } from "../actions/TypeAction";
 
 const initialState = {
@@ -47,6 +49,8 @@ const initialState = {
     currentTemperature: null,
     latitude: null,
     longitude: null,
+    intervalDashBoard: false,
+    intervalTime: 60000,
     //side bar
     admin_dashboard_component: true,
     admin_device_component: false,
@@ -91,6 +95,7 @@ const initialState = {
     id_delete: '',
     //breadcrumb
     breadcrumb: 'Dashboard',
+    message_login: false
 };
 
 const edit = (direct, id) => ('<a href="/#/' + direct + '/update/' + id + '" style="border-radius: 5px; padding: 5px 5px 5px 6px; background-color:#3498db; color:#fff;margin-right:10px;" class="fa fa-edit"></a>');
@@ -153,7 +158,7 @@ const Reducer = (state = initialState, action) => {
                 humidity_chart: humidity,
                 temperature_chart: temperature,
                 select_device: action.device,
-                select_date: action.date
+                select_date: action.date,
             }
 
         case GET_REAL_CHART_BASED_ON_DAY:
@@ -482,7 +487,11 @@ const Reducer = (state = initialState, action) => {
                 ...state,
                 token: action.token
             }
-
+        case CHECK_VALIDATE_LOGIN:
+            return {
+                ...state,
+                message_login: true
+            }
         case TOKEN_EXPIRED:
             return {
                 ...state,
@@ -564,18 +573,66 @@ const Reducer = (state = initialState, action) => {
                 ...state,
                 nameDevice: action.loadData.name,
                 codeDevice: action.loadData.code,
+                status: action.loadData.status
             }
         case GET_CURRENT_DEVICE:
-            return {
-                ...state,
-                currentHumidity: action.loadData.humidity,
-                currentTemperature: action.loadData.temperature
+            if (action.loadData.id != null) {
+                return {
+                    ...state,
+                    currentHumidity: action.loadData.humidity,
+                    currentTemperature: action.loadData.temperature
+                }
+            } else {
+                return {
+                    ...state,
+                    currentHumidity: '0',
+                    currentTemperature: '0'
+                }
             }
         case GET_ONE_LOCATION:
+            if (action.loadData.id != null) {
+                return {
+                    ...state,
+                    latitude: action.loadData.latitude,
+                    longitude: action.loadData.longitude
+                }
+            } else {
+                return {
+                    ...state,
+                    latitude: 0,
+                    longitude: 0 
+                }
+            }
+        case CHANGE_INTERVAL_DASHBOARD: 
+            if (action.interval) {
+                var humidity = initValueDay();
+                var temperature = initValueDay();
+                if (action.loadData.length > 0) {
+                    action.loadData.forEach(element => {
+                        humidity.splice(parseInt(element.h), 1, element.humidity);
+                        temperature.splice(parseInt(element.h), 1, element.temperature);
+                    });
+                }
+                var interval = 3600000
+            } else {
+                var humidity = initValueHour();
+                var temperature = initValueHour();
+                if (action.loadData.length > 0) {
+                    action.loadData.forEach(element => {
+                        humidity.splice(parseInt(element.min), 1, element.humidity);
+                        temperature.splice(parseInt(element.min), 1, element.temperature);
+                    });
+                }
+                var interval = 60000
+            }
             return {
-                ...state,
-                latitude: action.loadData.latitude,
-                longitude: action.loadData.longitude
+                ...state, 
+                humidity_chart: humidity,
+                temperature_chart: temperature,
+                select_device: action.device,
+                select_date: action.date,
+                intervalDashBoard: action.interval,
+                intervalTime: interval
             }
         default:
             return {

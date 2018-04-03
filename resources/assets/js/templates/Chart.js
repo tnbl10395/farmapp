@@ -331,7 +331,7 @@ const temperature = (temperature) => {
     }
 }
 
-const configDate = (time, interval) => {
+export const configDate = (time, interval) => {
     var date = '';
     if (parseInt(time.getDate()) < 10) {
         var dd = '0' + time.getDate();

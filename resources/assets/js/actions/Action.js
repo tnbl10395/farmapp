@@ -34,7 +34,9 @@ import {
     GET_CURRENT_DEVICE,
     GET_ONE_LOCATION,
     HIDE_SIDEBAR,
-    SHOW_SIDEBAR
+    SHOW_SIDEBAR,
+    CHANGE_INTERVAL_DASHBOARD,
+    CHECK_VALIDATE_LOGIN
 } from "./TypeAction";
 //Custom UI
 export const chooseOptionSidebar = (option) => {
@@ -290,5 +292,21 @@ export const hideSidebar = () => {
 export const showSidebar = () => {
     return {
         type: SHOW_SIDEBAR
+    }
+}
+
+export const changeIntervalDashboard = (loadData, device, date, interval) => {
+    return {
+        type: CHANGE_INTERVAL_DASHBOARD,
+        loadData,
+        device,
+        date,
+        interval
+    }
+}
+
+export const checkValidateLogin = () => {
+    return {
+        type: CHECK_VALIDATE_LOGIN
     }
 }

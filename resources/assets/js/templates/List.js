@@ -88,7 +88,7 @@ export default class List extends React.Component {
                                 </button>
                         }
 
-                        <div className="form-group has-feedback col-xs-3 col-sm-3 col-md-3 pull-right" style={style.search}>
+                        <div className="form-group has-feedback col-xs-7 col-sm-3 col-md-3 pull-right" style={style.search}>
                             <input type="text" className="form-control" placeholder="Search ..." onChange={this.filterList} />
                             <span className="form-control-feedback glyphicon glyphicon-search" style={{ marginRight: 10 }}></span>
                         </div>

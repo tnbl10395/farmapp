@@ -331,7 +331,7 @@ export const submitAddUserFormAPI = (dispatch, submitAddUserForm, username, pass
     }
 }
 //login
-export const loginAPI = (dispatch, login, username, password) => {
+export const loginAPI = (dispatch, login, checkValidateLogin, username, password) => {
     try {
         fetch(URL + "api/auth/login", {
             method: method.POST,
@@ -349,7 +349,7 @@ export const loginAPI = (dispatch, login, username, password) => {
                 if (res.token != null) {
                     getUserAPI(dispatch, login, res.token);
                 } else {
-                    alert('Username or password is invalid!')
+                    dispatch(checkValidateLogin());
                 }
             })
     } catch (error) {
@@ -521,6 +521,48 @@ export const getOneLocationAPI = (dispatch, getOneLocation, id) => {
             .then((res) => {
                 dispatch(getOneLocation(res));
             })
+    } catch (error) {
+    }
+}
+
+export const getRealChartDashboardBasedOnHourAPI = (dispatch, changeIntervalDashboard, device, interval) => {
+    try {
+        var data = [];
+        fetch(URL + "api/data-real-chart-hour/" + device, {
+            method: method.GET,
+            headers: headers
+        })
+            .then((response) => response.json())
+            .then((res) => {
+                if (res.length > 0) {
+                    res.forEach(element => {
+                        data.push(element)
+                    });
+                }
+                var time = new Date();
+                dispatch(changeIntervalDashboard(data, device, time, interval));
+            });
+    } catch (error) {
+    }
+}
+
+export const getRealChartDashboardBasedOnDayAPI = (dispatch, changeIntervalDashboard, device, interval) => {
+    try {
+        var data = [];
+        fetch(URL + "api/data-real-chart-day/" + device, {
+            method: method.GET,
+            headers: headers
+        })
+            .then((response) => response.json())
+            .then((res) => {
+                if (res.length > 0) {
+                    res.forEach(element => {
+                        data.push(element)
+                    });
+                }
+                var time = new Date();
+                dispatch(changeIntervalDashboard(data, device, time,interval));
+            });
     } catch (error) {
     }
 }

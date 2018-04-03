@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { bounceInLeft, bounce } from 'react-animations';
 import Radium, { StyleRoot } from 'radium';
 import Loader from "../templates/Loader";
-var w = window.innerWidth;
+
+const width = window.innerWidth;
 
 export default class LoginComponent extends React.Component {
     constructor(props) {
@@ -12,13 +13,36 @@ export default class LoginComponent extends React.Component {
             username: '',
             password: '',
             loading: true,
+            message_username: false,
+            message_password: false,
         }
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     handleSubmit(e) {
         e.preventDefault();
-        this.props.login(this.state.username, this.state.password);
+        if (this.state.username == '' && this.state.password == '') {
+            this.setState({
+                message_username: true,
+                message_password: true,
+            });
+        }else if (this.state.username == '' && this.state.password != '') {
+            this.setState({
+                message_username: true,
+                message_password: false,
+            });
+        }else if (this.state.username != '' && this.state.password == '') {
+            this.setState({
+                message_username: false,
+                message_password: true,
+            });
+        }else {
+            this.setState({
+                message_username: false,
+                message_password: false,
+            });
+            this.props.login(this.state.username, this.state.password);
+        }
     }
 
     componentWillMount() {
@@ -42,23 +66,28 @@ export default class LoginComponent extends React.Component {
             <div style={{ backgroundColor: 'black' }} >
                 {/* <img src="/images/farmintro.jpg" style={style.img} /> */}
                 <div style={style.overview}></div>
-                <div
-                    // onMouseMove={(e) => this.moveMouse(e)}
-                    className="col-md-8" style={style.intro} >
-                    <StyleRoot>
-                        <img src="/images/smartphone.png" className="col-md-offset-3"
-                            style={[
-                                style.img_smartphone,
-                                // { left: this.state.X }
-                            ]}
-                        // onMouseMoveOver={(e) => this.setState({ X: e.pageX })}
-                        />
-                    </StyleRoot>
-                    <LocationComponent token_expired={this.props.token_expired} />
-                </div>
+                {
+                    width > 414 ?
+                        <div
+                            // onMouseMove={(e) => this.moveMouse(e)}
+                            className="col-md-8" style={style.intro} >
+                            <StyleRoot>
+                                <img src="/images/smartphone.png" className="col-md-offset-3"
+                                    style={[
+                                        style.img_smartphone,
+                                        // { left: this.state.X }
+                                    ]}
+                                // onMouseMoveOver={(e) => this.setState({ X: e.pageX })}
+                                />
+                            </StyleRoot>
+                            <LocationComponent token_expired={this.props.token_expired} />
+                        </div>
+                        : null
+                }
                 <div className="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3 col-md-3 col-md-offset-8" style={style.frame}></div>
                 <div className="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3 col-md-3 col-md-offset-8" style={style.formBlock}>
-                    <div style={{backgroundColor:'white'}}><i className="fa fa-user-circle" style={style.icon}/></div>
+                    <LogoComponent />
+                    <div style={{ backgroundColor: 'white' }}><i className="fa fa-user-circle" style={style.icon} /></div>
                     <div style={{ marginTop: 130 }}>
                         <h3 style={style.title}>Sign In</h3>
                         <form onSubmit={this.handleSubmit}>
@@ -67,15 +96,18 @@ export default class LoginComponent extends React.Component {
                                     className="form-control"
                                     style={style.input}
                                     onChange={(username) => this.setState({ username: username.target.value })} value={this.state.username} />
+                                    {this.state.message_username ? <h4 style={{textAlign: 'center'}} className="text-danger">Please input username!</h4> : null }
                             </div>
                             <div className="form-group col-xs-12 col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1">
                                 <input type="password" placeholder="Password"
                                     style={style.input}
                                     className="form-control"
                                     onChange={(password) => this.setState({ password: password.target.value })} value={this.state.password} />
+                                    {this.state.message_password ? <h4 style={{textAlign: 'center'}} className="text-danger">Please input password!</h4> : null }
                             </div>
+                            {this.props.message && !this.state.message_username && !this.state.message_password ? <h4 style={{textAlign: 'center'}} className="text-danger">Username or Password is invalid</h4> : null }
                             <div className="form-group col-xs-12 col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1">
-                                <button className="btn" style={{width: '100%', height: 55, fontSize: 20, backgroundColor: '#007991', color: 'white' }}>Login</button>
+                                <button className="btn" style={{ width: '100%', height: 55, fontSize: 20, backgroundColor: '#007991', color: 'white' }}>Login</button>
                             </div>
                         </form>
                     </div>
@@ -94,7 +126,7 @@ export class LogoComponent extends React.Component {
     }
     render() {
         return (
-            <div></div>
+            <img src="/images/logo4.png" style={style.logo}/>
         )
     }
 }
@@ -131,7 +163,7 @@ export class LocationComponent extends React.Component {
 const style = {
     overview: {
         background: 'linear-gradient(to bottom, #007991, #78ffd6)',
-        position: 'absolute',
+        position: 'fixed',
         top: 0,
         right: 0,
         bottom: 0,
@@ -214,5 +246,12 @@ const style = {
         left: 0,
         right: 0,
         textAlign: 'center',
+    },
+    logo: {
+        opacity: 0.9,
+        position: 'absolute',
+        top: -150,
+        width: '75%',
+        marginLeft: '8%'
     }
 }

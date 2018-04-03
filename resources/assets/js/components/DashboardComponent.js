@@ -7,24 +7,24 @@ export default class DashboardComponent extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            height: 0
+            height: 0,
         }
     }
 
     componentDidMount() {
-        this.props.getRealDataOnChart(this.props.device, this.props.checkInterval);
+        // this.props.getRealDataOnChart(this.props.device, this.props.inverval);
         this.timeoutRealTime = setTimeout(() => {
-            this.props.getRealDataOnChart(this.props.device, this.props.checkInterval);
-        }, 1000);
+            this.props.getRealDataOnChart(this.props.device, this.props.interval);
+        }, 1500);
         this.timeoutGetDevice = setTimeout(() => {
             this.props.getOneDevice(this.props.device)
-        }, 1000);
+        }, 1500);
         this.timeoutGetCurrentData = setTimeout(() => {
             this.props.getCurrentData(this.props.device);
-        }, 1000);
+        }, 1500);
         this.timeoutGetLocation = setTimeout(() => {
             this.props.getOneLocation(this.props.device);
-        }, 1000);
+        }, 1500);
     }
 
     componentWillUnmount() {
@@ -42,8 +42,10 @@ export default class DashboardComponent extends React.Component {
                     <div className="col-md-12">
                         <div className="col-md-3" style={{ paddingTop: 5, paddingLeft: 5, paddingRight: 5 }}>
                             <InforDeviceComponent listDevice={this.props.all_devices}
+                                getCurrentData={this.props.getCurrentData}
+                                getOneLocation={this.props.getOneLocation}
                                 device={this.props.device}
-                                checkInterval={this.props.checkInterval}
+                                interval={this.props.interval}
                                 getOneDevice={this.props.getOneDevice}
                                 getRealDataOnChart={this.props.getRealDataOnChart}
                                 name={this.props.name}
@@ -54,6 +56,8 @@ export default class DashboardComponent extends React.Component {
                         <div className="col-md-3" style={{ paddingTop: 5, paddingLeft: 5, paddingRight: 5 }}>
                             <CurrentValueComponent value={this.props.currentHumidity}
                                 device={this.props.device}
+                                interval={this.props.interval}
+                                intervalTime={this.props.intervalTime}
                                 getCurrentData={this.props.getCurrentData}
                                 name={"Humidity"}
                                 icon={"fa fa-tint"}
@@ -62,20 +66,39 @@ export default class DashboardComponent extends React.Component {
                         <div className="col-md-3" style={{ paddingTop: 5, paddingLeft: 5, paddingRight: 5 }}>
                             <CurrentValueComponent value={this.props.currentTemperature}
                                 device={this.props.device}
+                                interval={this.props.interval}
+                                intervalTime={this.props.intervalTime}
                                 getCurrentData={this.props.getCurrentData}
                                 name={"Temperature"}
                                 icon={"fa fa-thermometer-empty"}
                                 bgColor={"#5cb85c"} />
                         </div>
                         <div className="col-md-3" style={{ paddingTop: 5, paddingLeft: 5, paddingRight: 5 }}>
-                            <ClockComponent icon={"fa fa-clock-o"} bgColor={"#f6b93b"} />
+                            <ClockComponent
+                                bgColor={"#f6b93b"}
+                                changeInterval={this.props.changeInterval}
+                                getRealDataOnChart={this.props.getRealDataOnChart}
+                                interval={this.props.interval}
+                                device={this.props.device} />
                         </div>
                     </div>
+                    {
+                        this.props.latitude == 0 && this.props.longitude == 0
+                            ? <div className="col-md-12">
+                                <div style={{ paddingTop: 5, paddingLeft: 5, paddingRight: 5 }}>
+                                    <div style={styleBox.alert}>
+                                        <h4><i className="icon fa fa-warning" /> Your device has problem!</h4>
+                                    </div>
+                                </div>
+                            </div>
+                            : null
+                    }
                     <div className="col-md-12">
                         <div className="col-md-9" style={{ paddingTop: 10, paddingLeft: 5, paddingRight: 5, paddingBottom: 5 }}>
                             <ChartComponent humidity={this.props.humidity}
                                 temperature={this.props.temperature}
-                                checkInterval={this.props.checkInterval}
+                                intervalTime={this.props.intervalTime}
+                                interval={this.props.interval}
                                 getRealDataOnChart={this.props.getRealDataOnChart}
                                 device={this.props.device} />
                         </div>
@@ -86,14 +109,14 @@ export default class DashboardComponent extends React.Component {
                                 getOneLocation={this.props.getOneLocation}
                                 googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyC_aFLX1tVABBgvwYQ1mZzr3ApJVU5_YwA&v=3.exp&libraries=geometry,drawing,places"
                                 loadingElement={<div style={{ height: `100%` }} />}
-                                containerElement={<div style={{ height: `380px`, paddingTop: 5 }} />}
+                                containerElement={<div style={{ height: `400px`, paddingTop: 5 }} />}
                                 mapElement={<div style={{ height: `100%` }} />}
                             />
                         </div>
                     </div>
                 </div >
                 :
-                <div style={{ position:'absolute', top:0, right:0, left:0, bottom: 0}}>
+                <div style={{ position: 'absolute', top: 0, right: 0, left: 0, bottom: 0 }}>
                     <Loader />
                 </div>
         )
@@ -111,8 +134,8 @@ class ChartComponent extends React.Component {
 
     componentDidMount() {
         this.interval = setInterval(() => {
-            this.props.getRealDataOnChart(this.props.device, this.props.checkInterval);
-        }, 60000)
+            this.props.getRealDataOnChart(this.props.device, this.props.interval);
+        }, this.props.intervalTime)
     }
 
     componentWillUnmount() {
@@ -125,7 +148,7 @@ class ChartComponent extends React.Component {
                 stateTemperature={this.state.temperature}
                 propsHumidity={this.props.humidity}
                 propsTemperature={this.props.temperature}
-                checkInterval={this.props.checkInterval}
+                checkInterval={this.props.interval}
                 width={"600px"} height={"280px"} />
         )
     }
@@ -163,15 +186,31 @@ class ClockComponent extends React.Component {
         clearInterval(this.intervalDate);
     }
 
+    changeInterval() {
+        this.props.changeInterval(!this.props.interval, this.props.device);
+    }
+
     render() {
         return (
-            <div style={{ backgroundColor: this.props.bgColor, cursor: 'pointer' }}>
+            <div style={{ backgroundColor: this.props.bgColor, cursor: 'pointer' }} onClick={() => this.changeInterval()}>
                 <div style={styleBox.box}>
-                    <h3 style={styleBox.value}>{this.state.hour}:{this.state.minute}:{this.state.second}</h3>
-                    <p style={styleBox.textName}>{this.state.year}-{this.state.month}-{this.state.date}</p>
+                    <h3 style={styleBox.value}>
+                        {
+                            !this.props.interval
+                                ? this.state.hour + ':' + this.state.minute + ':' + this.state.second
+                                : this.state.year + '-' + this.state.month + '-' + this.state.date
+                        }
+                    </h3>
+                    <p style={styleBox.textName}>
+                        {
+                            !this.props.interval
+                                ? this.state.year + '-' + this.state.month + '-' + this.state.date
+                                : this.state.hour + ':' + this.state.minute + ':' + this.state.second
+                        }
+                    </p>
                 </div>
                 <div style={styleBox.boxIcon}>
-                    <i className={this.props.icon} style={styleBox.icon} />
+                    <i className={!this.props.interval ? "fa fa-clock-o" : "fa fa-calendar"} style={styleBox.icon} />
                 </div>
             </div>
         )
@@ -185,7 +224,9 @@ class InforDeviceComponent extends React.Component {
 
     chooseDevice(id) {
         this.props.getOneDevice(id);
-        this.props.getRealDataOnChart(id, this.props.checkInterval);
+        this.props.getRealDataOnChart(id, this.props.interval);
+        this.props.getCurrentData(id);
+        this.props.getOneLocation(id);
     }
 
     render() {
@@ -221,7 +262,7 @@ class CurrentValueComponent extends React.Component {
     componentDidMount() {
         this.interval = setInterval(() => {
             this.props.getCurrentData(this.props.device);
-        }, 60000)
+        }, this.props.intervalTime)
     }
 
     componentWillUnmount() {
@@ -266,7 +307,7 @@ const styleBox = {
         color: 'white',
     },
     value: {
-        fontSize: 30,
+        fontSize: 28,
         fontWeight: 'bold',
         margin: '0px 0px 10px 20px',
         whiteSpace: 'nowrap',
@@ -304,5 +345,17 @@ const styleBox = {
         zIndex: 10,
         background: 'rgba(0,0,0,0.1)',
         textDecoration: 'none'
+    },
+    alert: {
+        borderRadius: 3,
+        margin: '5px 0px 0px 0px',
+        padding: '15px 30px 15px 15px',
+        borderLeft: '10px solid #eee',
+        // borderRight: '2px solid #c23321',
+        // borderTop: '2px solid #c23321',
+        // borderBottom: '2px solid #c23321',
+        borderColor: '#c23321',
+        backgroundColor: '#ff7675',
+        color: '#fff',
     }
 }
