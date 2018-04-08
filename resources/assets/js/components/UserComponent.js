@@ -20,7 +20,6 @@ export default class UserComponent extends React.Component {
             //         openModal={this.props.openModal}
             //         sideBar={this.props.sideBar} name={"User"} />
             //     : null
-            this.props.dataSet.length > 0 ?
             <List 
                 dataSet={this.props.dataSet}
                 object={objectUser}
@@ -28,7 +27,6 @@ export default class UserComponent extends React.Component {
                 sideBar={this.props.sideBar} name={"User"} 
                 openAlert={this.props.openAlert} 
                 objectUpdate={objectUpdate}/>
-            : null
         );
     }
 }
@@ -41,7 +39,7 @@ var objectUser = {
         { name: "Full name", placeholder: 'Please input full name' },
         { name: "Address", placeholder: 'Please input address' },
         { name: "Phone", placeholder: 'Please input phone' },
-        { name: "Role", role: [{ id: '0', name: "Admin" }, { id: '1', name: "User" }] },
+        { name: "Role", role: [{ id: '1', name: "Admin" }, { id: '0', name: "User" }] },
     ]
 };
 
@@ -53,7 +51,7 @@ var objectUpdate = {
         { name: "Full name", placeholder: 'Please input full name' },
         { name: "Address", placeholder: 'Please input address' },
         { name: "Phone", placeholder: 'Please input phone' },
-        { name: "Role", role: [{ id: '0', name: "Admin" }, { id: '1', name: "User" }] },
+        { name: "Role", role: [{ id: '1', name: "Admin" }, { id: '0', name: "User" }] },
     ]
 };
 // var columns = [

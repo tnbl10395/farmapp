@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { bounceInLeft, bounce } from 'react-animations';
+import { bounceInLeft, bounce, fadeIn } from 'react-animations';
 import Radium, { StyleRoot } from 'radium';
 import Loader from "../templates/Loader";
 
@@ -15,6 +15,9 @@ export default class LoginComponent extends React.Component {
             loading: true,
             message_username: false,
             message_password: false,
+            showImageChart: false,
+            showImageLocation: false,
+            showImageSolution: false,
         }
         this.handleSubmit = this.handleSubmit.bind(this);
     }
@@ -26,17 +29,17 @@ export default class LoginComponent extends React.Component {
                 message_username: true,
                 message_password: true,
             });
-        }else if (this.state.username == '' && this.state.password != '') {
+        } else if (this.state.username == '' && this.state.password != '') {
             this.setState({
                 message_username: true,
                 message_password: false,
             });
-        }else if (this.state.username != '' && this.state.password == '') {
+        } else if (this.state.username != '' && this.state.password == '') {
             this.setState({
                 message_username: false,
                 message_password: true,
             });
-        }else {
+        } else {
             this.setState({
                 message_username: false,
                 message_password: false,
@@ -47,6 +50,9 @@ export default class LoginComponent extends React.Component {
 
     componentWillMount() {
         setTimeout(() => this.setState({ loading: false }), 1500); // simulates an async action, and hides the spinner
+        setTimeout(() => this.setState({ showImageChart: true }), 4000);
+        setTimeout(() => this.setState({ showImageLocation: true }), 4500);
+        setTimeout(() => this.setState({ showImageSolution: true }), 5000);
     }
     // moveMouse(e) {
     //     if ((e.pageX / w * 100) > 60) {
@@ -72,6 +78,9 @@ export default class LoginComponent extends React.Component {
                             // onMouseMove={(e) => this.moveMouse(e)}
                             className="col-md-8" style={style.intro} >
                             <StyleRoot>
+                                {this.state.showImageLocation ? <img src="/images/location2.jpg" className="col-md-offset-3" style={style.img_location2} /> : null}
+                                {this.state.showImageChart ? <img src="/images/chart.png" style={style.img_chart} /> : null}
+                                {this.state.showImageSolution ? <img src="/images/solution.jpg" className="col-md-offset-3" style={style.img_solution} /> : null}
                                 <img src="/images/smartphone.png" className="col-md-offset-3"
                                     style={[
                                         style.img_smartphone,
@@ -96,16 +105,16 @@ export default class LoginComponent extends React.Component {
                                     className="form-control"
                                     style={style.input}
                                     onChange={(username) => this.setState({ username: username.target.value })} value={this.state.username} />
-                                    {this.state.message_username ? <h4 style={{textAlign: 'center'}} className="text-danger">Please input username!</h4> : null }
+                                {this.state.message_username ? <h4 style={{ textAlign: 'center' }} className="text-danger">Please input username!</h4> : null}
                             </div>
                             <div className="form-group col-xs-12 col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1">
                                 <input type="password" placeholder="Password"
                                     style={style.input}
                                     className="form-control"
                                     onChange={(password) => this.setState({ password: password.target.value })} value={this.state.password} />
-                                    {this.state.message_password ? <h4 style={{textAlign: 'center'}} className="text-danger">Please input password!</h4> : null }
+                                {this.state.message_password ? <h4 style={{ textAlign: 'center' }} className="text-danger">Please input password!</h4> : null}
                             </div>
-                            {this.props.message && !this.state.message_username && !this.state.message_password ? <h4 style={{textAlign: 'center'}} className="text-danger">Username or Password is invalid</h4> : null }
+                            {this.props.message && !this.state.message_username && !this.state.message_password ? <h4 style={{ textAlign: 'center' }} className="text-danger">Username or Password is invalid</h4> : null}
                             <div className="form-group col-xs-12 col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1">
                                 <button className="btn" style={{ width: '100%', height: 55, fontSize: 20, backgroundColor: '#007991', color: 'white' }}>Login</button>
                             </div>
@@ -126,7 +135,7 @@ export class LogoComponent extends React.Component {
     }
     render() {
         return (
-            <img src="/images/logo4.png" style={style.logo}/>
+            <img src="/images/logo4.png" style={style.logo} />
         )
     }
 }
@@ -200,6 +209,42 @@ const style = {
         left: '42%',
         // animation: '1s',
         // animationName: Radium.keyframes(bounce, 'bounce'),
+    },
+    img_chart: {
+        position: 'absolute',
+        zIndex: 99999,
+        width: '20%',
+        height: '25%',
+        bottom: '45%',
+        left: '5%',
+        borderRadius: '100%',
+        objectFit: 'cover',
+        animation: '2s',
+        animationName: Radium.keyframes(fadeIn, 'fadeIn'),
+    },
+    img_location2: {
+        position: 'absolute',
+        zIndex: 99999,
+        width: '20%',
+        height: '25%',
+        bottom: '65%',
+        left: '10%',
+        borderRadius: '100%',
+        objectFit: 'cover',
+        animation: '2s',
+        animationName: Radium.keyframes(fadeIn, 'fadeIn'),
+    },
+    img_solution: {
+        position: 'absolute',
+        zIndex: 99999,
+        width: '20%',
+        height: '25%',
+        bottom: '45%',
+        left: '40%',
+        borderRadius: '100%',
+        objectFit: 'cover',
+        animation: '2s',
+        animationName: Radium.keyframes(fadeIn, 'fadeIn'),
     },
     intro: {
         position: 'absolute',

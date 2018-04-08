@@ -168,10 +168,9 @@ export class Chart extends React.Component {
         return (
             <div style={this.props.sideBar ? style.main_content_true : style.main_content_false}>
                 <div style={style.button_div}>
-                    <button
-                        // onClick={() => this.props.change()}
+                    {/* <button
                         className="btn btn-success"
-                        style={{ position: 'absolute', right: 90, top: 5, fontSize: 12 }}><i className="fa fa-file-excel-o" style={{ marginRight: 5 }} />Export</button>
+                        style={{ position: 'absolute', right: 90, top: 5, fontSize: 12 }}><i className="fa fa-file-excel-o" style={{ marginRight: 5 }} />Export</button> */}
                     <button
                         onClick={() => this.props.change()}
                         className="btn btn-success"
@@ -392,7 +391,7 @@ const chartOptions = {
     scaleShowHorizontalLines: true,
     scaleShowVerticalLines: false,
     bezierCurve: true,
-    bezierCurveTension: 0.4,
+    bezierCurveTension: 0.5,
     pointDot: true,
     pointDotRadius: 3,
     pointDotStrokeWidth: 1,

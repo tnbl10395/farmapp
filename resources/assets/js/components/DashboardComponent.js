@@ -54,7 +54,7 @@ export default class DashboardComponent extends React.Component {
                                 bgColor={"#e74c3c"} />
                         </div>
                         <div className="col-md-3" style={{ paddingTop: 5, paddingLeft: 5, paddingRight: 5 }}>
-                            <CurrentValueComponent value={this.props.currentHumidity}
+                            <CurrentValueComponent value={this.props.currentHumidity+" %"}
                                 device={this.props.device}
                                 interval={this.props.interval}
                                 intervalTime={this.props.intervalTime}
@@ -64,7 +64,7 @@ export default class DashboardComponent extends React.Component {
                                 bgColor={"#00c0ef"} />
                         </div>
                         <div className="col-md-3" style={{ paddingTop: 5, paddingLeft: 5, paddingRight: 5 }}>
-                            <CurrentValueComponent value={this.props.currentTemperature}
+                            <CurrentValueComponent value={this.props.currentTemperature+"° C"}
                                 device={this.props.device}
                                 interval={this.props.interval}
                                 intervalTime={this.props.intervalTime}
@@ -244,7 +244,7 @@ class InforDeviceComponent extends React.Component {
                     <ul className="dropdown-menu" style={{ backgroundColor: this.props.bgColor, right: 0 }}>
                         {
                             this.props.listDevice.map(element => {
-                                return <li key={element.id}><a onClick={() => this.chooseDevice(element.id)} style={{ cursor: 'pointer' }}>{element.name}</a></li>
+                                return <li key={element.id}><a onClick={() => this.chooseDevice(element.id)} style={{ cursor: 'pointer', color: '#fff !important' }}>{element.name}</a></li>
                             })
                         }
                     </ul>
@@ -261,7 +261,7 @@ class CurrentValueComponent extends React.Component {
 
     componentDidMount() {
         this.interval = setInterval(() => {
-            this.props.getCurrentData(this.props.device);
+            this.props.getCurrentData(this.props.device, this.props.interval);
         }, this.props.intervalTime)
     }
 
@@ -314,7 +314,7 @@ const styleBox = {
         zIndex: 5
     },
     textName: {
-        fontSize: 15,
+        fontSize: 20,
         margin: '0px 0px 15px 20px'
     },
     boxIcon: {

@@ -29,8 +29,8 @@ const mapDispatchToProps = (dispatch) => ({
     getOneDevice: (id) => {
         getOneDeviceAPI(dispatch, getOneDevice, id);
     },
-    getCurrentData: (id) => {
-        getCurrentDataApi(dispatch, getCurrentData, id);
+    getCurrentData: (id, interval) => {
+        getCurrentDataApi(dispatch, getCurrentData, id, interval);
     },
     getOneLocation: (id) => {
         getOneLocationAPI(dispatch, getOneLocation, id);

@@ -98,22 +98,17 @@ const initialState = {
     message_login: false
 };
 
-const edit = (direct, id) => ('<a href="/#/' + direct + '/update/' + id + '" style="border-radius: 5px; padding: 5px 5px 5px 6px; background-color:#3498db; color:#fff;margin-right:10px;" class="fa fa-edit"></a>');
-const remove = (direct, id) => ('<a href="/#/' + direct + '/delete/' + id + '" style="border-radius: 5px; padding: 5px 7px 5px 7px; background-color:#e74c3c; color:#fff" class="fa fa-remove"></a>');
-const actRemove = (direct, id) => ('<div style="text-align: center">' + remove(direct, id) + '</div>');
-const act = (direct, id) => ('<div style="text-align: center">' + edit(direct, id) + remove(direct, id) + '</div>');
-
 const initValueHour = () => {
     var array = [];
     for (var i = 0; i < 60; i++) {
-        array.push(0);
+        array.push(null);
     }
     return array;
 }
 const initValueDay = () => {
     var array = [];
     for (var i = 0; i < 24; i++) {
-        array.push(0);
+        array.push(null);
     }
     return array;
 }

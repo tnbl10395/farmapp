@@ -22,7 +22,6 @@ export default class DevicesComponent extends React.Component {
             //             object={profile.role == "1" ? objectDeviceAdmin : objectDeviceUser}
             //             /> 
             //     : null
-            this.props.dataSet.length>0? 
             <List
                 // openUpdate={this.props.openUpdate}
                 dataSet={this.props.dataSet}
@@ -33,7 +32,6 @@ export default class DevicesComponent extends React.Component {
                 objectUpdate={profile.role == "1" ? objectUpdateDeviceAdmin : objectUpdateDeviceUser}
                 openAlert={this.props.openAlert}
             />
-            : null
         );
     }
 }

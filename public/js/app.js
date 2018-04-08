@@ -7664,7 +7664,7 @@ var getOneDeviceAPI = function getOneDeviceAPI(dispatch, getOneDevice, id) {
     } catch (error) {}
 };
 
-var getCurrentDataApi = function getCurrentDataApi(dispatch, getCurrentData, id) {
+var getCurrentDataApi = function getCurrentDataApi(dispatch, getCurrentData, id, interval) {
     try {
         fetch(URL + "api/current-data/" + id, {
             method: method.GET,
@@ -13108,14 +13108,6 @@ var List = function (_React$Component) {
                             { className: 'pull-right', style: { margin: 5, marginTop: 20 } },
                             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                 'button',
-                                {
-                                    // onClick={() => this.props.change()}
-                                    className: 'btn btn-success', style: { marginRight: 10 } },
-                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'fa fa-file-excel-o', style: { marginRight: 5 } }),
-                                'Export'
-                            ),
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                'button',
                                 { onClick: function onClick() {
                                         return _this3.props.change();
                                     },
@@ -13139,7 +13131,15 @@ var List = function (_React$Component) {
                             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('span', { className: 'form-control-feedback glyphicon glyphicon-search', style: { marginRight: 10 } })
                         )
                     ),
-                    renderTable(this.props.name, currentData, this.props.openAlert, this.props.openModal, this.props.objectUpdate),
+                    this.state.data.length > 0 ? renderTable(this.props.name, currentData, this.props.openAlert, this.props.openModal, this.props.objectUpdate) : __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'div',
+                        { style: style.item, className: 'col-xs-12 col-sm-12 col-md-12' },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'h3',
+                            { style: { textAlign: 'center' } },
+                            'No data'
+                        )
+                    ),
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'div',
                         { className: 'col-xs-12 col-sm-12 col-md-12' },
@@ -13149,7 +13149,9 @@ var List = function (_React$Component) {
                             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                 'span',
                                 null,
-                                'Showing 1 to ',
+                                'Showing ',
+                                this.state.data.length == 0 ? '0' : '1',
+                                ' to ',
                                 this.state.itemsCountPerPage < this.state.data.length ? this.state.itemsCountPerPage : this.state.data.length,
                                 ' of ',
                                 this.state.data.length,
@@ -13158,7 +13160,7 @@ var List = function (_React$Component) {
                         ),
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                             'div',
-                            { className: 'col-md-6 pull-right' },
+                            { className: 'pull-right' },
                             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_js_pagination___default.a, {
                                 prevPageText: 'prev',
                                 nextPageText: 'next',
@@ -13193,6 +13195,8 @@ var renderTable = function renderTable(name, currentData, openAlert, openModal, 
             return user(currentData, openAlert, openModal, object);
         case 'Data':
             return data(currentData, openAlert);
+        case 'Solution':
+            return solution(currentData, openAlert, openModal, object);
     }
 };
 
@@ -13379,6 +13383,68 @@ var data = function data(currentData, openAlert) {
                     'h6',
                     { style: style.title },
                     'Date'
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'p',
+                    null,
+                    element.updated_at
+                )
+            ),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'div',
+                { className: 'col-xs-1 col-sm-1 col-md-1', style: style.button },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('a', { onClick: function onClick() {
+                        return openAlert('DELETE_DATA', element.id);
+                    }, style: style.delete, className: 'fa fa-remove' })
+            )
+        );
+    });
+};
+
+var solution = function solution(currentData, openAlert, openModal, object) {
+    return currentData.map(function (element, index) {
+        return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'div',
+            { key: index, style: style.item, className: 'col-xs-12 col-sm-12 col-md-12' },
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'div',
+                { className: 'col-xs-3 col-sm-3 col-md-3', style: style.text },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'h6',
+                    { style: style.title },
+                    'Humidity'
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'p',
+                    null,
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'fa fa-tint', style: style.icon_humidity }),
+                    element.humidity,
+                    ' %'
+                )
+            ),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'div',
+                { className: 'col-xs-3 col-sm-3 col-md-3', style: style.text },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'h6',
+                    { style: style.title },
+                    'Temperature'
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'p',
+                    null,
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'fa fa-thermometer-empty', style: style.icon_temperature }),
+                    element.temperature,
+                    ' \xB0C'
+                )
+            ),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'div',
+                { className: 'col-xs-3 col-sm-3 col-md-3', style: style.text },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'h6',
+                    { style: style.title },
+                    'Solution'
                 ),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'p',
@@ -35060,15 +35126,6 @@ var Chart = function (_React$Component) {
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'button',
                         {
-                            // onClick={() => this.props.change()}
-                            className: 'btn btn-success',
-                            style: { position: 'absolute', right: 90, top: 5, fontSize: 12 } },
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'fa fa-file-excel-o', style: { marginRight: 5 } }),
-                        'Export'
-                    ),
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        'button',
-                        {
                             onClick: function onClick() {
                                 return _this6.props.change();
                             },
@@ -35343,7 +35400,7 @@ var chartOptions = {
     scaleShowHorizontalLines: true,
     scaleShowVerticalLines: false,
     bezierCurve: true,
-    bezierCurveTension: 0.4,
+    bezierCurveTension: 0.5,
     pointDot: true,
     pointDotRadius: 3,
     pointDotStrokeWidth: 1,
@@ -87964,8 +88021,8 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
         getOneDevice: function getOneDevice(id) {
             Object(__WEBPACK_IMPORTED_MODULE_2__api_api__["m" /* getOneDeviceAPI */])(dispatch, __WEBPACK_IMPORTED_MODULE_3__actions_Action__["u" /* getOneDevice */], id);
         },
-        getCurrentData: function getCurrentData(id) {
-            Object(__WEBPACK_IMPORTED_MODULE_2__api_api__["d" /* getCurrentDataApi */])(dispatch, __WEBPACK_IMPORTED_MODULE_3__actions_Action__["m" /* getCurrentData */], id);
+        getCurrentData: function getCurrentData(id, interval) {
+            Object(__WEBPACK_IMPORTED_MODULE_2__api_api__["d" /* getCurrentDataApi */])(dispatch, __WEBPACK_IMPORTED_MODULE_3__actions_Action__["m" /* getCurrentData */], id, interval);
         },
         getOneLocation: function getOneLocation(id) {
             Object(__WEBPACK_IMPORTED_MODULE_2__api_api__["n" /* getOneLocationAPI */])(dispatch, __WEBPACK_IMPORTED_MODULE_3__actions_Action__["v" /* getOneLocation */], id);
@@ -88077,7 +88134,7 @@ var DashboardComponent = function (_React$Component) {
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'div',
                         { className: 'col-md-3', style: { paddingTop: 5, paddingLeft: 5, paddingRight: 5 } },
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(CurrentValueComponent, { value: this.props.currentHumidity,
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(CurrentValueComponent, { value: this.props.currentHumidity + " %",
                             device: this.props.device,
                             interval: this.props.interval,
                             intervalTime: this.props.intervalTime,
@@ -88089,7 +88146,7 @@ var DashboardComponent = function (_React$Component) {
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'div',
                         { className: 'col-md-3', style: { paddingTop: 5, paddingLeft: 5, paddingRight: 5 } },
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(CurrentValueComponent, { value: this.props.currentTemperature,
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(CurrentValueComponent, { value: this.props.currentTemperature + "° C",
                             device: this.props.device,
                             interval: this.props.interval,
                             intervalTime: this.props.intervalTime,
@@ -88355,7 +88412,7 @@ var InforDeviceComponent = function (_React$Component4) {
                                 'a',
                                 { onClick: function onClick() {
                                         return _this9.chooseDevice(element.id);
-                                    }, style: { cursor: 'pointer' } },
+                                    }, style: { cursor: 'pointer', color: '#fff !important' } },
                                 element.name
                             )
                         );
@@ -88383,7 +88440,7 @@ var CurrentValueComponent = function (_React$Component5) {
             var _this11 = this;
 
             this.interval = setInterval(function () {
-                _this11.props.getCurrentData(_this11.props.device);
+                _this11.props.getCurrentData(_this11.props.device, _this11.props.interval);
             }, this.props.intervalTime);
         }
     }, {
@@ -88453,7 +88510,7 @@ var styleBox = {
         zIndex: 5
     },
     textName: {
-        fontSize: 15,
+        fontSize: 20,
         margin: '0px 0px 15px 20px'
     },
     boxIcon: {
@@ -104699,7 +104756,7 @@ var DevicesComponent = function (_React$Component) {
                 //             object={profile.role == "1" ? objectDeviceAdmin : objectDeviceUser}
                 //             /> 
                 //     : null
-                this.props.dataSet.length > 0 ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__templates_List__["a" /* default */]
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__templates_List__["a" /* default */]
                 // openUpdate={this.props.openUpdate}
                 , { dataSet: this.props.dataSet,
                     sideBar: this.props.sideBar,
@@ -104708,7 +104765,7 @@ var DevicesComponent = function (_React$Component) {
                     object: profile.role == "1" ? objectDeviceAdmin : objectDeviceUser,
                     objectUpdate: profile.role == "1" ? objectUpdateDeviceAdmin : objectUpdateDeviceUser,
                     openAlert: this.props.openAlert
-                }) : null
+                })
             );
         }
     }]);
@@ -120256,13 +120313,13 @@ var UserComponent = function (_React$Component) {
                 //         openModal={this.props.openModal}
                 //         sideBar={this.props.sideBar} name={"User"} />
                 //     : null
-                this.props.dataSet.length > 0 ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__templates_List__["a" /* default */], {
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__templates_List__["a" /* default */], {
                     dataSet: this.props.dataSet,
                     object: objectUser,
                     openModal: this.props.openModal,
                     sideBar: this.props.sideBar, name: "User",
                     openAlert: this.props.openAlert,
-                    objectUpdate: objectUpdate }) : null
+                    objectUpdate: objectUpdate })
             );
         }
     }]);
@@ -120275,12 +120332,12 @@ var UserComponent = function (_React$Component) {
 
 var objectUser = {
     title: "ADD USER",
-    property: [{ name: "Username", placeholder: 'Please input username' }, { name: "Password", placeholder: 'Please input password' }, { name: "Full name", placeholder: 'Please input full name' }, { name: "Address", placeholder: 'Please input address' }, { name: "Phone", placeholder: 'Please input phone' }, { name: "Role", role: [{ id: '0', name: "Admin" }, { id: '1', name: "User" }] }]
+    property: [{ name: "Username", placeholder: 'Please input username' }, { name: "Password", placeholder: 'Please input password' }, { name: "Full name", placeholder: 'Please input full name' }, { name: "Address", placeholder: 'Please input address' }, { name: "Phone", placeholder: 'Please input phone' }, { name: "Role", role: [{ id: '1', name: "Admin" }, { id: '0', name: "User" }] }]
 };
 
 var objectUpdate = {
     title: "UPDATE USER",
-    property: [{ name: "Username", placeholder: 'Please input username' }, { name: "Password", placeholder: 'Please input password' }, { name: "Full name", placeholder: 'Please input full name' }, { name: "Address", placeholder: 'Please input address' }, { name: "Phone", placeholder: 'Please input phone' }, { name: "Role", role: [{ id: '0', name: "Admin" }, { id: '1', name: "User" }] }]
+    property: [{ name: "Username", placeholder: 'Please input username' }, { name: "Password", placeholder: 'Please input password' }, { name: "Full name", placeholder: 'Please input full name' }, { name: "Address", placeholder: 'Please input address' }, { name: "Phone", placeholder: 'Please input phone' }, { name: "Role", role: [{ id: '1', name: "Admin" }, { id: '0', name: "User" }] }]
 };
 // var columns = [
 //     { title: "ID" },
@@ -120498,6 +120555,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__templates_List__ = __webpack_require__(104);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -120505,6 +120563,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
 
 
 
@@ -120518,18 +120577,32 @@ var SolutionComponent = function (_React$Component) {
     }
 
     _createClass(SolutionComponent, [{
-        key: "componentDidMount",
+        key: 'componentDidMount',
         value: function componentDidMount() {
             this.props.getDataSolutions();
         }
     }, {
-        key: "render",
+        key: 'render',
         value: function render() {
-            return this.props.dataSet.length > 0 ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(Table, { dataSet: this.props.dataSet,
-                object: objectSolution,
-                openModal: this.props.openModal,
-                columns: columns, sideBar: this.props.sideBar,
-                name: "Solution" }) : null;
+            return (
+                // this.props.dataSet.length>0? 
+                //     <Table dataSet={this.props.dataSet} 
+                //             object={objectSolution}
+                //             openModal={this.props.openModal}
+                //             columns={columns} sideBar={this.props.sideBar} 
+                //             name={"Solution"}/> 
+                //     : null
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__templates_List__["a" /* default */]
+                // openUpdate={this.props.openUpdate}
+                , { dataSet: this.props.dataSet,
+                    sideBar: this.props.sideBar,
+                    name: 'Solution',
+                    openModal: this.props.openModal,
+                    object: objectSolution,
+                    objectUpdate: objectUpdateSolution,
+                    openAlert: this.props.openAlert
+                })
+            );
         }
     }]);
 
@@ -120544,7 +120617,17 @@ var objectSolution = {
     property: [{ name: "Temperature", placeholder: 'Please input temperature' }, { name: "Humidity", placeholder: 'Please input humidity' }, { name: "Solution", placeholder: 'Please input solution' }]
 };
 
-var columns = [{ title: "ID" }, { title: "Temperature" }, { title: "Humidity" }, { title: "Solution" }, { title: "Updated Date" }];
+var objectUpdateSolution = {
+    title: "UPDATE SOLUTION",
+    property: [{ name: "Temperature", placeholder: 'Please input temperature' }, { name: "Humidity", placeholder: 'Please input humidity' }, { name: "Solution", placeholder: 'Please input solution' }]
+};
+// var columns = [
+//     { title: "ID" },
+//     { title: "Temperature" },
+//     { title: "Humidity" },
+//     { title: "Solution" },
+//     { title: "Updated Date" },
+// ];
 
 /***/ }),
 /* 839 */
@@ -127762,7 +127845,10 @@ var LoginComponent = function (_React$Component) {
             password: '',
             loading: true,
             message_username: false,
-            message_password: false
+            message_password: false,
+            showImageChart: false,
+            showImageLocation: false,
+            showImageSolution: false
         };
         _this.handleSubmit = _this.handleSubmit.bind(_this);
         return _this;
@@ -127803,6 +127889,15 @@ var LoginComponent = function (_React$Component) {
             setTimeout(function () {
                 return _this2.setState({ loading: false });
             }, 1500); // simulates an async action, and hides the spinner
+            setTimeout(function () {
+                return _this2.setState({ showImageChart: true });
+            }, 4000);
+            setTimeout(function () {
+                return _this2.setState({ showImageLocation: true });
+            }, 4500);
+            setTimeout(function () {
+                return _this2.setState({ showImageSolution: true });
+            }, 5000);
         }
         // moveMouse(e) {
         //     if ((e.pageX / w * 100) > 60) {
@@ -127839,6 +127934,9 @@ var LoginComponent = function (_React$Component) {
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         __WEBPACK_IMPORTED_MODULE_2_radium__["a" /* StyleRoot */],
                         null,
+                        this.state.showImageLocation ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('img', { src: '/images/location2.jpg', className: 'col-md-offset-3', style: style.img_location2 }) : null,
+                        this.state.showImageChart ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('img', { src: '/images/chart.png', style: style.img_chart }) : null,
+                        this.state.showImageSolution ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('img', { src: '/images/solution.jpg', className: 'col-md-offset-3', style: style.img_solution }) : null,
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('img', { src: '/images/smartphone.png', className: 'col-md-offset-3',
                             style: [style.img_smartphone]
                             // onMouseMoveOver={(e) => this.setState({ X: e.pageX })}
@@ -128031,6 +128129,42 @@ var style = {
         // animation: '1s',
         // animationName: Radium.keyframes(bounce, 'bounce'),
     },
+    img_chart: {
+        position: 'absolute',
+        zIndex: 99999,
+        width: '20%',
+        height: '25%',
+        bottom: '45%',
+        left: '5%',
+        borderRadius: '100%',
+        objectFit: 'cover',
+        animation: '2s',
+        animationName: __WEBPACK_IMPORTED_MODULE_2_radium__["b" /* default */].keyframes(__WEBPACK_IMPORTED_MODULE_1_react_animations__["fadeIn"], 'fadeIn')
+    },
+    img_location2: {
+        position: 'absolute',
+        zIndex: 99999,
+        width: '20%',
+        height: '25%',
+        bottom: '65%',
+        left: '10%',
+        borderRadius: '100%',
+        objectFit: 'cover',
+        animation: '2s',
+        animationName: __WEBPACK_IMPORTED_MODULE_2_radium__["b" /* default */].keyframes(__WEBPACK_IMPORTED_MODULE_1_react_animations__["fadeIn"], 'fadeIn')
+    },
+    img_solution: {
+        position: 'absolute',
+        zIndex: 99999,
+        width: '20%',
+        height: '25%',
+        bottom: '45%',
+        left: '40%',
+        borderRadius: '100%',
+        objectFit: 'cover',
+        animation: '2s',
+        animationName: __WEBPACK_IMPORTED_MODULE_2_radium__["b" /* default */].keyframes(__WEBPACK_IMPORTED_MODULE_1_react_animations__["fadeIn"], 'fadeIn')
+    },
     intro: {
         position: 'absolute',
         left: 0,
@@ -128155,30 +128289,17 @@ var initialState = {
     message_login: false
 };
 
-var edit = function edit(direct, id) {
-    return '<a href="/#/' + direct + '/update/' + id + '" style="border-radius: 5px; padding: 5px 5px 5px 6px; background-color:#3498db; color:#fff;margin-right:10px;" class="fa fa-edit"></a>';
-};
-var remove = function remove(direct, id) {
-    return '<a href="/#/' + direct + '/delete/' + id + '" style="border-radius: 5px; padding: 5px 7px 5px 7px; background-color:#e74c3c; color:#fff" class="fa fa-remove"></a>';
-};
-var actRemove = function actRemove(direct, id) {
-    return '<div style="text-align: center">' + remove(direct, id) + '</div>';
-};
-var act = function act(direct, id) {
-    return '<div style="text-align: center">' + edit(direct, id) + remove(direct, id) + '</div>';
-};
-
 var initValueHour = function initValueHour() {
     var array = [];
     for (var i = 0; i < 60; i++) {
-        array.push(0);
+        array.push(null);
     }
     return array;
 };
 var initValueDay = function initValueDay() {
     var array = [];
     for (var i = 0; i < 24; i++) {
-        array.push(0);
+        array.push(null);
     }
     return array;
 };

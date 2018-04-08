@@ -497,7 +497,7 @@ export const getOneDeviceAPI = (dispatch, getOneDevice, id) => {
     }
 }
 
-export const getCurrentDataApi = (dispatch, getCurrentData, id) => {
+export const getCurrentDataApi = (dispatch, getCurrentData, id, interval) => {
     try {
         fetch(URL + "api/current-data/" + id, {
             method: method.GET,

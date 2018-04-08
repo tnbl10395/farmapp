@@ -75,9 +75,8 @@ export default class List extends React.Component {
                         {
                             this.props.name == "Data"
                                 ? <div className="pull-right" style={{ margin: 5, marginTop: 20 }}>
-                                    <button
-                                        // onClick={() => this.props.change()}
-                                        className="btn btn-success" style={{ marginRight: 10 }}><i className="fa fa-file-excel-o" style={{ marginRight: 5 }} />Export</button>
+                                    {/* <button
+                                        className="btn btn-success" style={{ marginRight: 10 }}><i className="fa fa-file-excel-o" style={{ marginRight: 5 }} />Export</button> */}
                                     <button onClick={() => this.props.change()}
                                         className="btn btn-success">
                                         <i className="fa fa-bar-chart" style={{ marginRight: 5 }} /> Chart
@@ -94,13 +93,16 @@ export default class List extends React.Component {
                         </div>
                     </div>
                     {
-                        renderTable(this.props.name, currentData, this.props.openAlert, this.props.openModal, this.props.objectUpdate)
+                        this.state.data.length > 0
+                            ? renderTable(this.props.name, currentData, this.props.openAlert, this.props.openModal, this.props.objectUpdate)
+                            : <div style={style.item} className="col-xs-12 col-sm-12 col-md-12"><h3 style={{ textAlign: 'center' }}>No data</h3></div>
+
                     }
                     <div className="col-xs-12 col-sm-12 col-md-12">
                         <div className="col-md-6">
-                            <span>Showing 1 to {this.state.itemsCountPerPage < this.state.data.length ? this.state.itemsCountPerPage : this.state.data.length} of {this.state.data.length} entries</span>
+                            <span>Showing {this.state.data.length == 0 ? '0' : '1'} to {this.state.itemsCountPerPage < this.state.data.length ? this.state.itemsCountPerPage : this.state.data.length} of {this.state.data.length} entries</span>
                         </div>
-                        <div className="col-md-6 pull-right">
+                        <div className="pull-right">
                             <Pagination
                                 prevPageText='prev'
                                 nextPageText='next'
@@ -146,6 +148,8 @@ const renderTable = (name, currentData, openAlert, openModal, object) => {
             return user(currentData, openAlert, openModal, object);
         case 'Data':
             return data(currentData, openAlert);
+        case 'Solution':
+            return solution(currentData, openAlert, openModal, object);
     }
 }
 
@@ -225,6 +229,32 @@ const data = (currentData, openAlert) => (
             </div>
             <div className="col-xs-3 col-sm-3 col-md-3" style={style.text}>
                 <h6 style={style.title}>Date</h6>
+                <p>{element.updated_at}</p>
+            </div>
+            <div className="col-xs-1 col-sm-1 col-md-1" style={style.button}>
+                <a onClick={() => openAlert('DELETE_DATA', element.id)} style={style.delete} className="fa fa-remove"></a>
+            </div>
+        </div>
+    )
+)
+
+const solution = (currentData, openAlert, openModal, object) => (
+    currentData.map((element, index) =>
+        <div key={index} style={style.item} className="col-xs-12 col-sm-12 col-md-12">
+            {/* <div className="col-xs-1 col-sm-1 col-md-1" style={style.text}> */}
+            {/* <h6>Device</h6> */}
+            {/* <p>{element.name}</p> */}
+            {/* </div> */}
+            <div className="col-xs-3 col-sm-3 col-md-3" style={style.text}>
+                <h6 style={style.title}>Humidity</h6>
+                <p><i className="fa fa-tint" style={style.icon_humidity} />{element.humidity} %</p>
+            </div>
+            <div className="col-xs-3 col-sm-3 col-md-3" style={style.text}>
+                <h6 style={style.title}>Temperature</h6>
+                <p><i className="fa fa-thermometer-empty" style={style.icon_temperature} />{element.temperature} °C</p>
+            </div>
+            <div className="col-xs-3 col-sm-3 col-md-3" style={style.text}>
+                <h6 style={style.title}>Solution</h6>
                 <p>{element.updated_at}</p>
             </div>
             <div className="col-xs-1 col-sm-1 col-md-1" style={style.button}>
