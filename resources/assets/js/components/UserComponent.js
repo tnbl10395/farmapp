@@ -39,7 +39,7 @@ var objectUser = {
         { name: "Full name", placeholder: 'Please input full name' },
         { name: "Address", placeholder: 'Please input address' },
         { name: "Phone", placeholder: 'Please input phone' },
-        { name: "Role", role: [{ id: '1', name: "Admin" }, { id: '0', name: "User" }] },
+        { name: "Role", select: [{ id: '1', name: "Admin" }, { id: '0', name: "User" }] },
     ]
 };
 
@@ -51,7 +51,7 @@ var objectUpdate = {
         { name: "Full name", placeholder: 'Please input full name' },
         { name: "Address", placeholder: 'Please input address' },
         { name: "Phone", placeholder: 'Please input phone' },
-        { name: "Role", role: [{ id: '1', name: "Admin" }, { id: '0', name: "User" }] },
+        { name: "Role", select: [{ id: '1', name: "Admin" }, { id: '0', name: "User" }] },
     ]
 };
 // var columns = [

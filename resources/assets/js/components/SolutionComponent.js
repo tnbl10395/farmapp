@@ -36,15 +36,17 @@ export default class SolutionComponent extends React.Component {
 var objectSolution = {
     title: "ADD SOLUTION",
     property: [
+        { name: "Plant", select: [{ id: '1', name: "Rice" }, { id: '0', name: "Potato" }]},
         { name: "Temperature", placeholder: 'Please input temperature' },
         { name: "Humidity", placeholder: 'Please input humidity' },
-        { name: "Solution", placeholder: 'Please input solution' }
+        { name: "Solution", placeholder: 'Please input solution' },
     ]
 };
 
 var objectUpdateSolution = {
     title: "UPDATE SOLUTION",
     property: [
+        { name: "Plant", placeholder: 'Please choose plant'},
         { name: "Temperature", placeholder: 'Please input temperature' },
         { name: "Humidity", placeholder: 'Please input humidity' },
         { name: "Solution", placeholder: 'Please input solution' }

@@ -41,13 +41,21 @@ class ManagesController extends Controller
      */
     public function store(Request $request)
     {
-        $deviceId = Device::where('code',$request->code)->select('deviceId')->first();
-        $manage = new Manage();
-        $manage->userId = $request->userId;
-        $manage->deviceId = $deviceId->deviceId;
-        $manage->save();
-
-        return response()->json([$message=>'successfull']);
+        $deviceId = Device::where('code',$request->code)
+                            ->where('status', 0)   
+                            ->select('deviceId')->first();
+        $user = JWTAuth::toUser($request->header('token'));
+        if ($deviceId != null) {
+            $manage = new Manage();
+            $manage->userId = $user->id;
+            $manage->deviceId = $deviceId->deviceId;
+            $manage->plantId = $request->plantId;
+            $manage->isActive = '1';
+            $manage->save();
+            return response()->json($manage);
+        }else {
+            return response()->json(false);
+        }
     }
 
     /**
@@ -62,7 +70,7 @@ class ManagesController extends Controller
         if(!is_null($manage)){
             return response()->json($manage);
         }else{
-            return response()->json([$message=>'nodata']);
+            return response()->json(false);
         }
     }
 
@@ -73,14 +81,18 @@ class ManagesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        // $deviceId = Device::where('code',$request->code)->select('deviceId')->first();
-        // $manage = Manage::findOrFail($id);
-        // $manage->userId = $request->userId;
-        // $manage->deviceId = $deviceId->deviceId;
-        // $manage->save();
-        // return response()->json([$message=>'updated']);
+        $deviceId = Device::where('code',$request->code)->select('deviceId')->first();
+        $user = JWTAuth::toUser($request->header('token'));
+        $manageId = Manage::where('userId', $user->id)
+                        ->where('deviceId', $deviceId->deviceId)
+                        ->where('isActive', 1)
+                        ->select('id')->first();
+        $manage = Manage::findOrFail($manageId);
+        $manage->plantId = $request->plantId;
+        $manage->save();
+        return response()->json($manage);
     }
 
     /**
@@ -89,8 +101,14 @@ class ManagesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
+        $deviceId = Device::where('code',$request->code)->select('deviceId')->first();
+        $user = JWTAuth::toUser($request->header('token'));
+        $manageId = Manage::where('userId', $user->id)
+                        ->where('deviceId', $deviceId->deviceId)
+                        ->where('isActive', 1)
+                        ->select('id')->first();
         $manage = Manage::findOrFail($id);
         $manage->delete();
         return response()->json($manage);

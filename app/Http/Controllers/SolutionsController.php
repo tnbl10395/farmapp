@@ -31,11 +31,14 @@ class SolutionsController extends Controller
     public function store(Request $request)
     {
         $solution = new Solution();
-        $solution->temperature = $request->temperature;
-        $solution->humidity = $request->humidity;
+        $solution->planId = $request->plantId;
+        $solution->min_temperature = $request->min_temperature;
+        $solution->min_humidity = $request->min_humidity;
+        $solution->max_temperature = $request->max_temperature;
+        $solution->max_humidity = $request->max_humidity;
         $solution->solution = $request->solution;
         $solution->save();
-        return response()->json([$message=>'successfull']);
+        return response()->json($solution);
     }
 
     /**
@@ -50,7 +53,7 @@ class SolutionsController extends Controller
         if(!is_null($solution)){
             return response()->json($solution);
         }else{
-            return response()->json([$message=>'nodata']);
+            return response()->json(false);
         }    
     }
 
@@ -61,14 +64,19 @@ class SolutionsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        $solution = Solution::findOrFail($id);
-        $solution->temperature = $request->temperature;
-        $solution->humidity = $request->humidity;
-        $solution->solution = $request->solution;
-        $solution->save();
-        return response()->json([$message=>'updated']);
+        foreach ($request as $object) {
+            $solution = Solution::findOrFail($object->id);
+            $solution->planId = $object->plantId;
+            $solution->min_temperature = $object->min_temperature;
+            $solution->min_humidity = $object->min_humidity;
+            $solution->max_temperature = $object->max_temperature;
+            $solution->max_humidity = $object->max_humidity;
+            $solution->solution = $object->solution;
+            $solution->save();
+        }
+        return response()->json(true);
     }
 
     /**
@@ -81,6 +89,6 @@ class SolutionsController extends Controller
     {
         $solution = Solution::findOrFail($id);
         $solution->delete();
-        return response()->json([$message=>'deleted']);
+        return response()->json($solution);
     }
 }
