@@ -11,6 +11,18 @@ class LocationsTableSeeder extends Seeder
      */
     public function run()
     {
-        //
+        DB::table('locations')->insert(
+            [
+                [
+                    'id' => '1',
+                    'deviceId' => '1',
+                    'latitude' => '1',
+                    'longitude' => '16.0533965',
+                    'endDate' => '108.2178674',
+                    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+                    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()
+                ]
+            ]
+        );
     }
 }

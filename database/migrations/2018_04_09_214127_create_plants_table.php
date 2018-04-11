@@ -15,7 +15,7 @@ class CreatePlantsTable extends Migration
     {
         Schema::create('plants', function (Blueprint $table) {
             $table->increments('id');
-            $table->foreign('id')->reference('plantId')->on('manages');
+            // $table->foreign('id')->reference('plantId')->on('manages');
             $table->string('name', 100);
             $table->binary('picture');
             $table->text('description')->nullable();

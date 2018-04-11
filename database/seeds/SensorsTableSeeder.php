@@ -11,6 +11,15 @@ class SensorsTableSeeder extends Seeder
      */
     public function run()
     {
-        //
+        DB::table('sensors')->insert(
+            [
+                [
+                    'id' => '1',
+                    'deviceId' => '1',
+                    'picture' => '',
+                    'name' => 'Arduino UNO'
+                ]
+            ]
+        );
     }
 }

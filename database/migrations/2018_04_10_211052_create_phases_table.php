@@ -16,7 +16,7 @@ class CreatePhasesTable extends Migration
         Schema::create('phases', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('plantId')->unsigned();
-            $table->foreign('plantId')->references('id')->on('plants');
+            // $table->foreign('plantId')->references('id')->on('plants');
             $table->string('name');
             $table->integer('days')->unsigned();
             $table->integer('minTemperature');
