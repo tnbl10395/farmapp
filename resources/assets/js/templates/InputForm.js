@@ -75,7 +75,7 @@ export class SelectBox extends React.Component {
                 <label>{this.props.element.name}</label>
                 <select value={this.props.inputValue} className="form-control" onChange={(option) => this.props.saveInput(this.props.name, option.target.value)}>
                     {
-                        this.props.element.role.map((option) => {
+                        this.props.element.select.map((option) => {
                             return <option key={option.id} value={option.id}>{option.name}</option>
                         })
                     }

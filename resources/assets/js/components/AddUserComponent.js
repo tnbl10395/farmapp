@@ -88,7 +88,7 @@ export default class AddUserComponent extends React.Component {
                             saveInput={this.props.saveInput} />
                     </div>
                     <input type="submit" className="btn btn-success col-md-2" value="Add" 
-                           value={this.props.object.title == 'ADD DEVICE' ? 'Add' : 'Update'} style={{ marginRight: 10 }} />
+                           value={this.props.object.title == 'ADD USER' ? 'Add' : 'Update'} style={{ marginRight: 10 }} />
                     <input type="button" onClick={() => this.props.closeModal()} className="btn btn-default col-md-2" value="Cancel" />
                 </form>
             </div>

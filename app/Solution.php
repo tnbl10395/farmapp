@@ -8,6 +8,6 @@ class Solution extends Model
 {
     // protected $table = "solutions";
     protected $fillable = [
-        'temperature','humidity','solution'
+        'phasesId', 'statusTemperature', 'statusHumidity', 'description'
     ];
 }

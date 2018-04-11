@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { InputText, InputCalendar, InputPassword, SelectBox } from '../templates/InputForm';
 import { fadeInDown } from 'react-animations';
 import Radium, { StyleRoot } from 'radium';
 
 import AddDevice from '../containers/AddDeviceContainer';
 import AddUser from '../containers/AddUserContainer';
+import ActionSolution from '../containers/ActionSolutionContainer';
 
 export default class Modal extends React.Component {
     constructor(props) {
@@ -47,6 +47,10 @@ const bodyModal = (object) => {
             return <AddDevice object={object}/>;
         case 'UPDATE USER':
             return <AddUser object={object}/>;
+        case 'ADD SOLUTION':
+            return <ActionSolution object={object}/>;
+        case 'UPDATE SOLUTION':
+            return <ActionSolution object={object}/>;
     }
 }
 

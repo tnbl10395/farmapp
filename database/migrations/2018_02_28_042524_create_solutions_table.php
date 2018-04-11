@@ -15,9 +15,11 @@ class CreateSolutionsTable extends Migration
     {
         Schema::create('solutions', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('temperature',10);
-            $table->string('humidity',10);
-            $table->text('solution');
+            $table->integer('phaseId')->unsigned()->index();
+            // $table->foreign('phaseId')->references('id')->on('phases');
+            $table->enum('statusTemperature', ['-1', '0', '1']);
+            $table->enum('statusHumidity', ['-1', '0', '1']);
+            $table->text('description');
             $table->timestamps();
         });
     }

@@ -8,6 +8,6 @@ class Manage extends Model
 {
     // protected $table = "manages";
     protected $fillable = [
-        'userId','deviceId'
+        'userId', 'deviceId', 'plantId', 'startDate', 'endDate'
     ];
 }

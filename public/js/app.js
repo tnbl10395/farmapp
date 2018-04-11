@@ -27374,7 +27374,7 @@ var SelectBox = function (_React$Component4) {
                     { value: this.props.inputValue, className: 'form-control', onChange: function onChange(option) {
                             return _this8.props.saveInput(_this8.props.name, option.target.value);
                         } },
-                    this.props.element.role.map(function (option) {
+                    this.props.element.select.map(function (option) {
                         return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                             'option',
                             { key: option.id, value: option.id },
@@ -120332,12 +120332,12 @@ var UserComponent = function (_React$Component) {
 
 var objectUser = {
     title: "ADD USER",
-    property: [{ name: "Username", placeholder: 'Please input username' }, { name: "Password", placeholder: 'Please input password' }, { name: "Full name", placeholder: 'Please input full name' }, { name: "Address", placeholder: 'Please input address' }, { name: "Phone", placeholder: 'Please input phone' }, { name: "Role", role: [{ id: '1', name: "Admin" }, { id: '0', name: "User" }] }]
+    property: [{ name: "Username", placeholder: 'Please input username' }, { name: "Password", placeholder: 'Please input password' }, { name: "Full name", placeholder: 'Please input full name' }, { name: "Address", placeholder: 'Please input address' }, { name: "Phone", placeholder: 'Please input phone' }, { name: "Role", select: [{ id: '1', name: "Admin" }, { id: '0', name: "User" }] }]
 };
 
 var objectUpdate = {
     title: "UPDATE USER",
-    property: [{ name: "Username", placeholder: 'Please input username' }, { name: "Password", placeholder: 'Please input password' }, { name: "Full name", placeholder: 'Please input full name' }, { name: "Address", placeholder: 'Please input address' }, { name: "Phone", placeholder: 'Please input phone' }, { name: "Role", role: [{ id: '1', name: "Admin" }, { id: '0', name: "User" }] }]
+    property: [{ name: "Username", placeholder: 'Please input username' }, { name: "Password", placeholder: 'Please input password' }, { name: "Full name", placeholder: 'Please input full name' }, { name: "Address", placeholder: 'Please input address' }, { name: "Phone", placeholder: 'Please input phone' }, { name: "Role", select: [{ id: '1', name: "Admin" }, { id: '0', name: "User" }] }]
 };
 // var columns = [
 //     { title: "ID" },
@@ -120614,12 +120614,12 @@ var SolutionComponent = function (_React$Component) {
 
 var objectSolution = {
     title: "ADD SOLUTION",
-    property: [{ name: "Temperature", placeholder: 'Please input temperature' }, { name: "Humidity", placeholder: 'Please input humidity' }, { name: "Solution", placeholder: 'Please input solution' }]
+    property: [{ name: "Plant", select: [{ id: '1', name: "Rice" }, { id: '0', name: "Potato" }] }, { name: "Temperature", placeholder: 'Please input temperature' }, { name: "Humidity", placeholder: 'Please input humidity' }, { name: "Solution", placeholder: 'Please input solution' }]
 };
 
 var objectUpdateSolution = {
     title: "UPDATE SOLUTION",
-    property: [{ name: "Temperature", placeholder: 'Please input temperature' }, { name: "Humidity", placeholder: 'Please input humidity' }, { name: "Solution", placeholder: 'Please input solution' }]
+    property: [{ name: "Plant", placeholder: 'Please choose plant' }, { name: "Temperature", placeholder: 'Please input temperature' }, { name: "Humidity", placeholder: 'Please input humidity' }, { name: "Solution", placeholder: 'Please input solution' }]
 };
 // var columns = [
 //     { title: "ID" },
@@ -120636,12 +120636,12 @@ var objectUpdateSolution = {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__templates_InputForm__ = __webpack_require__(158);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_animations__ = __webpack_require__(159);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_animations___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_react_animations__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_radium__ = __webpack_require__(160);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__containers_AddDeviceContainer__ = __webpack_require__(967);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__containers_AddUserContainer__ = __webpack_require__(969);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_animations__ = __webpack_require__(159);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_animations___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_animations__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_radium__ = __webpack_require__(160);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__containers_AddDeviceContainer__ = __webpack_require__(967);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__containers_AddUserContainer__ = __webpack_require__(969);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__containers_ActionSolutionContainer__ = __webpack_require__(983);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -120685,7 +120685,7 @@ var Modal = function (_React$Component) {
                     //  onClick={() => this.props.closeModal()}
                     style: style.overview }),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    __WEBPACK_IMPORTED_MODULE_3_radium__["a" /* StyleRoot */],
+                    __WEBPACK_IMPORTED_MODULE_2_radium__["a" /* StyleRoot */],
                     null,
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'div',
@@ -120713,13 +120713,17 @@ var Modal = function (_React$Component) {
 var bodyModal = function bodyModal(object) {
     switch (object.title) {
         case 'ADD DEVICE':
-            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__containers_AddDeviceContainer__["a" /* default */], { object: object });
+            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__containers_AddDeviceContainer__["a" /* default */], { object: object });
         case 'ADD USER':
-            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_5__containers_AddUserContainer__["a" /* default */], { object: object });
+            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__containers_AddUserContainer__["a" /* default */], { object: object });
         case 'UPDATE DEVICE':
-            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__containers_AddDeviceContainer__["a" /* default */], { object: object });
+            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__containers_AddDeviceContainer__["a" /* default */], { object: object });
         case 'UPDATE USER':
-            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_5__containers_AddUserContainer__["a" /* default */], { object: object });
+            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__containers_AddUserContainer__["a" /* default */], { object: object });
+        case 'ADD SOLUTION':
+            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_5__containers_ActionSolutionContainer__["a" /* default */], { object: object });
+        case 'UPDATE SOLUTION':
+            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_5__containers_ActionSolutionContainer__["a" /* default */], { object: object });
     }
 };
 
@@ -120742,7 +120746,7 @@ var style = {
         backgroundColor: 'white',
         zIndex: 99999,
         animation: "0.5s",
-        animationName: __WEBPACK_IMPORTED_MODULE_3_radium__["b" /* default */].keyframes(__WEBPACK_IMPORTED_MODULE_2_react_animations__["fadeInDown"], 'fadeInDown')
+        animationName: __WEBPACK_IMPORTED_MODULE_2_radium__["b" /* default */].keyframes(__WEBPACK_IMPORTED_MODULE_1_react_animations__["fadeInDown"], 'fadeInDown')
     },
     title: {
         textAlign: 'center',
@@ -127506,7 +127510,7 @@ var AddUserComponent = function (_React$Component) {
                             saveInput: this.props.saveInput })
                     ),
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', (_React$createElement = { type: 'submit', className: 'btn btn-success col-md-2', value: 'Add'
-                    }, _defineProperty(_React$createElement, 'value', this.props.object.title == 'ADD DEVICE' ? 'Add' : 'Update'), _defineProperty(_React$createElement, 'style', { marginRight: 10 }), _React$createElement)),
+                    }, _defineProperty(_React$createElement, 'value', this.props.object.title == 'ADD USER' ? 'Add' : 'Update'), _defineProperty(_React$createElement, 'style', { marginRight: 10 }), _React$createElement)),
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'button', onClick: function onClick() {
                             return _this2.props.closeModal();
                         }, className: 'btn btn-default col-md-2', value: 'Cancel' })
@@ -128806,6 +128810,223 @@ exports['default'] = thunk;
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 977 */,
+/* 978 */,
+/* 979 */,
+/* 980 */,
+/* 981 */,
+/* 982 */,
+/* 983 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react_redux__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_ActionSolutionComponent__ = __webpack_require__(984);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__actions_Action__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__api_api__ = __webpack_require__(32);
+
+
+
+
+
+var mapStateToProps = function mapStateToProps(state) {
+    return {
+        messageSuccess: state.message_success,
+        messageFail: state.message_fail,
+        id: state.id_update
+    };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+    return {
+        saveInput: function saveInput(name, value) {
+            dispatch(Object(__WEBPACK_IMPORTED_MODULE_2__actions_Action__["D" /* saveInput */])(name, value));
+        },
+        submitForm: function submitForm(username, password, fullname, address, phone, role) {
+            Object(__WEBPACK_IMPORTED_MODULE_3__api_api__["x" /* submitAddUserFormAPI */])(dispatch, __WEBPACK_IMPORTED_MODULE_2__actions_Action__["I" /* submitAddUserForm */], username, password, fullname, address, phone, role, __WEBPACK_IMPORTED_MODULE_2__actions_Action__["p" /* getDataUsers */], __WEBPACK_IMPORTED_MODULE_3__api_api__["g" /* getDataUsersAPI */]);
+        },
+        closeMessage: function closeMessage() {
+            dispatch(Object(__WEBPACK_IMPORTED_MODULE_2__actions_Action__["h" /* closeMessage */])());
+        },
+        closeModal: function closeModal() {
+            dispatch(Object(__WEBPACK_IMPORTED_MODULE_2__actions_Action__["i" /* closeModal */])());
+        },
+        updateForm: function updateForm(id, object) {
+            Object(__WEBPACK_IMPORTED_MODULE_3__api_api__["z" /* updateUserAPI */])(dispatch, __WEBPACK_IMPORTED_MODULE_2__actions_Action__["E" /* showMessage */], id, object, __WEBPACK_IMPORTED_MODULE_2__actions_Action__["p" /* getDataUsers */], __WEBPACK_IMPORTED_MODULE_3__api_api__["g" /* getDataUsersAPI */]);
+        }
+    };
+};
+
+/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_0_react_redux__["b" /* connect */])(mapStateToProps, mapDispatchToProps)(__WEBPACK_IMPORTED_MODULE_1__components_ActionSolutionComponent__["a" /* default */]));
+
+/***/ }),
+/* 984 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__templates_InputForm__ = __webpack_require__(158);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+
+var ActionSolutionComponent = function (_React$Component) {
+    _inherits(ActionSolutionComponent, _React$Component);
+
+    function ActionSolutionComponent(props) {
+        _classCallCheck(this, ActionSolutionComponent);
+
+        var _this = _possibleConstructorReturn(this, (ActionSolutionComponent.__proto__ || Object.getPrototypeOf(ActionSolutionComponent)).call(this, props));
+
+        _this.handleSubmit = _this.handleSubmit.bind(_this);
+        return _this;
+    }
+
+    _createClass(ActionSolutionComponent, [{
+        key: 'handleSubmit',
+        value: function handleSubmit(e) {
+            e.preventDefault();
+            if (this.props.object.title == "ADD SOLUTION") {
+                this.props.submitForm();
+            } else {
+                var object = {};
+                this.props.updateForm(this.props.id, object);
+            }
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            var _this2 = this;
+
+            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'div',
+                null,
+                this.props.messageSuccess ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'div',
+                    { className: 'alert alert-success alert-dismissible fade in' },
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'a',
+                        { href: '#', onClick: function onClick() {
+                                return _this2.props.closeMessage();
+                            }, className: 'close', 'data-dismiss': 'alert', 'aria-label': 'close' },
+                        '\xD7'
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'strong',
+                        null,
+                        'Success!'
+                    ),
+                    ' The new plant has just created!'
+                ) : null,
+                this.props.messageFail ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'div',
+                    { className: 'alert alert-danger alert-dismissible fade in' },
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'a',
+                        { href: '#', onClick: function onClick() {
+                                return _this2.props.closeMessage();
+                            }, className: 'close', 'data-dismiss': 'alert', 'aria-label': 'close' },
+                        '\xD7'
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'strong',
+                        null,
+                        'Fail!'
+                    ),
+                    ' Plant has been created!'
+                ) : null,
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'form',
+                    { onSubmit: this.handleSubmit },
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'div',
+                        { className: 'form-group col-md-6', style: { padding: 0 } },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'div',
+                            { className: 'col-md-12', style: { padding: 0 } },
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                'label',
+                                null,
+                                'Temperature'
+                            )
+                        ),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'div',
+                            { className: 'col-md-6' },
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'text', placeholder: 'From', required: true,
+                                onChange: function onChange(text) {
+                                    return _this2.props.saveInput(_this2.props.name, text.target.value);
+                                },
+                                className: 'form-control',
+                                value: this.props.inputValue })
+                        ),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'div',
+                            { className: 'col-md-6' },
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'text', placeholder: 'To', required: true,
+                                onChange: function onChange(text) {
+                                    return _this2.props.saveInput(_this2.props.name, text.target.value);
+                                },
+                                className: 'form-control',
+                                value: this.props.inputValue })
+                        )
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'div',
+                        { className: 'form-group col-md-6', style: { padding: 0 } },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'div',
+                            { className: 'col-md-12', style: { padding: 0 } },
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                'label',
+                                null,
+                                'Humidity'
+                            )
+                        ),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'div',
+                            { className: 'col-md-6' },
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'text', placeholder: 'From', required: true,
+                                onChange: function onChange(text) {
+                                    return _this2.props.saveInput(_this2.props.name, text.target.value);
+                                },
+                                className: 'form-control',
+                                value: this.props.inputValue })
+                        ),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'div',
+                            { className: 'col-md-6' },
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'text', placeholder: 'To', required: true,
+                                onChange: function onChange(text) {
+                                    return _this2.props.saveInput(_this2.props.name, text.target.value);
+                                },
+                                className: 'form-control',
+                                value: this.props.inputValue })
+                        )
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'button', className: 'btn btn-success col-md-2', value: 'Next', style: { marginRight: 10 } }),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'button', onClick: function onClick() {
+                            return _this2.props.closeModal();
+                        }, className: 'btn btn-default col-md-2', value: 'Cancel' })
+                )
+            );
+        }
+    }]);
+
+    return ActionSolutionComponent;
+}(__WEBPACK_IMPORTED_MODULE_0_react___default.a.Component);
+
+/* harmony default export */ __webpack_exports__["a"] = (ActionSolutionComponent);
 
 /***/ })
 /******/ ]);
