@@ -15,7 +15,7 @@ class CreateDataTable extends Migration
     {
         Schema::create('data', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('deviceId')->unsigned();
+            $table->integer('deviceId')->unsigned()->index();
             $table->foreign('deviceId')->references('id')->on('devices');
             $table->string('humidity',10);
             $table->string('temperature',10);

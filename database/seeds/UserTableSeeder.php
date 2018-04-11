@@ -14,6 +14,7 @@ class UserTableSeeder extends Seeder
         DB::table('users')->insert(
             [
                 [
+                    'id' => 1,
                     'username' => 'admin',
                     'password' => bcrypt('admin'),
                     'fullname' => 'Long (Lewis) N.B. TRAN',
@@ -24,6 +25,7 @@ class UserTableSeeder extends Seeder
                     'updated_at' => \Carbon\Carbon::now()->toDateTimeString(),
                 ],
                 [
+                    'id' => 2,
                     'username' => 'client1',
                     'password' => bcrypt('happyfarm'),
                     'fullname' => 'Phuong (Patrick) V. NGUYEN',

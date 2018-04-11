@@ -398,10 +398,14 @@ const chartOptions = {
     pointHitDetectionRadius: 20,
     datasetStroke: true,
     datasetStrokeWidth: 2,
-    datasetFill: true,
+    datasetFill: false,
     offsetGridLines: false,
     responsive: true,
     animation: false,
+    scaleOverride: true,
+    scaleSteps : 7,
+    scaleStepWidth : 10,
+    scaleStartValue : 0 
     // maintainAspectRatio: false,
 };
 
