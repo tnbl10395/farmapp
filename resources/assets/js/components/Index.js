@@ -23,8 +23,6 @@ export default class Index extends Component {
         return (
             <HashRouter>
                 <div className="container-fluid">
-                    {/* <img src="/images/farmintro.jpg" style={style.img} /> */}
-                    {/* <div style={style.background}></div> */}
                     <TopBar />
                     <div className="row">
                         <SideBar profile={profile} />

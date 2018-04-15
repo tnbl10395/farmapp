@@ -13,15 +13,6 @@ export default class DevicesComponent extends React.Component {
 
     render() {
         return (
-            // this.props.dataSet.length>0? 
-            //     <Table dataSet={this.props.dataSet} 
-            //             columns={columns} 
-            //             sideBar={this.props.sideBar} 
-            //             name={'Device'}
-            //             openModal={this.props.openModal}
-            //             object={profile.role == "1" ? objectDeviceAdmin : objectDeviceUser}
-            //             /> 
-            //     : null
             <List
                 // openUpdate={this.props.openUpdate}
                 dataSet={this.props.dataSet}
