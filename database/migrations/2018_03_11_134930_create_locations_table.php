@@ -15,7 +15,7 @@ class CreateLocationsTable extends Migration
     {
         Schema::create('locations', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('deviceId')->unsigned();
+            $table->integer('deviceId')->unsigned()->index();
             $table->foreign('deviceId')->references('id')->on('devices');
             $table->string('latitude',20);
             $table->string('longitude',20);

@@ -14,12 +14,13 @@ class CreateManagesTable extends Migration
     public function up()
     {
         Schema::create('manages', function (Blueprint $table) {
-            $table->increments('id')->index();
-            $table->integer('userId')->unsigned();
-            $table->foreign('userId')->references('id')->on('users');
-            $table->integer('deviceId')->unsigned();
+            $table->increments('id');
+            $table->integer('userId')->unsigned()->index();
+            $table->foreign('userId')->references('id')->on('users')->onDelete('restrict');
+            $table->integer('deviceId')->unsigned()->index();
             $table->foreign('deviceId')->references('id')->on('devices')->onDelete('restrict');
-            $table->integer('plantId')->unsigned()->nullable();
+            $table->integer('plantId')->unsigned()->nullable()->index();
+            // $table->foreign('plantId')->reference('id')->on('plants')->onDelete('restrict');
             $table->date('startDate');
             $table->date('endDate');
             $table->timestamps();

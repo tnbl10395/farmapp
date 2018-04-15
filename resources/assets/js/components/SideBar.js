@@ -29,13 +29,6 @@ export default class SideBar extends React.Component {
                              chooseOption={this.props.chooseOption}
                              sideBar={this.props.sideBar}
                     />
-                    <Element icon={'fa fa-cogs'}
-                             name={"Device"}
-                             choose={this.props.admin_device_component}
-                             chooseOption={this.props.chooseOption}
-                             link={"device"}
-                             sideBar={this.props.sideBar}
-                    />
                     {
                         this.props.profile.role == "1" ?
                             <Element icon={'fa fa-users'}
@@ -47,6 +40,13 @@ export default class SideBar extends React.Component {
                             />
                             : null
                     }
+                    <Element icon={'fa fa-cogs'}
+                             name={"Device"}
+                             choose={this.props.admin_device_component}
+                             chooseOption={this.props.chooseOption}
+                             link={"device"}
+                             sideBar={this.props.sideBar}
+                    />
                     <Element icon={'fa fa-database'}
                              name={"Data"}
                              choose={this.props.admin_data_component}
@@ -54,13 +54,13 @@ export default class SideBar extends React.Component {
                              link={"data"}
                              sideBar={this.props.sideBar}
                     />
-                    <Element icon={'fa fa-book'}
+                    {/* <Element icon={'fa fa-book'}
                              name={"Solution"}
                              choose={this.props.admin_solution_component}
                              chooseOption={this.props.chooseOption}
                              link={"solution"}
                              sideBar={this.props.sideBar}
-                    />
+                    /> */}
                 </div>
             </div>
         )

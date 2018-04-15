@@ -15,8 +15,8 @@ class CreateSensorsTable extends Migration
     {
         Schema::create('sensors', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('deviceId')->unsigned();
-            // $table->foreign('deviceId')->references('id')->on('devices');
+            $table->integer('deviceId')->unsigned()->index();
+            $table->foreign('deviceId')->references('id')->on('devices');
             $table->string('name', 50);
             $table->binary('picture');
         });

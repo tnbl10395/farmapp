@@ -15,7 +15,7 @@ class CreateSolutionsTable extends Migration
     {
         Schema::create('solutions', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('phaseId')->unsigned();
+            $table->integer('phaseId')->unsigned()->index();
             // $table->foreign('phaseId')->references('id')->on('phases');
             $table->enum('statusTemperature', ['-1', '0', '1']);
             $table->enum('statusHumidity', ['-1', '0', '1']);

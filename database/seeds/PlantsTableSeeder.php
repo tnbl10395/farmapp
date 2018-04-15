@@ -14,7 +14,7 @@ class PlantsTableSeeder extends Seeder
         DB::table('plants')->insert(
             [
                 [
-                    'id' => '1',
+                    'id' => 1,
                     'name' => 'Rice plant',
                     'picture' => '',
                     'description' => 'Rice, a monocot, is normally grown as an annual plant, 

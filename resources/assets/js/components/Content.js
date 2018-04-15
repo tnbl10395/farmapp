@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Route, Switch } from "react-router-dom";
-import Dashboard from '../containers/DashboardContainer';
+import Dashboard from '../containers/Dashboard2Container';
 import Devices from '../containers/DevicesContainer';
 import User from '../containers/UserContainer';
 import Data from '../containers/DataContainer';

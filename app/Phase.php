@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Phase extends Model
 {
     protected $fillable = [
+        'userId',
         'plantId', 
         'name', 
         'days', 
@@ -15,4 +16,5 @@ class Phase extends Model
         'minHumidity',
         'maxHumidity' 
     ];
+    public $timestamps = false;
 }
