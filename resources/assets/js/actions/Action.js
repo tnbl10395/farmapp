@@ -36,7 +36,8 @@ import {
     HIDE_SIDEBAR,
     SHOW_SIDEBAR,
     CHANGE_INTERVAL_DASHBOARD,
-    CHECK_VALIDATE_LOGIN
+    CHECK_VALIDATE_LOGIN,
+    GET_DETAIL_INFORMATION_DEVICE
 } from "./TypeAction";
 //Custom UI
 export const chooseOptionSidebar = (option) => {
@@ -308,5 +309,12 @@ export const changeIntervalDashboard = (loadData, device, date, interval) => {
 export const checkValidateLogin = () => {
     return {
         type: CHECK_VALIDATE_LOGIN
+    }
+}
+//
+export const getDetailInformationDevice = (loadData) => {
+    return {
+        type: GET_DETAIL_INFORMATION_DEVICE,
+        loadData
     }
 }

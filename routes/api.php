@@ -41,6 +41,7 @@ Route::group(['middleware' => 'jwt.auth'], function () {
     Route::post('manages', 'ManagesController@store');
     Route::post('manages/{id}', 'ManagesController@update');
     Route::post('delete-manages', 'ManagesController@destroy');
+    Route::get('get-detail-device/{deviceId}', 'ManagesController@getDetailInformationDevices');
 
     //Solutions
     Route::get('solutions', 'SolutionsController@index');

@@ -14,6 +14,16 @@ export default class Dashboard2Component extends React.Component {
         }
     }
 
+    componentWillMount() {
+        this.timeout = setTimeout(() => {
+            this.props.getDetailInformationDevice(this.props.deviceFirst);
+        }, 1000);
+    }
+
+    componentWillUnmount() {
+        clearTimeout(this.timeout);
+    }
+
     openModal() {
         this.setState({
             isModal: true,
@@ -30,13 +40,14 @@ export default class Dashboard2Component extends React.Component {
         return (
             <div style={style.body}>
                 <div className="col-md-3" style={style.main}>
-                    <Block openModal={this.openModal.bind(this)} />
+                    <Block openModal={this.openModal.bind(this)}
+                        listDevice={this.props.all_devices} />
                 </div>
                 <div className="col-md-6" style={style.main}>
                     <Main />
                 </div>
                 <div className="col-md-3" style={style.main}>
-                    <Info />
+                    <Info plant={this.props.dashboardPlant} />
                 </div>
                 {this.state.isModal ? <Form closeModal={this.closeModal.bind(this)} /> : null}
             </div>
@@ -69,18 +80,21 @@ class Block extends React.Component {
             <div style={styleBlock.body}>
                 <div style={styleBlock.title}><h4>LIST DEVICES</h4></div>
                 <div style={styleBlock.content}>
-                    <div className="col-sm-2 col-md-4">
-                        <Device closeModal={this.props.closeModal} />
-                    </div>
-                    <div className="col-sm-2 col-md-4">
-                        <Device closeModal={this.props.closeModal} />
-                    </div>
-                    <div className="col-sm-2 col-md-4">
-                        <Device closeModal={this.props.closeModal} />
-                    </div>
-                    <div className="col-sm-2 col-md-4">
-                        <NoDevice openModal={this.props.openModal} />
-                    </div>
+                    {
+                        this.props.listDevice.map(element => {
+                            if (element.isActive == '1') {
+                                return  <div className="col-sm-2 col-md-4" key={element.id}>
+                                            <Device closeModal={this.props.closeModal} 
+                                                    element={element}/>
+                                        </div>
+                            }else {
+                                return  <div className="col-sm-2 col-md-4" key={element.id}>
+                                            <NoDevice openModal={this.props.openModal}
+                                                      element={element} />
+                                        </div>
+                            }
+                        })
+                    }
                 </div>
             </div>
         );
@@ -121,7 +135,7 @@ class Device extends React.Component {
                 <div style={styleDevice.header}>
                     <div style={styleDevice.inside}></div>
                 </div>
-                Device 1
+                {this.props.element.name}
             </div>
         );
     }
@@ -405,9 +419,18 @@ class Form extends React.Component {
             disabledNext: true,
             disabledSave: true,
             phases: [],
-            startDate: new Date()
+            plantName: '',
+            description: '',
+            startDate: new Date(),
+            data: null,
         }
         this.onSubmit = this.onSubmit.bind(this);
+    }
+
+    onChangePlantName(plant) {
+        this.setState({
+            plantName: plant.target.value
+        });
     }
 
     onChangePhaseInput(phase) {
@@ -425,7 +448,7 @@ class Form extends React.Component {
 
     onClickNextPage() {
         var array = [];
-        for (var i=1; i<=this.state.phaseInput; i++) {
+        for (var i = 1; i <= this.state.phaseInput; i++) {
             array.push({
                 key: i,
                 phaseName: '',
@@ -450,18 +473,24 @@ class Form extends React.Component {
 
     onChangePhaseName(phaseName, key) {
         var array = this.state.phases;
-        if(key == this.state.phases[key-1].key) {
-            array[key-1].phaseName = phaseName.target.value;
+        if (key == this.state.phases[key - 1].key) {
+            array[key - 1].phaseName = phaseName.target.value;
             this.setState({
                 phases: array
             })
         }
     }
 
+    onChangeDescription(description) {
+        this.setState({
+            description: description.target.value,
+        });
+    }
+
     onChangeDays(days, key) {
         var array = this.state.phases;
-        if(key == this.state.phases[key-1].key) {
-            array[key-1].days = days.target.value;
+        if (key == this.state.phases[key - 1].key) {
+            array[key - 1].days = days.target.value;
             this.setState({
                 phases: array
             })
@@ -470,8 +499,8 @@ class Form extends React.Component {
 
     onChangeMinTemperature(minTemperature, key) {
         var array = this.state.phases;
-        if(key == this.state.phases[key-1].key) {
-            array[key-1].minTemperature = minTemperature.target.value;
+        if (key == this.state.phases[key - 1].key) {
+            array[key - 1].minTemperature = minTemperature.target.value;
             this.setState({
                 phases: array
             })
@@ -480,8 +509,8 @@ class Form extends React.Component {
 
     onChangeMaxTemperature(maxTemperature, key) {
         var array = this.state.phases;
-        if(key == this.state.phases[key-1].key) {
-            array[key-1].maxTemperature = maxTemperature.target.value;
+        if (key == this.state.phases[key - 1].key) {
+            array[key - 1].maxTemperature = maxTemperature.target.value;
             this.setState({
                 phases: array
             })
@@ -490,8 +519,8 @@ class Form extends React.Component {
 
     onChangeMinHumidity(minHumidity, key) {
         var array = this.state.phases;
-        if(key == this.state.phases[key-1].key) {
-            array[key-1].minHumidity = minHumidity.target.value;
+        if (key == this.state.phases[key - 1].key) {
+            array[key - 1].minHumidity = minHumidity.target.value;
             this.setState({
                 phases: array
             })
@@ -500,8 +529,8 @@ class Form extends React.Component {
 
     onChangeMaxHumidity(maxHumidity, key) {
         var array = this.state.phases;
-        if(key == this.state.phases[key-1].key) {
-            array[key-1].maxHumidity = maxHumidity.target.value;
+        if (key == this.state.phases[key - 1].key) {
+            array[key - 1].maxHumidity = maxHumidity.target.value;
             this.setState({
                 phases: array
             })
@@ -510,7 +539,18 @@ class Form extends React.Component {
 
     onSubmit(e) {
         e.preventDefault();
-        console.log(this.state.phases);
+        this.setState({
+            data: {
+                code: '111112',
+                plant: {
+                    name: this.state.plantName,
+                    description: this.state.description
+                },
+                startDate: this.state.startDate,
+                phase: this.state.phases
+            }
+        })
+        console.log(this.state.data);
     }
 
     render() {
@@ -525,11 +565,17 @@ class Form extends React.Component {
                                 <hr />
                                 <div className="form-group col-md-12">
                                     <label>Plant</label>
-                                    <select className="form-control">
+                                    <input type="text"
+                                        required
+                                        className="form-control"
+                                        placeholder="Please input phase"
+                                        value={this.state.plantName}
+                                        onChange={(plant) => this.onChangePlantName(plant)} />
+                                    {/* <select className="form-control">
                                         <option>Please choose plant</option>
                                         <option>Rice Plant</option>
                                         <option>Potato Plant</option>
-                                    </select>
+                                    </select> */}
                                 </div>
                                 <div className="form-group col-md-6">
                                     <label>Phase</label>
@@ -550,35 +596,44 @@ class Form extends React.Component {
                                         onChange={(date) => this.onChangeDate(date)}
                                     />
                                 </div>
+                                <div className="form-group col-md-12">
+                                    <label>Description</label>
+                                    <textarea type="text"
+                                        required
+                                        className="form-control"
+                                        placeholder="Please input phase"
+                                        value={this.state.description}
+                                        onChange={(description) => this.onChangeDescription(description)} />
+                                </div>
                             </div>
                             : <div className="col-md-12">
                                 <hr />
                                 <div style={styleForm.bodyNextPage}>
                                     {
                                         this.state.phases.map(phase => {
-                                            return  <div className={this.state.phaseInput == 1 ? "col-md-12" : "col-md-6"} key={phase.key}>
-                                                        <div className="form-group">
-                                                            <label>Phase {phase.key}</label>
-                                                        </div>
-                                                        <div className="form-group col-md-6">
-                                                            <input type="text" className="form-control" placeholder="Phase name" required value={phase.phaseName} onChange={(phaseName) => this.onChangePhaseName(phaseName, phase.key)} />
-                                                        </div>
-                                                        <div className="form-group col-md-6">
-                                                            <input type="number" className="form-control" placeholder="Days" required value={phase.days} onChange={(days) => this.onChangeDays(days, phase.key)}/> 
-                                                        </div>
-                                                        <div className="form-group col-md-6">
-                                                            <input type="number" className="form-control" placeholder="Min Temperature" required value={phase.minTemperature} onChange={(minTemperature) => this.onChangeMinTemperature(minTemperature, phase.key)}/> 
-                                                        </div>
-                                                        <div className="form-group col-md-6">
-                                                            <input type="number" className="form-control" placeholder="Max Temperature" required value={phase.maxTemperature} onChange={(maxTemperature) => this.onChangeMaxTemperature(maxTemperature, phase.key)}/> 
-                                                        </div>
-                                                        <div className="form-group col-md-6">
-                                                            <input type="number" className="form-control" placeholder="Min Humidity" required value={phase.minHumidity} onChange={(minHumidity) => this.onChangeMinHumidity(minHumidity, phase.key)}/> 
-                                                        </div>
-                                                        <div className="form-group col-md-6">
-                                                            <input type="number" className="form-control" placeholder="Max Humidity" required value={phase.maxHumidity} onChange={(maxHumidity) => this.onChangeMaxHumidity(maxHumidity, phase.key)}/> 
-                                                        </div>
-                                                    </div>
+                                            return <div className={this.state.phaseInput == 1 ? "col-md-12" : "col-md-6"} key={phase.key}>
+                                                <div className="form-group">
+                                                    <label>Phase {phase.key}</label>
+                                                </div>
+                                                <div className="form-group col-md-6">
+                                                    <input type="text" className="form-control" placeholder="Phase name" required value={phase.phaseName} onChange={(phaseName) => this.onChangePhaseName(phaseName, phase.key)} />
+                                                </div>
+                                                <div className="form-group col-md-6">
+                                                    <input type="number" className="form-control" placeholder="Days" required value={phase.days} onChange={(days) => this.onChangeDays(days, phase.key)} />
+                                                </div>
+                                                <div className="form-group col-md-6">
+                                                    <input type="number" className="form-control" placeholder="Min Temperature" required value={phase.minTemperature} onChange={(minTemperature) => this.onChangeMinTemperature(minTemperature, phase.key)} />
+                                                </div>
+                                                <div className="form-group col-md-6">
+                                                    <input type="number" className="form-control" placeholder="Max Temperature" required value={phase.maxTemperature} onChange={(maxTemperature) => this.onChangeMaxTemperature(maxTemperature, phase.key)} />
+                                                </div>
+                                                <div className="form-group col-md-6">
+                                                    <input type="number" className="form-control" placeholder="Min Humidity" required value={phase.minHumidity} onChange={(minHumidity) => this.onChangeMinHumidity(minHumidity, phase.key)} />
+                                                </div>
+                                                <div className="form-group col-md-6">
+                                                    <input type="number" className="form-control" placeholder="Max Humidity" required value={phase.maxHumidity} onChange={(maxHumidity) => this.onChangeMaxHumidity(maxHumidity, phase.key)} />
+                                                </div>
+                                            </div>
                                         })
                                     }
                                 </div>
@@ -586,8 +641,8 @@ class Form extends React.Component {
                     }
                     <div className="col-md-12" style={styleForm.groupBtn}>
                         <hr />
-                        {this.state.isNextPage ? <input type="submit" className="btn btn-success pull-right col-md-2" value="Save" style={{ marginRight: 10 }} onClick={this.onSubmit}/> : null}
-                        {!this.state.isNextPage ? <input type="button" className="btn btn-success pull-right col-md-2" value="Next" style={{ marginRight: 10 }} disabled={this.state.disabledNext ? 'disabled' : ''} onClick={() => this.onClickNextPage()}/> : null}
+                        {this.state.isNextPage ? <input type="submit" className="btn btn-success pull-right col-md-2" value="Save" style={{ marginRight: 10 }} onClick={this.onSubmit} /> : null}
+                        {!this.state.isNextPage ? <input type="button" className="btn btn-success pull-right col-md-2" value="Next" style={{ marginRight: 10 }} disabled={this.state.disabledNext ? 'disabled' : ''} onClick={() => this.onClickNextPage()} /> : null}
                         {this.state.isNextPage ? <input type="button" className="btn btn-default pull-right col-md-2" value="Previous" style={{ marginRight: 10 }} onClick={() => this.onClickPreviousPage()} /> : null}
                         <input type="button" className="btn btn-default pull-right col-md-2" value="Cancel" style={{ marginRight: 10 }} onClick={() => this.props.closeModal()} />
                     </div>
@@ -598,9 +653,9 @@ class Form extends React.Component {
 
 }
 
-var yesterday = Datetime.moment().subtract( 1, 'day' );
-var valid = function( current ){
-    return current.isAfter( yesterday );
+var yesterday = Datetime.moment().subtract(1, 'day');
+var valid = function (current) {
+    return current.isAfter(yesterday);
 };
 
 const styleForm = {
@@ -643,9 +698,9 @@ class Info extends React.Component {
                     <img src="images/lua.jpeg" style={styleInfo.image} />
                 </div>
                 <div className="col-md-7" style={styleInfo.intro}>
-                    <h3 style={styleInfo.namePlant}>Rice Plant</h3>
+                    <h3 style={styleInfo.namePlant}>{Object(this.props.plant).name}</h3>
                     <div style={styleInfo.content}>
-                        <p>Rice, a monocot, is normally grown as an annual plant, although in tropical areas it can survive as a perennial and can produce a ratoon crop for up to 30 years.[3] Rice cultivation is well-suited to countries and regions with low labor costs and high rainfall, as it is labor-intensive to cultivate and requires ample water. However, rice can be grown practically anywhere, even on a steep hill or mountain area with the use of water-controlling terrace systems. Although its parent species are native to Asia and certain parts of Africa, centuries of trade and exportation have made it commonplace in many cultures worldwide.</p>
+                        <p>{Object(this.props.plant).description}</p>
                     </div>
                 </div>
             </div>

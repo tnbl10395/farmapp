@@ -561,7 +561,37 @@ export const getRealChartDashboardBasedOnDayAPI = (dispatch, changeIntervalDashb
                     });
                 }
                 var time = new Date();
-                dispatch(changeIntervalDashboard(data, device, time,interval));
+                dispatch(changeIntervalDashboard(data, device, time, interval));
+            });
+    } catch (error) {
+    }
+}
+
+export const addNewPlantIntoDevice = () => {
+    try {
+        var data = [];
+        fetch(URL + "api/manages", {
+            method: method.POST,
+            headers: headers,
+            body: data
+        })
+            .then((response) => response.json())
+            .then((res) => {
+            });
+    } catch (error) {
+    }
+}
+
+export const getDetailInformationDeviceApi = (dispatch, getDetailInformationDevice, deviceId) => {
+    try {
+        var data = [];
+        fetch(URL + "api/get-detail-device/" + deviceId, {
+            method: method.GET,
+            headers: headers,
+        })
+            .then((response) => response.json())
+            .then((res) => {
+                dispatch( getDetailInformationDevice(res) );
             });
     } catch (error) {
     }

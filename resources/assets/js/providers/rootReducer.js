@@ -36,7 +36,8 @@ import {
     SHOW_SIDEBAR,
     HIDE_SIDEBAR,
     CHANGE_INTERVAL_DASHBOARD,
-    CHECK_VALIDATE_LOGIN
+    CHECK_VALIDATE_LOGIN,
+    GET_DETAIL_INFORMATION_DEVICE
 } from "../actions/TypeAction";
 
 const initialState = {
@@ -51,6 +52,13 @@ const initialState = {
     longitude: null,
     intervalDashBoard: false,
     intervalTime: 60000,
+    //dashboard2
+    detail_information_device: null,
+    deviceFirst: null,
+    dashboardDevice: null,
+    dashboardPlant: null,
+    dashboardPhases: [],
+    dashboardSolutions: [],
     //side bar
     admin_dashboard_component: true,
     admin_device_component: false,
@@ -212,6 +220,7 @@ const Reducer = (state = initialState, action) => {
                 ...state,
                 all_devices: action.loadData,
                 select_device: action.loadData[0].id,
+                deviceFirst: action.loadData[0].id,
             }
 
         case SAVE_DEVICE:
@@ -628,6 +637,14 @@ const Reducer = (state = initialState, action) => {
                 select_date: action.date,
                 intervalDashBoard: action.interval,
                 intervalTime: interval
+            }
+        case GET_DETAIL_INFORMATION_DEVICE:
+            return {
+                ...state,
+                dashboardDevice: action.loadData.device,
+                dashboardPlant: action.loadData.plant,
+                dashboardPhases: action.loadData.phases,
+                dashboardSolutions: action.loadData.solutions,
             }
         default:
             return {

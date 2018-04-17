@@ -12,4 +12,5 @@ class Plant extends Model
         'picture', 
         'description',
     ];
+    public $timestamps = false;
 }

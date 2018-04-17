@@ -7,6 +7,8 @@ use App\Manage;
 use App\Device;
 use App\Phase;
 use App\Solution;
+use App\Plant;
+use App\Sensor;
 use JWTAuth;
 
 class ManagesController extends Controller
@@ -21,14 +23,15 @@ class ManagesController extends Controller
         $user = JWTAuth::toUser($request->header('token'));
         if($user->role == '1'){
             $manages = Manage::join('devices','manages.deviceId','=','devices.id')
-            ->select('manages.deviceId as id','devices.name')
+            ->where('manages.isActive', '1')
+            ->select('manages.deviceId as id','devices.name', 'manages.isActive')
             ->orderBy('id')
             ->get();
             return response()->json($manages);
         }else{
             $manages = Manage::join('devices','manages.deviceId','=','devices.id')
             ->where('userId',$user->id)
-            ->select('manages.deviceId as id','devices.name')
+            ->select('manages.deviceId as id','devices.name', 'manages.isActive')
             ->orderBy('id')
             ->get();
             return response()->json($manages);
@@ -46,25 +49,24 @@ class ManagesController extends Controller
         $device = Device::where('code',$request->code)
                             ->where('status', '0')   
                             ->select('id')->first();
-            $user = JWTAuth::toUser($request->header('token'));
-            if ($device != null && $request->plantId != null) {
+        $user = JWTAuth::toUser($request->header('token'));
+        $plant = new Plant();
+        $object = new Plant($request->plant);
+        $plant->name = $object->name;
+        $plant->picture = null;
+        $plant->description = $object->description;
+        $plant->save();
+        if ($device != null) {
             $manage = new Manage();
             $manage->userId = $user->id;
             $manage->deviceId = $device->id;
-            $manage->plantId = $request->plantId;
+            $manage->plantId = $plant->id;
             $manage->isActive = '1';
-            $manage->startDate = $request->startDate;
+            $manage->startDate = \Carbon\Carbon::parse($request->startDate);
             $manage->endDate = $this->countEndDate($request->phase, $request->startDate);
             $manage->save();
-            $this->addPhase($request->phase, $request->plantId, $user->id);
+            $this->addPhase($request->phase, $plant->id);
             return response()->json($manage->id);
-        }else if ($device != null && $request->plantId == null) {
-            $manage = new Manage();
-            $manage->userId = $user->id;
-            $manage->deviceId = $deviceId->deviceId;
-            $manage->isActive = '0';
-            $manage->save();
-            return response()->json($manage);
         }else if ($device == null) {
             return response()->json(false);
         }
@@ -137,11 +139,10 @@ class ManagesController extends Controller
         return $endDate;
     }
 
-    public function addPhase($request, $plantId, $userId) {
+    public function addPhase($request, $plantId) {
         foreach ($request as $key => $object) {
             $value = new Phase($object);
             $phase = new Phase();
-            $phase->userId = $userId;
             $phase->plantId = $plantId;
             $phase->name = $value->name;
             $phase->days = $value->days;
@@ -211,5 +212,55 @@ class ManagesController extends Controller
         $solution->statusHumidity = '1';
         $solution->description = "Temperature and humidity are so high. Please reduce all.";
         $solution->save();
+    }
+
+    public function getDetailInformationDevices(Request $request, $deviceId) {
+        $user = JWTAuth::toUser($request->header('token'));
+        if($user->role == '1'){
+            $plantId = Manage::where('deviceId', '=', $deviceId)
+                            ->where('isActive', '=', 1)
+                            ->select('plantId as id')
+                            ->first();
+            $plant = Plant::findOrFail($plantId->id); 
+            //
+            $device = Device::findOrFail($deviceId);
+            //
+            // $sensor = Sensor::where('$deviceId', '=', $deviceId);
+            //
+            $phases = Phase::where('plantId', '=', $plantId->id)->get();
+            //
+            $phaseId = Phase::where('plantId', '=', $plantId->id)->select('id')->first();
+            $solutions = Solution::where('phaseId', '=', $phaseId->id)->get();
+            $data = [
+                'device' => $device,
+                'plant' => $plant,
+                'phases' => $phases,
+                'solutions' => $solutions
+            ];
+            return response()->json($data);
+        }else {
+            $plantId = Manage::where('deviceId', '=', $deviceId)
+                            ->where('isActive', '=', 1)
+                            ->where('userId', '=', $user->id)
+                            ->select('plantId as id')
+                            ->first();
+            $plant = Plant::findOrFail($plantId->id); 
+            //
+            $device = Device::findOrFail($deviceId);
+            //
+            // $sensor = Sensor::where('$deviceId', '=', $deviceId);
+            //
+            $phases = Phase::where('plantId', '=', $plantId->id)->get();
+            //
+            $phaseId = Phase::where('plantId', '=', $plantId->id)->select('id')->first();
+            $solutions = Solution::where('phaseId', '=', $phaseId->id)->get();
+            $data = [
+                'device' => $device,
+                'plant' => $plant,
+                'phases' => $phases,
+                'solutions' => $solutions
+            ];
+            return response()->json($data);
+        }
     }
 }
