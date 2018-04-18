@@ -38,10 +38,8 @@ Route::group(['middleware' => 'jwt.auth'], function () {
     //Manages
     Route::get('manages', 'ManagesController@index');
     Route::get('manages/{id}', 'ManagesController@show');
-    Route::post('manages', 'ManagesController@store');
     Route::post('manages/{id}', 'ManagesController@update');
     Route::post('delete-manages', 'ManagesController@destroy');
-    Route::get('get-detail-device/{deviceId}', 'ManagesController@getDetailInformationDevices');
 
     //Solutions
     Route::get('solutions', 'SolutionsController@index');
@@ -71,7 +69,13 @@ Route::group(['middleware' => 'jwt.auth'], function () {
     Route::delete('plants/{id}', 'PlantController@destroy');
 
     //Location 
-    Route::get('location/{id}','LocationsController@show');
+    Route::get('location/{id}', 'LocationsController@show');
+
+    //important 
+    Route::get('list-location', 'LocationsController@index');
+    Route::get('get-detail-device/{deviceId}', 'ManagesController@getDetailInformationDevices');
+    Route::post('manages', 'ManagesController@store');
+    Route::get('notification/{deviceId}', 'SolutionsController@notificationSolution');
 });
 Route::group(['middleware' => 'key'], function () {
     Route::get('send-data', 'DataController@store');

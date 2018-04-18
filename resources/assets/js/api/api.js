@@ -596,3 +596,18 @@ export const getDetailInformationDeviceApi = (dispatch, getDetailInformationDevi
     } catch (error) {
     }
 }
+
+export const getNotificationApi = (dispatch, getNotification, deviceId) => {
+    try {
+        var data = [];
+        fetch(URL + "api/notification/" + deviceId, {
+            method: method.GET,
+            headers: headers,
+        })
+            .then((response) => response.json())
+            .then((res) => {
+                dispatch( getNotification(res) );
+            });
+    } catch (error) {
+    }
+}

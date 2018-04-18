@@ -41,10 +41,13 @@ export default class Dashboard2Component extends React.Component {
             <div style={style.body}>
                 <div className="col-md-3" style={style.main}>
                     <Block openModal={this.openModal.bind(this)}
-                        listDevice={this.props.all_devices} />
+                        listDevice={this.props.all_devices}
+                        data={this.props.notificationData}
+                        getNotification={this.props.getNotification} />
                 </div>
                 <div className="col-md-6" style={style.main}>
-                    <Main />
+                    <Main phases={this.props.dashboardPhases}
+                        totalDaysOfPhase={this.props.dashboardTotalDaysOfPhases} />
                 </div>
                 <div className="col-md-3" style={style.main}>
                     <Info plant={this.props.dashboardPlant} />
@@ -83,15 +86,17 @@ class Block extends React.Component {
                     {
                         this.props.listDevice.map(element => {
                             if (element.isActive == '1') {
-                                return  <div className="col-sm-2 col-md-4" key={element.id}>
-                                            <Device closeModal={this.props.closeModal} 
-                                                    element={element}/>
-                                        </div>
-                            }else {
-                                return  <div className="col-sm-2 col-md-4" key={element.id}>
-                                            <NoDevice openModal={this.props.openModal}
-                                                      element={element} />
-                                        </div>
+                                return <div className="col-sm-2 col-md-4" key={element.id}>
+                                    <Device closeModal={this.props.closeModal}
+                                        element={element}
+                                        data={this.props.data}
+                                        getNotification={this.props.getNotification} />
+                                </div>
+                            } else {
+                                return <div className="col-sm-2 col-md-4" key={element.id}>
+                                    <NoDevice openModal={this.props.openModal}
+                                        element={element} />
+                                </div>
                             }
                         })
                     }
@@ -129,12 +134,33 @@ class Device extends React.Component {
         super(props);
     }
 
+    componentDidMount() {
+        this.interval = setInterval(() => {
+            this.props.getNotification(this.props.element.id);
+        }, 1000);
+    }
+
+    componentWillUnmount() {
+        setInterval(this.interval);
+    }
+
     render() {
         return (
-            <div style={styleDevice.body} onClick={() => this.props.closeModal()}>
-                <div style={styleDevice.header}>
-                    <div style={styleDevice.inside}></div>
-                </div>
+            <div style={styleDevice.body}>
+                {
+                    this.props.data != null
+                        ? <div style={styleDevice.headerData}>
+                            <div style={styleDevice.insideData}>
+                                <h4 style={{fontSize: '1vw'}}><i className="fa fa-tint"></i> {Object(this.props.data).humidity} (%)</h4>
+                                <h4 style={{fontSize: '1vw'}}><i className="fa fa-thermometer-empty"></i> {Object(this.props.data).temperature} (°C)</h4>
+                            </div>
+                        </div>
+                        : <div style={styleDevice.headerNoData}>
+                            <div style={styleDevice.insideNoData}>
+                                <i style={{fontSize: '2vw'}} className="fa fa-exclamation-triangle"></i>
+                            </div>
+                        </div>
+                }
                 {this.props.element.name}
             </div>
         );
@@ -145,25 +171,38 @@ class Device extends React.Component {
 const styleDevice = {
     body: {
         marginTop: 10,
-        textAlign: 'center',
-        cursor: 'pointer'
+        cursor: 'pointer',
+        textAlign: 'center'
     },
-    header: {
+    headerData: {
         boxShadow: '0 1px 6px rgba(0, 0, 0, 0.12), 0 1px 4px rgba(0, 0, 0, 0.24)',
         width: '100%',
         height: '5vw',
         borderRadius: 20,
-        backgroundColor: '#00a65a'
+        backgroundColor: '#00a65a',
+        color: 'white'
     },
-    inside: {
+    headerNoData: {
+        boxShadow: '0 1px 6px rgba(0, 0, 0, 0.12), 0 1px 4px rgba(0, 0, 0, 0.24)',
+        width: '100%',
+        height: '5vw',
+        borderRadius: 20,
+        backgroundColor: '#ee5253',
+        color: 'white'
+    },
+    insideData: {
         position: 'absolute',
-        top: '33%',
-        left: '40%',
-        width: '20%',
-        height: '20%',
-        backgroundColor: '#fff',
-        borderRadius: 10,
-        alignItems: 'center'
+        left: 0,
+        right: 0,
+        top: '15%',
+        textAlign: 'center'
+    },
+    insideNoData: {
+        position: 'absolute',
+        left: 0,
+        right: 0,
+        top: '28%',
+        textAlign: 'center'
     }
 }
 
@@ -176,9 +215,11 @@ class NoDevice extends React.Component {
         return (
             <div style={styleNoDevice.body} onClick={() => this.props.openModal()}>
                 <div style={styleNoDevice.header}>
-                    <div style={styleNoDevice.inside}></div>
+                    <div style={styleNoDevice.inside}>
+                        <h5>No data</h5>
+                    </div>
                 </div>
-                <span>No data</span>
+                {this.props.element.name}
             </div>
         );
     }
@@ -201,11 +242,10 @@ const styleNoDevice = {
     },
     inside: {
         position: 'absolute',
-        top: '33%',
-        left: '40%',
-        width: '20%',
-        height: '20%',
-        backgroundColor: 'gray',
+        top: '30%',
+        left: 0,
+        right: 0,
+        color: 'gray',
         borderRadius: 10,
         alignItems: 'center'
     }
@@ -220,7 +260,8 @@ class Main extends React.Component {
         return (
             <div style={styleMain.body}>
                 <div className="col-md-12">
-                    <TimeLines />
+                    <TimeLines phases={this.props.phases}
+                        totalDaysOfPhase={this.props.totalDaysOfPhase} />
                 </div>
                 <Canlendar />
             </div>
@@ -244,6 +285,10 @@ class TimeLines extends React.Component {
     constructor(props) {
         super(props);
     }
+
+    componentDidMount() {
+    }
+
     render() {
         return (
             <div className="body">
@@ -289,15 +334,21 @@ class TimeLines extends React.Component {
                         '  font: bold 14px arial;',
                         '  height: 50px;',
                         '}',
-                        '.diplome {',
+                        'ol li:nth-child(odd) .diplome{',
                         '  position: absolute;',
                         '  top: -47px;',
-                        '  left: 36%;',
+                        // '  left: 36%;',
+                        '  color: #000000;',
+                        '}',
+                        'ol li:nth-child(even) .diplome{',
+                        '  position: absolute;',
+                        '  top: 27px;',
+                        // '  left: 36%;',
                         '  color: #000000;',
                         '}',
                         'ol li .point {',
                         '  top: -6px;',
-                        '  left: 43%;',
+                        // '  left: 43%;',
                         '  display: block;',
                         '  width: 15px;',
                         '  height: 15px;',
@@ -307,56 +358,62 @@ class TimeLines extends React.Component {
                         '  position: absolute;',
                         '}',
                         '.description {',
-                        '  display: block;',
+                        '  display: none;',
                         '  background-color: #fff;',
                         '  padding: 10px;',
-                        '  margin-top: 20px;',
+                        '  margin-top: 25px;',
+                        '  margin-left: -35px;',
                         '  position: relative;',
                         '  font-weight: normal;',
                         '  z-index: 1;',
+                        '  width: 220px;',
+                        '  opacity: 0;',
+                        '  transition: opacity 1s;',
                         '}',
-                        '.description::before {',
+                        '.description p span{',
+                        '  font-weight: bold;',
+                        '}',
+                        '.description::after {',
                         '  content: "";',
-                        '  width: 10px;',
-                        '  height: 10px;',
-                        '  border-left: 5px solid transparent;',
-                        '  border-right: 5px solid transparent;',
-                        '  border-bottom: 5px solid #f4f4f4;',
+                        // '  width: 10px;',
+                        // '  height: 10px;',
+                        '  border-color: transparent transparent white transparent;',
+                        '  border-left: -5px;',
+                        '  border-width: 10px;',
+                        '  border-style: solid;',
+                        // '  border-right: 5px solid transparent;',
+                        // '  border-bottom: 5px solid #f4f4f4;',
                         '  position: absolute;',
-                        '  top: -5px;',
-                        '  left: 43%;',
+                        '  bottom: 100%;',
+                        '  left: 15%;',
                         '}',
                         'li:hover {',
                         '  cursor: pointer;',
                         // '  color: #48A4D2;',
                         '}',
-                        // 'li:hover .description {',
-                        // '  display: block;',
-                        // '}'
+                        'li:hover .description {',
+                        '  display: block;',
+                        '  opacity: 1;',
+                        '}'
                     ].join('\n')
                 }}>
                 </style>
                 <ol>
-                    <li className="col-md-2">
-                        <p className="diplome">Phase 1</p>
-                        <span className="point"></span>
-                        <p className="description">2018-Apr-13</p>
-                    </li>
-                    <li className="col-md-2">
-                        <p className="diplome">Phase 2</p>
-                        <span className="point"></span>
-                        <p className="description">2018-May-13</p>
-                    </li>
-                    <li className="col-md-3">
-                        <p className="diplome">Phase 3</p>
-                        <span className="point"></span>
-                        <p className="description">2018-Jule-13</p>
-                    </li>
-                    <li className="col-md-4">
-                        <p className="diplome">Phase 4</p>
-                        <span className="point"></span>
-                        <p className="description">2018-July-13</p>
-                    </li>
+                    {
+                        this.props.phases.map(element => {
+                            var width = element.days / this.props.totalDaysOfPhase * 100;
+                            return <li style={{ width: width + '%' }} key={element.id}>
+                                <p className="diplome">{Object(element).name}</p>
+                                <div className="point"></div>
+                                <div className="description">
+                                    <p><span>Phase:</span> {Object(element).name}</p>
+                                    <p><span>Days:</span> {Object(element).days}</p>
+                                    <p><span>Fit Humidity:</span> {Object(element).minHumidity}-{Object(element).maxHumidity} (%)</p>
+                                    <p><span>Fit Temperature:</span> {Object(element).minTemperature}-{Object(element).maxTemperature} (°C)</p>
+                                </div>
+                            </li>
+                        })
+                    }
                 </ol>
             </div >
         );
@@ -402,7 +459,7 @@ class Canlendar extends React.Component {
                     startAccessor='startDate'
                     endAccessor='endDate'
                     views={['month']}
-                    style={{ backgroundColor: 'rgb(60, 139, 188)', color: 'white', padding: 5, borderRadius: 5 }}
+                    style={{ backgroundColor: 'rgb(60, 139, 188)', color: 'white', padding: 5, borderRadius: '0px 0px 5px' }}
                 />
             </div>
         );

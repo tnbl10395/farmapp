@@ -37,7 +37,8 @@ import {
     SHOW_SIDEBAR,
     CHANGE_INTERVAL_DASHBOARD,
     CHECK_VALIDATE_LOGIN,
-    GET_DETAIL_INFORMATION_DEVICE
+    GET_DETAIL_INFORMATION_DEVICE,
+    GET_NOTIFICATION
 } from "./TypeAction";
 //Custom UI
 export const chooseOptionSidebar = (option) => {
@@ -315,6 +316,13 @@ export const checkValidateLogin = () => {
 export const getDetailInformationDevice = (loadData) => {
     return {
         type: GET_DETAIL_INFORMATION_DEVICE,
+        loadData
+    }
+}
+
+export const getNotification = (loadData) => {
+    return {
+        type: GET_NOTIFICATION,
         loadData
     }
 }

@@ -228,6 +228,10 @@ class ManagesController extends Controller
             // $sensor = Sensor::where('$deviceId', '=', $deviceId);
             //
             $phases = Phase::where('plantId', '=', $plantId->id)->get();
+            $totalDaysOfPhases = 0;
+            foreach ($phases as $key => $value) {
+                $totalDaysOfPhases = $totalDaysOfPhases + $value->days;
+            }
             //
             $phaseId = Phase::where('plantId', '=', $plantId->id)->select('id')->first();
             $solutions = Solution::where('phaseId', '=', $phaseId->id)->get();
@@ -235,7 +239,8 @@ class ManagesController extends Controller
                 'device' => $device,
                 'plant' => $plant,
                 'phases' => $phases,
-                'solutions' => $solutions
+                'solutions' => $solutions,
+                'totalDaysOfPhases' => $totalDaysOfPhases
             ];
             return response()->json($data);
         }else {
@@ -251,6 +256,10 @@ class ManagesController extends Controller
             // $sensor = Sensor::where('$deviceId', '=', $deviceId);
             //
             $phases = Phase::where('plantId', '=', $plantId->id)->get();
+            $totalDaysOfPhases = 0;
+            foreach ($phases as $key => $value) {
+                $totalDaysOfPhases = $totalDaysOfPhases + $value->days;
+            }
             //
             $phaseId = Phase::where('plantId', '=', $plantId->id)->select('id')->first();
             $solutions = Solution::where('phaseId', '=', $phaseId->id)->get();
@@ -258,7 +267,8 @@ class ManagesController extends Controller
                 'device' => $device,
                 'plant' => $plant,
                 'phases' => $phases,
-                'solutions' => $solutions
+                'solutions' => $solutions,
+                'totalDaysOfPhases' => $totalDaysOfPhases
             ];
             return response()->json($data);
         }

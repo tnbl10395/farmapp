@@ -37,7 +37,8 @@ import {
     HIDE_SIDEBAR,
     CHANGE_INTERVAL_DASHBOARD,
     CHECK_VALIDATE_LOGIN,
-    GET_DETAIL_INFORMATION_DEVICE
+    GET_DETAIL_INFORMATION_DEVICE,
+    GET_NOTIFICATION
 } from "../actions/TypeAction";
 
 const initialState = {
@@ -59,6 +60,12 @@ const initialState = {
     dashboardPlant: null,
     dashboardPhases: [],
     dashboardSolutions: [],
+    dashboardTotalDaysOfPhases: null,
+    //dashboard_notification
+    notificationMessage: null,
+    notificationSolution: null,
+    notificationData: null,
+    notificationPhase: null,
     //side bar
     admin_dashboard_component: true,
     admin_device_component: false,
@@ -645,6 +652,23 @@ const Reducer = (state = initialState, action) => {
                 dashboardPlant: action.loadData.plant,
                 dashboardPhases: action.loadData.phases,
                 dashboardSolutions: action.loadData.solutions,
+                dashboardTotalDaysOfPhases: action.loadData.totalDaysOfPhases
+            }
+        case GET_NOTIFICATION: 
+            if (action.loadData.message == 'OK') {
+                return {
+                    ...state,
+                    notificationMessage: action.loadData.message,
+                    notificationData: action.loadData.data,
+                    notificationPhase: action.loadData.phase    
+                }
+            }else {
+                return {
+                    ...state,
+                    notificationMessage: action.loadData.message,
+                    notificationData: null,
+                    notificationPhase: null,
+                }
             }
         default:
             return {

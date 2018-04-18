@@ -6053,30 +6053,30 @@ module.exports = ReactComponentTreeHook;
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return chooseOptionSidebar; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "z", function() { return openSidebar; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "A", function() { return openSidebar; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "l", function() { return getDataDevices; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "o", function() { return getDataValues; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "n", function() { return getDataUsers; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "m", function() { return getDataSolutions; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return changeDisplayDataScreen; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "u", function() { return getRealChartBasedOnHour; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "t", function() { return getRealChartBasedOnDay; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "s", function() { return getOldChartBasedOnHour; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "r", function() { return getOldChartBasedOnDay; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "v", function() { return getRealChartBasedOnHour; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "u", function() { return getRealChartBasedOnDay; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "t", function() { return getOldChartBasedOnHour; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "s", function() { return getOldChartBasedOnDay; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "q", function() { return getDeviceOfUser; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return changeInterval; });
 /* unused harmony export saveDevice */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "y", function() { return openModal; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "z", function() { return openModal; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return closeModal; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "A", function() { return saveInput; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "D", function() { return submitAddDeviceForm; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "E", function() { return submitAddDeviceUserForm; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "F", function() { return submitAddUserForm; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "w", function() { return login; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "B", function() { return saveInput; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "E", function() { return submitAddDeviceForm; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "F", function() { return submitAddDeviceUserForm; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "G", function() { return submitAddUserForm; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "x", function() { return login; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return checkToken; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "x", function() { return openAlert; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "y", function() { return openAlert; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return closeAlert; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "B", function() { return showMessage; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "C", function() { return showMessage; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "j", function() { return deleteDevice; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "k", function() { return deleteUser; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return deleteData; });
@@ -6086,11 +6086,12 @@ module.exports = ReactComponentTreeHook;
 /* unused harmony export getOneDevice */
 /* unused harmony export getCurrentData */
 /* unused harmony export getOneLocation */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "v", function() { return hideSidebar; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "C", function() { return showSidebar; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "w", function() { return hideSidebar; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "D", function() { return showSidebar; });
 /* unused harmony export changeIntervalDashboard */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return checkValidateLogin; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "p", function() { return getDetailInformationDevice; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "r", function() { return getNotification; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__TypeAction__ = __webpack_require__(220);
 
 //Custom UI
@@ -6103,7 +6104,7 @@ var chooseOptionSidebar = function chooseOptionSidebar(option) {
 
 var openSidebar = function openSidebar() {
     return {
-        type: __WEBPACK_IMPORTED_MODULE_0__TypeAction__["D" /* OPEN_SIDEBAR */]
+        type: __WEBPACK_IMPORTED_MODULE_0__TypeAction__["E" /* OPEN_SIDEBAR */]
     };
 };
 //Get all information of devices to show it on table
@@ -6143,7 +6144,7 @@ var changeDisplayDataScreen = function changeDisplayDataScreen() {
 
 var getRealChartBasedOnHour = function getRealChartBasedOnHour(loadData, device, date) {
     return {
-        type: __WEBPACK_IMPORTED_MODULE_0__TypeAction__["x" /* GET_REAL_CHART_BASED_ON_HOUR */],
+        type: __WEBPACK_IMPORTED_MODULE_0__TypeAction__["y" /* GET_REAL_CHART_BASED_ON_HOUR */],
         loadData: loadData,
         device: device,
         date: date
@@ -6152,7 +6153,7 @@ var getRealChartBasedOnHour = function getRealChartBasedOnHour(loadData, device,
 
 var getRealChartBasedOnDay = function getRealChartBasedOnDay(loadData, device, date) {
     return {
-        type: __WEBPACK_IMPORTED_MODULE_0__TypeAction__["w" /* GET_REAL_CHART_BASED_ON_DAY */],
+        type: __WEBPACK_IMPORTED_MODULE_0__TypeAction__["x" /* GET_REAL_CHART_BASED_ON_DAY */],
         loadData: loadData,
         device: device,
         date: date
@@ -6161,7 +6162,7 @@ var getRealChartBasedOnDay = function getRealChartBasedOnDay(loadData, device, d
 
 var getOldChartBasedOnHour = function getOldChartBasedOnHour(loadData, device, date) {
     return {
-        type: __WEBPACK_IMPORTED_MODULE_0__TypeAction__["t" /* GET_OLD_CHART_BASED_ON_HOUR */],
+        type: __WEBPACK_IMPORTED_MODULE_0__TypeAction__["u" /* GET_OLD_CHART_BASED_ON_HOUR */],
         loadData: loadData,
         device: device,
         date: date
@@ -6170,7 +6171,7 @@ var getOldChartBasedOnHour = function getOldChartBasedOnHour(loadData, device, d
 
 var getOldChartBasedOnDay = function getOldChartBasedOnDay(loadData, device, date) {
     return {
-        type: __WEBPACK_IMPORTED_MODULE_0__TypeAction__["s" /* GET_OLD_CHART_BASED_ON_DAY */],
+        type: __WEBPACK_IMPORTED_MODULE_0__TypeAction__["t" /* GET_OLD_CHART_BASED_ON_DAY */],
         loadData: loadData,
         device: device,
         date: date
@@ -6196,13 +6197,13 @@ var changeInterval = function changeInterval(option, loadData, device, date) {
 
 var saveDevice = function saveDevice() {
     return {
-        type: __WEBPACK_IMPORTED_MODULE_0__TypeAction__["E" /* SAVE_DEVICE */]
+        type: __WEBPACK_IMPORTED_MODULE_0__TypeAction__["F" /* SAVE_DEVICE */]
     };
 };
 
 var openModal = function openModal(object, element) {
     return {
-        type: __WEBPACK_IMPORTED_MODULE_0__TypeAction__["C" /* OPEN_MODAL */],
+        type: __WEBPACK_IMPORTED_MODULE_0__TypeAction__["D" /* OPEN_MODAL */],
         object: object,
         element: element
     };
@@ -6217,7 +6218,7 @@ var closeModal = function closeModal() {
 
 var saveInput = function saveInput(name, value) {
     return {
-        type: __WEBPACK_IMPORTED_MODULE_0__TypeAction__["F" /* SAVE_INPUT */],
+        type: __WEBPACK_IMPORTED_MODULE_0__TypeAction__["G" /* SAVE_INPUT */],
         name: name,
         value: value
     };
@@ -6225,28 +6226,28 @@ var saveInput = function saveInput(name, value) {
 
 var submitAddDeviceForm = function submitAddDeviceForm(message) {
     return {
-        type: __WEBPACK_IMPORTED_MODULE_0__TypeAction__["I" /* SUBMIT_ADD_DEVICE_FORM */],
+        type: __WEBPACK_IMPORTED_MODULE_0__TypeAction__["J" /* SUBMIT_ADD_DEVICE_FORM */],
         message: message
     };
 };
 
 var submitAddDeviceUserForm = function submitAddDeviceUserForm(message) {
     return {
-        type: __WEBPACK_IMPORTED_MODULE_0__TypeAction__["J" /* SUBMIT_ADD_DEVICE_USER_FORM */],
+        type: __WEBPACK_IMPORTED_MODULE_0__TypeAction__["K" /* SUBMIT_ADD_DEVICE_USER_FORM */],
         message: message
     };
 };
 
 var submitAddUserForm = function submitAddUserForm(message) {
     return {
-        type: __WEBPACK_IMPORTED_MODULE_0__TypeAction__["K" /* SUBMIT_ADD_USER_FORM */],
+        type: __WEBPACK_IMPORTED_MODULE_0__TypeAction__["L" /* SUBMIT_ADD_USER_FORM */],
         message: message
     };
 };
 
 var login = function login(user, token) {
     return {
-        type: __WEBPACK_IMPORTED_MODULE_0__TypeAction__["L" /* SUBMIT_LOGIN */],
+        type: __WEBPACK_IMPORTED_MODULE_0__TypeAction__["M" /* SUBMIT_LOGIN */],
         user: user,
         token: token
     };
@@ -6254,13 +6255,13 @@ var login = function login(user, token) {
 
 var checkToken = function checkToken() {
     return {
-        type: __WEBPACK_IMPORTED_MODULE_0__TypeAction__["M" /* TOKEN_EXPIRED */]
+        type: __WEBPACK_IMPORTED_MODULE_0__TypeAction__["N" /* TOKEN_EXPIRED */]
     };
 };
 
 var openAlert = function openAlert(title, id) {
     return {
-        type: __WEBPACK_IMPORTED_MODULE_0__TypeAction__["B" /* OPEN_ALERT */],
+        type: __WEBPACK_IMPORTED_MODULE_0__TypeAction__["C" /* OPEN_ALERT */],
         title: title,
         id: id
     };
@@ -6274,7 +6275,7 @@ var closeAlert = function closeAlert() {
 //show message
 var showMessage = function showMessage(message) {
     return {
-        type: __WEBPACK_IMPORTED_MODULE_0__TypeAction__["G" /* SHOW_MESSAGE */],
+        type: __WEBPACK_IMPORTED_MODULE_0__TypeAction__["H" /* SHOW_MESSAGE */],
         message: message
     };
 };
@@ -6305,21 +6306,21 @@ var closeMessage = function closeMessage() {
 
 var loadDeviceUpdate = function loadDeviceUpdate(loadData) {
     return {
-        type: __WEBPACK_IMPORTED_MODULE_0__TypeAction__["z" /* LOAD_DEVICE_UPDATE */],
+        type: __WEBPACK_IMPORTED_MODULE_0__TypeAction__["A" /* LOAD_DEVICE_UPDATE */],
         loadData: loadData
     };
 };
 
 var loadUserUpdate = function loadUserUpdate(loadData) {
     return {
-        type: __WEBPACK_IMPORTED_MODULE_0__TypeAction__["A" /* LOAD_USER_UPDATE */],
+        type: __WEBPACK_IMPORTED_MODULE_0__TypeAction__["B" /* LOAD_USER_UPDATE */],
         loadData: loadData
     };
 };
 
 var getOneDevice = function getOneDevice(loadData) {
     return {
-        type: __WEBPACK_IMPORTED_MODULE_0__TypeAction__["u" /* GET_ONE_DEVICE */],
+        type: __WEBPACK_IMPORTED_MODULE_0__TypeAction__["v" /* GET_ONE_DEVICE */],
         loadData: loadData
     };
 };
@@ -6333,20 +6334,20 @@ var getCurrentData = function getCurrentData(loadData) {
 
 var getOneLocation = function getOneLocation(loadData) {
     return {
-        type: __WEBPACK_IMPORTED_MODULE_0__TypeAction__["v" /* GET_ONE_LOCATION */],
+        type: __WEBPACK_IMPORTED_MODULE_0__TypeAction__["w" /* GET_ONE_LOCATION */],
         loadData: loadData
     };
 };
 
 var hideSidebar = function hideSidebar() {
     return {
-        type: __WEBPACK_IMPORTED_MODULE_0__TypeAction__["y" /* HIDE_SIDEBAR */]
+        type: __WEBPACK_IMPORTED_MODULE_0__TypeAction__["z" /* HIDE_SIDEBAR */]
     };
 };
 
 var showSidebar = function showSidebar() {
     return {
-        type: __WEBPACK_IMPORTED_MODULE_0__TypeAction__["H" /* SHOW_SIDEBAR */]
+        type: __WEBPACK_IMPORTED_MODULE_0__TypeAction__["I" /* SHOW_SIDEBAR */]
     };
 };
 
@@ -6369,6 +6370,13 @@ var checkValidateLogin = function checkValidateLogin() {
 var getDetailInformationDevice = function getDetailInformationDevice(loadData) {
     return {
         type: __WEBPACK_IMPORTED_MODULE_0__TypeAction__["q" /* GET_DETAIL_INFORMATION_DEVICE */],
+        loadData: loadData
+    };
+};
+
+var getNotification = function getNotification(loadData) {
+    return {
+        type: __WEBPACK_IMPORTED_MODULE_0__TypeAction__["s" /* GET_NOTIFICATION */],
         loadData: loadData
     };
 };
@@ -7199,25 +7207,25 @@ module.exports = ReactUpdates;
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return getDataValuesAPI; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return getDataUsersAPI; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return getDataSolutionsAPI; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "n", function() { return getRealChartBasedOnHourAPI; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "m", function() { return getRealChartBasedOnDayAPI; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "o", function() { return getRealChartWithIntervalAPI; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "l", function() { return getOldChartWithIntervalAPI; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "k", function() { return getOldChartBasedOnHourAPI; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "j", function() { return getOldChartBasedOnDayAPI; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "o", function() { return getRealChartBasedOnHourAPI; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "n", function() { return getRealChartBasedOnDayAPI; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "p", function() { return getRealChartWithIntervalAPI; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "m", function() { return getOldChartWithIntervalAPI; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "l", function() { return getOldChartBasedOnHourAPI; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "k", function() { return getOldChartBasedOnDayAPI; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return getDeviceOfUserAPI; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "r", function() { return submitAddDeviceFormAPI; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "s", function() { return submitAddDeviceUserFormAPI; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "t", function() { return submitAddUserFormAPI; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "q", function() { return loginAPI; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "p", function() { return getUserAPI; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "s", function() { return submitAddDeviceFormAPI; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "t", function() { return submitAddDeviceUserFormAPI; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "u", function() { return submitAddUserFormAPI; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "r", function() { return loginAPI; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "q", function() { return getUserAPI; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return deleteDeviceAPI; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return deleteUserAPI; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return deleteDataAPI; });
 /* unused harmony export loadDeviceUpdateAPI */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "u", function() { return updateDeviceAPI; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "v", function() { return updateDeviceAPI; });
 /* unused harmony export updateDeviceOfUserAPI */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "v", function() { return updateUserAPI; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "w", function() { return updateUserAPI; });
 /* unused harmony export getOneDeviceAPI */
 /* unused harmony export getCurrentDataApi */
 /* unused harmony export getOneLocationAPI */
@@ -7225,6 +7233,7 @@ module.exports = ReactUpdates;
 /* unused harmony export getRealChartDashboardBasedOnDayAPI */
 /* unused harmony export addNewPlantIntoDevice */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return getDetailInformationDeviceApi; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "j", function() { return getNotificationApi; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__actions_Action__ = __webpack_require__(18);
 
 
@@ -7791,6 +7800,20 @@ var getDetailInformationDeviceApi = function getDetailInformationDeviceApi(dispa
             return response.json();
         }).then(function (res) {
             dispatch(getDetailInformationDevice(res));
+        });
+    } catch (error) {}
+};
+
+var getNotificationApi = function getNotificationApi(dispatch, getNotification, deviceId) {
+    try {
+        var data = [];
+        fetch(URL + "api/notification/" + deviceId, {
+            method: method.GET,
+            headers: headers
+        }).then(function (response) {
+            return response.json();
+        }).then(function (res) {
+            dispatch(getNotification(res));
         });
     } catch (error) {}
 };
@@ -36481,44 +36504,45 @@ function verifyPlainObject(value, displayName, methodName) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return CHOOSE_OPTION_SIDEBAR; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "D", function() { return OPEN_SIDEBAR; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "y", function() { return HIDE_SIDEBAR; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "H", function() { return SHOW_SIDEBAR; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "E", function() { return OPEN_SIDEBAR; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "z", function() { return HIDE_SIDEBAR; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "I", function() { return SHOW_SIDEBAR; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "m", function() { return GET_DATA_DEVICES; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "p", function() { return GET_DATA_VALUES; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "o", function() { return GET_DATA_USERS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "n", function() { return GET_DATA_SOLUTIONS; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "x", function() { return GET_REAL_CHART_BASED_ON_HOUR; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "w", function() { return GET_REAL_CHART_BASED_ON_DAY; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "t", function() { return GET_OLD_CHART_BASED_ON_HOUR; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "s", function() { return GET_OLD_CHART_BASED_ON_DAY; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "y", function() { return GET_REAL_CHART_BASED_ON_HOUR; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "x", function() { return GET_REAL_CHART_BASED_ON_DAY; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "u", function() { return GET_OLD_CHART_BASED_ON_HOUR; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "t", function() { return GET_OLD_CHART_BASED_ON_DAY; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "r", function() { return GET_DEVICES_OF_USER; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CHANGE_DISPLAY_DATA_SCREEN; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return CHANGE_INTERVAL; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return CHANGE_INTERVAL_DASHBOARD; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "E", function() { return SAVE_DEVICE; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "C", function() { return OPEN_MODAL; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "F", function() { return SAVE_DEVICE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "D", function() { return OPEN_MODAL; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return CLOSE_MODAL; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "F", function() { return SAVE_INPUT; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "I", function() { return SUBMIT_ADD_DEVICE_FORM; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "J", function() { return SUBMIT_ADD_DEVICE_USER_FORM; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "K", function() { return SUBMIT_ADD_USER_FORM; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "L", function() { return SUBMIT_LOGIN; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "M", function() { return TOKEN_EXPIRED; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "B", function() { return OPEN_ALERT; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "G", function() { return SAVE_INPUT; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "J", function() { return SUBMIT_ADD_DEVICE_FORM; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "K", function() { return SUBMIT_ADD_DEVICE_USER_FORM; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "L", function() { return SUBMIT_ADD_USER_FORM; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "M", function() { return SUBMIT_LOGIN; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "N", function() { return TOKEN_EXPIRED; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "C", function() { return OPEN_ALERT; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return CLOSE_ALERT; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "G", function() { return SHOW_MESSAGE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "H", function() { return SHOW_MESSAGE; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "j", function() { return DELETE_DEVICE; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "k", function() { return DELETE_USER; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return DELETE_DATA; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return CLOSE_MESSAGE; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "z", function() { return LOAD_DEVICE_UPDATE; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "A", function() { return LOAD_USER_UPDATE; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "u", function() { return GET_ONE_DEVICE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "A", function() { return LOAD_DEVICE_UPDATE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "B", function() { return LOAD_USER_UPDATE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "v", function() { return GET_ONE_DEVICE; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "l", function() { return GET_CURRENT_DEVICE; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "v", function() { return GET_ONE_LOCATION; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "w", function() { return GET_ONE_LOCATION; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return CHECK_VALIDATE_LOGIN; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "q", function() { return GET_DETAIL_INFORMATION_DEVICE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "s", function() { return GET_NOTIFICATION; });
 var CHOOSE_OPTION_SIDEBAR = 'CHOOSE_OPTION_SIDEBAR';
 var OPEN_SIDEBAR = 'OPEN_SIDEBAR';
 var HIDE_SIDEBAR = 'HIDE_SIDEBAR';
@@ -36573,6 +36597,7 @@ var GET_ONE_LOCATION = 'GET_ONE_LOCATION';
 var CHECK_VALIDATE_LOGIN = 'CHECK_VALIDATE_LOGIN';
 //
 var GET_DETAIL_INFORMATION_DEVICE = 'GET_DETAIL_INFORMATION_DEVICE';
+var GET_NOTIFICATION = 'GET_NOTIFICATION';
 
 /***/ }),
 /* 221 */
@@ -86700,7 +86725,7 @@ var mapStateToProps = function mapStateToProps(state) {
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     return {
         checkToken: function checkToken(token) {
-            Object(__WEBPACK_IMPORTED_MODULE_1__api_api__["p" /* getUserAPI */])(dispatch, __WEBPACK_IMPORTED_MODULE_2__actions_Action__["c" /* checkToken */], token);
+            Object(__WEBPACK_IMPORTED_MODULE_1__api_api__["q" /* getUserAPI */])(dispatch, __WEBPACK_IMPORTED_MODULE_2__actions_Action__["c" /* checkToken */], token);
         }
     };
 };
@@ -88067,16 +88092,16 @@ var mapStateToProps = function mapStateToProps(state) {
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     return {
         openSidebar: function openSidebar() {
-            dispatch(Object(__WEBPACK_IMPORTED_MODULE_2__actions_Action__["z" /* openSidebar */])());
+            dispatch(Object(__WEBPACK_IMPORTED_MODULE_2__actions_Action__["A" /* openSidebar */])());
         },
         openAlert: function openAlert(title, id) {
-            dispatch(Object(__WEBPACK_IMPORTED_MODULE_2__actions_Action__["x" /* openAlert */])(title, id));
+            dispatch(Object(__WEBPACK_IMPORTED_MODULE_2__actions_Action__["y" /* openAlert */])(title, id));
         },
         showSideBar: function showSideBar() {
-            dispatch(Object(__WEBPACK_IMPORTED_MODULE_2__actions_Action__["C" /* showSidebar */])());
+            dispatch(Object(__WEBPACK_IMPORTED_MODULE_2__actions_Action__["D" /* showSidebar */])());
         },
         hideSideBar: function hideSideBar() {
-            dispatch(Object(__WEBPACK_IMPORTED_MODULE_2__actions_Action__["v" /* hideSidebar */])());
+            dispatch(Object(__WEBPACK_IMPORTED_MODULE_2__actions_Action__["w" /* hideSidebar */])());
         }
     };
 };
@@ -88904,7 +88929,9 @@ var mapStateToProps = function mapStateToProps(state) {
         dashboardDevice: state.dashboardDevice,
         dashboardPlant: state.dashboardPlant,
         dashboardPhases: state.dashboardPhases,
-        dashboardSolutions: state.dashboardSolutions
+        dashboardSolutions: state.dashboardSolutions,
+        dashboardTotalDaysOfPhases: state.dashboardTotalDaysOfPhases,
+        notificationData: state.notificationData
     };
 };
 
@@ -88912,6 +88939,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     return {
         getDetailInformationDevice: function getDetailInformationDevice(deviceId) {
             Object(__WEBPACK_IMPORTED_MODULE_2__api_api__["h" /* getDetailInformationDeviceApi */])(dispatch, __WEBPACK_IMPORTED_MODULE_3__actions_Action__["p" /* getDetailInformationDevice */], deviceId);
+        },
+        getNotification: function getNotification(deviceId) {
+            Object(__WEBPACK_IMPORTED_MODULE_2__api_api__["j" /* getNotificationApi */])(dispatch, __WEBPACK_IMPORTED_MODULE_3__actions_Action__["r" /* getNotification */], deviceId);
         }
     };
 };
@@ -88999,12 +89029,15 @@ var Dashboard2Component = function (_React$Component) {
                     'div',
                     { className: 'col-md-3', style: style.main },
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(Block, { openModal: this.openModal.bind(this),
-                        listDevice: this.props.all_devices })
+                        listDevice: this.props.all_devices,
+                        data: this.props.notificationData,
+                        getNotification: this.props.getNotification })
                 ),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'div',
                     { className: 'col-md-6', style: style.main },
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(Main, null)
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(Main, { phases: this.props.dashboardPhases,
+                        totalDaysOfPhase: this.props.dashboardTotalDaysOfPhases })
                 ),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'div',
@@ -89072,7 +89105,9 @@ var Block = function (_React$Component2) {
                                 'div',
                                 { className: 'col-sm-2 col-md-4', key: element.id },
                                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(Device, { closeModal: _this4.props.closeModal,
-                                    element: element })
+                                    element: element,
+                                    data: _this4.props.data,
+                                    getNotification: _this4.props.getNotification })
                             );
                         } else {
                             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -89124,19 +89159,56 @@ var Device = function (_React$Component3) {
     }
 
     _createClass(Device, [{
-        key: 'render',
-        value: function render() {
+        key: 'componentDidMount',
+        value: function componentDidMount() {
             var _this6 = this;
 
+            this.interval = setInterval(function () {
+                _this6.props.getNotification(_this6.props.element.id);
+            }, 1000);
+        }
+    }, {
+        key: 'componentWillUnmount',
+        value: function componentWillUnmount() {
+            setInterval(this.interval);
+        }
+    }, {
+        key: 'render',
+        value: function render() {
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'div',
-                { style: styleDevice.body, onClick: function onClick() {
-                        return _this6.props.closeModal();
-                    } },
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                { style: styleDevice.body },
+                this.props.data != null ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'div',
-                    { style: styleDevice.header },
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div', { style: styleDevice.inside })
+                    { style: styleDevice.headerData },
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'div',
+                        { style: styleDevice.insideData },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'h4',
+                            { style: { fontSize: '1vw' } },
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'fa fa-tint' }),
+                            ' ',
+                            Object(this.props.data).humidity,
+                            ' (%)'
+                        ),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'h4',
+                            { style: { fontSize: '1vw' } },
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'fa fa-thermometer-empty' }),
+                            ' ',
+                            Object(this.props.data).temperature,
+                            ' (\xB0C)'
+                        )
+                    )
+                ) : __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'div',
+                    { style: styleDevice.headerNoData },
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'div',
+                        { style: styleDevice.insideNoData },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { style: { fontSize: '2vw' }, className: 'fa fa-exclamation-triangle' })
+                    )
                 ),
                 this.props.element.name
             );
@@ -89149,25 +89221,38 @@ var Device = function (_React$Component3) {
 var styleDevice = {
     body: {
         marginTop: 10,
-        textAlign: 'center',
-        cursor: 'pointer'
+        cursor: 'pointer',
+        textAlign: 'center'
     },
-    header: {
+    headerData: {
         boxShadow: '0 1px 6px rgba(0, 0, 0, 0.12), 0 1px 4px rgba(0, 0, 0, 0.24)',
         width: '100%',
         height: '5vw',
         borderRadius: 20,
-        backgroundColor: '#00a65a'
+        backgroundColor: '#00a65a',
+        color: 'white'
     },
-    inside: {
+    headerNoData: {
+        boxShadow: '0 1px 6px rgba(0, 0, 0, 0.12), 0 1px 4px rgba(0, 0, 0, 0.24)',
+        width: '100%',
+        height: '5vw',
+        borderRadius: 20,
+        backgroundColor: '#ee5253',
+        color: 'white'
+    },
+    insideData: {
         position: 'absolute',
-        top: '33%',
-        left: '40%',
-        width: '20%',
-        height: '20%',
-        backgroundColor: '#fff',
-        borderRadius: 10,
-        alignItems: 'center'
+        left: 0,
+        right: 0,
+        top: '15%',
+        textAlign: 'center'
+    },
+    insideNoData: {
+        position: 'absolute',
+        left: 0,
+        right: 0,
+        top: '28%',
+        textAlign: 'center'
     }
 };
 
@@ -89193,13 +89278,17 @@ var NoDevice = function (_React$Component4) {
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'div',
                     { style: styleNoDevice.header },
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div', { style: styleNoDevice.inside })
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'div',
+                        { style: styleNoDevice.inside },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'h5',
+                            null,
+                            'No data'
+                        )
+                    )
                 ),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    'span',
-                    null,
-                    'No data'
-                )
+                this.props.element.name
             );
         }
     }]);
@@ -89223,11 +89312,10 @@ var styleNoDevice = {
     },
     inside: {
         position: 'absolute',
-        top: '33%',
-        left: '40%',
-        width: '20%',
-        height: '20%',
-        backgroundColor: 'gray',
+        top: '30%',
+        left: 0,
+        right: 0,
+        color: 'gray',
         borderRadius: 10,
         alignItems: 'center'
     }
@@ -89251,7 +89339,8 @@ var Main = function (_React$Component5) {
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'div',
                     { className: 'col-md-12' },
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(TimeLines, null)
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(TimeLines, { phases: this.props.phases,
+                        totalDaysOfPhase: this.props.totalDaysOfPhase })
                 ),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(Canlendar, null)
             );
@@ -89282,8 +89371,13 @@ var TimeLines = function (_React$Component6) {
     }
 
     _createClass(TimeLines, [{
+        key: 'componentDidMount',
+        value: function componentDidMount() {}
+    }, {
         key: 'render',
         value: function render() {
+            var _this11 = this;
+
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'div',
                 { className: 'body' },
@@ -89296,73 +89390,92 @@ var TimeLines = function (_React$Component6) {
                         // '  right: 20px;',
                         '  height: 4px;', '  background: #3c8bbc;', '}', 'ol::before,', 'ol::after {', '  content: "";', '  position: absolute;', '  top: 52px;', '  display: block;', '  width: 20px;', '  height: 20px;', '  border-radius: 10px;', '  border: 10px solid #3c8bbc;', '}', 'ol::before {', '  left: 10px;', '}', 'ol::after {', '  right: 5px;', '  border: 10px solid transparent;', '  border-right: 0;', '  border-left: 20px solid #3c8bbc;', '  border-radius: 3px;', '}', 'li {', '  position: relative;', '  display: inline-block;', '  float: left;',
                         // '  width: 20%;',
-                        '  font: bold 14px arial;', '  height: 50px;', '}', '.diplome {', '  position: absolute;', '  top: -47px;', '  left: 36%;', '  color: #000000;', '}', 'ol li .point {', '  top: -6px;', '  left: 43%;', '  display: block;', '  width: 15px;', '  height: 15px;', '  border: 4px solid #3c8bbc;', '  border-radius: 10px;', '  background: #fff;', '  position: absolute;', '}', '.description {', '  display: block;', '  background-color: #fff;', '  padding: 10px;', '  margin-top: 20px;', '  position: relative;', '  font-weight: normal;', '  z-index: 1;', '}', '.description::before {', '  content: "";', '  width: 10px;', '  height: 10px;', '  border-left: 5px solid transparent;', '  border-right: 5px solid transparent;', '  border-bottom: 5px solid #f4f4f4;', '  position: absolute;', '  top: -5px;', '  left: 43%;', '}', 'li:hover {', '  cursor: pointer;',
+                        '  font: bold 14px arial;', '  height: 50px;', '}', 'ol li:nth-child(odd) .diplome{', '  position: absolute;', '  top: -47px;',
+                        // '  left: 36%;',
+                        '  color: #000000;', '}', 'ol li:nth-child(even) .diplome{', '  position: absolute;', '  top: 27px;',
+                        // '  left: 36%;',
+                        '  color: #000000;', '}', 'ol li .point {', '  top: -6px;',
+                        // '  left: 43%;',
+                        '  display: block;', '  width: 15px;', '  height: 15px;', '  border: 4px solid #3c8bbc;', '  border-radius: 10px;', '  background: #fff;', '  position: absolute;', '}', '.description {', '  display: none;', '  background-color: #fff;', '  padding: 10px;', '  margin-top: 25px;', '  margin-left: -35px;', '  position: relative;', '  font-weight: normal;', '  z-index: 1;', '  width: 220px;', '  opacity: 0;', '  transition: opacity 1s;', '}', '.description p span{', '  font-weight: bold;', '}', '.description::after {', '  content: "";',
+                        // '  width: 10px;',
+                        // '  height: 10px;',
+                        '  border-color: transparent transparent white transparent;', '  border-left: -5px;', '  border-width: 10px;', '  border-style: solid;',
+                        // '  border-right: 5px solid transparent;',
+                        // '  border-bottom: 5px solid #f4f4f4;',
+                        '  position: absolute;', '  bottom: 100%;', '  left: 15%;', '}', 'li:hover {', '  cursor: pointer;',
                         // '  color: #48A4D2;',
-                        '}'].join('\n')
+                        '}', 'li:hover .description {', '  display: block;', '  opacity: 1;', '}'].join('\n')
                     } }),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'ol',
                     null,
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        'li',
-                        { className: 'col-md-2' },
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            'p',
-                            { className: 'diplome' },
-                            'Phase 1'
-                        ),
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('span', { className: 'point' }),
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            'p',
-                            { className: 'description' },
-                            '2018-Apr-13'
-                        )
-                    ),
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        'li',
-                        { className: 'col-md-2' },
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            'p',
-                            { className: 'diplome' },
-                            'Phase 2'
-                        ),
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('span', { className: 'point' }),
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            'p',
-                            { className: 'description' },
-                            '2018-May-13'
-                        )
-                    ),
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        'li',
-                        { className: 'col-md-3' },
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            'p',
-                            { className: 'diplome' },
-                            'Phase 3'
-                        ),
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('span', { className: 'point' }),
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            'p',
-                            { className: 'description' },
-                            '2018-Jule-13'
-                        )
-                    ),
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        'li',
-                        { className: 'col-md-4' },
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            'p',
-                            { className: 'diplome' },
-                            'Phase 4'
-                        ),
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('span', { className: 'point' }),
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            'p',
-                            { className: 'description' },
-                            '2018-July-13'
-                        )
-                    )
+                    this.props.phases.map(function (element) {
+                        var width = element.days / _this11.props.totalDaysOfPhase * 100;
+                        return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'li',
+                            { style: { width: width + '%' }, key: element.id },
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                'p',
+                                { className: 'diplome' },
+                                Object(element).name
+                            ),
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div', { className: 'point' }),
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                'div',
+                                { className: 'description' },
+                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                    'p',
+                                    null,
+                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                        'span',
+                                        null,
+                                        'Phase:'
+                                    ),
+                                    ' ',
+                                    Object(element).name
+                                ),
+                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                    'p',
+                                    null,
+                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                        'span',
+                                        null,
+                                        'Days:'
+                                    ),
+                                    ' ',
+                                    Object(element).days
+                                ),
+                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                    'p',
+                                    null,
+                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                        'span',
+                                        null,
+                                        'Fit Humidity:'
+                                    ),
+                                    ' ',
+                                    Object(element).minHumidity,
+                                    '-',
+                                    Object(element).maxHumidity,
+                                    ' (%)'
+                                ),
+                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                    'p',
+                                    null,
+                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                        'span',
+                                        null,
+                                        'Fit Temperature:'
+                                    ),
+                                    ' ',
+                                    Object(element).minTemperature,
+                                    '-',
+                                    Object(element).maxTemperature,
+                                    ' (\xB0C)'
+                                )
+                            )
+                        );
+                    })
                 )
             );
         }
@@ -89394,7 +89507,7 @@ var Canlendar = function (_React$Component7) {
                     startAccessor: 'startDate',
                     endAccessor: 'endDate',
                     views: ['month'],
-                    style: { backgroundColor: 'rgb(60, 139, 188)', color: 'white', padding: 5, borderRadius: 5 }
+                    style: { backgroundColor: 'rgb(60, 139, 188)', color: 'white', padding: 5, borderRadius: '0px 0px 5px' }
                 })
             );
         }
@@ -89409,9 +89522,9 @@ var Form = function (_React$Component8) {
     function Form(props) {
         _classCallCheck(this, Form);
 
-        var _this12 = _possibleConstructorReturn(this, (Form.__proto__ || Object.getPrototypeOf(Form)).call(this, props));
+        var _this13 = _possibleConstructorReturn(this, (Form.__proto__ || Object.getPrototypeOf(Form)).call(this, props));
 
-        _this12.state = {
+        _this13.state = {
             isNextPage: false,
             phaseInput: '',
             disabledNext: true,
@@ -89422,8 +89535,8 @@ var Form = function (_React$Component8) {
             startDate: new Date(),
             data: null
         };
-        _this12.onSubmit = _this12.onSubmit.bind(_this12);
-        return _this12;
+        _this13.onSubmit = _this13.onSubmit.bind(_this13);
+        return _this13;
     }
 
     _createClass(Form, [{
@@ -89568,7 +89681,7 @@ var Form = function (_React$Component8) {
     }, {
         key: 'render',
         value: function render() {
-            var _this13 = this;
+            var _this14 = this;
 
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'div',
@@ -89600,7 +89713,7 @@ var Form = function (_React$Component8) {
                                 placeholder: 'Please input phase',
                                 value: this.state.plantName,
                                 onChange: function onChange(plant) {
-                                    return _this13.onChangePlantName(plant);
+                                    return _this14.onChangePlantName(plant);
                                 } })
                         ),
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -89618,7 +89731,7 @@ var Form = function (_React$Component8) {
                                 placeholder: 'Please input phase',
                                 value: this.state.phaseInput,
                                 onChange: function onChange(phase) {
-                                    return _this13.onChangePhaseInput(phase);
+                                    return _this14.onChangePhaseInput(phase);
                                 } })
                         ),
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -89634,7 +89747,7 @@ var Form = function (_React$Component8) {
                                 isValidDate: valid,
                                 value: this.state.startDate,
                                 onChange: function onChange(date) {
-                                    return _this13.onChangeDate(date);
+                                    return _this14.onChangeDate(date);
                                 }
                             })
                         ),
@@ -89652,7 +89765,7 @@ var Form = function (_React$Component8) {
                                 placeholder: 'Please input phase',
                                 value: this.state.description,
                                 onChange: function onChange(description) {
-                                    return _this13.onChangeDescription(description);
+                                    return _this14.onChangeDescription(description);
                                 } })
                         )
                     ) : __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -89665,7 +89778,7 @@ var Form = function (_React$Component8) {
                             this.state.phases.map(function (phase) {
                                 return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                     'div',
-                                    { className: _this13.state.phaseInput == 1 ? "col-md-12" : "col-md-6", key: phase.key },
+                                    { className: _this14.state.phaseInput == 1 ? "col-md-12" : "col-md-6", key: phase.key },
                                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                         'div',
                                         { className: 'form-group' },
@@ -89680,42 +89793,42 @@ var Form = function (_React$Component8) {
                                         'div',
                                         { className: 'form-group col-md-6' },
                                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'text', className: 'form-control', placeholder: 'Phase name', required: true, value: phase.phaseName, onChange: function onChange(phaseName) {
-                                                return _this13.onChangePhaseName(phaseName, phase.key);
+                                                return _this14.onChangePhaseName(phaseName, phase.key);
                                             } })
                                     ),
                                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                         'div',
                                         { className: 'form-group col-md-6' },
                                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'number', className: 'form-control', placeholder: 'Days', required: true, value: phase.days, onChange: function onChange(days) {
-                                                return _this13.onChangeDays(days, phase.key);
+                                                return _this14.onChangeDays(days, phase.key);
                                             } })
                                     ),
                                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                         'div',
                                         { className: 'form-group col-md-6' },
                                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'number', className: 'form-control', placeholder: 'Min Temperature', required: true, value: phase.minTemperature, onChange: function onChange(minTemperature) {
-                                                return _this13.onChangeMinTemperature(minTemperature, phase.key);
+                                                return _this14.onChangeMinTemperature(minTemperature, phase.key);
                                             } })
                                     ),
                                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                         'div',
                                         { className: 'form-group col-md-6' },
                                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'number', className: 'form-control', placeholder: 'Max Temperature', required: true, value: phase.maxTemperature, onChange: function onChange(maxTemperature) {
-                                                return _this13.onChangeMaxTemperature(maxTemperature, phase.key);
+                                                return _this14.onChangeMaxTemperature(maxTemperature, phase.key);
                                             } })
                                     ),
                                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                         'div',
                                         { className: 'form-group col-md-6' },
                                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'number', className: 'form-control', placeholder: 'Min Humidity', required: true, value: phase.minHumidity, onChange: function onChange(minHumidity) {
-                                                return _this13.onChangeMinHumidity(minHumidity, phase.key);
+                                                return _this14.onChangeMinHumidity(minHumidity, phase.key);
                                             } })
                                     ),
                                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                         'div',
                                         { className: 'form-group col-md-6' },
                                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'number', className: 'form-control', placeholder: 'Max Humidity', required: true, value: phase.maxHumidity, onChange: function onChange(maxHumidity) {
-                                                return _this13.onChangeMaxHumidity(maxHumidity, phase.key);
+                                                return _this14.onChangeMaxHumidity(maxHumidity, phase.key);
                                             } })
                                     )
                                 );
@@ -89728,13 +89841,13 @@ var Form = function (_React$Component8) {
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('hr', null),
                         this.state.isNextPage ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'submit', className: 'btn btn-success pull-right col-md-2', value: 'Save', style: { marginRight: 10 }, onClick: this.onSubmit }) : null,
                         !this.state.isNextPage ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'button', className: 'btn btn-success pull-right col-md-2', value: 'Next', style: { marginRight: 10 }, disabled: this.state.disabledNext ? 'disabled' : '', onClick: function onClick() {
-                                return _this13.onClickNextPage();
+                                return _this14.onClickNextPage();
                             } }) : null,
                         this.state.isNextPage ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'button', className: 'btn btn-default pull-right col-md-2', value: 'Previous', style: { marginRight: 10 }, onClick: function onClick() {
-                                return _this13.onClickPreviousPage();
+                                return _this14.onClickPreviousPage();
                             } }) : null,
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'button', className: 'btn btn-default pull-right col-md-2', value: 'Cancel', style: { marginRight: 10 }, onClick: function onClick() {
-                                return _this13.props.closeModal();
+                                return _this14.props.closeModal();
                             } })
                     )
                 )
@@ -101685,10 +101798,10 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
             Object(__WEBPACK_IMPORTED_MODULE_3__api_api__["d" /* getDataDevicesAPI */])(dispatch, __WEBPACK_IMPORTED_MODULE_2__actions_Action__["l" /* getDataDevices */]);
         },
         openModal: function openModal(object, element) {
-            dispatch(Object(__WEBPACK_IMPORTED_MODULE_2__actions_Action__["y" /* openModal */])(object, element));
+            dispatch(Object(__WEBPACK_IMPORTED_MODULE_2__actions_Action__["z" /* openModal */])(object, element));
         },
         openAlert: function openAlert(title, id) {
-            dispatch(Object(__WEBPACK_IMPORTED_MODULE_2__actions_Action__["x" /* openAlert */])(title, id));
+            dispatch(Object(__WEBPACK_IMPORTED_MODULE_2__actions_Action__["y" /* openAlert */])(title, id));
         }
     };
 };
@@ -117233,10 +117346,10 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
             Object(__WEBPACK_IMPORTED_MODULE_2__api_api__["f" /* getDataUsersAPI */])(dispatch, __WEBPACK_IMPORTED_MODULE_3__actions_Action__["n" /* getDataUsers */]);
         },
         openModal: function openModal(object, element) {
-            dispatch(Object(__WEBPACK_IMPORTED_MODULE_3__actions_Action__["y" /* openModal */])(object, element));
+            dispatch(Object(__WEBPACK_IMPORTED_MODULE_3__actions_Action__["z" /* openModal */])(object, element));
         },
         openAlert: function openAlert(title, id) {
-            dispatch(Object(__WEBPACK_IMPORTED_MODULE_3__actions_Action__["x" /* openAlert */])(title, id));
+            dispatch(Object(__WEBPACK_IMPORTED_MODULE_3__actions_Action__["y" /* openAlert */])(title, id));
         }
     };
 };
@@ -117363,27 +117476,27 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
         changeInterval: function changeInterval(option, device, date, subDate) {
             var time = new Date();
             if (time.toDateString() == date.toDateString()) {
-                Object(__WEBPACK_IMPORTED_MODULE_2__api_api__["o" /* getRealChartWithIntervalAPI */])(dispatch, __WEBPACK_IMPORTED_MODULE_3__actions_Action__["b" /* changeInterval */], device, date, subDate, option);
+                Object(__WEBPACK_IMPORTED_MODULE_2__api_api__["p" /* getRealChartWithIntervalAPI */])(dispatch, __WEBPACK_IMPORTED_MODULE_3__actions_Action__["b" /* changeInterval */], device, date, subDate, option);
             } else {
-                Object(__WEBPACK_IMPORTED_MODULE_2__api_api__["l" /* getOldChartWithIntervalAPI */])(dispatch, __WEBPACK_IMPORTED_MODULE_3__actions_Action__["b" /* changeInterval */], device, date, subDate, option);
+                Object(__WEBPACK_IMPORTED_MODULE_2__api_api__["m" /* getOldChartWithIntervalAPI */])(dispatch, __WEBPACK_IMPORTED_MODULE_3__actions_Action__["b" /* changeInterval */], device, date, subDate, option);
             }
         },
         getOldDataOnChart: function getOldDataOnChart(device, date, interval, time) {
             if (interval) {
-                Object(__WEBPACK_IMPORTED_MODULE_2__api_api__["j" /* getOldChartBasedOnDayAPI */])(dispatch, __WEBPACK_IMPORTED_MODULE_3__actions_Action__["r" /* getOldChartBasedOnDay */], device, date, time);
+                Object(__WEBPACK_IMPORTED_MODULE_2__api_api__["k" /* getOldChartBasedOnDayAPI */])(dispatch, __WEBPACK_IMPORTED_MODULE_3__actions_Action__["s" /* getOldChartBasedOnDay */], device, date, time);
             } else {
-                Object(__WEBPACK_IMPORTED_MODULE_2__api_api__["k" /* getOldChartBasedOnHourAPI */])(dispatch, __WEBPACK_IMPORTED_MODULE_3__actions_Action__["s" /* getOldChartBasedOnHour */], device, date, time);
+                Object(__WEBPACK_IMPORTED_MODULE_2__api_api__["l" /* getOldChartBasedOnHourAPI */])(dispatch, __WEBPACK_IMPORTED_MODULE_3__actions_Action__["t" /* getOldChartBasedOnHour */], device, date, time);
             }
         },
         getRealDataOnChart: function getRealDataOnChart(device, interval) {
             if (interval) {
-                Object(__WEBPACK_IMPORTED_MODULE_2__api_api__["m" /* getRealChartBasedOnDayAPI */])(dispatch, __WEBPACK_IMPORTED_MODULE_3__actions_Action__["t" /* getRealChartBasedOnDay */], device);
+                Object(__WEBPACK_IMPORTED_MODULE_2__api_api__["n" /* getRealChartBasedOnDayAPI */])(dispatch, __WEBPACK_IMPORTED_MODULE_3__actions_Action__["u" /* getRealChartBasedOnDay */], device);
             } else {
-                Object(__WEBPACK_IMPORTED_MODULE_2__api_api__["n" /* getRealChartBasedOnHourAPI */])(dispatch, __WEBPACK_IMPORTED_MODULE_3__actions_Action__["u" /* getRealChartBasedOnHour */], device);
+                Object(__WEBPACK_IMPORTED_MODULE_2__api_api__["o" /* getRealChartBasedOnHourAPI */])(dispatch, __WEBPACK_IMPORTED_MODULE_3__actions_Action__["v" /* getRealChartBasedOnHour */], device);
             }
         },
         openAlert: function openAlert(title, id) {
-            dispatch(Object(__WEBPACK_IMPORTED_MODULE_3__actions_Action__["x" /* openAlert */])(title, id));
+            dispatch(Object(__WEBPACK_IMPORTED_MODULE_3__actions_Action__["y" /* openAlert */])(title, id));
         }
     };
 };
@@ -121892,7 +122005,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
             Object(__WEBPACK_IMPORTED_MODULE_2__api_api__["e" /* getDataSolutionsAPI */])(dispatch, __WEBPACK_IMPORTED_MODULE_3__actions_Action__["m" /* getDataSolutions */]);
         },
         openModal: function openModal(object) {
-            dispatch(Object(__WEBPACK_IMPORTED_MODULE_3__actions_Action__["y" /* openModal */])(object));
+            dispatch(Object(__WEBPACK_IMPORTED_MODULE_3__actions_Action__["z" /* openModal */])(object));
         }
     };
 };
@@ -128461,19 +128574,19 @@ var mapStateToProps = function mapStateToProps(state) {
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     return {
         saveInput: function saveInput(name, value) {
-            dispatch(Object(__WEBPACK_IMPORTED_MODULE_2__actions_Action__["A" /* saveInput */])(name, value));
+            dispatch(Object(__WEBPACK_IMPORTED_MODULE_2__actions_Action__["B" /* saveInput */])(name, value));
         },
         submitFormAdmin: function submitFormAdmin(name, date, code) {
-            Object(__WEBPACK_IMPORTED_MODULE_3__api_api__["r" /* submitAddDeviceFormAPI */])(dispatch, __WEBPACK_IMPORTED_MODULE_2__actions_Action__["D" /* submitAddDeviceForm */], name, date, code, __WEBPACK_IMPORTED_MODULE_2__actions_Action__["l" /* getDataDevices */], __WEBPACK_IMPORTED_MODULE_3__api_api__["d" /* getDataDevicesAPI */]);
+            Object(__WEBPACK_IMPORTED_MODULE_3__api_api__["s" /* submitAddDeviceFormAPI */])(dispatch, __WEBPACK_IMPORTED_MODULE_2__actions_Action__["E" /* submitAddDeviceForm */], name, date, code, __WEBPACK_IMPORTED_MODULE_2__actions_Action__["l" /* getDataDevices */], __WEBPACK_IMPORTED_MODULE_3__api_api__["d" /* getDataDevicesAPI */]);
         },
         submitFormUser: function submitFormUser(code) {
-            Object(__WEBPACK_IMPORTED_MODULE_3__api_api__["s" /* submitAddDeviceUserFormAPI */])(dispatch, __WEBPACK_IMPORTED_MODULE_2__actions_Action__["E" /* submitAddDeviceUserForm */], code);
+            Object(__WEBPACK_IMPORTED_MODULE_3__api_api__["t" /* submitAddDeviceUserFormAPI */])(dispatch, __WEBPACK_IMPORTED_MODULE_2__actions_Action__["F" /* submitAddDeviceUserForm */], code);
         },
         closeMessage: function closeMessage() {
             dispatch(Object(__WEBPACK_IMPORTED_MODULE_2__actions_Action__["g" /* closeMessage */])());
         },
         updateFormAdmin: function updateFormAdmin(id, object) {
-            Object(__WEBPACK_IMPORTED_MODULE_3__api_api__["u" /* updateDeviceAPI */])(dispatch, __WEBPACK_IMPORTED_MODULE_2__actions_Action__["B" /* showMessage */], id, object, __WEBPACK_IMPORTED_MODULE_2__actions_Action__["l" /* getDataDevices */], __WEBPACK_IMPORTED_MODULE_3__api_api__["d" /* getDataDevicesAPI */]);
+            Object(__WEBPACK_IMPORTED_MODULE_3__api_api__["v" /* updateDeviceAPI */])(dispatch, __WEBPACK_IMPORTED_MODULE_2__actions_Action__["C" /* showMessage */], id, object, __WEBPACK_IMPORTED_MODULE_2__actions_Action__["l" /* getDataDevices */], __WEBPACK_IMPORTED_MODULE_3__api_api__["d" /* getDataDevicesAPI */]);
         },
         updateFormUser: function updateFormUser(id, code) {
             //
@@ -128708,10 +128821,10 @@ var mapStateToProps = function mapStateToProps(state) {
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     return {
         saveInput: function saveInput(name, value) {
-            dispatch(Object(__WEBPACK_IMPORTED_MODULE_2__actions_Action__["A" /* saveInput */])(name, value));
+            dispatch(Object(__WEBPACK_IMPORTED_MODULE_2__actions_Action__["B" /* saveInput */])(name, value));
         },
         submitForm: function submitForm(username, password, fullname, address, phone, role) {
-            Object(__WEBPACK_IMPORTED_MODULE_3__api_api__["t" /* submitAddUserFormAPI */])(dispatch, __WEBPACK_IMPORTED_MODULE_2__actions_Action__["F" /* submitAddUserForm */], username, password, fullname, address, phone, role, __WEBPACK_IMPORTED_MODULE_2__actions_Action__["n" /* getDataUsers */], __WEBPACK_IMPORTED_MODULE_3__api_api__["f" /* getDataUsersAPI */]);
+            Object(__WEBPACK_IMPORTED_MODULE_3__api_api__["u" /* submitAddUserFormAPI */])(dispatch, __WEBPACK_IMPORTED_MODULE_2__actions_Action__["G" /* submitAddUserForm */], username, password, fullname, address, phone, role, __WEBPACK_IMPORTED_MODULE_2__actions_Action__["n" /* getDataUsers */], __WEBPACK_IMPORTED_MODULE_3__api_api__["f" /* getDataUsersAPI */]);
         },
         closeMessage: function closeMessage() {
             dispatch(Object(__WEBPACK_IMPORTED_MODULE_2__actions_Action__["g" /* closeMessage */])());
@@ -128720,7 +128833,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
             dispatch(Object(__WEBPACK_IMPORTED_MODULE_2__actions_Action__["h" /* closeModal */])());
         },
         updateForm: function updateForm(id, object) {
-            Object(__WEBPACK_IMPORTED_MODULE_3__api_api__["v" /* updateUserAPI */])(dispatch, __WEBPACK_IMPORTED_MODULE_2__actions_Action__["B" /* showMessage */], id, object, __WEBPACK_IMPORTED_MODULE_2__actions_Action__["n" /* getDataUsers */], __WEBPACK_IMPORTED_MODULE_3__api_api__["f" /* getDataUsersAPI */]);
+            Object(__WEBPACK_IMPORTED_MODULE_3__api_api__["w" /* updateUserAPI */])(dispatch, __WEBPACK_IMPORTED_MODULE_2__actions_Action__["C" /* showMessage */], id, object, __WEBPACK_IMPORTED_MODULE_2__actions_Action__["n" /* getDataUsers */], __WEBPACK_IMPORTED_MODULE_3__api_api__["f" /* getDataUsersAPI */]);
         }
     };
 };
@@ -128900,10 +129013,10 @@ var mapStateToProps = function mapStateToProps(state) {
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     return {
         saveInput: function saveInput(name, value) {
-            dispatch(Object(__WEBPACK_IMPORTED_MODULE_2__actions_Action__["A" /* saveInput */])(name, value));
+            dispatch(Object(__WEBPACK_IMPORTED_MODULE_2__actions_Action__["B" /* saveInput */])(name, value));
         },
         submitForm: function submitForm(username, password, fullname, address, phone, role) {
-            Object(__WEBPACK_IMPORTED_MODULE_3__api_api__["t" /* submitAddUserFormAPI */])(dispatch, __WEBPACK_IMPORTED_MODULE_2__actions_Action__["F" /* submitAddUserForm */], username, password, fullname, address, phone, role, __WEBPACK_IMPORTED_MODULE_2__actions_Action__["n" /* getDataUsers */], __WEBPACK_IMPORTED_MODULE_3__api_api__["f" /* getDataUsersAPI */]);
+            Object(__WEBPACK_IMPORTED_MODULE_3__api_api__["u" /* submitAddUserFormAPI */])(dispatch, __WEBPACK_IMPORTED_MODULE_2__actions_Action__["G" /* submitAddUserForm */], username, password, fullname, address, phone, role, __WEBPACK_IMPORTED_MODULE_2__actions_Action__["n" /* getDataUsers */], __WEBPACK_IMPORTED_MODULE_3__api_api__["f" /* getDataUsersAPI */]);
         },
         closeMessage: function closeMessage() {
             dispatch(Object(__WEBPACK_IMPORTED_MODULE_2__actions_Action__["g" /* closeMessage */])());
@@ -128912,7 +129025,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
             dispatch(Object(__WEBPACK_IMPORTED_MODULE_2__actions_Action__["h" /* closeModal */])());
         },
         updateForm: function updateForm(id, object) {
-            Object(__WEBPACK_IMPORTED_MODULE_3__api_api__["v" /* updateUserAPI */])(dispatch, __WEBPACK_IMPORTED_MODULE_2__actions_Action__["B" /* showMessage */], id, object, __WEBPACK_IMPORTED_MODULE_2__actions_Action__["n" /* getDataUsers */], __WEBPACK_IMPORTED_MODULE_3__api_api__["f" /* getDataUsersAPI */]);
+            Object(__WEBPACK_IMPORTED_MODULE_3__api_api__["w" /* updateUserAPI */])(dispatch, __WEBPACK_IMPORTED_MODULE_2__actions_Action__["C" /* showMessage */], id, object, __WEBPACK_IMPORTED_MODULE_2__actions_Action__["n" /* getDataUsers */], __WEBPACK_IMPORTED_MODULE_3__api_api__["f" /* getDataUsersAPI */]);
         }
     };
 };
@@ -129362,7 +129475,7 @@ var mapStateToProps = function mapStateToProps(state) {
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     return {
         login: function login(username, password) {
-            Object(__WEBPACK_IMPORTED_MODULE_3__api_api__["q" /* loginAPI */])(dispatch, __WEBPACK_IMPORTED_MODULE_2__actions_Action__["w" /* login */], __WEBPACK_IMPORTED_MODULE_2__actions_Action__["d" /* checkValidateLogin */], username, password);
+            Object(__WEBPACK_IMPORTED_MODULE_3__api_api__["r" /* loginAPI */])(dispatch, __WEBPACK_IMPORTED_MODULE_2__actions_Action__["x" /* login */], __WEBPACK_IMPORTED_MODULE_2__actions_Action__["d" /* checkValidateLogin */], username, password);
         }
     };
 };
@@ -129815,6 +129928,12 @@ var initialState = {
     dashboardPlant: null,
     dashboardPhases: [],
     dashboardSolutions: [],
+    dashboardTotalDaysOfPhases: null,
+    //dashboard_notification
+    notificationMessage: null,
+    notificationSolution: null,
+    notificationData: null,
+    notificationPhase: null,
     //side bar
     admin_dashboard_component: true,
     admin_device_component: false,
@@ -129902,7 +130021,7 @@ var Reducer = function Reducer() {
                 data_solutions: action.loadData
             });
 
-        case __WEBPACK_IMPORTED_MODULE_0__actions_TypeAction__["x" /* GET_REAL_CHART_BASED_ON_HOUR */]:
+        case __WEBPACK_IMPORTED_MODULE_0__actions_TypeAction__["y" /* GET_REAL_CHART_BASED_ON_HOUR */]:
             var humidity = initValueHour();
             var temperature = initValueHour();
             if (action.loadData.length > 0) {
@@ -129918,7 +130037,7 @@ var Reducer = function Reducer() {
                 select_date: action.date
             });
 
-        case __WEBPACK_IMPORTED_MODULE_0__actions_TypeAction__["w" /* GET_REAL_CHART_BASED_ON_DAY */]:
+        case __WEBPACK_IMPORTED_MODULE_0__actions_TypeAction__["x" /* GET_REAL_CHART_BASED_ON_DAY */]:
             var humidity = initValueDay();
             var temperature = initValueDay();
             if (action.loadData.length > 0) {
@@ -129934,7 +130053,7 @@ var Reducer = function Reducer() {
                 select_date: action.date
             });
 
-        case __WEBPACK_IMPORTED_MODULE_0__actions_TypeAction__["t" /* GET_OLD_CHART_BASED_ON_HOUR */]:
+        case __WEBPACK_IMPORTED_MODULE_0__actions_TypeAction__["u" /* GET_OLD_CHART_BASED_ON_HOUR */]:
             var humidity = initValueHour();
             var temperature = initValueHour();
             if (action.loadData.length > 0) {
@@ -129950,7 +130069,7 @@ var Reducer = function Reducer() {
                 select_date: action.date
             });
 
-        case __WEBPACK_IMPORTED_MODULE_0__actions_TypeAction__["s" /* GET_OLD_CHART_BASED_ON_DAY */]:
+        case __WEBPACK_IMPORTED_MODULE_0__actions_TypeAction__["t" /* GET_OLD_CHART_BASED_ON_DAY */]:
             var humidity = initValueDay();
             var temperature = initValueDay();
             if (action.loadData.length > 0) {
@@ -129973,7 +130092,7 @@ var Reducer = function Reducer() {
                 deviceFirst: action.loadData[0].id
             });
 
-        case __WEBPACK_IMPORTED_MODULE_0__actions_TypeAction__["E" /* SAVE_DEVICE */]:
+        case __WEBPACK_IMPORTED_MODULE_0__actions_TypeAction__["F" /* SAVE_DEVICE */]:
             return _extends({}, state, {
                 select_device: state.all_devices[0].id
             });
@@ -130034,17 +130153,17 @@ var Reducer = function Reducer() {
                     return _extends({}, state);
             }
 
-        case __WEBPACK_IMPORTED_MODULE_0__actions_TypeAction__["D" /* OPEN_SIDEBAR */]:
+        case __WEBPACK_IMPORTED_MODULE_0__actions_TypeAction__["E" /* OPEN_SIDEBAR */]:
             return _extends({}, state, {
                 sideBar: !state.sideBar
             });
 
-        case __WEBPACK_IMPORTED_MODULE_0__actions_TypeAction__["H" /* SHOW_SIDEBAR */]:
+        case __WEBPACK_IMPORTED_MODULE_0__actions_TypeAction__["I" /* SHOW_SIDEBAR */]:
             return _extends({}, state, {
                 sideBar: true
             });
 
-        case __WEBPACK_IMPORTED_MODULE_0__actions_TypeAction__["y" /* HIDE_SIDEBAR */]:
+        case __WEBPACK_IMPORTED_MODULE_0__actions_TypeAction__["z" /* HIDE_SIDEBAR */]:
             return _extends({}, state, {
                 sideBar: false
             });
@@ -130078,7 +130197,7 @@ var Reducer = function Reducer() {
                 select_date: action.date
             });
 
-        case __WEBPACK_IMPORTED_MODULE_0__actions_TypeAction__["C" /* OPEN_MODAL */]:
+        case __WEBPACK_IMPORTED_MODULE_0__actions_TypeAction__["D" /* OPEN_MODAL */]:
             switch (action.object.title) {
                 case 'UPDATE DEVICE':
                     state.id_update = action.element.id;
@@ -130115,7 +130234,7 @@ var Reducer = function Reducer() {
                 value_role_user: '0'
             });
 
-        case __WEBPACK_IMPORTED_MODULE_0__actions_TypeAction__["F" /* SAVE_INPUT */]:
+        case __WEBPACK_IMPORTED_MODULE_0__actions_TypeAction__["G" /* SAVE_INPUT */]:
             switch (action.name) {
                 case 'DEVICE_NAME':
                     return _extends({}, state, {
@@ -130155,7 +130274,7 @@ var Reducer = function Reducer() {
                     });
             }
 
-        case __WEBPACK_IMPORTED_MODULE_0__actions_TypeAction__["I" /* SUBMIT_ADD_DEVICE_FORM */]:
+        case __WEBPACK_IMPORTED_MODULE_0__actions_TypeAction__["J" /* SUBMIT_ADD_DEVICE_FORM */]:
             if (action.message == true) {
                 return _extends({}, state, {
                     message_success: true,
@@ -130170,7 +130289,7 @@ var Reducer = function Reducer() {
                 });
             }
 
-        case __WEBPACK_IMPORTED_MODULE_0__actions_TypeAction__["J" /* SUBMIT_ADD_DEVICE_USER_FORM */]:
+        case __WEBPACK_IMPORTED_MODULE_0__actions_TypeAction__["K" /* SUBMIT_ADD_DEVICE_USER_FORM */]:
             if (action.message == true) {
                 return _extends({}, state, {
                     message_success: true,
@@ -130185,7 +130304,7 @@ var Reducer = function Reducer() {
                 });
             }
 
-        case __WEBPACK_IMPORTED_MODULE_0__actions_TypeAction__["K" /* SUBMIT_ADD_USER_FORM */]:
+        case __WEBPACK_IMPORTED_MODULE_0__actions_TypeAction__["L" /* SUBMIT_ADD_USER_FORM */]:
             if (action.message == true) {
                 return _extends({}, state, {
                     message_success: true,
@@ -130204,7 +130323,7 @@ var Reducer = function Reducer() {
                 });
             }
 
-        case __WEBPACK_IMPORTED_MODULE_0__actions_TypeAction__["L" /* SUBMIT_LOGIN */]:
+        case __WEBPACK_IMPORTED_MODULE_0__actions_TypeAction__["M" /* SUBMIT_LOGIN */]:
             sessionStorage.setItem('token', action.token);
             sessionStorage.setItem('profile', JSON.stringify(action.user));
             return _extends({}, state, {
@@ -130214,12 +130333,12 @@ var Reducer = function Reducer() {
             return _extends({}, state, {
                 message_login: true
             });
-        case __WEBPACK_IMPORTED_MODULE_0__actions_TypeAction__["M" /* TOKEN_EXPIRED */]:
+        case __WEBPACK_IMPORTED_MODULE_0__actions_TypeAction__["N" /* TOKEN_EXPIRED */]:
             return _extends({}, state, {
                 token_expired: true
             });
 
-        case __WEBPACK_IMPORTED_MODULE_0__actions_TypeAction__["B" /* OPEN_ALERT */]:
+        case __WEBPACK_IMPORTED_MODULE_0__actions_TypeAction__["C" /* OPEN_ALERT */]:
             return _extends({}, state, {
                 alert: true,
                 title_alert: action.title,
@@ -130254,20 +130373,20 @@ var Reducer = function Reducer() {
                 message_success: false,
                 message_fail: false
             });
-        case __WEBPACK_IMPORTED_MODULE_0__actions_TypeAction__["z" /* LOAD_DEVICE_UPDATE */]:
+        case __WEBPACK_IMPORTED_MODULE_0__actions_TypeAction__["A" /* LOAD_DEVICE_UPDATE */]:
             return _extends({}, state, {
                 value_name_device: action.loadData.name,
                 value_code_device: action.loadData.code,
                 value_date_device: action.loadData.manufacturing_date
             });
-        case __WEBPACK_IMPORTED_MODULE_0__actions_TypeAction__["A" /* LOAD_USER_UPDATE */]:
+        case __WEBPACK_IMPORTED_MODULE_0__actions_TypeAction__["B" /* LOAD_USER_UPDATE */]:
             return _extends({}, state, {
                 value_fullname_user: action.loadData.fullname,
                 value_address_user: action.loadData.address,
                 value_phone_user: action.loadData.phone,
                 value_role_user: action.loadData.role
             });
-        case __WEBPACK_IMPORTED_MODULE_0__actions_TypeAction__["G" /* SHOW_MESSAGE */]:
+        case __WEBPACK_IMPORTED_MODULE_0__actions_TypeAction__["H" /* SHOW_MESSAGE */]:
             if (action.message == true) {
                 return _extends({}, state, {
                     message_success: true,
@@ -130279,7 +130398,7 @@ var Reducer = function Reducer() {
                     message_success: false
                 });
             }
-        case __WEBPACK_IMPORTED_MODULE_0__actions_TypeAction__["u" /* GET_ONE_DEVICE */]:
+        case __WEBPACK_IMPORTED_MODULE_0__actions_TypeAction__["v" /* GET_ONE_DEVICE */]:
             return _extends({}, state, {
                 nameDevice: action.loadData.name,
                 codeDevice: action.loadData.code,
@@ -130297,7 +130416,7 @@ var Reducer = function Reducer() {
                     currentTemperature: '0'
                 });
             }
-        case __WEBPACK_IMPORTED_MODULE_0__actions_TypeAction__["v" /* GET_ONE_LOCATION */]:
+        case __WEBPACK_IMPORTED_MODULE_0__actions_TypeAction__["w" /* GET_ONE_LOCATION */]:
             if (action.loadData.id != null) {
                 return _extends({}, state, {
                     latitude: action.loadData.latitude,
@@ -130344,8 +130463,23 @@ var Reducer = function Reducer() {
                 dashboardDevice: action.loadData.device,
                 dashboardPlant: action.loadData.plant,
                 dashboardPhases: action.loadData.phases,
-                dashboardSolutions: action.loadData.solutions
+                dashboardSolutions: action.loadData.solutions,
+                dashboardTotalDaysOfPhases: action.loadData.totalDaysOfPhases
             });
+        case __WEBPACK_IMPORTED_MODULE_0__actions_TypeAction__["s" /* GET_NOTIFICATION */]:
+            if (action.loadData.message == 'OK') {
+                return _extends({}, state, {
+                    notificationMessage: action.loadData.message,
+                    notificationData: action.loadData.data,
+                    notificationPhase: action.loadData.phase
+                });
+            } else {
+                return _extends({}, state, {
+                    notificationMessage: action.loadData.message,
+                    notificationData: null,
+                    notificationPhase: null
+                });
+            }
         default:
             return _extends({}, state);
     }
