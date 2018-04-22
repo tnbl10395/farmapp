@@ -39,7 +39,9 @@ import {
     CHECK_VALIDATE_LOGIN,
     GET_DETAIL_INFORMATION_DEVICE,
     GET_NOTIFICATION,
-    CHOOSE_OPTION_LIST_DEVICE
+    CHOOSE_OPTION_LIST_DEVICE,
+    GET_ALL_DEVICES_ACTIVE,
+    GET_LIST_NOTIFICATION
 } from "./TypeAction";
 //Custom UI
 export const chooseOptionSidebar = (option) => {
@@ -332,5 +334,19 @@ export const chooseOptionListDevice = (message) => {
     return {
         type : CHOOSE_OPTION_LIST_DEVICE,
         message
+    }
+}
+
+export const getAlldevicesActive = (loadData) => {
+    return {
+        type : GET_ALL_DEVICES_ACTIVE,
+        loadData
+    }
+}
+
+export const getListNotification = (loadData) => {
+    return {
+        type : GET_LIST_NOTIFICATION,
+        loadData
     }
 }

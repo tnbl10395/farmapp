@@ -52,7 +52,10 @@ export default class Dashboard2Component extends React.Component {
                         chooseOptionShowDevices={this.props.chooseOptionShowDevices}
                         showDevicesByGrid={this.props.showDevicesByGrid}
                         showDevicesByList={this.props.showDevicesByList}
-                        showDevicesByMap={this.props.showDevicesByMap} />
+                        showDevicesByMap={this.props.showDevicesByMap}
+                        dashboardDevicesActive={this.props.dashboardDevicesActive} 
+                        getListNotification={this.props.getListNotification} 
+                        notificationList={this.props.notificationList} />
                 </div>
                 <div className="col-md-6" style={style.main}>
                     <Main phases={this.props.dashboardPhases}
@@ -70,7 +73,8 @@ export default class Dashboard2Component extends React.Component {
                         deviceId={this.props.notificationDeviceId}
                         message={this.props.notificationMessage}
                         datetime={this.props.notificationDatetime}
-                        listDevice={this.props.all_devices} />
+                        listDevice={this.props.all_devices}
+                        notificationList={this.props.notificationList} />
                 </div>
                 {this.state.isModal ? <Form closeModal={this.closeModal.bind(this)} /> : null}
             </div>
@@ -115,6 +119,18 @@ class Block extends React.Component {
         super(props);
     }
 
+    componentDidMount() {
+        this.props.getListNotification();
+        this.interval = setInterval(() => {
+            this.props.getListNotification();
+        }, 10000);
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.interval);
+        clearTimeout(this.timeout);
+    }
+
     render() {
         var array = [];
         return (
@@ -129,6 +145,32 @@ class Block extends React.Component {
                 </div>
                 <div style={styleBlock.content}>
                     {
+                        this.props.showDevicesByGrid
+                            ? this.props.dashboardDevicesActive.map((element, index) => {
+                                return <div className="col-sm-2 col-md-4" key={element.deviceId}>
+                                    <Device closeModal={this.props.closeModal}
+                                            getNotification={this.props.getNotification}
+                                            element={element} 
+                                            data={Object(this.props.notificationList[index]).message == 'OK' ? Object(this.props.notificationList[index]).data : null}
+                                            solution={Object(this.props.notificationList[index]).message == 'OK' ? Object(this.props.notificationList[index]).solution : null}/>
+                                </div>
+                            })
+                            : null
+                    }
+                    {
+                        this.props.showDevicesByGrid
+                            ?   this.props.listDevice.map(element => {
+                                if (element.isActive != '1') {
+                                    return <div className="col-sm-2 col-md-4" key={element.id}>
+                                        <NoDevice openModal={this.props.openModal}
+                                            element={element} />
+                                    </div>
+                                }
+                            })
+                            :null
+
+                    }
+                    {/* {
                         this.props.showDevicesByGrid
                             ? this.props.listDevice.map(element => {
                                 if (element.isActive == '1') {
@@ -147,7 +189,7 @@ class Block extends React.Component {
                                 }
                             })
                             : null
-                    }
+                    } */}
                     {
                         this.props.showDevicesByMap
                             ? <MapWithAMarker
@@ -277,20 +319,6 @@ class Device extends React.Component {
         this.state = {
             data: this.props.data
         }
-    }
-
-    componentDidMount() {
-        // this.timeout = setTimeout(() => {
-        //     this.props.getNotification(this.props.element.id);
-        // }, 1000);
-        this.interval = setInterval(() => {
-            this.props.getNotification(this.props.element.id);
-        }, 10000);
-    }
-
-    componentWillUnmount() {
-        clearInterval(this.interval);
-        // clearTimeout(this.timeout);
     }
 
     render() {
@@ -660,13 +688,12 @@ class Form extends React.Component {
     }
 
     onChangePhaseInput(phase) {
-        this.setState({phaseInput: phase.target.value})
-        if (phase.target.value > 0 && phase.target.value < 11)
-        {
+        this.setState({ phaseInput: phase.target.value })
+        if (phase.target.value > 0 && phase.target.value < 11) {
             this.setState({
                 disabledNext: false,
             });
-        }else {
+        } else {
             this.setState({
                 disabledNext: true,
             });

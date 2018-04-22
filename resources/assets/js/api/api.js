@@ -612,7 +612,7 @@ export const getNotificationApi = (dispatch, getNotification, deviceId) => {
     }
 }
 
-export const getAlldevicesApi = (dispatch, getAlldevices, deviceId) => {
+export const getAlldevicesActiveApi = (dispatch, getAlldevicesActive) => {
     try {
         var data = [];
         fetch(URL + "api/list-location", {
@@ -621,7 +621,22 @@ export const getAlldevicesApi = (dispatch, getAlldevices, deviceId) => {
         })
             .then((response) => response.json())
             .then((res) => {
-                dispatch( getAlldevices(res) );
+                dispatch( getAlldevicesActive(res) );
+            });
+    } catch (error) {
+    }
+}
+
+export const getListNotificationApi = (dispatch, getListNotification) => {
+    try {
+        var data = [];
+        fetch(URL + "api/list-notification", {
+            method: method.GET,
+            headers: headers,
+        })
+            .then((response) => response.json())
+            .then((res) => {
+                dispatch( getListNotification(res) );
             });
     } catch (error) {
     }

@@ -10,6 +10,7 @@ use App\Plant;
 use App\Manage;
 use App\Data;
 use App\Location;
+use JWTAuth;
 
 class SolutionsController extends Controller
 {
@@ -179,4 +180,112 @@ class SolutionsController extends Controller
         else $minute = $now->minute;
         return $year.'-'.$month.'-'.$day.' '.$hour.':'.$minute;
     }
+
+    public function getListNotifications(Request $request) {
+        $arrayDeviceId = [];
+        $sendData = [];
+        $user = JWTAuth::toUser($request->header('token'));
+        $now = \Carbon\Carbon::now();
+        $datetime = Device::selectRaw('NOW() as datetime')->first();
+
+        if ($user->role == 1){
+            $devices = Device::join('manages', 'devices.id', '=', 'manages.deviceId')
+            ->where('isActive', '=', 1)
+            ->select('devices.id as deviceId', 'devices.name as nameDevice', 'devices.code as codeDevice')
+            ->get();
+        }else {
+            $devices = Device::join('manages', 'devices.id', '=', 'manages.deviceId')
+            ->where('userId', '=', $user->id)
+            ->where('isActive', '=', 1)
+            ->select('devices.id as deviceId', 'devices.name as nameDevice', 'devices.code as codeDevice')
+            ->get();
+        }
+
+        foreach ($devices as $key => $value) {
+            array_push($arrayDeviceId, $value->deviceId);
+        }
+
+        $data = Data::whereIn('deviceId', $arrayDeviceId)
+                    ->whereRaw('substr(updated_at,1,16) = "'.$this->getDateBasedOnMinute($now).'"')
+                    ->select(['id','humidity', 'temperature', 'deviceId'])
+                    ->orderBy('id', 'desc')
+                    ->get();
+        if (count($data) == 0) {
+            foreach ($devices as $key => $value) {
+                $res = [
+                    'deviceId' => $value->deviceId,
+                    'deviceName' => $value->nameDevice,
+                    'message' => "Your device can't measure. Please check your device again",
+                    'datetime' => $datetime->datetime
+                ];
+                array_push($sendData, $res);
+            }
+        }else {
+            $object = [];
+            for ($i = 0; $i < count($devices); $i++) {
+                if(!isset($data[$i])) {
+                    $res = [
+                        'deviceId' => $value->deviceId,
+                        'deviceName' => $value->nameDevice,
+                        'message' => "Your device can't measure. Please check your device again",
+                        'datetime' => $datetime->datetime
+                    ];
+                    array_push($sendData, $res);
+                }else {
+                    $plant = Manage::where('deviceId', '=', $data[$i]->deviceId)
+                                    ->select('plantId as id', 'startDate')
+                                    ->first();
+                    $phases = Phase::where('plantId', '=', $plant->id)
+                                    ->orderBy('id')
+                                    ->get();
+                    for($j = 0; $j < count($phases); $j++){
+                        if ($j == 0) $startDate = \Carbon\Carbon::parse($plant->startDate);
+                        else $startDate = \Carbon\Carbon::parse($plant->startDate)->addDays($phases[$j-1]->days);
+                        $endDate = \Carbon\Carbon::parse($plant->startDate)->addDays($phases[$j]->days);
+                        if ($startDate < $now && $now < $endDate) {
+                            $statusHumidity = $this->compareValue($phases[$j]->minHumidity, $phases[$j]->maxHumidity, $data[$i]->humidity);
+                            $statusTemperature = $this->compareValue($phases[$j]->minTemperature, $phases[$j]->maxTemperature, $data[$i]->temperature);
+                            $solution = $this->getSolution($statusHumidity, $statusTemperature, $phases[$j]->id);
+                            $object = [
+                                'message' => "OK",
+                                'deviceId' => $data[$i]->deviceId,
+                                'solution' => $solution,
+                                'data' => $data[$i],
+                                'phase' => $phases[$j]
+                            ];
+                            break;
+                        }
+                    }
+                    array_push($sendData, $object);
+                }
+            }
+        }
+        return response()->json($sendData);
+
+        // $plant = Manage::where('deviceId', '=', $deviceId)
+        //                 ->select('plantId as id', 'startDate')
+        //                 ->first();
+        // $phases = Phase::where('plantId', '=', $plant->id)
+        //                 ->orderBy('id')
+        //                 ->get();
+        // for($i = 0; $i < count($phases); $i++){
+        //     if ($i == 0) $startDate = \Carbon\Carbon::parse($plant->startDate);
+        //     else $startDate = \Carbon\Carbon::parse($plant->startDate)->addDays($phases[$i-1]->days);
+        //     $endDate = \Carbon\Carbon::parse($plant->startDate)->addDays($phases[$i]->days);
+        //     if ($startDate < $now && $now < $endDate) {
+        //         $statusHumidity = $this->compareValue($phases[$i]->minHumidity, $phases[$i]->maxHumidity, $data->humidity);
+        //         $statusTemperature = $this->compareValue($phases[$i]->minTemperature, $phases[$i]->maxTemperature, $data->temperature);
+        //         $solution = $this->getSolution($statusHumidity, $statusTemperature, $phases[$i]->id);
+        //         $sendData = [
+        //             'message' => "OK",
+        //             'deviceId' => $deviceId,
+        //             'solution' => $solution,
+        //             'data' => $data,
+        //             'phase' => $phases[$i]
+        //         ];
+        //         break;
+        //     }
+        // }
+        // return response()->json($sendData);
+    } 
 }

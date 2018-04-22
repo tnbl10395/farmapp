@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import Dashboard2Component from '../components/Dashboard2Component';
-import { getDetailInformationDeviceApi, getNotificationApi, getRealChartBasedOnDayAPI, getRealChartBasedOnHourAPI } from '../api/api';
-import { getDetailInformationDevice, getNotification, getRealChartBasedOnDay, getRealChartBasedOnHour, chooseOptionListDevice } from '../actions/Action';
+import { getDetailInformationDeviceApi, getNotificationApi, getRealChartBasedOnDayAPI, getRealChartBasedOnHourAPI, getAlldevicesActiveApi, getListNotificationApi } from '../api/api';
+import { getDetailInformationDevice, getNotification, getRealChartBasedOnDay, getRealChartBasedOnHour, chooseOptionListDevice, getAlldevicesActive, getListNotification } from '../actions/Action';
 
 const mapStateToProps = (state) => ({
     all_devices: state.all_devices,
@@ -11,12 +11,14 @@ const mapStateToProps = (state) => ({
     dashboardPhases: state.dashboardPhases,
     dashboardSolutions: state.dashboardSolutions,
     dashboardTotalDaysOfPhases: state.dashboardTotalDaysOfPhases,
+    dashboardDevicesActive: state.dashboardDevicesActive,
     //notification
     notificationData: state.notificationData,
     notificationSolution: state.notificationSolution,
     notificationDeviceId: state.notificationDeviceId,
     notificationMessage: state.notificationMessage,
     notificationDatetime: state.notificationDatetime,
+    notificationList: state.notificationList,
     //chart
     humidity: state.humidity_chart,
     temperature: state.temperature_chart,
@@ -27,7 +29,6 @@ const mapStateToProps = (state) => ({
     showDevicesByList: state.showDevicesByList,
     showDevicesByMap: state.showDevicesByMap,
     showDevicesByGrid: state.showDevicesByGrid,
-
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -46,6 +47,9 @@ const mapDispatchToProps = (dispatch) => ({
     },
     chooseOptionShowDevices: (message) => {
         dispatch( chooseOptionListDevice(message) );
+    },
+    getListNotification: () => {
+        getListNotificationApi(dispatch, getListNotification);
     }
 });
 

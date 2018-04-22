@@ -32,10 +32,10 @@ class LocationsController extends Controller
             $location = Location::join('devices', 'locations.deviceId', '=', 'devices.id')
                                 ->join('manages', 'devices.id', '=', 'manages.deviceId')
                                 ->join('plants', 'manages.plantId', '=', 'plants.id')
-                                ->join('data', 'manages.deviceId', '=', 'data.deviceId')
+                                // ->join('data', 'manages.deviceId', '=', 'data.deviceId')
                                 ->whereIn('manages.deviceId', $devices)
                                 ->select('locations.*', 'plants.id as plantId', 'plants.name as namePlant', 'plants.description as descriptionPlant',
-                                        'manages.startDate', 'manages.endDate', 'devices.name', 'data.humidity', 'data.temperature')
+                                        'manages.startDate', 'manages.endDate', 'devices.name')
                                 ->get()->groupBy('deviceId');
             if ($location != null) {
                 foreach($location as $key => $value) {
@@ -56,17 +56,18 @@ class LocationsController extends Controller
             $location = Location::join('devices', 'locations.deviceId', '=', 'devices.id')
                                 ->join('manages', 'devices.id', '=', 'manages.deviceId')
                                 ->join('plants', 'manages.plantId', '=', 'plants.id')
-                                ->join('data', 'manages.deviceId', '=', 'data.deviceId')
+                                // ->join('data', 'manages.deviceId', '=', 'data.deviceId')
                                 ->whereIn('manages.deviceId', $devices)
                                 ->select('locations.*', 'plants.id as plantId', 'plants.name as namePlant', 'plants.description as descriptionPlant',
-                                        'manages.startDate', 'manages.endDate', 'devices.name', 'data.humidity', 'data.temperature')
+                                        'manages.startDate', 'manages.endDate', 'devices.name')
                                 ->get()->groupBy('deviceId');
             if ($location != null) {
                 foreach($location as $key => $value) {
                     array_push($locations, $value[count($value)-1]);
                 }
             }
-            return response()->json($locations);         }
+            return response()->json($locations);         
+        }
     }
 
     /**

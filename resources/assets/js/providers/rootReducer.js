@@ -39,7 +39,9 @@ import {
     CHECK_VALIDATE_LOGIN,
     GET_DETAIL_INFORMATION_DEVICE,
     GET_NOTIFICATION,
-    CHOOSE_OPTION_LIST_DEVICE
+    CHOOSE_OPTION_LIST_DEVICE,
+    GET_ALL_DEVICES_ACTIVE,
+    GET_LIST_NOTIFICATION
 } from "../actions/TypeAction";
 
 const initialState = {
@@ -62,7 +64,9 @@ const initialState = {
     dashboardPhases: [],
     dashboardSolutions: [],
     dashboardTotalDaysOfPhases: null,
+    dashboardDevicesActive: [],
     //dashboard_notification
+    notificationList: [],
     notificationMessage: null,
     notificationSolution: null,
     notificationData: null,
@@ -715,6 +719,16 @@ const Reducer = (state = initialState, action) => {
                         notificationSolution: null,
                         notificationMessage: null
                     }
+            }
+        case GET_ALL_DEVICES_ACTIVE: 
+            return {
+                ...state,
+                dashboardDevicesActive: action.loadData
+            }
+        case GET_LIST_NOTIFICATION:
+            return {
+                ...state,
+                notificationList: action.loadData
             }
         default:
             return {
