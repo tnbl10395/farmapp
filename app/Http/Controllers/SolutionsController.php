@@ -9,6 +9,7 @@ use App\Device;
 use App\Plant;
 use App\Manage;
 use App\Data;
+use App\Location;
 
 class SolutionsController extends Controller
 {
@@ -102,6 +103,7 @@ class SolutionsController extends Controller
         $device = Device::where('id', '=', $deviceId)
                         ->select('id', 'name', 'code')
                         ->get();
+        $datetime = Device::selectRaw('NOW() as datetime')->first();
         $data = Data::where('deviceId', '=', $deviceId)
                     ->whereRaw('substr(updated_at,1,16) = "'.$this->getDateBasedOnMinute($now).'"')
                     ->select('id','humidity', 'temperature')
@@ -110,7 +112,8 @@ class SolutionsController extends Controller
         if ($data == null) {
             $sendData = [
                 'deviceId' => $deviceId,
-                'message' => "Your device can't measure. Please check your device again"
+                'message' => "Your device can't measure. Please check your device again",
+                'datetime' => $datetime->datetime
             ];
             return response()->json($sendData);
         }
@@ -132,7 +135,7 @@ class SolutionsController extends Controller
                 $sendData = [
                     'message' => "OK",
                     'deviceId' => $deviceId,
-                    'solution' => $solution, 
+                    'solution' => $solution,
                     'data' => $data,
                     'phase' => $phases[$i]
                 ];

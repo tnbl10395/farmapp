@@ -48,22 +48,29 @@ export default class Element extends React.Component {
 
 const style = {
     div_li_true: {
-        marginLeft: 20,
+        // marginTop: '10px',
         cursor: 'pointer',
-        padding: 10,
+        padding: '12px 25px 12px 25px',
+        float: 'left',
+        color: '#636e77',
+        backgroundColor: '#39424a',
+        textTransform: 'uppercase'
         // fontSize: 24
     },
     div_li_false: {
-        marginLeft: 20,
+        // marginTop: '10px',
         cursor: 'pointer',
-        padding: 10,
-        backgroundColor: '#5cb85c',
+        padding: '12px 25px 12px 25px',
+        color: 'rgb(34, 45, 50)',
+        float: 'left',
+        backgroundColor:' rgb(236, 240, 245)',
+        textTransform: 'uppercase'
     },
     icon_true: {
-        marginRight: 25,
+        marginRight: 10,
     },
     icon_false: {
-        marginRight: 25,
+        marginRight: 10,
         fontSize: 24
     },
     font_true: {
@@ -75,6 +82,6 @@ const style = {
     font_false: {
         fontWeight: 'bold',
         textDecoration: 'none',
-        color: '#5cb85c'
+        color: 'linear-gradient(to bottom, #007991, #78ffd6)',
     }
 }

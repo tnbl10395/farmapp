@@ -38,7 +38,8 @@ import {
     CHANGE_INTERVAL_DASHBOARD,
     CHECK_VALIDATE_LOGIN,
     GET_DETAIL_INFORMATION_DEVICE,
-    GET_NOTIFICATION
+    GET_NOTIFICATION,
+    CHOOSE_OPTION_LIST_DEVICE
 } from "../actions/TypeAction";
 
 const initialState = {
@@ -66,6 +67,12 @@ const initialState = {
     notificationSolution: null,
     notificationData: null,
     notificationPhase: null,
+    notificationDeviceId: null,
+    notificationDatetime: null,
+    //dashboard choose show list device
+    showDevicesByList: false,
+    showDevicesByMap: false,
+    showDevicesByGrid: true,
     //side bar
     admin_dashboard_component: true,
     admin_device_component: false,
@@ -115,8 +122,11 @@ const initialState = {
 
 const initValueHour = () => {
     var array = [];
+    var time = new Date();
+    var minute = time.getMinutes() < 10 ? '0' + time.getMinutes() : time.getMinutes();
     for (var i = 0; i < 60; i++) {
-        array.push(null);
+        if (i <= minute) array.push(0);
+        else array.push(null);
     }
     return array;
 }
@@ -611,10 +621,10 @@ const Reducer = (state = initialState, action) => {
                 return {
                     ...state,
                     latitude: 0,
-                    longitude: 0 
+                    longitude: 0
                 }
             }
-        case CHANGE_INTERVAL_DASHBOARD: 
+        case CHANGE_INTERVAL_DASHBOARD:
             if (action.interval) {
                 var humidity = initValueDay();
                 var temperature = initValueDay();
@@ -637,7 +647,7 @@ const Reducer = (state = initialState, action) => {
                 var interval = 60000
             }
             return {
-                ...state, 
+                ...state,
                 humidity_chart: humidity,
                 temperature_chart: temperature,
                 select_device: action.device,
@@ -654,21 +664,57 @@ const Reducer = (state = initialState, action) => {
                 dashboardSolutions: action.loadData.solutions,
                 dashboardTotalDaysOfPhases: action.loadData.totalDaysOfPhases
             }
-        case GET_NOTIFICATION: 
+        case GET_NOTIFICATION:
             if (action.loadData.message == 'OK') {
                 return {
                     ...state,
                     notificationMessage: action.loadData.message,
                     notificationData: action.loadData.data,
-                    notificationPhase: action.loadData.phase    
+                    notificationPhase: action.loadData.phase,
+                    notificationSolution: action.loadData.solution,
+                    notificationDeviceId: action.loadData.deviceId,
+                    notificationDatetime: null
                 }
-            }else {
+            } else {
                 return {
                     ...state,
                     notificationMessage: action.loadData.message,
+                    notificationDeviceId: action.loadData.deviceId,
+                    notificationDatetime: action.loadData.datetime,
+                    notificationSolution: null,
                     notificationData: null,
                     notificationPhase: null,
                 }
+            }
+        case CHOOSE_OPTION_LIST_DEVICE:
+            switch (action.message) {
+                case "grid":
+                    return {
+                        ...state,
+                        showDevicesByList: false,
+                        showDevicesByMap: false,
+                        showDevicesByGrid: true,
+                        notificationSolution: null,
+                        notificationMessage: null
+                    }
+                case "list":
+                    return {
+                        ...state,
+                        showDevicesByList: true,
+                        showDevicesByMap: false,
+                        showDevicesByGrid: false,
+                        notificationSolution: null,
+                        notificationMessage: null,
+                    }
+                case "map":
+                    return {
+                        ...state,
+                        showDevicesByList: false,
+                        showDevicesByMap: true,
+                        showDevicesByGrid: false,
+                        notificationSolution: null,
+                        notificationMessage: null
+                    }
             }
         default:
             return {

@@ -3,6 +3,8 @@ import BigCalendar from 'react-big-calendar';
 import moment from 'moment';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 var Datetime = require('react-datetime');
+import { MapWithAMarker } from '../templates/Map';
+import { LineChartComponent } from '../templates/Chart';
 
 BigCalendar.setLocalizer(BigCalendar.momentLocalizer(moment))
 
@@ -18,6 +20,9 @@ export default class Dashboard2Component extends React.Component {
         this.timeout = setTimeout(() => {
             this.props.getDetailInformationDevice(this.props.deviceFirst);
         }, 1000);
+        this.timeoutRealTime = setTimeout(() => {
+            this.props.getRealDataOnChart(this.props.device, this.props.interval);
+        }, 1500);
     }
 
     componentWillUnmount() {
@@ -43,14 +48,29 @@ export default class Dashboard2Component extends React.Component {
                     <Block openModal={this.openModal.bind(this)}
                         listDevice={this.props.all_devices}
                         data={this.props.notificationData}
-                        getNotification={this.props.getNotification} />
+                        getNotification={this.props.getNotification}
+                        chooseOptionShowDevices={this.props.chooseOptionShowDevices}
+                        showDevicesByGrid={this.props.showDevicesByGrid}
+                        showDevicesByList={this.props.showDevicesByList}
+                        showDevicesByMap={this.props.showDevicesByMap} />
                 </div>
                 <div className="col-md-6" style={style.main}>
                     <Main phases={this.props.dashboardPhases}
-                        totalDaysOfPhase={this.props.dashboardTotalDaysOfPhases} />
+                        totalDaysOfPhase={this.props.dashboardTotalDaysOfPhases}
+                        humidity={this.props.humidity}
+                        temperature={this.props.temperature}
+                        intervalTime={this.props.intervalTime}
+                        interval={this.props.interval}
+                        getRealDataOnChart={this.props.getRealDataOnChart}
+                        device={this.props.device} />
                 </div>
                 <div className="col-md-3" style={style.main}>
-                    <Info plant={this.props.dashboardPlant} />
+                    <Notification plant={this.props.dashboardPlant}
+                        notificationSolution={this.props.notificationSolution}
+                        deviceId={this.props.notificationDeviceId}
+                        message={this.props.notificationMessage}
+                        datetime={this.props.notificationDatetime}
+                        listDevice={this.props.all_devices} />
                 </div>
                 {this.state.isModal ? <Form closeModal={this.closeModal.bind(this)} /> : null}
             </div>
@@ -61,15 +81,32 @@ export default class Dashboard2Component extends React.Component {
 const style = {
     body: {
         position: 'absolute',
-        top: 50,
-        right: 10,
-        left: 10,
+        top: 45,
+        right: 0,
+        left: 0,
+        bottom: 0,
         backgroundColor: '#fff',
-        borderTop: '4px #5cb85c solid',
-        borderRadius: 5,
+        // borderTop: '4px #5cb85c solid',
     },
     main: {
-        padding: 5
+        position: 'relative',
+        padding: 5,
+        height: '100%',
+    },
+    title: {
+        width: '100%',
+        display: 'inline-block',
+        // backgroundColor: '#32c5d2',
+        color: '#2f353b',
+        margin: 0,
+    },
+    description: {
+        padding: 0,
+        margin: 0,
+        lineHeight: '13px',
+        color: '#9eacb4',
+        fontSize: '13px',
+        fontWeight: 400,
     }
 }
 // Block------------------------------------------------
@@ -79,69 +116,181 @@ class Block extends React.Component {
     }
 
     render() {
+        var array = [];
         return (
             <div style={styleBlock.body}>
-                <div style={styleBlock.title}><h4>LIST DEVICES</h4></div>
+                <div style={style.title}>
+                    <div style={{ padding: '10px 15px', fontSize: 16, fontWeight: 'bold', borderBottom: '1px solid #eef1f5' }}>
+                        ALL DEVICES
+                        <IconButton name={"map"} class={"fa fa-map"} active={this.props.showDevicesByMap} chooseOptionShowDevices={this.props.chooseOptionShowDevices} />
+                        <IconButton name={"list"} class={"fa fa-th-list"} active={this.props.showDevicesByList} chooseOptionShowDevices={this.props.chooseOptionShowDevices} />
+                        <IconButton name={"grid"} class={"fa fa-th"} active={this.props.showDevicesByGrid} chooseOptionShowDevices={this.props.chooseOptionShowDevices} />
+                    </div>
+                </div>
                 <div style={styleBlock.content}>
                     {
-                        this.props.listDevice.map(element => {
-                            if (element.isActive == '1') {
-                                return <div className="col-sm-2 col-md-4" key={element.id}>
-                                    <Device closeModal={this.props.closeModal}
-                                        element={element}
-                                        data={this.props.data}
-                                        getNotification={this.props.getNotification} />
-                                </div>
-                            } else {
-                                return <div className="col-sm-2 col-md-4" key={element.id}>
-                                    <NoDevice openModal={this.props.openModal}
-                                        element={element} />
-                                </div>
-                            }
-                        })
+                        this.props.showDevicesByGrid
+                            ? this.props.listDevice.map(element => {
+                                if (element.isActive == '1') {
+                                    return <div className="col-sm-2 col-md-4" key={element.id}>
+                                        <Device closeModal={this.props.closeModal}
+                                            element={element}
+                                            data={this.props.data}
+                                            getNotification={this.props.getNotification}
+                                            solution={this.props.notificationSolution} />
+                                    </div>
+                                } else {
+                                    return <div className="col-sm-2 col-md-4" key={element.id}>
+                                        <NoDevice openModal={this.props.openModal}
+                                            element={element} />
+                                    </div>
+                                }
+                            })
+                            : null
+                    }
+                    {
+                        this.props.showDevicesByMap
+                            ? <MapWithAMarker
+                                array={[{ latitude: 16.054690, longitude: 108.231540 }, { latitude: 16.053115, longitude: 108.210358 }]}
+                                googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyC_aFLX1tVABBgvwYQ1mZzr3ApJVU5_YwA&v=3.exp&libraries=geometry,drawing,places"
+                                loadingElement={<div style={{ height: `100%` }} />}
+                                containerElement={<div style={{ height: `100%` }} />}
+                                mapElement={<div style={{ height: `100%` }} />} />
+                            : null
                     }
                 </div>
-            </div>
+            </div >
         );
     }
 }
 
 const styleBlock = {
     body: {
+        position: 'relative',
         width: '100%',
-        marginTop: 10,
-        marginBottom: 10,
-        // height: 430,
-        backgroundColor: '#eee',
-        borderRadius: 5,
-        border: '1px solid gray',
-    },
-    title: {
-        backgroundColor: '#3c8bbc',
-        color: 'white',
-        margin: 0,
-        padding: 2,
-        textAlign: 'center'
+        height: '100%',
+        border: '1px solid #e7ecf1',
+        backgroundColor: '#fff',
     },
     content: {
         overflow: 'auto',
-        // height: 380,
+        height: '91%',
+    },
+    icon: {
+        cursor: 'pointer',
+        color: '#666',
+        fontSize: 14,
+        marginLeft: '6px'
+    },
+    iconHover: {
+        backgroundColor: '#ccc',
+        cursor: 'pointer',
+        color: '#666',
+        fontSize: 14,
+        marginLeft: '6px'
+    },
+    iconActive: {
+        backgroundColor: '#ccc',
+        cursor: 'pointer',
+        color: '#666',
+        fontSize: 14,
+        marginLeft: '6px'
+    },
+    btn: {
+        height: '27px',
+        width: '27px',
+        borderRadius: '25px',
+        border: '1px solid #ccc',
+        float: 'left',
+        margin: 2,
+        cursor: 'pointer',
+    },
+    btnHover: {
+        backgroundColor: '#ccc',
+        height: '27px',
+        width: '27px',
+        borderRadius: '25px',
+        border: '1px solid #ccc',
+        float: 'left',
+        margin: 2,
+        cursor: 'pointer',
+    },
+    btnActive: {
+        backgroundColor: '#ccc',
+        height: '27px',
+        width: '27px',
+        borderRadius: '25px',
+        border: '1px solid #ccc',
+        float: 'left',
+        margin: 2,
+        cursor: 'pointer',
+    }
+}
+
+class IconButton extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            hover: false,
+
+        }
+    }
+
+    mouseEnter() {
+        this.setState({ hover: true })
+    }
+
+    mouseLeave() {
+        this.setState({ hover: false })
+    }
+
+    click() {
+        this.props.chooseOptionShowDevices(this.props.name);
+    }
+
+    render() {
+        return (
+            this.props.active
+                ?
+                <div style={styleBlock.btnHover} className="pull-right"
+                    onMouseOver={this.mouseEnter.bind(this)}
+                    onMouseOut={this.mouseLeave.bind(this)}
+                    onClick={this.click.bind(this)} >
+                    <i className={this.props.class}
+                        style={styleBlock.iconActive} />
+                </div>
+                :
+                <div style={!this.state.hover ? styleBlock.btn : styleBlock.btnHover} className="pull-right"
+                    onMouseOver={this.mouseEnter.bind(this)}
+                    onMouseOut={this.mouseLeave.bind(this)}
+                    onClick={this.click.bind(this)} >
+                    <i className={this.props.class}
+                        style={!this.state.hover ? styleBlock.icon : styleBlock.iconHover} />
+                </div>
+        );
     }
 }
 
 class Device extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            data: this.props.data
+        }
     }
 
     componentDidMount() {
+        // this.timeout = setTimeout(() => {
+        //     this.props.getNotification(this.props.element.id);
+        // }, 1000);
         this.interval = setInterval(() => {
             this.props.getNotification(this.props.element.id);
-        }, 1000);
+        }, 10000);
     }
 
     componentWillUnmount() {
-        setInterval(this.interval);
+        clearInterval(this.interval);
+        // clearTimeout(this.timeout);
     }
 
     render() {
@@ -149,15 +298,15 @@ class Device extends React.Component {
             <div style={styleDevice.body}>
                 {
                     this.props.data != null
-                        ? <div style={styleDevice.headerData}>
+                        ? <div style={this.props.solution == null ? styleDevice.headerData : styleDevice.headerWarning}>
                             <div style={styleDevice.insideData}>
-                                <h4 style={{fontSize: '1vw'}}><i className="fa fa-tint"></i> {Object(this.props.data).humidity} (%)</h4>
-                                <h4 style={{fontSize: '1vw'}}><i className="fa fa-thermometer-empty"></i> {Object(this.props.data).temperature} (°C)</h4>
+                                <h4 style={{ fontSize: '1vw' }}><i className="fa fa-tint"></i> {Object(this.props.data).humidity} (%)</h4>
+                                <h4 style={{ fontSize: '1vw' }}><i className="fa fa-thermometer-empty"></i> {Object(this.props.data).temperature} (°C)</h4>
                             </div>
                         </div>
                         : <div style={styleDevice.headerNoData}>
                             <div style={styleDevice.insideNoData}>
-                                <i style={{fontSize: '2vw'}} className="fa fa-exclamation-triangle"></i>
+                                <i style={{ fontSize: '2vw' }} className="fa fa-exclamation-triangle"></i>
                             </div>
                         </div>
                 }
@@ -182,12 +331,20 @@ const styleDevice = {
         backgroundColor: '#00a65a',
         color: 'white'
     },
+    headerWarning: {
+        boxShadow: '0 1px 6px rgba(0, 0, 0, 0.12), 0 1px 4px rgba(0, 0, 0, 0.24)',
+        width: '100%',
+        height: '5vw',
+        borderRadius: 20,
+        backgroundColor: '#f39c12',
+        color: 'white'
+    },
     headerNoData: {
         boxShadow: '0 1px 6px rgba(0, 0, 0, 0.12), 0 1px 4px rgba(0, 0, 0, 0.24)',
         width: '100%',
         height: '5vw',
         borderRadius: 20,
-        backgroundColor: '#ee5253',
+        backgroundColor: '#e7505a',
         color: 'white'
     },
     insideData: {
@@ -250,6 +407,7 @@ const styleNoDevice = {
         alignItems: 'center'
     }
 }
+
 // Main------------------------------------------------
 class Main extends React.Component {
     constructor(props) {
@@ -259,11 +417,23 @@ class Main extends React.Component {
     render() {
         return (
             <div style={styleMain.body}>
+                <div style={style.title}>
+                    <div style={{ padding: '10px 15px', fontSize: 16, fontWeight: 'bold', borderBottom: '1px solid #eef1f5' }}>
+                        INFORMATION <span style={style.description}>Include progress, real-time chart, reminder,...</span>
+                    </div>
+                </div>
                 <div className="col-md-12">
                     <TimeLines phases={this.props.phases}
                         totalDaysOfPhase={this.props.totalDaysOfPhase} />
                 </div>
-                <Canlendar />
+                <div className="col-md-12" style={{ paddingTop: 10, paddingLeft: 5, paddingRight: 5, paddingBottom: 5 }}>
+                    <ChartComponent humidity={this.props.humidity}
+                        temperature={this.props.temperature}
+                        intervalTime={this.props.intervalTime}
+                        interval={this.props.interval}
+                        getRealDataOnChart={this.props.getRealDataOnChart}
+                        device={this.props.device} />
+                </div>
             </div>
 
         );
@@ -272,12 +442,11 @@ class Main extends React.Component {
 
 const styleMain = {
     body: {
+        position: 'relative',
+        backgroundColor: '#fff',
         width: '100%',
-        marginTop: 10,
-        marginBottom: 10,
-        backgroundColor: '#eee',
-        borderRadius: 5,
-        border: '1px solid gray'
+        height: '100%',
+        border: '1px solid #e7ecf1',
     }
 }
 
@@ -303,7 +472,7 @@ class TimeLines extends React.Component {
                         // '  left: 20px;',
                         // '  right: 20px;',
                         '  height: 4px;',
-                        '  background: #3c8bbc;',
+                        '  background: #3598dc;',
                         '}',
                         'ol::before,',
                         'ol::after {',
@@ -314,7 +483,7 @@ class TimeLines extends React.Component {
                         '  width: 20px;',
                         '  height: 20px;',
                         '  border-radius: 10px;',
-                        '  border: 10px solid #3c8bbc;',
+                        '  border: 10px solid #3598dc;',
                         '}',
                         'ol::before {',
                         '  left: 10px;',
@@ -323,7 +492,7 @@ class TimeLines extends React.Component {
                         '  right: 5px;',
                         '  border: 10px solid transparent;',
                         '  border-right: 0;',
-                        '  border-left: 20px solid #3c8bbc;',
+                        '  border-left: 20px solid #3598dc;',
                         '  border-radius: 3px;',
                         '}',
                         'li {',
@@ -352,7 +521,7 @@ class TimeLines extends React.Component {
                         '  display: block;',
                         '  width: 15px;',
                         '  height: 15px;',
-                        '  border: 4px solid #3c8bbc;',
+                        '  border: 4px solid #3598dc;',
                         '  border-radius: 10px;',
                         '  background: #fff;',
                         '  position: absolute;',
@@ -426,7 +595,7 @@ class Canlendar extends React.Component {
     }
     render() {
         return (
-            <div style={{ marginTop: 170, height: '25vw' }}>
+            <div style={{ marginTop: 148, height: '1000px' }}>
                 <style dangerouslySetInnerHTML={{
                     __html: [
                         '.rbc-today {',
@@ -491,10 +660,17 @@ class Form extends React.Component {
     }
 
     onChangePhaseInput(phase) {
-        this.setState({
-            disabledNext: false,
-            phaseInput: phase.target.value
-        });
+        this.setState({phaseInput: phase.target.value})
+        if (phase.target.value > 0 && phase.target.value < 11)
+        {
+            this.setState({
+                disabledNext: false,
+            });
+        }else {
+            this.setState({
+                disabledNext: true,
+            });
+        }
     }
 
     onChangeDate(date) {
@@ -614,12 +790,16 @@ class Form extends React.Component {
         return (
             <div>
                 <div style={styleForm.background}></div>
-                <form style={styleForm.body} className="col-md-6 col-md-offset-2">
-                    <h3 className="text-success text-uppercase text-center">Add New Plant Form</h3>
+                <form style={styleForm.body} className="col-md-8 col-md-offset-2">
+                    {/* <div style={style.title}>
+                    <div style={{ padding: '10px 15px', fontSize: 16, fontWeight: 'bold', borderBottom: '1px solid #eef1f5' }} className="text-uppercase text-center">
+                        Add New Plant Form
+                    </div>
+                </div> */}
+                    <h3 className="text-uppercase text-center" style={{ borderBottom: '1px solid #eef1f5', paddingBottom: 15 }}>Add New Plant Form</h3>
                     {
                         !this.state.isNextPage
                             ? <div className="col-md-12">
-                                <hr />
                                 <div className="form-group col-md-12">
                                     <label>Plant</label>
                                     <input type="text"
@@ -664,30 +844,35 @@ class Form extends React.Component {
                                 </div>
                             </div>
                             : <div className="col-md-12">
-                                <hr />
                                 <div style={styleForm.bodyNextPage}>
                                     {
                                         this.state.phases.map(phase => {
-                                            return <div className={this.state.phaseInput == 1 ? "col-md-12" : "col-md-6"} key={phase.key}>
-                                                <div className="form-group">
-                                                    <label>Phase {phase.key}</label>
+                                            return <div className={this.state.phaseInput == 1 ? "col-md-12" : "col-md-12"} key={phase.key} style={{ border: '1px solid #3598dc', marginBottom: 20, padding: 0 }}>
+                                                <div className="col-md-12" style={{ backgroundColor: '#3598dc', padding: 0 }}>
+                                                    <label style={{ margin: 10, color: 'white' }}>Phase {phase.key}</label>
                                                 </div>
-                                                <div className="form-group col-md-6">
+                                                <div className="form-group col-md-8">
+                                                    <label className="form-label">Phase name</label>
                                                     <input type="text" className="form-control" placeholder="Phase name" required value={phase.phaseName} onChange={(phaseName) => this.onChangePhaseName(phaseName, phase.key)} />
                                                 </div>
-                                                <div className="form-group col-md-6">
-                                                    <input type="number" className="form-control" placeholder="Days" required value={phase.days} onChange={(days) => this.onChangeDays(days, phase.key)} />
+                                                <div className="form-group col-md-4">
+                                                    <label className="form-label">Days</label>
+                                                    <input type="number" className="form-control" min="1" max="10" placeholder="Days" required value={phase.days} onChange={(days) => this.onChangeDays(days, phase.key)} />
                                                 </div>
-                                                <div className="form-group col-md-6">
+                                                <div className="form-group col-md-3">
+                                                    <label className="form-label">Min Temperature</label>
                                                     <input type="number" className="form-control" placeholder="Min Temperature" required value={phase.minTemperature} onChange={(minTemperature) => this.onChangeMinTemperature(minTemperature, phase.key)} />
                                                 </div>
-                                                <div className="form-group col-md-6">
+                                                <div className="form-group col-md-3">
+                                                    <label className="form-label">Max Temperature</label>
                                                     <input type="number" className="form-control" placeholder="Max Temperature" required value={phase.maxTemperature} onChange={(maxTemperature) => this.onChangeMaxTemperature(maxTemperature, phase.key)} />
                                                 </div>
-                                                <div className="form-group col-md-6">
+                                                <div className="form-group col-md-3">
+                                                    <label className="form-label">Min Humidity</label>
                                                     <input type="number" className="form-control" placeholder="Min Humidity" required value={phase.minHumidity} onChange={(minHumidity) => this.onChangeMinHumidity(minHumidity, phase.key)} />
                                                 </div>
-                                                <div className="form-group col-md-6">
+                                                <div className="form-group col-md-3">
+                                                    <label className="form-label">Max Humidity</label>
                                                     <input type="number" className="form-control" placeholder="Max Humidity" required value={phase.maxHumidity} onChange={(maxHumidity) => this.onChangeMaxHumidity(maxHumidity, phase.key)} />
                                                 </div>
                                             </div>
@@ -728,30 +913,84 @@ const styleForm = {
     },
     body: {
         position: 'fixed',
-        top: '15%',
+        top: '10%',
         zIndex: 5,
-        borderRadius: 5,
-        backgroundColor: 'white'
+        backgroundColor: 'white',
+        boxShadow: '0 5px 15px rgba(0,0,0,.5)'
     },
     groupBtn: {
         marginBottom: 20
     },
     bodyNextPage: {
-        height: 200,
+        height: 300,
         overflow: 'auto'
     }
 }
 
-// Info-----------------------------------------
-class Info extends React.Component {
+class ChartComponent extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            humidity: true,
+            temperature: true
+        }
+    }
+
+    componentDidMount() {
+        this.interval = setInterval(() => {
+            this.props.getRealDataOnChart(this.props.device, this.props.interval);
+        }, this.props.intervalTime)
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.interval)
+    }
+
+    render() {
+        return (
+            <LineChartComponent stateHumidity={this.state.humidity}
+                stateTemperature={this.state.temperature}
+                propsHumidity={this.props.humidity}
+                propsTemperature={this.props.temperature}
+                checkInterval={this.props.interval}
+                width={"600px"} height={"280px"} />
+        )
+    }
+}
+
+// Info-----------------------------------------
+class Notification extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            arrayMessageBox: [],
+        }
     }
 
     render() {
         return (
             <div style={styleInfo.body}>
-                <div className="col-md-5">
+                <div style={style.title}>
+                    <div style={{ padding: '10px 15px', fontSize: 16, fontWeight: 'bold', borderBottom: '1px solid #eef1f5' }}>
+                        NOTIFICATIONS <span style={style.description}>Include warning, solutions,...</span>
+                    </div>
+                </div>
+                <div style={styleInfo.messageBox}>
+                    {/* <div style={styleInfo.contentBox}> */}
+                    {
+                        this.props.listDevice.map(element => {
+                            if (element.id == this.props.deviceId) {
+                                if ((this.props.notificationSolution != null && this.props.message == 'OK') || this.props.message != 'OK' && this.props.message != null) {
+                                    this.state.arrayMessageBox.unshift(<Message solution={this.props.notificationSolution} message={this.props.message} name={element.name} datetime={this.props.datetime} />);
+                                }
+                                if (this.state.arrayMessageBox.length == 20) this.state.arrayMessageBox.pop();
+                                return this.state.arrayMessageBox;
+                            }
+                        })
+                    }
+                    {/* </div> */}
+                </div>
+                {/* <div className="col-md-5">
                     <img src="images/lua.jpeg" style={styleInfo.image} />
                 </div>
                 <div className="col-md-7" style={styleInfo.intro}>
@@ -759,7 +998,7 @@ class Info extends React.Component {
                     <div style={styleInfo.content}>
                         <p>{Object(this.props.plant).description}</p>
                     </div>
-                </div>
+                </div> */}
             </div>
         )
     }
@@ -768,19 +1007,16 @@ class Info extends React.Component {
 const styleInfo = {
     body: {
         width: '100%',
-        marginTop: 10,
-        marginBottom: 10,
-        height: 430,
-        backgroundColor: '#eee',
-        borderRadius: 5,
-        border: '1px solid gray'
+        position: 'relative',
+        height: '100%',
+        backgroundColor: '#fff',
+        border: '1px solid #e7ecf1',
     },
     image: {
         objectFit: 'cover',
         width: '100%',
         height: '10vw',
         marginTop: 10,
-        borderRadius: 5,
         borderBottom: '0.5px solid rgb(192,192,192)'
     },
     intro: {
@@ -795,5 +1031,59 @@ const styleInfo = {
         padding: 5,
         height: '8vw',
         overflow: 'auto',
+    },
+    messageBox: {
+        height: '91%',
+        overflow: 'auto'
+    },
+    contentBox: {
+        backgroundColor: 'white',
+        width: '95%',
+        margin: 10,
+        height: '9vw',
+        overflow: 'auto'
+    },
+}
+
+class Message extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+
+    render() {
+        return (
+            <div className="col-md-12">
+                <div style={this.props.solution == null ? styleMessage.bodyAlert : styleMessage.bodyWarning}>
+                    {
+                        this.props.message == 'OK'
+                            ? <div>
+                                <h4 style={{ fontSize: '16px !important', margin: '2px' }}>[{Object(this.props.solution).getSolutionDate}] {this.props.name}:</h4>
+                                <span>{Object(this.props.solution).description}</span>
+                            </div>
+                            : <div>
+                                <h4 style={{ fontSize: '16px !important', margin: '2px' }}>[{this.props.datetime}] {this.props.name}:</h4>
+                                <span>{this.props.message}</span>
+                            </div>
+                    }
+                </div>
+            </div>
+        );
+    }
+}
+
+const styleMessage = {
+    bodyAlert: {
+        marginTop: 10,
+        padding: '2px 5px 2px 10px',
+        // backgroundColor: '#e7505a',
+        border: '2px solid #e7505a',
+        color: '#2f353b'
+    },
+    bodyWarning: {
+        marginTop: 10,
+        padding: '2px',
+        // backgroundColor: '#f39c12',
+        border: '2px solid #f39c12',
+        color: '#2f353b'
     }
 }

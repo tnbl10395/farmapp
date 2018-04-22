@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Device;
 use App\Manage;
+use App\Location;
 use JWTAuth;
 
 class DevicesController extends Controller

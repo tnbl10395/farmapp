@@ -15,13 +15,10 @@ export default class Content extends React.Component {
 
     render() {
         return (
-            <div style={this.props.sideBar ? style.content_true : style.content_false}>
+            <div style={!this.props.sideBar ? style.content_true : style.content_false}>
                 <div className="row">
                     <div className="row">
                         <div style={style.breadcrumb}>
-                            {/* <div style={style.head} className=""> */}
-                                {/* <span style={style.head}>{this.props.breadcrumb}</span> */}
-                            {/* </div> */}
                             <div className="pull-right">
                                 <a style={style.tag_a}><i className="fa fa-tachometer" style={{ marginRight: 10 }} />Home</a><span style={style.go}>></span> {this.props.breadcrumb}
                             </div>
@@ -46,22 +43,22 @@ export default class Content extends React.Component {
 }
 
 var style = {
-    content_true: {
-        position: 'absolute',
-        left: 185,
-        top: 50,
-        right: 0,
-        bottom: 0,
-        backgroundColor: '#ecf0f5',
-        fontFamily: 'Source Sans Pro, Helvetica Neue, Helvetica, Arial, sans-serif',
-        // opacity: 0.7
-    },
+    // content_true: {
+    //     position: 'absolute',
+    //     left: 185,
+    //     top: 50,
+    //     right: 0,
+    //     bottom: 0,
+    //     backgroundColor: '#ecf0f5',
+    //     fontFamily: 'Source Sans Pro, Helvetica Neue, Helvetica, Arial, sans-serif',
+    //     // opacity: 0.7
+    // },
     content_false: {
         position: 'absolute',
-        left: 45,
-        bottom: 0,
-        top: 50,
-        right: 0,
+        left: 20,
+        bottom: 10,
+        top: 96,
+        right: 20,
         // opacity: 0.7
         backgroundColor: '#ecf0f5',
         fontFamily: 'Source Sans Pro, Helvetica Neue, Helvetica, Arial, sans-serif',

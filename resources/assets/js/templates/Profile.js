@@ -44,11 +44,11 @@ const style = {
         marginLeft: 5,
     },
     avatar_true: {
-        color: '#5cb85c',
+        color: 'linear-gradient(to bottom, #007991, #78ffd6)',
         fontSize: 55
     },
     avatar_false: {
-        color: '#5cb85c',
+        color: 'linear-gradient(to bottom, #007991, #78ffd6)',
         fontSize: 30
     },
     dot: {

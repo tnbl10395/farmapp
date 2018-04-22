@@ -38,7 +38,8 @@ import {
     CHANGE_INTERVAL_DASHBOARD,
     CHECK_VALIDATE_LOGIN,
     GET_DETAIL_INFORMATION_DEVICE,
-    GET_NOTIFICATION
+    GET_NOTIFICATION,
+    CHOOSE_OPTION_LIST_DEVICE
 } from "./TypeAction";
 //Custom UI
 export const chooseOptionSidebar = (option) => {
@@ -324,5 +325,12 @@ export const getNotification = (loadData) => {
     return {
         type: GET_NOTIFICATION,
         loadData
+    }
+}
+
+export const chooseOptionListDevice = (message) => {
+    return {
+        type : CHOOSE_OPTION_LIST_DEVICE,
+        message
     }
 }

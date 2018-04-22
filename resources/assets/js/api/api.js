@@ -611,3 +611,18 @@ export const getNotificationApi = (dispatch, getNotification, deviceId) => {
     } catch (error) {
     }
 }
+
+export const getAlldevicesApi = (dispatch, getAlldevices, deviceId) => {
+    try {
+        var data = [];
+        fetch(URL + "api/list-location", {
+            method: method.GET,
+            headers: headers,
+        })
+            .then((response) => response.json())
+            .then((res) => {
+                dispatch( getAlldevices(res) );
+            });
+    } catch (error) {
+    }
+}

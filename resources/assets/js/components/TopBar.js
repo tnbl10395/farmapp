@@ -9,8 +9,8 @@ export default class TopBar extends React.Component {
     }
 
     componentWillMount() {
-        if (width <= 414) this.props.hideSideBar();
-        else this.props.showSideBar();
+        // if (width <= 414) this.props.hideSideBar();
+        // else this.props.showSideBar();
     }
 
     render() {
@@ -19,9 +19,9 @@ export default class TopBar extends React.Component {
                     <div style={style.divTitle} className="col-md-3 col-sm-3 col-3">
                         <a href="/"><img src="/images/logo4.png" style={style.logo}/></a>
                         {/* <p style={style.title}>LP<a href="/" style={style.a}>Farm</a></p> */}
-                        <a onClick={() => this.props.openSidebar()} style={style.a_bar}>
+                        {/* <a onClick={() => this.props.openSidebar()} style={style.a_bar}>
                             {this.props.sideBar ? <i className="fa fa-caret-left" /> : <i className="fa fa-caret-right" />}
-                        </a>
+                        </a> */}
                     </div>
                     <a onClick={() => {
                         this.props.openAlert('LOGOUT', '');
@@ -34,7 +34,7 @@ export default class TopBar extends React.Component {
 var style = {
     topBar: {
         position: 'fixed',
-        backgroundColor: '#5cb85c',
+        background: 'linear-gradient(to bottom, #007991, #78ffd6)',
         width: '100%',
         height: 50,
         zIndex: 99999,

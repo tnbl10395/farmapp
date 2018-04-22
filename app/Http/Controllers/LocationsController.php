@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Location;
 use App\Manage;
+use App\Data;
 use JWTAuth;
 
 class LocationsController extends Controller
@@ -31,9 +32,10 @@ class LocationsController extends Controller
             $location = Location::join('devices', 'locations.deviceId', '=', 'devices.id')
                                 ->join('manages', 'devices.id', '=', 'manages.deviceId')
                                 ->join('plants', 'manages.plantId', '=', 'plants.id')
+                                ->join('data', 'manages.deviceId', '=', 'data.deviceId')
                                 ->whereIn('manages.deviceId', $devices)
                                 ->select('locations.*', 'plants.id as plantId', 'plants.name as namePlant', 'plants.description as descriptionPlant',
-                                        'manages.startDate', 'manages.endDate', 'devices.name')
+                                        'manages.startDate', 'manages.endDate', 'devices.name', 'data.humidity', 'data.temperature')
                                 ->get()->groupBy('deviceId');
             if ($location != null) {
                 foreach($location as $key => $value) {
@@ -54,9 +56,10 @@ class LocationsController extends Controller
             $location = Location::join('devices', 'locations.deviceId', '=', 'devices.id')
                                 ->join('manages', 'devices.id', '=', 'manages.deviceId')
                                 ->join('plants', 'manages.plantId', '=', 'plants.id')
+                                ->join('data', 'manages.deviceId', '=', 'data.deviceId')
                                 ->whereIn('manages.deviceId', $devices)
                                 ->select('locations.*', 'plants.id as plantId', 'plants.name as namePlant', 'plants.description as descriptionPlant',
-                                        'manages.startDate', 'manages.endDate', 'devices.name')
+                                        'manages.startDate', 'manages.endDate', 'devices.name', 'data.humidity', 'data.temperature')
                                 ->get()->groupBy('deviceId');
             if ($location != null) {
                 foreach($location as $key => $value) {

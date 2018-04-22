@@ -403,7 +403,7 @@ const chartOptions = {
     responsive: true,
     animation: false,
     scaleOverride: true,
-    scaleSteps : 7,
+    scaleSteps : 10,
     scaleStepWidth : 10,
     scaleStartValue : 0 
     // maintainAspectRatio: false,
@@ -440,7 +440,7 @@ const style = {
     },
     chart: {
         // marginTop: 10,
-        backgroundColor: '#ecf0f5',
+        // backgroundColor: '#ecf0f5',
         borderRadius: 3,
         // border: '1px solid grey',
         // padding: 10

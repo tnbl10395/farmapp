@@ -17,10 +17,10 @@ export default class SideBar extends React.Component {
     render() {
         return (
             <div style={this.props.sideBar ? style.sideBar_true : style.sideBar_false} className="row">
-                <div>
+                {/* <div>
                     <Profile sideBar={this.props.sideBar} />
                     <div style={style.line}></div>
-                </div>
+                </div> */}
                 <div style={style.div_ul}>
                     <Element icon={'fa fa-tachometer'}
                              name={"Dashboard"}
@@ -73,24 +73,25 @@ var style = {
         backgroundColor: '#222d32',
         top: 50,
         left: 0,
-        width: 200,
+        right: 0,
         height: '100%',
         // opacity: 0.9,
-        zIndex: 4,
     },
-    sideBar_false: {
-        position: 'fixed',
-        backgroundColor: '#222d32',
-        top: 50,
-        left: 0,
-        width: 60,
-        height: '100%',
-        // opacity: 0.8,
-        zIndex: 4,
-    },
+    // sideBar_false: {
+    //     position: 'fixed',
+    //     backgroundColor: '#222d32',
+    //     top: 50,
+    //     left: 0,
+    //     width: 60,
+    //     height: '100%',
+    //     // opacity: 0.8,
+    //     zIndex: 4,
+    // },
     div_ul: {
-        marginLeft: -5,
+        marginLeft: 35,
         listStyle: 'none',
+        height: 46,
+        width: '100%'
     },
     line: {
         backgroundColor: 'white',
