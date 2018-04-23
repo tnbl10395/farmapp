@@ -251,7 +251,8 @@ class SolutionsController extends Controller
                                 'deviceId' => $data[$i]->deviceId,
                                 'solution' => $solution,
                                 'data' => $data[$i],
-                                'phase' => $phases[$j]
+                                'phase' => $phases[$j],
+                                'datetime' => $datetime->datetime
                             ];
                             break;
                         }
@@ -261,31 +262,5 @@ class SolutionsController extends Controller
             }
         }
         return response()->json($sendData);
-
-        // $plant = Manage::where('deviceId', '=', $deviceId)
-        //                 ->select('plantId as id', 'startDate')
-        //                 ->first();
-        // $phases = Phase::where('plantId', '=', $plant->id)
-        //                 ->orderBy('id')
-        //                 ->get();
-        // for($i = 0; $i < count($phases); $i++){
-        //     if ($i == 0) $startDate = \Carbon\Carbon::parse($plant->startDate);
-        //     else $startDate = \Carbon\Carbon::parse($plant->startDate)->addDays($phases[$i-1]->days);
-        //     $endDate = \Carbon\Carbon::parse($plant->startDate)->addDays($phases[$i]->days);
-        //     if ($startDate < $now && $now < $endDate) {
-        //         $statusHumidity = $this->compareValue($phases[$i]->minHumidity, $phases[$i]->maxHumidity, $data->humidity);
-        //         $statusTemperature = $this->compareValue($phases[$i]->minTemperature, $phases[$i]->maxTemperature, $data->temperature);
-        //         $solution = $this->getSolution($statusHumidity, $statusTemperature, $phases[$i]->id);
-        //         $sendData = [
-        //             'message' => "OK",
-        //             'deviceId' => $deviceId,
-        //             'solution' => $solution,
-        //             'data' => $data,
-        //             'phase' => $phases[$i]
-        //         ];
-        //         break;
-        //     }
-        // }
-        // return response()->json($sendData);
     } 
 }

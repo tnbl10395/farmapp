@@ -53,8 +53,8 @@ export default class Dashboard2Component extends React.Component {
                         showDevicesByGrid={this.props.showDevicesByGrid}
                         showDevicesByList={this.props.showDevicesByList}
                         showDevicesByMap={this.props.showDevicesByMap}
-                        dashboardDevicesActive={this.props.dashboardDevicesActive} 
-                        getListNotification={this.props.getListNotification} 
+                        dashboardDevicesActive={this.props.dashboardDevicesActive}
+                        getListNotification={this.props.getListNotification}
                         notificationList={this.props.notificationList} />
                 </div>
                 <div className="col-md-6" style={style.main}>
@@ -65,7 +65,10 @@ export default class Dashboard2Component extends React.Component {
                         intervalTime={this.props.intervalTime}
                         interval={this.props.interval}
                         getRealDataOnChart={this.props.getRealDataOnChart}
-                        device={this.props.device} />
+                        device={this.props.device}
+                        dashboardDevice={this.props.dashboardDevice}
+                        plant={this.props.dashboardPlant} 
+                        total={this.props.dashboardTotalDaysOfPhases}/>
                 </div>
                 <div className="col-md-3" style={style.main}>
                     <Notification plant={this.props.dashboardPlant}
@@ -73,7 +76,7 @@ export default class Dashboard2Component extends React.Component {
                         deviceId={this.props.notificationDeviceId}
                         message={this.props.notificationMessage}
                         datetime={this.props.notificationDatetime}
-                        listDevice={this.props.all_devices}
+                        dashboardDevicesActive={this.props.dashboardDevicesActive}
                         notificationList={this.props.notificationList} />
                 </div>
                 {this.state.isModal ? <Form closeModal={this.closeModal.bind(this)} /> : null}
@@ -120,7 +123,7 @@ class Block extends React.Component {
     }
 
     componentDidMount() {
-        this.props.getListNotification();
+        // this.props.getListNotification();
         this.interval = setInterval(() => {
             this.props.getListNotification();
         }, 10000);
@@ -128,7 +131,6 @@ class Block extends React.Component {
 
     componentWillUnmount() {
         clearInterval(this.interval);
-        clearTimeout(this.timeout);
     }
 
     render() {
@@ -149,17 +151,16 @@ class Block extends React.Component {
                             ? this.props.dashboardDevicesActive.map((element, index) => {
                                 return <div className="col-sm-2 col-md-4" key={element.deviceId}>
                                     <Device closeModal={this.props.closeModal}
-                                            getNotification={this.props.getNotification}
-                                            element={element} 
-                                            data={Object(this.props.notificationList[index]).message == 'OK' ? Object(this.props.notificationList[index]).data : null}
-                                            solution={Object(this.props.notificationList[index]).message == 'OK' ? Object(this.props.notificationList[index]).solution : null}/>
+                                        element={element}
+                                        data={Object(this.props.notificationList[index]).message == 'OK' ? Object(this.props.notificationList[index]).data : null}
+                                        solution={Object(this.props.notificationList[index]).message == 'OK' ? Object(this.props.notificationList[index]).solution : null} />
                                 </div>
                             })
                             : null
                     }
                     {
                         this.props.showDevicesByGrid
-                            ?   this.props.listDevice.map(element => {
+                            ? this.props.listDevice.map(element => {
                                 if (element.isActive != '1') {
                                     return <div className="col-sm-2 col-md-4" key={element.id}>
                                         <NoDevice openModal={this.props.openModal}
@@ -167,7 +168,7 @@ class Block extends React.Component {
                                     </div>
                                 }
                             })
-                            :null
+                            : null
 
                     }
                     {/* {
@@ -364,7 +365,7 @@ const styleDevice = {
         width: '100%',
         height: '5vw',
         borderRadius: 20,
-        backgroundColor: '#f39c12',
+        backgroundColor: '#F4D03F',
         color: 'white'
     },
     headerNoData: {
@@ -441,7 +442,9 @@ class Main extends React.Component {
     constructor(props) {
         super(props);
     }
-
+    componentDidMount() {
+        console.log(this.props.dashboardDevice);
+    }
     render() {
         return (
             <div style={styleMain.body}>
@@ -450,17 +453,35 @@ class Main extends React.Component {
                         INFORMATION <span style={style.description}>Include progress, real-time chart, reminder,...</span>
                     </div>
                 </div>
-                <div className="col-md-12">
+                <div className="col-md-12 text-uppercase text-center">
+                    <label className="form-label" style={{ marginTop: 10, marginBottom: 0, fontSize: 18 }}>{Object(this.props.dashboardDevice).name}</label>
+                </div>
+                <div className="col-md-12" style={styleMain.contentIntro}>
+                    <div className="col-md-5">
+                        <img src="images/lua.jpeg" style={styleMain.image} />
+                    </div>
+                    <div className="col-md-7" style={styleMain.intro}>
+                        <div style={styleMain.textIntro}>
+                            <label className="form-label text-weight-bold">Plant: </label><span> {Object(this.props.plant).name}</span>
+                        </div>
+                        <div style={styleMain.textIntro}>
+                            <label className="form-label text-weight-bold">Total days of Plant: </label><span> {this.props.total}</span>
+                        </div>
+                    </div>
+                </div>
+                <div className="col-md-12" style={{borderBottom: '1px solid #eef1f5'}}>
+                    <label className="form-label" style={{ marginTop: 10, marginBottom: 0 }}><i className="fa fa-info-circle" style={{ paddingRight: 5}}></i>Progress</label>
                     <TimeLines phases={this.props.phases}
                         totalDaysOfPhase={this.props.totalDaysOfPhase} />
                 </div>
                 <div className="col-md-12" style={{ paddingTop: 10, paddingLeft: 5, paddingRight: 5, paddingBottom: 5 }}>
+                    <label className="form-label" style={{ marginTop: 10, marginBottom: 20, marginLeft: 10 }}><i className="fa fa-info-circle" style={{ paddingRight: 5}}></i>Real-time Chart</label>
                     <ChartComponent humidity={this.props.humidity}
                         temperature={this.props.temperature}
                         intervalTime={this.props.intervalTime}
                         interval={this.props.interval}
                         getRealDataOnChart={this.props.getRealDataOnChart}
-                        device={this.props.device} />
+                        device={Object(this.props.dashboardDevice).id} />
                 </div>
             </div>
 
@@ -475,6 +496,35 @@ const styleMain = {
         width: '100%',
         height: '100%',
         border: '1px solid #e7ecf1',
+        overflow: 'auto'
+    },
+    image: {
+        objectFit: 'cover',
+        width: '100%',
+        height: '170px',
+        marginTop: 10,
+        // borderBottom: '0.5px solid rgb(192,192,192)'
+    },
+    intro: {
+        marginTop: 10
+    },
+    namePlant: {
+        margin: '10px 10px 0px 0px',
+        textAlign: 'center',
+        // borderBottom: '0.5px solid rgb(192,192,192)'
+    },
+    content: {
+        padding: 5,
+        height: '8vw',
+        overflow: 'auto',
+    },
+    contentIntro: {
+        height: '200px', 
+        borderBottom: '1px solid #eef1f5', 
+        padding: 0
+    },
+    textIntro: {
+        padding: 0
     }
 }
 
@@ -496,9 +546,9 @@ class TimeLines extends React.Component {
                         '  display: block;',
                         '  width: 100%;',
                         '  margin-top: 60px;',
-                        // '  top: 100px;',
-                        // '  left: 20px;',
-                        // '  right: 20px;',
+                        '  top: 100px;',
+                        '  left: 20px;',
+                        '  right: 20px;',
                         '  height: 4px;',
                         '  background: #3598dc;',
                         '}',
@@ -506,7 +556,7 @@ class TimeLines extends React.Component {
                         'ol::after {',
                         '  content: "";',
                         '  position: absolute;',
-                        '  top: 52px;',
+                        '  top: 85px;',
                         '  display: block;',
                         '  width: 20px;',
                         '  height: 20px;',
@@ -528,7 +578,7 @@ class TimeLines extends React.Component {
                         '  display: inline-block;',
                         '  float: left;',
                         // '  width: 20%;',
-                        '  font: bold 14px arial;',
+                        '  font: bold 12px arial;',
                         '  height: 50px;',
                         '}',
                         'ol li:nth-child(odd) .diplome{',
@@ -597,10 +647,10 @@ class TimeLines extends React.Component {
                 </style>
                 <ol>
                     {
-                        this.props.phases.map(element => {
+                        this.props.phases.map((element, index) => {
                             var width = element.days / this.props.totalDaysOfPhase * 100;
                             return <li style={{ width: width + '%' }} key={element.id}>
-                                <p className="diplome">{Object(element).name}</p>
+                                <p className="diplome">{"Phase "+(index+1)}</p>
                                 <div className="point"></div>
                                 <div className="description">
                                     <p><span>Phase:</span> {Object(element).name}</p>
@@ -1003,29 +1053,17 @@ class Notification extends React.Component {
                     </div>
                 </div>
                 <div style={styleInfo.messageBox}>
-                    {/* <div style={styleInfo.contentBox}> */}
                     {
-                        this.props.listDevice.map(element => {
-                            if (element.id == this.props.deviceId) {
-                                if ((this.props.notificationSolution != null && this.props.message == 'OK') || this.props.message != 'OK' && this.props.message != null) {
-                                    this.state.arrayMessageBox.unshift(<Message solution={this.props.notificationSolution} message={this.props.message} name={element.name} datetime={this.props.datetime} />);
-                                }
-                                if (this.state.arrayMessageBox.length == 20) this.state.arrayMessageBox.pop();
-                                return this.state.arrayMessageBox;
+                        this.props.dashboardDevicesActive.map((element, index) => {
+                            if ((Object(this.props.notificationList[index]).solution != null && Object(this.props.notificationList[index]).message == 'OK') || Object(this.props.notificationList[index]).message != 'OK' && Object(this.props.notificationList[index]).message != null) {
+                                this.state.arrayMessageBox.unshift(<Message solution={Object(this.props.notificationList[index]).solution} message={Object(this.props.notificationList[index]).message} name={element.name} datetime={Object(this.props.notificationList[index]).datetime} />);
                             }
+                            this.state.arrayMessageBox = [...(new Set(this.state.arrayMessageBox))];
+                            if (this.state.arrayMessageBox.length == 20) this.state.arrayMessageBox.pop();
+                            return this.state.arrayMessageBox;
                         })
                     }
-                    {/* </div> */}
                 </div>
-                {/* <div className="col-md-5">
-                    <img src="images/lua.jpeg" style={styleInfo.image} />
-                </div>
-                <div className="col-md-7" style={styleInfo.intro}>
-                    <h3 style={styleInfo.namePlant}>{Object(this.props.plant).name}</h3>
-                    <div style={styleInfo.content}>
-                        <p>{Object(this.props.plant).description}</p>
-                    </div>
-                </div> */}
             </div>
         )
     }
@@ -1038,26 +1076,6 @@ const styleInfo = {
         height: '100%',
         backgroundColor: '#fff',
         border: '1px solid #e7ecf1',
-    },
-    image: {
-        objectFit: 'cover',
-        width: '100%',
-        height: '10vw',
-        marginTop: 10,
-        borderBottom: '0.5px solid rgb(192,192,192)'
-    },
-    intro: {
-        padding: 0
-    },
-    namePlant: {
-        margin: '10px 10px 0px 0px',
-        textAlign: 'center',
-        borderBottom: '0.5px solid rgb(192,192,192)'
-    },
-    content: {
-        padding: 5,
-        height: '8vw',
-        overflow: 'auto',
     },
     messageBox: {
         height: '91%',
@@ -1110,7 +1128,7 @@ const styleMessage = {
         marginTop: 10,
         padding: '2px',
         // backgroundColor: '#f39c12',
-        border: '2px solid #f39c12',
+        border: '2px solid #F4D03F',
         color: '#2f353b'
     }
 }
