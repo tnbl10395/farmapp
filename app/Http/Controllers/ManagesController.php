@@ -219,12 +219,22 @@ class ManagesController extends Controller
         if($user->role == '1'){
             $plantId = Manage::where('deviceId', '=', $deviceId)
                             ->where('isActive', '=', 1)
-                            ->select('plantId as id')
+                            ->select('plantId as id', 'startDate', 'endDate')
                             ->first();
-            $plant = Plant::findOrFail($plantId->id); 
-            //
+            $plant = Plant::where('id', '=', $plantId->id)
+                            ->select('id', 'name', 'description')
+                            ->get();
+            $picturePlant = Plant::where('id', '=', $plantId->id)
+                                ->select('picture')
+                                ->first();
+            //              
             $device = Device::findOrFail($deviceId);
             //
+            // $date = Manage::selectRaw('GETDATE() as getDate')->first();
+            // $now = Manage::where('deviceId', '=', $deviceId)
+            //                 ->where('isActive', '=', 1)
+            //                 ->selectRaw('DATEDIFF(day,'.$date->getDate.', endDate) as now')
+            //                 ->first();
             // $sensor = Sensor::where('$deviceId', '=', $deviceId);
             //
             $phases = Phase::where('plantId', '=', $plantId->id)->get();
@@ -240,19 +250,34 @@ class ManagesController extends Controller
                 'plant' => $plant,
                 'phases' => $phases,
                 'solutions' => $solutions,
-                'totalDaysOfPhases' => $totalDaysOfPhases
+                'totalDaysOfPhases' => $totalDaysOfPhases,
+                'totalPhases' => count($phases),
+                'startDate' => $plantId->startDate,
+                'endDate' => $plantId->endDate,
+                'picture' => base64_encode($picturePlant->picture),
+                // 'now' => $now
             ];
             return response()->json($data);
         }else {
             $plantId = Manage::where('deviceId', '=', $deviceId)
                             ->where('isActive', '=', 1)
                             ->where('userId', '=', $user->id)
-                            ->select('plantId as id')
+                            ->select('plantId as id', 'startDate', 'endDate')
                             ->first();
-            $plant = Plant::findOrFail($plantId->id); 
+            $plant = Plant::where('id', '=', $plantId->id)
+                            ->select('id', 'name', 'description')
+                            ->get();
+            $picturePlant = Plant::where('id', '=', $plantId->id)
+                                ->select('picture')
+                                ->first();
             //
             $device = Device::findOrFail($deviceId);
             //
+            // $date = Manage::selectRaw('GETDATE() as getDate')->first();
+            // $now = Manage::where('deviceId', '=', $deviceId)
+            //                 ->where('isActive', '=', 1)
+            //                 ->selectRaw('DATEDIFF(day,'.$date->getDate.', endDate) as now')
+            //                 ->first();
             // $sensor = Sensor::where('$deviceId', '=', $deviceId);
             //
             $phases = Phase::where('plantId', '=', $plantId->id)->get();
@@ -268,7 +293,12 @@ class ManagesController extends Controller
                 'plant' => $plant,
                 'phases' => $phases,
                 'solutions' => $solutions,
-                'totalDaysOfPhases' => $totalDaysOfPhases
+                'totalDaysOfPhases' => $totalDaysOfPhases,
+                'totalPhases' => count($phases),
+                'startDate' => $plantId->startDate,
+                'endDate' => $plantId->endDate,
+                'picture' => base64_encode($picturePlant->picture),
+                // 'now' => $now
             ];
             return response()->json($data);
         }

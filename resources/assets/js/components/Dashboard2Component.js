@@ -55,7 +55,8 @@ export default class Dashboard2Component extends React.Component {
                         showDevicesByMap={this.props.showDevicesByMap}
                         dashboardDevicesActive={this.props.dashboardDevicesActive}
                         getListNotification={this.props.getListNotification}
-                        notificationList={this.props.notificationList} />
+                        notificationList={this.props.notificationList} 
+                        getDetailInformationDevice={this.props.getDetailInformationDevice}/>
                 </div>
                 <div className="col-md-6" style={style.main}>
                     <Main phases={this.props.dashboardPhases}
@@ -68,7 +69,11 @@ export default class Dashboard2Component extends React.Component {
                         device={this.props.device}
                         dashboardDevice={this.props.dashboardDevice}
                         plant={this.props.dashboardPlant} 
-                        total={this.props.dashboardTotalDaysOfPhases}/>
+                        totalDayOfPlant={this.props.dashboardTotalDaysOfPhases}
+                        startDate={this.props.dashboardStartDate}
+                        endDate={this.props.dashboardEndDate} 
+                        totalPhases={this.props.dashboardTotalPhases}
+                        picture={this.props.dashboardPicture}/>
                 </div>
                 <div className="col-md-3" style={style.main}>
                     <Notification plant={this.props.dashboardPlant}
@@ -149,8 +154,20 @@ class Block extends React.Component {
                     {
                         this.props.showDevicesByGrid
                             ? this.props.dashboardDevicesActive.map((element, index) => {
-                                return <div className="col-sm-2 col-md-4" key={element.deviceId}>
-                                    <Device closeModal={this.props.closeModal}
+                                return <div className="col-xs-2 col-sm-2 col-md-4" key={element.deviceId} onClick={() => this.props.getDetailInformationDevice(element.deviceId)}>
+                                    <Device
+                                        element={element}
+                                        data={Object(this.props.notificationList[index]).message == 'OK' ? Object(this.props.notificationList[index]).data : null}
+                                        solution={Object(this.props.notificationList[index]).message == 'OK' ? Object(this.props.notificationList[index]).solution : null} />
+                                </div>
+                            })
+                            : null
+                    }
+                    {
+                        this.props.showDevicesByList
+                            ? this.props.dashboardDevicesActive.map((element, index) => {
+                                return <div className="col-md-12" key={element.deviceId} onClick={() => this.props.getDetailInformationDevice(element.deviceId)}>
+                                    <DeviceByList closeModal={this.props.closeModal}
                                         element={element}
                                         data={Object(this.props.notificationList[index]).message == 'OK' ? Object(this.props.notificationList[index]).data : null}
                                         solution={Object(this.props.notificationList[index]).message == 'OK' ? Object(this.props.notificationList[index]).solution : null} />
@@ -171,26 +188,6 @@ class Block extends React.Component {
                             : null
 
                     }
-                    {/* {
-                        this.props.showDevicesByGrid
-                            ? this.props.listDevice.map(element => {
-                                if (element.isActive == '1') {
-                                    return <div className="col-sm-2 col-md-4" key={element.id}>
-                                        <Device closeModal={this.props.closeModal}
-                                            element={element}
-                                            data={this.props.data}
-                                            getNotification={this.props.getNotification}
-                                            solution={this.props.notificationSolution} />
-                                    </div>
-                                } else {
-                                    return <div className="col-sm-2 col-md-4" key={element.id}>
-                                        <NoDevice openModal={this.props.openModal}
-                                            element={element} />
-                                    </div>
-                                }
-                            })
-                            : null
-                    } */}
                     {
                         this.props.showDevicesByMap
                             ? <MapWithAMarker
@@ -392,6 +389,104 @@ const styleDevice = {
     }
 }
 
+class DeviceByList extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            data: this.props.data
+        }  
+    }
+    
+    render() {
+        return (
+            <div style={styleDeviceList.body}>
+                {
+                    this.props.data != null
+                        ? <div>
+                            <div style={styleDeviceList.display}>
+                                <div style={styleDeviceList.number}></div>
+                                <div style={styleDeviceList.icon}></div>
+                            </div>
+                            <div style={styleDeviceList.progress}>
+
+                            </div>
+                            {/* <div style={styleDevice.insideData}>
+                                <h4 style={{ fontSize: '1vw' }}><i className="fa fa-tint"></i> {Object(this.props.data).humidity} (%)</h4>
+                                <h4 style={{ fontSize: '1vw' }}><i className="fa fa-thermometer-empty"></i> {Object(this.props.data).temperature} (°C)</h4>
+                            </div> */}
+                        </div>
+                        : <div>
+                            <div style={styleDeviceList.insideNoData}>
+                                <i style={{ fontSize: '2vw' }} className="fa fa-exclamation-triangle"></i>
+                            </div>
+                        </div>
+                }
+                {this.props.element.name}
+            </div>
+        );
+    }
+}
+
+const styleDeviceList = {
+    body: {
+        border: '1px solid #e7ecf1',
+        background: '#fff',
+        padding: '15px 15px 30px',
+        marginTop: '20px',
+        cursor: 'pointer',
+    },
+    display: {
+
+    },
+    number: {
+
+    },
+    icon: {
+
+    },
+    progress: {
+
+    },
+    headerData: {
+        boxShadow: '0 1px 6px rgba(0, 0, 0, 0.12), 0 1px 4px rgba(0, 0, 0, 0.24)',
+        width: '100%',
+        height: '5vw',
+        borderRadius: 20,
+        backgroundColor: '#00a65a',
+        color: 'white'
+    },
+    headerWarning: {
+        boxShadow: '0 1px 6px rgba(0, 0, 0, 0.12), 0 1px 4px rgba(0, 0, 0, 0.24)',
+        width: '100%',
+        height: '5vw',
+        borderRadius: 20,
+        backgroundColor: '#F4D03F',
+        color: 'white'
+    },
+    headerNoData: {
+        boxShadow: '0 1px 6px rgba(0, 0, 0, 0.12), 0 1px 4px rgba(0, 0, 0, 0.24)',
+        width: '100%',
+        height: '5vw',
+        borderRadius: 20,
+        backgroundColor: '#e7505a',
+        color: 'white'
+    },
+    insideData: {
+        position: 'absolute',
+        left: 0,
+        right: 0,
+        top: '15%',
+        textAlign: 'center'
+    },
+    insideNoData: {
+        position: 'absolute',
+        left: 0,
+        right: 0,
+        top: '28%',
+        textAlign: 'center'
+    }
+}
+
 class NoDevice extends React.Component {
     constructor(props) {
         super(props);
@@ -454,18 +549,27 @@ class Main extends React.Component {
                     </div>
                 </div>
                 <div className="col-md-12 text-uppercase text-center">
-                    <label className="form-label" style={{ marginTop: 10, marginBottom: 0, fontSize: 18 }}>{Object(this.props.dashboardDevice).name}</label>
+                    <label className="form-label" style={{ marginTop: 10, marginBottom: 0, fontSize: 18, color: '#32c5d2' }}>{Object(this.props.dashboardDevice).name}</label>
                 </div>
                 <div className="col-md-12" style={styleMain.contentIntro}>
-                    <div className="col-md-5">
-                        <img src="images/lua.jpeg" style={styleMain.image} />
+                    <div className="col-md-7">
+                        <img src={'data:image/png;base64,'+this.props.picture} style={styleMain.image} />
                     </div>
-                    <div className="col-md-7" style={styleMain.intro}>
+                    <div className="col-md-5" style={styleMain.intro}>
                         <div style={styleMain.textIntro}>
                             <label className="form-label text-weight-bold">Plant: </label><span> {Object(this.props.plant).name}</span>
                         </div>
                         <div style={styleMain.textIntro}>
-                            <label className="form-label text-weight-bold">Total days of Plant: </label><span> {this.props.total}</span>
+                            <label className="form-label text-weight-bold">Start Date: </label><span> {this.props.startDate}</span>
+                        </div>
+                        <div style={styleMain.textIntro}>
+                            <label className="form-label text-weight-bold">End Date: </label><span> {this.props.endDate}</span>
+                        </div>
+                        <div style={styleMain.textIntro}>
+                            <label className="form-label text-weight-bold">Total Phases: </label><span> {this.props.totalPhases}</span>
+                        </div>
+                        <div style={styleMain.textIntro}>
+                            <label className="form-label text-weight-bold">Total days of Plant: </label><span> {this.props.totalDayOfPlant}</span>
                         </div>
                     </div>
                 </div>
@@ -475,7 +579,7 @@ class Main extends React.Component {
                         totalDaysOfPhase={this.props.totalDaysOfPhase} />
                 </div>
                 <div className="col-md-12" style={{ paddingTop: 10, paddingLeft: 5, paddingRight: 5, paddingBottom: 5 }}>
-                    <label className="form-label" style={{ marginTop: 10, marginBottom: 20, marginLeft: 10 }}><i className="fa fa-info-circle" style={{ paddingRight: 5}}></i>Real-time Chart</label>
+                    <label className="form-label" style={{ marginTop: 10, marginBottom: 20, marginLeft: 10 }}><i className="fa fa-line-chart" style={{ paddingRight: 5}}></i>Real-time Chart</label>
                     <ChartComponent humidity={this.props.humidity}
                         temperature={this.props.temperature}
                         intervalTime={this.props.intervalTime}
@@ -506,7 +610,7 @@ const styleMain = {
         // borderBottom: '0.5px solid rgb(192,192,192)'
     },
     intro: {
-        marginTop: 10
+        marginTop: 10,
     },
     namePlant: {
         margin: '10px 10px 0px 0px',
@@ -550,7 +654,7 @@ class TimeLines extends React.Component {
                         '  left: 20px;',
                         '  right: 20px;',
                         '  height: 4px;',
-                        '  background: #3598dc;',
+                        '  background: #32c5d2;',
                         '}',
                         'ol::before,',
                         'ol::after {',
@@ -561,7 +665,7 @@ class TimeLines extends React.Component {
                         '  width: 20px;',
                         '  height: 20px;',
                         '  border-radius: 10px;',
-                        '  border: 10px solid #3598dc;',
+                        '  border: 10px solid #32c5d2;',
                         '}',
                         'ol::before {',
                         '  left: 10px;',
@@ -570,7 +674,7 @@ class TimeLines extends React.Component {
                         '  right: 5px;',
                         '  border: 10px solid transparent;',
                         '  border-right: 0;',
-                        '  border-left: 20px solid #3598dc;',
+                        '  border-left: 20px solid #32c5d2;',
                         '  border-radius: 3px;',
                         '}',
                         'li {',
@@ -599,7 +703,7 @@ class TimeLines extends React.Component {
                         '  display: block;',
                         '  width: 15px;',
                         '  height: 15px;',
-                        '  border: 4px solid #3598dc;',
+                        '  border: 4px solid #32c5d2;',
                         '  border-radius: 10px;',
                         '  background: #fff;',
                         '  position: absolute;',
@@ -646,6 +750,7 @@ class TimeLines extends React.Component {
                 }}>
                 </style>
                 <ol>
+                    <i className="fa fa-map-marker" style={{ color: '#2f353b', position: 'absolute', top: '62px', fontSize: '35px', zIndex: 100 }}></i>
                     {
                         this.props.phases.map((element, index) => {
                             var width = element.days / this.props.totalDaysOfPhase * 100;

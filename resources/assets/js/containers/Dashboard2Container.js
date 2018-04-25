@@ -12,6 +12,10 @@ const mapStateToProps = (state) => ({
     dashboardSolutions: state.dashboardSolutions,
     dashboardTotalDaysOfPhases: state.dashboardTotalDaysOfPhases,
     dashboardDevicesActive: state.dashboardDevicesActive,
+    dashboardStartDate: state.dashboardStartDate,
+    dashboardEndDate: state.dashboardEndDate,
+    dashboardTotalPhases: state.dashboardTotalPhases,
+    dashboardPicture: state.dashboardPicture,
     //notification
     notificationData: state.notificationData,
     notificationSolution: state.notificationSolution,

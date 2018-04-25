@@ -65,6 +65,10 @@ const initialState = {
     dashboardSolutions: [],
     dashboardTotalDaysOfPhases: null,
     dashboardDevicesActive: [],
+    dashboardStartDate: null,
+    dashboardEndDate: null,
+    dashboardTotalPhases: null,
+    dashboardPicture: null,
     //dashboard_notification
     notificationList: [],
     notificationMessage: null,
@@ -666,7 +670,11 @@ const Reducer = (state = initialState, action) => {
                 dashboardPlant: action.loadData.plant,
                 dashboardPhases: action.loadData.phases,
                 dashboardSolutions: action.loadData.solutions,
-                dashboardTotalDaysOfPhases: action.loadData.totalDaysOfPhases
+                dashboardTotalDaysOfPhases: action.loadData.totalDaysOfPhases,
+                dashboardStartDate: action.loadData.startDate,
+                dashboardEndDate: action.loadData.endDate,
+                dashboardTotalPhases: action.loadData.totalPhases,
+                dashboardPicture: action.loadData.picture
             }
         case GET_NOTIFICATION:
             if (action.loadData.message == 'OK') {
