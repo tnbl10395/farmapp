@@ -7,20 +7,12 @@ export default class SolutionComponent extends React.Component {
     }
 
     componentDidMount() {
-        this.props.getDataSolutions();
+        // this.props.getDataSolutions();
     }
 
     render() {
         return (
-            // this.props.dataSet.length>0? 
-            //     <Table dataSet={this.props.dataSet} 
-            //             object={objectSolution}
-            //             openModal={this.props.openModal}
-            //             columns={columns} sideBar={this.props.sideBar} 
-            //             name={"Solution"}/> 
-            //     : null
             <List
-                // openUpdate={this.props.openUpdate}
                 dataSet={this.props.dataSet}
                 sideBar={this.props.sideBar}
                 name={'Solution'}

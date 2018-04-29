@@ -271,7 +271,7 @@ const Reducer = (state = initialState, action) => {
                         admin_device_component: false,
                         admin_user_component: false,
                         admin_data_component: false,
-                        admin_solution_component: false,
+                        admin_plant_component: false,
                     }
                 case "device":
                     return {
@@ -281,7 +281,7 @@ const Reducer = (state = initialState, action) => {
                         admin_device_component: true,
                         admin_user_component: false,
                         admin_data_component: false,
-                        admin_solution_component: false,
+                        admin_plant_component: false,
                     }
                 case "user":
                     return {
@@ -291,7 +291,7 @@ const Reducer = (state = initialState, action) => {
                         admin_device_component: false,
                         admin_user_component: true,
                         admin_data_component: false,
-                        admin_solution_component: false,
+                        admin_plant_component: false,
                     }
                 case "data":
                     return {
@@ -301,7 +301,7 @@ const Reducer = (state = initialState, action) => {
                         admin_device_component: false,
                         admin_user_component: false,
                         admin_data_component: true,
-                        admin_solution_component: false,
+                        admin_plant_component: false,
                     }
                 case "plant":
                     return {

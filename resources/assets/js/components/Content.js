@@ -4,7 +4,7 @@ import Dashboard from '../containers/Dashboard2Container';
 import Devices from '../containers/DevicesContainer';
 import User from '../containers/UserContainer';
 import Data from '../containers/DataContainer';
-import Solution from '../containers/SolutionContainer';
+import Plant from '../containers/PlantContainer';
 import { HashRouter } from 'react-router-dom';
 import List from '../templates/List';
 
@@ -33,7 +33,7 @@ export default class Content extends React.Component {
                                 : null
                         }
                         <Route exact path="/data" component={Data} />
-                        <Route exact path="/solution" component={Solution} />
+                        <Route exact path="/plant" component={Plant} />
                     </Switch>
                 </div>
             </div>

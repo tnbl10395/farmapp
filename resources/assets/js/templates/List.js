@@ -10,7 +10,7 @@ export default class List extends React.Component {
             data: this.props.dataSet,
             itemsCountPerPage: 5,
             active: true,
-            inactive: true
+            inactive: true,
         };
         this.handlePageChange = this.handlePageChange.bind(this);
         this.filterList = this.filterList.bind(this);
@@ -20,7 +20,6 @@ export default class List extends React.Component {
 
     selectActive(e) {
         this.setState({ active: !this.state.active });
-        console.log(e.target);
     }
 
     selectInactive(e) {
@@ -54,7 +53,15 @@ export default class List extends React.Component {
         const indexOfFirstTodo = indexOfLastTodo - itemsCountPerPage;
         const currentData = data.slice(indexOfFirstTodo, indexOfLastTodo);
         return (
-            <div style={this.props.sideBar ? style.main_content_true : style.main_content_false}>
+            <div style={style.main_content_true}>
+                <style dangerouslySetInnerHTML={{
+                    __html: [
+                        '.item-device:hover {',
+                        '  box-shadow: inset 2px 0 gray;',
+                        '}',
+                    ].join('\n')
+                }}>
+                </style>
                 <div className="col-xs-12 col-sm-12 col-md-12" style={style.list}>
                     <div className="col-xs-12 col-sm-12 col-md-12">
                         <div className="col-xs-sm-6 col-sm-6 col-md-6" style={{ marginTop: 20 }}>
@@ -143,7 +150,11 @@ const profile = JSON.parse(sessionStorage.getItem('profile'));
 const renderTable = (name, currentData, openAlert, openModal, object) => {
     switch (name) {
         case 'Device':
-            return device(currentData, openAlert, openModal, object);
+            return <Device currentData={currentData}
+                            openAlert={openAlert}
+                            openModal={openModal}
+                            object={object} />
+        // return device(currentData, openAlert, openModal, object);
         case 'User':
             return user(currentData, openAlert, openModal, object);
         case 'Data':
@@ -153,36 +164,164 @@ const renderTable = (name, currentData, openAlert, openModal, object) => {
     }
 }
 
-const device = (currentData, openAlert, openModal, object) => (
-    currentData.map((element, index) =>
-        <div key={index} style={style.item} className="col-xs-12 col-sm-12 col-md-12">
-            <div className="col-xs-1 col-sm-1 col-md-1">
-                <i className="fa fa-gears" style={style.picture} />
-            </div>
-            <div className="col-xs-2 col-sm-2 col-md-2" style={style.text}>{element.name}</div>
-            <div className="col-xs-3 col-sm-3 col-md-3">
-                <h6>Code</h6>
-                {element.code}
-            </div>
-            <div className="col-xs-3 col-sm-3 col-md-3">
-                <h6>Manufacturing Date</h6>
-                {element.manufacturing_date}
-            </div>
-            <div className="col-xs-2 col-sm-2 col-md-2">
+class Device extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+
+    render() {
+        return (
+            <div>
                 {
-                    element.status == 1 ?
-                        <div className="col-md-8 label label-success" style={style.status}>Active</div>
-                        :
-                        <div className="col-md-8 label label-primary" style={style.status}>Inactive</div>
+                    this.props.currentData.map((element, index) => 
+                        <ItemDevice key={index} element={element} 
+                                    object={this.props.object} 
+                                    openAlert={this.props.openAlert}
+                                    openModal={this.props.openModal} />
+                    )
                 }
             </div>
-            <div className="col-xs-1 col-sm-1 col-md-1" style={style.button}>
-                <a onClick={() => openModal(object, element)} style={style.edit} className="fa fa-edit"></a>
-                <a onClick={() => openAlert('DELETE_DEVICE', element.id)} style={style.delete} className="fa fa-remove"></a>
+
+        );
+    }
+}
+
+class ItemDevice extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            isDetail: false
+        }
+    }
+
+    onClickToShowDetail() {
+        this.setState({ isDetail: !this.state.isDetail })
+    }
+
+    render() {
+        return (
+            <div style={style.item} onClick={this.onClickToShowDetail.bind(this)} className="col-xs-12 col-sm-12 col-md-12 item-device">
+                <div className="col-xs-1 col-sm-1 col-md-1">
+                    <i className="fa fa-gears" style={style.picture} />
+                </div>
+                <div className="col-xs-2 col-sm-2 col-md-2" style={style.text}><h5>{this.props.element.name}</h5></div>
+                <div className="col-xs-3 col-sm-3 col-md-3">
+                    <h6>Code</h6>
+                    {this.props.element.code}
+                </div>
+                <div className="col-xs-3 col-sm-3 col-md-3">
+                    <h6>Manufacturing Date</h6>
+                    {this.props.element.manufacturing_date}
+                </div>
+                <div className="col-xs-2 col-sm-2 col-md-2">
+                    {
+                        this.props.element.status == 1 ?
+                            <div className="col-md-8 label label-success" style={style.status}>Active</div>
+                            :
+                            <div className="col-md-8 label label-primary" style={style.status}>Inactive</div>
+                    }
+                </div>
+                <div className="col-xs-1 col-sm-1 col-md-1" style={style.button}>
+                    {profile.role == '0' ? null : <a onClick={() => this.props.openModal(this.props.object, this.props.element)} style={style.edit} className="fa fa-edit"></a>}
+                    <a onClick={() => this.props.openAlert('DELETE_DEVICE', this.props.element.id)} style={style.delete} className="fa fa-remove"></a>
+                </div>
+                {this.state.isDetail ? 
+                    <div className="col-md-12">
+                        <hr/>
+                        <h5>Sensors in {this.props.element.name}</h5>
+                        <div className="row" style={{padding: 0, overflowX: 'auto', whiteSpace: 'nowrap'}}>
+                            <div className="col-md-4" style={{padding: 0, float: 'none', display: 'inline-block'}}>
+                                <ItemSensor />
+                            </div>
+                            <div className="col-md-4" style={{padding: 0, float: 'none', display: 'inline-block'}}>
+                                <ItemSensor />
+                            </div>
+                            <div className="col-md-4" style={{padding: 0, float: 'none', display: 'inline-block'}}>
+                                <ItemSensor />
+                            </div>
+                            <div className="col-md-4" style={{padding: 0, float: 'none', display: 'inline-block'}}>
+                                <ItemSensor />
+                            </div>
+                            <div className="col-md-4" style={{padding: 0, float: 'none', display: 'inline-block'}}>
+                                <ItemSensor />
+                            </div>
+                        </div>
+                    </div> 
+                    : null}
             </div>
-        </div>
-    )
-)
+        );
+    }
+}
+
+class ItemSensor extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+    
+    render() {
+        return (
+            <div style={styleItemSensor.body}>
+                <img src="/images/avatar.png" className="col-md-5" style={styleItemSensor.image}/>
+                <div className="col-md-7" style={{ padding:0 }}>
+                    <div className="col-md-12">
+                        <span>Name: </span> Arduino
+                    </div>
+                    <div className="col-md-12">
+                        <span>Manufacturing Date: </span> 2018-03-10
+                    </div>
+                    <div className="col-md-12">
+                        <span>Made by: </span> China
+                    </div>
+                </div>
+            </div>
+        );
+    }
+}
+
+const styleItemSensor = {
+    body: {
+        padding: 5,
+        height: 150,
+        border: '1px solid gray',
+        margin: 3,
+    },
+    image: {
+        padding: 0,
+        objectFit: 'cover',
+        height: '100%'
+    }
+}
+// const device = (currentData, openAlert, openModal, object) => (
+//         currentData.map((element, index) =>
+//             <div key={index} style={style.item} onClick={() => console.log(isDetail = true)} className="col-xs-12 col-sm-12 col-md-12 item-device">
+//                 <div className="col-xs-1 col-sm-1 col-md-1">
+//                     <i className="fa fa-gears" style={style.picture} />
+//                 </div>
+//                 <div className="col-xs-2 col-sm-2 col-md-2" style={style.text}><h5>{element.name}</h5></div>
+//                 <div className="col-xs-3 col-sm-3 col-md-3">
+//                     <h6>Code</h6>
+//                     {element.code}
+//                 </div>
+//                 <div className="col-xs-3 col-sm-3 col-md-3">
+//                     <h6>Manufacturing Date</h6>
+//                     {element.manufacturing_date}
+//                 </div>
+//                 <div className="col-xs-2 col-sm-2 col-md-2">
+//                     {
+//                         element.status == 1 ?
+//                             <div className="col-md-8 label label-success" style={style.status}>Active</div>
+//                             :
+//                             <div className="col-md-8 label label-primary" style={style.status}>Inactive</div>
+//                     }
+//                 </div>
+//                 <div className="col-xs-1 col-sm-1 col-md-1" style={style.button}>
+//                     {profile.role == '0' ? null : <a onClick={() => openModal(object, element)} style={style.edit} className="fa fa-edit"></a>}
+//                     <a onClick={() => openAlert('DELETE_DEVICE', element.id)} style={style.delete} className="fa fa-remove"></a>
+//                 </div>
+//                 {isDetail ? <div className="col-md-12">PL</div> : null}
+//             </div>
+//     )
+// )
 
 const user = (currentData, openAlert, openModal, object) => (
     currentData.map((element, index) =>
@@ -266,45 +405,38 @@ const solution = (currentData, openAlert, openModal, object) => (
 
 const style = {
     main_content_true: {
-        color: 'black',
-        backgroundColor: 'white',
         position: 'absolute',
-        left: 10,
-        top: 50,
-        right: 10,
+        top: 45,
+        right: 0,
+        left: 0,
+        bottom: 0,
+        backgroundColor: '#fff',
+        // color: 'black',
+        // backgroundColor: 'white',
+        // position: 'absolute',
+        // left: 10,
+        // top: 50,
+        // right: 10,
         // width: '83%',
-        fontSize: 12,
+        // fontSize: 12,
         // opacity: 0.7,
-        borderRadius: 5,
-        fontWeight: 'bold',
+        // borderRadius: 5,
+        // fontWeight: 'bold',
         // boxShadow: "0.5px 5px 3px grey",
-        borderTop: '4px #5cb85c solid'
-    },
-    main_content_false: {
-        color: 'black',
-        backgroundColor: 'white',
-        position: 'absolute',
-        left: 10,
-        top: 50,
-        right: 10,
-        // width: '95%',
-        fontSize: 12,
-        // opacity: 0.7,
-        borderRadius: 3,
-        fontWeight: 'bold',
-        // boxShadow: "0.5px 5px 3px grey",
-        borderTop: '4px #5cb85c solid'
+        // borderTop: '4px #5cb85c solid'
     },
     list: {
         backgroundColor: '#fff',
         borderRadius: 5,
-        // display: 'inline-block'
+        position: 'relative',
+        overflowY: 'auto',
+        height: '100%',
     },
     item: {
-        border: '2px solid gray',
-        backgroundColor: '#ecf0f5',
+        border: '1px solid gray',
         borderRadius: 5,
         margin: 2,
+        cursor: 'pointer'
     },
     filter: {
         backgroundColor: '#ecf0f5',
