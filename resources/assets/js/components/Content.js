@@ -57,7 +57,7 @@ var style = {
         position: 'absolute',
         left: 20,
         bottom: 10,
-        top: 106,
+        top: 105,
         right: 20,
         // opacity: 0.7
         backgroundColor: '#ecf0f5',

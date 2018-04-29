@@ -77,6 +77,7 @@ Route::group(['middleware' => 'jwt.auth'], function () {
     Route::post('manages', 'ManagesController@store');
     Route::get('notification/{deviceId}', 'SolutionsController@notificationSolution');
     Route::get('list-notification', 'SolutionsController@getListNotifications');
+    Route::get('list-device-active', 'ManagesController@getListDeviceActive');
 });
 Route::group(['middleware' => 'key'], function () {
     Route::get('send-data', 'DataController@store');

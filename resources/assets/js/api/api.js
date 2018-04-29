@@ -1,7 +1,8 @@
 import { updateDevice } from "../actions/Action";
 
-export const URL = "http://116.110.0.66:3000/";
+// export const URL = "http://116.110.0.66:3000/";
 // export const URL = "http://localhost:3000/";
+export const URL = "http://42.119.104.144:3000/"
 
 const token = sessionStorage.getItem('token');
 
@@ -567,16 +568,36 @@ export const getRealChartDashboardBasedOnDayAPI = (dispatch, changeIntervalDashb
     }
 }
 
-export const addNewPlantIntoDevice = () => {
+export const submitNewPlantIntoDeviceApi = (
+    dispatch, 
+    getDetailInformationDeviceApi, 
+    getDetailInformationDevice, 
+    getListNotificationApi, 
+    getListNotification, 
+    getDeviceOfUserAPI,
+    getDeviceOfUser, 
+    getAlldevicesActiveApi,
+    getAlldevicesActive,
+    data) => {
     try {
-        var data = [];
         fetch(URL + "api/manages", {
             method: method.POST,
             headers: headers,
-            body: data
+            body: JSON.stringify({
+                code: data.code,
+                plant: data.plant,
+                startDate: data.startDate,
+                phase: data.phase,
+            })
         })
             .then((response) => response.json())
             .then((res) => {
+                if (res != null) {
+                    getAlldevicesActiveApi(dispatch, getAlldevicesActive);
+                    getDetailInformationDeviceApi(dispatch, getDetailInformationDevice, res.deviceId);
+                    getListNotificationApi(dispatch, getListNotification);
+                    getDeviceOfUserAPI(dispatch, getDeviceOfUser);
+                }
             });
     } catch (error) {
     }
@@ -615,7 +636,7 @@ export const getNotificationApi = (dispatch, getNotification, deviceId) => {
 export const getAlldevicesActiveApi = (dispatch, getAlldevicesActive) => {
     try {
         var data = [];
-        fetch(URL + "api/list-location", {
+        fetch(URL + "api/list-device-active", {
             method: method.GET,
             headers: headers,
         })

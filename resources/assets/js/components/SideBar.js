@@ -54,13 +54,13 @@ export default class SideBar extends React.Component {
                              link={"data"}
                              sideBar={this.props.sideBar}
                     />
-                    {/* <Element icon={'fa fa-book'}
-                             name={"Solution"}
-                             choose={this.props.admin_solution_component}
+                    <Element icon={'fa fa-pagelines'}
+                             name={"Plant"}
+                             choose={this.props.admin_plant_component}
                              chooseOption={this.props.chooseOption}
-                             link={"solution"}
+                             link={"plant"}
                              sideBar={this.props.sideBar}
-                    /> */}
+                    />
                 </div>
             </div>
         )

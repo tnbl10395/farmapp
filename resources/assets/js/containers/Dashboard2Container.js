@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import Dashboard2Component from '../components/Dashboard2Component';
-import { getDetailInformationDeviceApi, getNotificationApi, getRealChartBasedOnDayAPI, getRealChartBasedOnHourAPI, getAlldevicesActiveApi, getListNotificationApi } from '../api/api';
-import { getDetailInformationDevice, getNotification, getRealChartBasedOnDay, getRealChartBasedOnHour, chooseOptionListDevice, getAlldevicesActive, getListNotification } from '../actions/Action';
+import { getDetailInformationDeviceApi, getNotificationApi, getRealChartBasedOnDayAPI, getRealChartBasedOnHourAPI, getAlldevicesActiveApi, getListNotificationApi, submitNewPlantIntoDeviceApi, getDeviceOfUserAPI } from '../api/api';
+import { getDetailInformationDevice, getNotification, getRealChartBasedOnDay, getRealChartBasedOnHour, chooseOptionListDevice, getAlldevicesActive, getListNotification, submitAddPlantIntoDevice, getDeviceOfUser } from '../actions/Action';
 
 const mapStateToProps = (state) => ({
     all_devices: state.all_devices,
@@ -16,6 +16,7 @@ const mapStateToProps = (state) => ({
     dashboardEndDate: state.dashboardEndDate,
     dashboardTotalPhases: state.dashboardTotalPhases,
     dashboardPicture: state.dashboardPicture,
+    dashboardNow: state.dashboardNow,
     //notification
     notificationData: state.notificationData,
     notificationSolution: state.notificationSolution,
@@ -54,6 +55,25 @@ const mapDispatchToProps = (dispatch) => ({
     },
     getListNotification: () => {
         getListNotificationApi(dispatch, getListNotification);
+    },
+    submitAddNewPlant: (code, plant, startDate, phase) => {
+        submitNewPlantIntoDeviceApi(
+            dispatch, 
+            getDetailInformationDeviceApi, 
+            getDetailInformationDevice,
+            getListNotificationApi,
+            getListNotification,
+            getDeviceOfUserAPI,
+            getDeviceOfUser,
+            getAlldevicesActiveApi,
+            getAlldevicesActive, 
+            {
+                code: code,
+                plant: plant,
+                startDate: startDate,
+                phase: phase
+            }
+        )
     }
 });
 

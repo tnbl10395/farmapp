@@ -13,6 +13,7 @@ export default class Dashboard2Component extends React.Component {
         super(props);
         this.state = {
             isModal: false,
+            codeInModal: '',
         }
     }
 
@@ -29,9 +30,10 @@ export default class Dashboard2Component extends React.Component {
         clearTimeout(this.timeout);
     }
 
-    openModal() {
+    openModal(code) {
         this.setState({
             isModal: true,
+            codeInModal: code
         });
     }
 
@@ -56,7 +58,9 @@ export default class Dashboard2Component extends React.Component {
                         dashboardDevicesActive={this.props.dashboardDevicesActive}
                         getListNotification={this.props.getListNotification}
                         notificationList={this.props.notificationList} 
-                        getDetailInformationDevice={this.props.getDetailInformationDevice}/>
+                        getDetailInformationDevice={this.props.getDetailInformationDevice} 
+                        getRealDataOnChart={this.props.getRealDataOnChart}
+                        interval={this.props.interval} />
                 </div>
                 <div className="col-md-6" style={style.main}>
                     <Main phases={this.props.dashboardPhases}
@@ -73,7 +77,8 @@ export default class Dashboard2Component extends React.Component {
                         startDate={this.props.dashboardStartDate}
                         endDate={this.props.dashboardEndDate} 
                         totalPhases={this.props.dashboardTotalPhases}
-                        picture={this.props.dashboardPicture}/>
+                        picture={this.props.dashboardPicture}
+                        now={this.props.dashboardNow}/>
                 </div>
                 <div className="col-md-3" style={style.main}>
                     <Notification plant={this.props.dashboardPlant}
@@ -84,7 +89,9 @@ export default class Dashboard2Component extends React.Component {
                         dashboardDevicesActive={this.props.dashboardDevicesActive}
                         notificationList={this.props.notificationList} />
                 </div>
-                {this.state.isModal ? <Form closeModal={this.closeModal.bind(this)} /> : null}
+                {this.state.isModal ? <Form closeModal={this.closeModal.bind(this)} 
+                                            code={this.state.codeInModal}
+                                            submit={this.props.submitAddNewPlant} /> : null}
             </div>
         )
     }
@@ -128,7 +135,7 @@ class Block extends React.Component {
     }
 
     componentDidMount() {
-        // this.props.getListNotification();
+        this.props.getListNotification();
         this.interval = setInterval(() => {
             this.props.getListNotification();
         }, 10000);
@@ -136,6 +143,11 @@ class Block extends React.Component {
 
     componentWillUnmount() {
         clearInterval(this.interval);
+    }
+
+    getDetailInformationDevice(id) {
+        this.props.getDetailInformationDevice(id);
+        this.props.getRealDataOnChart(id, this.props.interval)
     }
 
     render() {
@@ -154,7 +166,7 @@ class Block extends React.Component {
                     {
                         this.props.showDevicesByGrid
                             ? this.props.dashboardDevicesActive.map((element, index) => {
-                                return <div className="col-xs-2 col-sm-2 col-md-4" key={element.deviceId} onClick={() => this.props.getDetailInformationDevice(element.deviceId)}>
+                                return <div className="col-xs-2 col-sm-2 col-md-4" key={element.id} onClick={() => this.getDetailInformationDevice(element.id)}>
                                     <Device
                                         element={element}
                                         data={Object(this.props.notificationList[index]).message == 'OK' ? Object(this.props.notificationList[index]).data : null}
@@ -166,7 +178,7 @@ class Block extends React.Component {
                     {
                         this.props.showDevicesByList
                             ? this.props.dashboardDevicesActive.map((element, index) => {
-                                return <div className="col-md-12" key={element.deviceId} onClick={() => this.props.getDetailInformationDevice(element.deviceId)}>
+                                return <div className="col-md-12" key={element.deviceId} onClick={() => this.props.getDetailInformationDevice(element.id)}>
                                     <DeviceByList closeModal={this.props.closeModal}
                                         element={element}
                                         data={Object(this.props.notificationList[index]).message == 'OK' ? Object(this.props.notificationList[index]).data : null}
@@ -179,7 +191,7 @@ class Block extends React.Component {
                         this.props.showDevicesByGrid
                             ? this.props.listDevice.map(element => {
                                 if (element.isActive != '1') {
-                                    return <div className="col-sm-2 col-md-4" key={element.id}>
+                                    return <div className="col-xs-2 col-sm-2 col-md-4" key={element.id}>
                                         <NoDevice openModal={this.props.openModal}
                                             element={element} />
                                     </div>
@@ -494,7 +506,7 @@ class NoDevice extends React.Component {
 
     render() {
         return (
-            <div style={styleNoDevice.body} onClick={() => this.props.openModal()}>
+            <div style={styleNoDevice.body} onClick={() => this.props.openModal(this.props.element.code)}>
                 <div style={styleNoDevice.header}>
                     <div style={styleNoDevice.inside}>
                         <h5>No data</h5>
@@ -537,15 +549,13 @@ class Main extends React.Component {
     constructor(props) {
         super(props);
     }
-    componentDidMount() {
-        console.log(this.props.dashboardDevice);
-    }
+
     render() {
         return (
             <div style={styleMain.body}>
                 <div style={style.title}>
                     <div style={{ padding: '10px 15px', fontSize: 16, fontWeight: 'bold', borderBottom: '1px solid #eef1f5' }}>
-                        INFORMATION <span style={style.description}>Include progress, real-time chart, reminder,...</span>
+                        INFORMATION <span style={style.description}>You know infomation of plant is managed by device</span>
                     </div>
                 </div>
                 <div className="col-md-12 text-uppercase text-center">
@@ -576,7 +586,8 @@ class Main extends React.Component {
                 <div className="col-md-12" style={{borderBottom: '1px solid #eef1f5'}}>
                     <label className="form-label" style={{ marginTop: 10, marginBottom: 0 }}><i className="fa fa-info-circle" style={{ paddingRight: 5}}></i>Progress</label>
                     <TimeLines phases={this.props.phases}
-                        totalDaysOfPhase={this.props.totalDaysOfPhase} />
+                        totalDaysOfPhase={this.props.totalDaysOfPhase} 
+                        now={this.props.now} />
                 </div>
                 <div className="col-md-12" style={{ paddingTop: 10, paddingLeft: 5, paddingRight: 5, paddingBottom: 5 }}>
                     <label className="form-label" style={{ marginTop: 10, marginBottom: 20, marginLeft: 10 }}><i className="fa fa-line-chart" style={{ paddingRight: 5}}></i>Real-time Chart</label>
@@ -637,10 +648,8 @@ class TimeLines extends React.Component {
         super(props);
     }
 
-    componentDidMount() {
-    }
-
     render() {
+        var positionMarker = (this.props.now / this.props.totalDaysOfPhase  * 100) + 9;
         return (
             <div className="body">
                 <style dangerouslySetInnerHTML={{
@@ -660,7 +669,7 @@ class TimeLines extends React.Component {
                         'ol::after {',
                         '  content: "";',
                         '  position: absolute;',
-                        '  top: 85px;',
+                        '  top: 84px;',
                         '  display: block;',
                         '  width: 20px;',
                         '  height: 20px;',
@@ -669,13 +678,14 @@ class TimeLines extends React.Component {
                         '}',
                         'ol::before {',
                         '  left: 10px;',
+                        '  display: none;',
                         '}',
                         'ol::after {',
                         '  right: 5px;',
-                        '  border: 10px solid transparent;',
+                        // '  border: 10px solid transparent;',
                         '  border-right: 0;',
                         '  border-left: 20px solid #32c5d2;',
-                        '  border-radius: 3px;',
+                        '  border-radius: 10px;',
                         '}',
                         'li {',
                         '  position: relative;',
@@ -707,6 +717,7 @@ class TimeLines extends React.Component {
                         '  border-radius: 10px;',
                         '  background: #fff;',
                         '  position: absolute;',
+                        // '  margin-left: -45px;',
                         '}',
                         '.description {',
                         '  display: none;',
@@ -750,12 +761,12 @@ class TimeLines extends React.Component {
                 }}>
                 </style>
                 <ol>
-                    <i className="fa fa-map-marker" style={{ color: '#2f353b', position: 'absolute', top: '62px', fontSize: '35px', zIndex: 100 }}></i>
+                    <i className="fa fa-map-marker" style={{ color: '#2f353b', position: 'absolute', top: '62px', fontSize: '35px', left: positionMarker+'%' }}></i>
                     {
                         this.props.phases.map((element, index) => {
                             var width = element.days / this.props.totalDaysOfPhase * 100;
                             return <li style={{ width: width + '%' }} key={element.id}>
-                                <p className="diplome">{"Phase "+(index+1)}</p>
+                                {/* <p className="diplome">{"Phase "+(index+1)}</p> */}
                                 <div className="point"></div>
                                 <div className="description">
                                     <p><span>Phase:</span> {Object(element).name}</p>
@@ -831,7 +842,10 @@ class Form extends React.Component {
             plantName: '',
             description: '',
             startDate: new Date(),
-            data: null,
+            plant: {
+                name: '',
+                description: ''
+            },
         }
         this.onSubmit = this.onSubmit.bind(this);
     }
@@ -840,11 +854,13 @@ class Form extends React.Component {
         this.setState({
             plantName: plant.target.value
         });
+        if (plant.target.value != '' && this.state.phaseInput > 0 && this.state.phaseInput < 11) this.setState({ disabledNext: false });
+        else this.setState({ disabledNext: true }); 
     }
 
     onChangePhaseInput(phase) {
         this.setState({ phaseInput: phase.target.value })
-        if (phase.target.value > 0 && phase.target.value < 11) {
+        if (phase.target.value > 0 && phase.target.value < 11 && this.state.plantName != '') {
             this.setState({
                 disabledNext: false,
             });
@@ -866,7 +882,7 @@ class Form extends React.Component {
         for (var i = 1; i <= this.state.phaseInput; i++) {
             array.push({
                 key: i,
-                phaseName: '',
+                name: '',
                 days: '',
                 minTemperature: '',
                 maxTemperature: '',
@@ -876,7 +892,11 @@ class Form extends React.Component {
         }
         this.setState({
             isNextPage: true,
-            phases: array
+            phases: array,
+            plant: {
+                name: this.state.plantName,
+                description: this.state.description
+            },
         });
     }
 
@@ -889,9 +909,9 @@ class Form extends React.Component {
     onChangePhaseName(phaseName, key) {
         var array = this.state.phases;
         if (key == this.state.phases[key - 1].key) {
-            array[key - 1].phaseName = phaseName.target.value;
+            array[key - 1].name = phaseName.target.value;
             this.setState({
-                phases: array
+                phases: array,
             })
         }
     }
@@ -954,18 +974,8 @@ class Form extends React.Component {
 
     onSubmit(e) {
         e.preventDefault();
-        this.setState({
-            data: {
-                code: '111112',
-                plant: {
-                    name: this.state.plantName,
-                    description: this.state.description
-                },
-                startDate: this.state.startDate,
-                phase: this.state.phases
-            }
-        })
-        console.log(this.state.data);
+        this.props.submit(this.props.code, this.state.plant, this.state.startDate, this.state.phases);
+        this.props.closeModal();
     }
 
     render() {
@@ -1005,6 +1015,7 @@ class Form extends React.Component {
                                         placeholder="Please input phase"
                                         value={this.state.phaseInput}
                                         onChange={(phase) => this.onChangePhaseInput(phase)} />
+                                    <span style={style.description}> Phase should be from 1 to 10</span>
                                 </div>
                                 <div className="form-group col-md-6">
                                     <label>Start Date</label>
@@ -1154,18 +1165,24 @@ class Notification extends React.Component {
             <div style={styleInfo.body}>
                 <div style={style.title}>
                     <div style={{ padding: '10px 15px', fontSize: 16, fontWeight: 'bold', borderBottom: '1px solid #eef1f5' }}>
-                        NOTIFICATIONS <span style={style.description}>Include warning, solutions,...</span>
+                        NOTIFICATIONS 
+                        {/* <span style={style.description}>Include warning, solutions,...</span> */}
                     </div>
                 </div>
                 <div style={styleInfo.messageBox}>
                     {
                         this.props.dashboardDevicesActive.map((element, index) => {
-                            if ((Object(this.props.notificationList[index]).solution != null && Object(this.props.notificationList[index]).message == 'OK') || Object(this.props.notificationList[index]).message != 'OK' && Object(this.props.notificationList[index]).message != null) {
-                                this.state.arrayMessageBox.unshift(<Message solution={Object(this.props.notificationList[index]).solution} message={Object(this.props.notificationList[index]).message} name={element.name} datetime={Object(this.props.notificationList[index]).datetime} />);
-                            }
-                            this.state.arrayMessageBox = [...(new Set(this.state.arrayMessageBox))];
-                            if (this.state.arrayMessageBox.length == 20) this.state.arrayMessageBox.pop();
-                            return this.state.arrayMessageBox;
+                            return <Message key={index}
+                                            solution={Object(this.props.notificationList[index]).solution} 
+                                            message={Object(this.props.notificationList[index]).message} 
+                                            name={element.name} 
+                                            datetime={Object(this.props.notificationList[index]).datetime} />
+                            // if ((Object(this.props.notificationList[index]).solution != null && Object(this.props.notificationList[index]).message == 'OK') || Object(this.props.notificationList[index]).message != 'OK' && Object(this.props.notificationList[index]).message != null) {
+                            //     this.state.arrayMessageBox.unshift(<Message solution={Object(this.props.notificationList[index]).solution} message={Object(this.props.notificationList[index]).message} name={element.name} datetime={Object(this.props.notificationList[index]).datetime} />);
+                            // }
+                            // this.state.arrayMessageBox = [...(new Set(this.state.arrayMessageBox))];
+                            // if (this.state.arrayMessageBox.length == 20) this.state.arrayMessageBox.pop();
+                            // return this.state.arrayMessageBox;
                         })
                     }
                 </div>
@@ -1203,19 +1220,19 @@ class Message extends React.Component {
     render() {
         return (
             <div className="col-md-12">
-                <div style={this.props.solution == null ? styleMessage.bodyAlert : styleMessage.bodyWarning}>
-                    {
-                        this.props.message == 'OK'
-                            ? <div>
-                                <h4 style={{ fontSize: '16px !important', margin: '2px' }}>[{Object(this.props.solution).getSolutionDate}] {this.props.name}:</h4>
-                                <span>{Object(this.props.solution).description}</span>
-                            </div>
-                            : <div>
-                                <h4 style={{ fontSize: '16px !important', margin: '2px' }}>[{this.props.datetime}] {this.props.name}:</h4>
-                                <span>{this.props.message}</span>
-                            </div>
-                    }
-                </div>
+                {
+                    this.props.message == 'OK'
+                        ? <div style={this.props.solution == null ? styleMessage.bodyGood : styleMessage.bodyWarning}>
+                            <h4 style={this.props.solution == null ? styleMessage.titleGood : styleMessage.titleWarning}>{this.props.name}</h4>
+                            <h4 style={{ fontSize: '16px !important', margin: '2px' }}>{this.props.solution != null ? Object(this.props.solution).getSolutionDate : this.props.datetime}</h4>
+                            <span>{this.props.solution != null ? Object(this.props.solution).description : "Conditional environment is good for plant"}</span>
+                        </div>
+                        : <div style={styleMessage.bodyAlert}>
+                            <h4 style={styleMessage.titleAlert}>{this.props.name}</h4>
+                            <h4 style={{ fontSize: '16px !important', margin: '2px' }}>{this.props.datetime}</h4>
+                            <span>{this.props.message}</span>
+                        </div>
+                }
             </div>
         );
     }
@@ -1224,16 +1241,44 @@ class Message extends React.Component {
 const styleMessage = {
     bodyAlert: {
         marginTop: 10,
-        padding: '2px 5px 2px 10px',
+        padding: '2px 5px 2px 5px',
         // backgroundColor: '#e7505a',
         border: '2px solid #e7505a',
         color: '#2f353b'
     },
     bodyWarning: {
         marginTop: 10,
-        padding: '2px',
+        padding: '2px 5px 2px 5px',
         // backgroundColor: '#f39c12',
         border: '2px solid #F4D03F',
         color: '#2f353b'
+    },
+    bodyGood: {
+        marginTop: 10,
+        padding: '2px 5px 2px 5px',
+        border: '2px solid #00a65a',
+        color: '#2f353b'
+    },
+    titleAlert: { 
+        fontSize: '16px !important', 
+        margin: '0px -3px', 
+        backgroundColor: '#e7505a', 
+        color: 'white', 
+        textAlign: 'center'  
+    },
+    titleWarning: { 
+        fontSize: '16px !important', 
+        margin: '0px -3px', 
+        backgroundColor: '#F4D03F', 
+        color: 'white', 
+        textAlign: 'center' 
+    },
+    titleGood: {
+        fontSize: '16px !important', 
+        margin: '0px -3px', 
+        backgroundColor: '#00a65a', 
+        color: 'white', 
+        textAlign: 'center' 
     }
+
 }

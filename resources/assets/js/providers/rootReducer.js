@@ -69,6 +69,7 @@ const initialState = {
     dashboardEndDate: null,
     dashboardTotalPhases: null,
     dashboardPicture: null,
+    dashboardNow: null,
     //dashboard_notification
     notificationList: [],
     notificationMessage: null,
@@ -86,7 +87,7 @@ const initialState = {
     admin_device_component: false,
     admin_user_component: false,
     admin_data_component: false,
-    admin_solution_component: false,
+    admin_plant_component: false,
     sideBar: true,
     //
     data_devices: [],
@@ -302,15 +303,15 @@ const Reducer = (state = initialState, action) => {
                         admin_data_component: true,
                         admin_solution_component: false,
                     }
-                case "solution":
+                case "plant":
                     return {
                         ...state,
-                        breadcrumb: 'Solution',
+                        breadcrumb: 'Plant',
                         admin_dashboard_component: false,
                         admin_device_component: false,
                         admin_user_component: false,
                         admin_data_component: false,
-                        admin_solution_component: true,
+                        admin_plant_component: true,
                     }
                 default:
                     return {
@@ -674,7 +675,8 @@ const Reducer = (state = initialState, action) => {
                 dashboardStartDate: action.loadData.startDate,
                 dashboardEndDate: action.loadData.endDate,
                 dashboardTotalPhases: action.loadData.totalPhases,
-                dashboardPicture: action.loadData.picture
+                dashboardPicture: action.loadData.picture,
+                dashboardNow: action.loadData.now
             }
         case GET_NOTIFICATION:
             if (action.loadData.message == 'OK') {

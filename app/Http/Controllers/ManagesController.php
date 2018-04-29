@@ -24,14 +24,14 @@ class ManagesController extends Controller
         if($user->role == '1'){
             $manages = Manage::join('devices','manages.deviceId','=','devices.id')
             ->where('manages.isActive', '1')
-            ->select('manages.deviceId as id','devices.name', 'manages.isActive')
+            ->select('manages.deviceId as id','devices.name', 'manages.isActive', 'devices.code')
             ->orderBy('id')
             ->get();
             return response()->json($manages);
         }else{
             $manages = Manage::join('devices','manages.deviceId','=','devices.id')
             ->where('userId',$user->id)
-            ->select('manages.deviceId as id','devices.name', 'manages.isActive')
+            ->select('manages.deviceId as id','devices.name', 'manages.isActive', 'devices.code')
             ->orderBy('id')
             ->get();
             return response()->json($manages);
@@ -47,7 +47,7 @@ class ManagesController extends Controller
     public function store(Request $request)
     {
         $device = Device::where('code',$request->code)
-                            ->where('status', '0')   
+                            ->where('status', '1')   
                             ->select('id')->first();
         $user = JWTAuth::toUser($request->header('token'));
         $plant = new Plant();
@@ -57,7 +57,12 @@ class ManagesController extends Controller
         $plant->description = $object->description;
         $plant->save();
         if ($device != null) {
-            $manage = new Manage();
+            $manage = Manage::where('userId', $user->id)
+                            ->where('deviceId', $device->id)
+                            ->where('isActive', '0')
+                            ->select('id')
+                            ->first();
+            $manage = Manage::findOrFail($manage->id);
             $manage->userId = $user->id;
             $manage->deviceId = $device->id;
             $manage->plantId = $plant->id;
@@ -66,7 +71,7 @@ class ManagesController extends Controller
             $manage->endDate = $this->countEndDate($request->phase, $request->startDate);
             $manage->save();
             $this->addPhase($request->phase, $plant->id);
-            return response()->json($manage->id);
+            return response()->json($manage);
         }else if ($device == null) {
             return response()->json(false);
         }
@@ -223,18 +228,19 @@ class ManagesController extends Controller
                             ->first();
             $plant = Plant::where('id', '=', $plantId->id)
                             ->select('id', 'name', 'description')
-                            ->get();
+                            ->first();
             $picturePlant = Plant::where('id', '=', $plantId->id)
                                 ->select('picture')
                                 ->first();
             //              
             $device = Device::findOrFail($deviceId);
             //
-            // $date = Manage::selectRaw('GETDATE() as getDate')->first();
-            // $now = Manage::where('deviceId', '=', $deviceId)
-            //                 ->where('isActive', '=', 1)
-            //                 ->selectRaw('DATEDIFF(day,'.$date->getDate.', endDate) as now')
-            //                 ->first();
+            $date = Manage::selectRaw('CURDATE() as getDate')->first();
+            //
+            $now = Manage::where('deviceId', '=', $deviceId)
+                            ->where('isActive', '=', 1)
+                            ->selectRaw('DATEDIFF("'.$date->getDate.'", startDate) as days')
+                            ->first();
             // $sensor = Sensor::where('$deviceId', '=', $deviceId);
             //
             $phases = Phase::where('plantId', '=', $plantId->id)->get();
@@ -255,7 +261,7 @@ class ManagesController extends Controller
                 'startDate' => $plantId->startDate,
                 'endDate' => $plantId->endDate,
                 'picture' => base64_encode($picturePlant->picture),
-                // 'now' => $now
+                'now' => $now->days
             ];
             return response()->json($data);
         }else {
@@ -266,18 +272,19 @@ class ManagesController extends Controller
                             ->first();
             $plant = Plant::where('id', '=', $plantId->id)
                             ->select('id', 'name', 'description')
-                            ->get();
+                            ->first();
             $picturePlant = Plant::where('id', '=', $plantId->id)
                                 ->select('picture')
                                 ->first();
             //
             $device = Device::findOrFail($deviceId);
             //
-            // $date = Manage::selectRaw('GETDATE() as getDate')->first();
-            // $now = Manage::where('deviceId', '=', $deviceId)
-            //                 ->where('isActive', '=', 1)
-            //                 ->selectRaw('DATEDIFF(day,'.$date->getDate.', endDate) as now')
-            //                 ->first();
+            $date = Manage::selectRaw('CURDATE() as getDate')->first();
+            //
+            $now = Manage::where('deviceId', '=', $deviceId)
+                            ->where('isActive', '=', 1)
+                            ->selectRaw('DATEDIFF("'.$date->getDate.'", startDate) as days')
+                            ->first();
             // $sensor = Sensor::where('$deviceId', '=', $deviceId);
             //
             $phases = Phase::where('plantId', '=', $plantId->id)->get();
@@ -298,9 +305,30 @@ class ManagesController extends Controller
                 'startDate' => $plantId->startDate,
                 'endDate' => $plantId->endDate,
                 'picture' => base64_encode($picturePlant->picture),
-                // 'now' => $now
+                'now' => $now->days
             ];
             return response()->json($data);
+        }
+    }
+
+    public function getListDeviceActive(Request $request) 
+    {
+        $user = JWTAuth::toUser($request->header('token'));
+        if($user->role == '1'){
+            $manages = Manage::join('devices','manages.deviceId','=','devices.id')
+            ->where('manages.isActive', '1')
+            ->select('manages.deviceId as id','devices.name', 'manages.isActive', 'devices.code')
+            ->orderBy('id')
+            ->get();
+            return response()->json($manages);
+        }else{
+            $manages = Manage::join('devices','manages.deviceId','=','devices.id')
+            ->where('userId',$user->id)
+            ->where('manages.isActive', '1')
+            ->select('manages.deviceId as id','devices.name', 'manages.isActive', 'devices.code')
+            ->orderBy('id')
+            ->get();
+            return response()->json($manages);
         }
     }
 }
