@@ -43,7 +43,8 @@ import {
     GET_ALL_DEVICES_ACTIVE,
     GET_LIST_NOTIFICATION,
     SUBMIT_ADD_PLANT_INTO_DEVICE,
-    GET_LIST_LOCATION_OF_DEVICE
+    GET_LIST_LOCATION_OF_DEVICE,
+    GET_PLANTS_OF_USER
 } from "./TypeAction";
 //Custom UI
 export const chooseOptionSidebar = (option) => {
@@ -362,6 +363,13 @@ export const submitAddPlantIntoDevice = () => {
 export const getListLocationOfDevice = (loadData) => {
     return {
         type: GET_LIST_LOCATION_OF_DEVICE,
+        loadData
+    }
+}
+
+export const getPlantsOfUser = (loadData) => {
+    return {
+        type: GET_PLANTS_OF_USER,
         loadData
     }
 }

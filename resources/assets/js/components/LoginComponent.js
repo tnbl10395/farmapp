@@ -100,14 +100,14 @@ export default class LoginComponent extends React.Component {
                     <div style={{ marginTop: 130 }}>
                         <h3 style={style.title}>Sign In</h3>
                         <form onSubmit={this.handleSubmit}>
-                            <div className="form-group col-xs-12 col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1">
+                            <div className="form-group col-xs-12 col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1" style={{padding:0}}>
                                 <input type="text" placeholder="Username"
                                     className="form-control"
                                     style={style.input}
                                     onChange={(username) => this.setState({ username: username.target.value })} value={this.state.username} />
                                 {this.state.message_username ? <h4 style={{ textAlign: 'center' }} className="text-danger">Please input username!</h4> : null}
                             </div>
-                            <div className="form-group col-xs-12 col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1">
+                            <div className="form-group col-xs-12 col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1" style={{padding:0}}>
                                 <input type="password" placeholder="Password"
                                     style={style.input}
                                     className="form-control"
@@ -115,7 +115,7 @@ export default class LoginComponent extends React.Component {
                                 {this.state.message_password ? <h4 style={{ textAlign: 'center' }} className="text-danger">Please input password!</h4> : null}
                             </div>
                             {this.props.message && !this.state.message_username && !this.state.message_password ? <h4 style={{ textAlign: 'center' }} className="text-danger">Username or Password is invalid</h4> : null}
-                            <div className="form-group col-xs-12 col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1">
+                            <div className="form-group col-xs-12 col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1" style={{padding:0}}>
                                 <button className="btn" style={{ width: '100%', height: 55, fontSize: 20, backgroundColor: '#007991', color: 'white' }}>Login</button>
                             </div>
                         </form>
@@ -281,7 +281,8 @@ const style = {
     },
     input: {
         marginBottom: 10,
-        height: 55
+        height: 55,
+        fontSize: 16,
     },
     icon: {
         fontSize: 100,

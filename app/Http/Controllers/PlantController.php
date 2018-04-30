@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Plant;
 use Illuminate\Http\Request;
+use JWTAuth;
 
 class PlantController extends Controller
 {
@@ -12,10 +13,20 @@ class PlantController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $plant = Plant::all();
-        return response()->json($plant);
+        $user = JWTAuth::toUser($request->header('token'));
+        if($user->role == '1'){
+            $plants = Plant::join('users','plants.userId','=','users.id')
+                            ->selectRaw('plants.id, plants.name, plants.description, users.username, TO_BASE64(plants.picture) as picture')
+                            ->get();
+            return response()->json($plants);
+        }else{
+            $plants = Plant::where('userId', $user->id)
+                            ->selectRaw('plants.id, plants.name, plants.description, TO_BASE64(plants.picture) as picture')
+                            ->get();
+            return response()->json($plants);
+        }
     }
 
     /**

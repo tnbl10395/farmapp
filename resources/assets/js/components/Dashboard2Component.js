@@ -997,7 +997,7 @@ class Form extends React.Component {
                                     <input type="text"
                                         required
                                         className="form-control"
-                                        placeholder="Please input phase"
+                                        placeholder="Please input name"
                                         value={this.state.plantName}
                                         onChange={(plant) => this.onChangePlantName(plant)} />
                                     {/* <select className="form-control">
@@ -1012,7 +1012,7 @@ class Form extends React.Component {
                                         min="1" step="1"
                                         required
                                         className="form-control"
-                                        placeholder="Please input phase"
+                                        placeholder="Please input total phase"
                                         value={this.state.phaseInput}
                                         onChange={(phase) => this.onChangePhaseInput(phase)} />
                                     <span style={style.description}> Phase should be from 1 to 10</span>
@@ -1031,7 +1031,7 @@ class Form extends React.Component {
                                     <textarea type="text"
                                         required
                                         className="form-control"
-                                        placeholder="Please input phase"
+                                        placeholder="Please input description"
                                         value={this.state.description}
                                         onChange={(description) => this.onChangeDescription(description)} />
                                 </div>

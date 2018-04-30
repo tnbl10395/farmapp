@@ -605,7 +605,6 @@ export const submitNewPlantIntoDeviceApi = (
 
 export const getDetailInformationDeviceApi = (dispatch, getDetailInformationDevice, deviceId) => {
     try {
-        var data = [];
         fetch(URL + "api/get-detail-device/" + deviceId, {
             method: method.GET,
             headers: headers,
@@ -620,7 +619,6 @@ export const getDetailInformationDeviceApi = (dispatch, getDetailInformationDevi
 
 export const getNotificationApi = (dispatch, getNotification, deviceId) => {
     try {
-        var data = [];
         fetch(URL + "api/notification/" + deviceId, {
             method: method.GET,
             headers: headers,
@@ -635,7 +633,6 @@ export const getNotificationApi = (dispatch, getNotification, deviceId) => {
 
 export const getAlldevicesActiveApi = (dispatch, getAlldevicesActive) => {
     try {
-        var data = [];
         fetch(URL + "api/list-device-active", {
             method: method.GET,
             headers: headers,
@@ -650,7 +647,6 @@ export const getAlldevicesActiveApi = (dispatch, getAlldevicesActive) => {
 
 export const getListNotificationApi = (dispatch, getListNotification) => {
     try {
-        var data = [];
         fetch(URL + "api/list-notification", {
             method: method.GET,
             headers: headers,
@@ -658,6 +654,20 @@ export const getListNotificationApi = (dispatch, getListNotification) => {
             .then((response) => response.json())
             .then((res) => {
                 dispatch( getListNotification(res) );
+            });
+    } catch (error) {
+    }
+}
+
+export const getPlantsOfUserApi = (dispatch, getPlantsOfUser) => {
+    try {
+        fetch(URL + "api/plants", {
+            method: method.GET,
+            headers: headers,
+        })
+            .then((response) => response.json())
+            .then((res) => {
+                dispatch( getPlantsOfUser(res) );
             });
     } catch (error) {
     }

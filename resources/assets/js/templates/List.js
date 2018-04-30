@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import Pagination from 'react-js-pagination';
 import { Link } from 'react-router-dom';
 
+const profile = JSON.parse(sessionStorage.getItem('profile'));
+
 export default class List extends React.Component {
     constructor(props) {
         super(props);
@@ -56,7 +58,7 @@ export default class List extends React.Component {
             <div style={style.main_content_true}>
                 <style dangerouslySetInnerHTML={{
                     __html: [
-                        '.item-device:hover {',
+                        '.item:hover {',
                         '  box-shadow: inset 2px 0 gray;',
                         '}',
                     ].join('\n')
@@ -80,18 +82,20 @@ export default class List extends React.Component {
                             </label>
                         </div>
                         {
-                            this.props.name == "Data"
-                                ? <div className="pull-right" style={{ margin: 5, marginTop: 20 }}>
-                                    {/* <button
-                                        className="btn btn-success" style={{ marginRight: 10 }}><i className="fa fa-file-excel-o" style={{ marginRight: 5 }} />Export</button> */}
-                                    <button onClick={() => this.props.change()}
-                                        className="btn btn-success">
-                                        <i className="fa fa-bar-chart" style={{ marginRight: 5 }} /> Chart
-                                        </button>
-                                </div>
+                            this.props.name == "Plant" && profile.role == '1'
+                                ? null
                                 : <button onClick={() => this.props.openModal(this.props.object, null)} className="btn btn-success pull-right" style={{ margin: 5, marginTop: 20 }}>
                                     <i className="fa fa-plus" /> New {this.props.name}
-                                </button>
+                                 </button>
+                                // <div className="pull-right" style={{ margin: 5, marginTop: 20 }}>
+                                //     <button
+                                //         className="btn btn-success" style={{ marginRight: 10 }}><i className="fa fa-file-excel-o" style={{ marginRight: 5 }} />Export</button>
+                                //     <button onClick={() => this.props.change()}
+                                //         className="btn btn-success">
+                                //         <i className="fa fa-bar-chart" style={{ marginRight: 5 }} /> Chart
+                                //     </button>
+                                // </div>
+
                         }
 
                         <div className="form-group has-feedback col-xs-7 col-sm-3 col-md-3 pull-right" style={style.search}>
@@ -145,8 +149,6 @@ export default class List extends React.Component {
     }
 }
 
-const profile = JSON.parse(sessionStorage.getItem('profile'));
-
 const renderTable = (name, currentData, openAlert, openModal, object) => {
     switch (name) {
         case 'Device':
@@ -159,11 +161,14 @@ const renderTable = (name, currentData, openAlert, openModal, object) => {
             return user(currentData, openAlert, openModal, object);
         case 'Data':
             return data(currentData, openAlert);
-        case 'Solution':
-            return solution(currentData, openAlert, openModal, object);
+        case 'Plant':
+            return <Plant currentData={currentData}
+                            openAlert={openAlert}
+                            openModal={openModal}
+                            object={object} />
     }
 }
-
+// Device-------------------------------------------------------------------------------------------------------------------------
 class Device extends React.Component {
     constructor(props) {
         super(props);
@@ -200,7 +205,7 @@ class ItemDevice extends React.Component {
 
     render() {
         return (
-            <div style={style.item} onClick={this.onClickToShowDetail.bind(this)} className="col-xs-12 col-sm-12 col-md-12 item-device">
+            <div style={style.item} onClick={this.onClickToShowDetail.bind(this)} className="col-xs-12 col-sm-12 col-md-12 item">
                 <div className="col-xs-1 col-sm-1 col-md-1">
                     <i className="fa fa-gears" style={style.picture} />
                 </div>
@@ -291,41 +296,10 @@ const styleItemSensor = {
         height: '100%'
     }
 }
-// const device = (currentData, openAlert, openModal, object) => (
-//         currentData.map((element, index) =>
-//             <div key={index} style={style.item} onClick={() => console.log(isDetail = true)} className="col-xs-12 col-sm-12 col-md-12 item-device">
-//                 <div className="col-xs-1 col-sm-1 col-md-1">
-//                     <i className="fa fa-gears" style={style.picture} />
-//                 </div>
-//                 <div className="col-xs-2 col-sm-2 col-md-2" style={style.text}><h5>{element.name}</h5></div>
-//                 <div className="col-xs-3 col-sm-3 col-md-3">
-//                     <h6>Code</h6>
-//                     {element.code}
-//                 </div>
-//                 <div className="col-xs-3 col-sm-3 col-md-3">
-//                     <h6>Manufacturing Date</h6>
-//                     {element.manufacturing_date}
-//                 </div>
-//                 <div className="col-xs-2 col-sm-2 col-md-2">
-//                     {
-//                         element.status == 1 ?
-//                             <div className="col-md-8 label label-success" style={style.status}>Active</div>
-//                             :
-//                             <div className="col-md-8 label label-primary" style={style.status}>Inactive</div>
-//                     }
-//                 </div>
-//                 <div className="col-xs-1 col-sm-1 col-md-1" style={style.button}>
-//                     {profile.role == '0' ? null : <a onClick={() => openModal(object, element)} style={style.edit} className="fa fa-edit"></a>}
-//                     <a onClick={() => openAlert('DELETE_DEVICE', element.id)} style={style.delete} className="fa fa-remove"></a>
-//                 </div>
-//                 {isDetail ? <div className="col-md-12">PL</div> : null}
-//             </div>
-//     )
-// )
-
+// User-------------------------------------------------------------------------------------------------------------------------
 const user = (currentData, openAlert, openModal, object) => (
     currentData.map((element, index) =>
-        <div key={index} style={style.item} className="col-xs-12 col-sm-12 col-md-12">
+        <div key={index} style={style.item} className="col-xs-12 col-sm-12 col-md-12 item">
             <div className="col-xs-1 col-sm-1 col-md-1" style={{ display: 'flex', alignItems: 'center', height: 70 }}>
                 <img src="/images/avatar.png" style={style.avatar} />
             </div>
@@ -350,7 +324,7 @@ const user = (currentData, openAlert, openModal, object) => (
         </div>
     )
 )
-
+// Data-------------------------------------------------------------------------------------------------------------------------
 const data = (currentData, openAlert) => (
     currentData.map((element, index) =>
         <div key={index} style={style.item} className="col-xs-12 col-sm-12 col-md-12">
@@ -376,33 +350,90 @@ const data = (currentData, openAlert) => (
         </div>
     )
 )
+// Plant-------------------------------------------------------------------------------------------------------------------------
+class Plant extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+    
+    render() {
+        return (
+            <div>
+                {
+                    this.props.currentData.map((element, index) =>
+                        <ItemPlant key={index} 
+                                   element={element} 
+                                   object={this.props.object} 
+                                   openModal={this.props.openModal}
+                                   openAlert={this.props.openAlert} />
+                    )
+                }
+            </div>
+        );
+    }
+}
 
-const solution = (currentData, openAlert, openModal, object) => (
-    currentData.map((element, index) =>
-        <div key={index} style={style.item} className="col-xs-12 col-sm-12 col-md-12">
-            {/* <div className="col-xs-1 col-sm-1 col-md-1" style={style.text}> */}
-            {/* <h6>Device</h6> */}
-            {/* <p>{element.name}</p> */}
-            {/* </div> */}
-            <div className="col-xs-3 col-sm-3 col-md-3" style={style.text}>
-                <h6 style={style.title}>Humidity</h6>
-                <p><i className="fa fa-tint" style={style.icon_humidity} />{element.humidity} %</p>
-            </div>
-            <div className="col-xs-3 col-sm-3 col-md-3" style={style.text}>
-                <h6 style={style.title}>Temperature</h6>
-                <p><i className="fa fa-thermometer-empty" style={style.icon_temperature} />{element.temperature} °C</p>
-            </div>
-            <div className="col-xs-3 col-sm-3 col-md-3" style={style.text}>
-                <h6 style={style.title}>Solution</h6>
-                <p>{element.updated_at}</p>
-            </div>
-            <div className="col-xs-1 col-sm-1 col-md-1" style={style.button}>
-                <a onClick={() => openAlert('DELETE_DATA', element.id)} style={style.delete} className="fa fa-remove"></a>
-            </div>
-        </div>
-    )
-)
+class ItemPlant extends React.Component {
+    constructor(props) {
+        super(props);
+    }
 
+    render() {
+        return (
+            <div style={style.item} className="col-xs-12 col-sm-12 col-md-12 item">
+                <div className="col-xs-2 col-sm-2 col-md-2">
+                    {
+                        this.props.element.picture == null 
+                            ? <img src="images/leaf.jpg" style={stylePlant.image} />
+                            : <img src={'data:image/png;base64,' + this.props.element.picture} style={stylePlant.image} />
+                    }
+                </div>
+                <div className="col-xs-2 col-sm-2 col-md-2" style={stylePlant.name}><h5>{this.props.element.name}</h5></div>
+                <div className="col-xs-3 col-sm-3 col-md-3" style={stylePlant.totalPhase}>
+                    <span style={stylePlant.textTotalPhase}>Total Phase: </span> 4
+                </div>
+                {
+                    profile.role == '1'
+                        ? <div className="col-xs-3 col-sm-3 col-md-3">
+                            <h6>Owner</h6>
+                            {this.props.element.username}
+                        </div>
+                        : <div className="col-xs-3 col-sm-3 col-md-3"></div>
+                }
+                {
+                    profile.role == '1' 
+                        ? null 
+                        : <div className="col-xs-1 col-sm-1 col-md-1" style={style.button}>
+                            <a onClick={() => this.props.openModal(this.props.object, this.props.element)} style={style.edit} className="fa fa-edit"></a>
+                            <a onClick={() => this.props.openAlert('DELETE_DATA', this.props.element.id)} style={style.delete} className="fa fa-remove"></a>
+                        </div>
+                }
+            </div>
+        );
+    }
+    
+}
+
+const stylePlant = {
+    image: {
+        marginTop: 5,
+        marginBottom: 5,
+        width: 100,
+        height: 48,
+        objectFit: 'cover'
+    },
+    name: {
+        fontWeight: 'bold',
+        marginTop: 6,
+    },
+    totalPhase: {
+        marginTop: 15,
+    },
+    textTotalPhase: {
+        fontWeight: 'bold',
+    }
+}
+//-------------------------------------------------------------------------------------------------------------------------
 const style = {
     main_content_true: {
         position: 'absolute',
@@ -411,19 +442,6 @@ const style = {
         left: 0,
         bottom: 0,
         backgroundColor: '#fff',
-        // color: 'black',
-        // backgroundColor: 'white',
-        // position: 'absolute',
-        // left: 10,
-        // top: 50,
-        // right: 10,
-        // width: '83%',
-        // fontSize: 12,
-        // opacity: 0.7,
-        // borderRadius: 5,
-        // fontWeight: 'bold',
-        // boxShadow: "0.5px 5px 3px grey",
-        // borderTop: '4px #5cb85c solid'
     },
     list: {
         backgroundColor: '#fff',

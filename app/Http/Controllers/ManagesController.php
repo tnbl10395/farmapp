@@ -54,6 +54,7 @@ class ManagesController extends Controller
         $object = new Plant($request->plant);
         $plant->name = $object->name;
         $plant->picture = null;
+        $plant->userId = $user->id;
         $plant->description = $object->description;
         $plant->save();
         if ($device != null) {

@@ -4,6 +4,7 @@ import Radium, { StyleRoot } from 'radium';
 
 import AddDevice from '../containers/AddDeviceContainer';
 import AddUser from '../containers/AddUserContainer';
+import AddPlant from '../containers/AddPlantContainer';
 import ActionSolution from '../containers/ActionSolutionContainer';
 
 export default class Modal extends React.Component {
@@ -24,8 +25,8 @@ export default class Modal extends React.Component {
                      style={style.overview}>
                 </div>
                 <StyleRoot>
-                    <div style={style.form} className="col-xs-8 col-xs-offset-2 col-md-6 col-md-offset-3">
-                        <h3 style={style.title}>{this.props.object.title} FORM</h3>
+                    <div style={style.form} className="col-xs-8 col-xs-offset-2 col-md-8 col-md-offset-2">
+                        <h4 style={style.title}>{this.props.object.title} FORM</h4>
                         <hr />
                         {
                             bodyModal(this.props.object)
@@ -47,10 +48,10 @@ const bodyModal = (object) => {
             return <AddDevice object={object}/>;
         case 'UPDATE USER':
             return <AddUser object={object}/>;
-        case 'ADD SOLUTION':
-            return <ActionSolution object={object}/>;
-        case 'UPDATE SOLUTION':
-            return <ActionSolution object={object}/>;
+        case 'ADD PLANT':
+            return <AddPlant object={object}/>;
+        case 'UPDATE PLANT':
+            return <AddPlant object={object}/>;
     }
 }
 
@@ -67,7 +68,7 @@ const style = {
     },
     form: {
         position: 'absolute',
-        top: '15%',
+        top: '10%',
         padding: 20,
         borderRadius: 5,
         backgroundColor: 'white',
