@@ -56,7 +56,7 @@ class UsersController extends Controller
      */
     public function index()
     {   
-        $users = User::select('id','username','fullname','address','phone')->get();
+        $users = User::select('id','username','fullname','address','phone', 'role')->get();
         if(count($users) > 0){
             return response()->json($users);
         }else{
@@ -121,7 +121,7 @@ class UsersController extends Controller
         $user->phone = $request->phone;
         $user->role = $request->role;
         $user->save();
-        return response()->json('updated');
+        return response()->json(true);
     }
 
     /**
@@ -134,6 +134,6 @@ class UsersController extends Controller
     {
         $user = User::findOrFail($id);
         $user->delete();
-        return response()->json('deleted');
+        return response()->json($user);
     }
 }

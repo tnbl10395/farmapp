@@ -38,9 +38,8 @@ Route::group(['middleware' => 'jwt.auth'], function () {
     //Manages
     Route::get('manages', 'ManagesController@index');
     Route::get('manages/{id}', 'ManagesController@show');
-    Route::post('manages', 'ManagesController@store');
     Route::post('manages/{id}', 'ManagesController@update');
-    Route::delete('manages/{id}', 'ManagesController@destroy');
+    Route::post('delete-manages', 'ManagesController@destroy');
 
     //Solutions
     Route::get('solutions', 'SolutionsController@index');
@@ -60,9 +59,25 @@ Route::group(['middleware' => 'jwt.auth'], function () {
     Route::post('data-old-chart-day', 'DataController@getOldChartBasedOnDay');
     Route::post('one-real-chart-hour','DataController@getOneValueBasedOnMinute');
     Route::post('one-real-chart-day','DataController@getOneValueBasedOnHour');
+    Route::get('current-data/{id}', 'DataController@getCurrentValue');
+
+    //plant
+    Route::get('plants', 'PlantController@index');
+    Route::get('plants/{id}', 'PlantController@show');
+    Route::post('plants', 'PlantController@store');
+    Route::post('plants/{id}', 'PlantController@update');
+    Route::delete('plants/{id}', 'PlantController@destroy');
 
     //Location 
-    Route::get('location/{id}','LocationsController@show');
+    Route::get('location/{id}', 'LocationsController@show');
+
+    //important 
+    Route::get('list-location', 'LocationsController@index');
+    Route::get('get-detail-device/{deviceId}', 'ManagesController@getDetailInformationDevices');
+    Route::post('manages', 'ManagesController@store');
+    Route::get('notification/{deviceId}', 'SolutionsController@notificationSolution');
+    Route::get('list-notification', 'SolutionsController@getListNotifications');
+    Route::get('list-device-active', 'ManagesController@getListDeviceActive');
 });
 Route::group(['middleware' => 'key'], function () {
     Route::get('send-data', 'DataController@store');

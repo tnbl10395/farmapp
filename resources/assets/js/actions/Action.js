@@ -23,7 +23,28 @@ import {
     OPEN_ALERT,
     CLOSE_ALERT,
     SUBMIT_ADD_DEVICE_USER_FORM,
-    DELETE_DEVICE
+    DELETE_DEVICE,
+    CLOSE_MESSAGE,
+    DELETE_USER,
+    DELETE_DATA,
+    LOAD_DEVICE_UPDATE,
+    LOAD_USER_UPDATE,
+    SHOW_MESSAGE,
+    GET_ONE_DEVICE,
+    GET_CURRENT_DEVICE,
+    GET_ONE_LOCATION,
+    HIDE_SIDEBAR,
+    SHOW_SIDEBAR,
+    CHANGE_INTERVAL_DASHBOARD,
+    CHECK_VALIDATE_LOGIN,
+    GET_DETAIL_INFORMATION_DEVICE,
+    GET_NOTIFICATION,
+    CHOOSE_OPTION_LIST_DEVICE,
+    GET_ALL_DEVICES_ACTIVE,
+    GET_LIST_NOTIFICATION,
+    SUBMIT_ADD_PLANT_INTO_DEVICE,
+    GET_LIST_LOCATION_OF_DEVICE,
+    GET_PLANTS_OF_USER
 } from "./TypeAction";
 //Custom UI
 export const chooseOptionSidebar = (option) => {
@@ -132,10 +153,11 @@ export const saveDevice = () => {
     }
 }
 
-export const openModal = (object) => {
+export const openModal = (object, element) => {
     return {
         type: OPEN_MODAL,
-        object
+        object,
+        element
     }
 }
 
@@ -154,21 +176,24 @@ export const saveInput = (name, value) => {
     }
 }
 
-export const submitAddDeviceForm = () => {
+export const submitAddDeviceForm = (message) => {
     return {
-        type: SUBMIT_ADD_DEVICE_FORM
+        type: SUBMIT_ADD_DEVICE_FORM,
+        message
     }
 }
 
-export const submitAddDeviceUserForm = () => {
+export const submitAddDeviceUserForm = (message) => {
     return {
-        type: SUBMIT_ADD_DEVICE_USER_FORM
+        type: SUBMIT_ADD_DEVICE_USER_FORM,
+        message
     }
 }
 
-export const submitAddUserForm = () => {
+export const submitAddUserForm = (message) => {
     return {
-        type: SUBMIT_ADD_USER_FORM
+        type: SUBMIT_ADD_USER_FORM,
+        message
     }
 }
 
@@ -199,9 +224,152 @@ export const closeAlert = () => {
         type: CLOSE_ALERT
     }
 }
-
+//show message
+export const showMessage = (message) => {
+    return {
+        type: SHOW_MESSAGE,
+        message
+    }
+}
+//action delete
 export const deleteDevice = () => {
     return {
         type: DELETE_DEVICE,
+    }
+}
+
+export const deleteUser = () => {
+    return {
+        type: DELETE_USER,
+    }
+}
+
+export const deleteData = () => {
+    return {
+        type: DELETE_DATA,
+    }
+}
+
+export const closeMessage = () => {
+    return {
+        type: CLOSE_MESSAGE
+    }
+}
+
+export const loadDeviceUpdate = (loadData) => {
+    return {
+        type: LOAD_DEVICE_UPDATE,
+        loadData
+    }
+}
+
+export const loadUserUpdate = (loadData) => {
+    return {
+        type: LOAD_USER_UPDATE,
+        loadData
+    }
+}
+
+export const getOneDevice = (loadData) => {
+    return {
+        type: GET_ONE_DEVICE,
+        loadData
+    }
+}
+
+export const getCurrentData = (loadData) => {
+    return {
+        type: GET_CURRENT_DEVICE,
+        loadData
+    } 
+}
+
+export const getOneLocation = (loadData) => {
+    return {
+        type: GET_ONE_LOCATION,
+        loadData
+    }
+}
+
+export const hideSidebar = () => {
+    return {
+        type: HIDE_SIDEBAR
+    }
+}
+
+export const showSidebar = () => {
+    return {
+        type: SHOW_SIDEBAR
+    }
+}
+
+export const changeIntervalDashboard = (loadData, device, date, interval) => {
+    return {
+        type: CHANGE_INTERVAL_DASHBOARD,
+        loadData,
+        device,
+        date,
+        interval
+    }
+}
+
+export const checkValidateLogin = () => {
+    return {
+        type: CHECK_VALIDATE_LOGIN
+    }
+}
+//
+export const getDetailInformationDevice = (loadData) => {
+    return {
+        type: GET_DETAIL_INFORMATION_DEVICE,
+        loadData
+    }
+}
+
+export const getNotification = (loadData) => {
+    return {
+        type: GET_NOTIFICATION,
+        loadData
+    }
+}
+
+export const chooseOptionListDevice = (message) => {
+    return {
+        type : CHOOSE_OPTION_LIST_DEVICE,
+        message
+    }
+}
+
+export const getAlldevicesActive = (loadData) => {
+    return {
+        type : GET_ALL_DEVICES_ACTIVE,
+        loadData
+    }
+}
+
+export const getListNotification = (loadData) => {
+    return {
+        type : GET_LIST_NOTIFICATION,
+        loadData
+    }
+}
+
+export const submitAddPlantIntoDevice = () => {
+    return {
+        type: SUBMIT_ADD_PLANT_INTO_DEVICE
+    }
+}
+
+export const getListLocationOfDevice = (loadData) => {
+    return {
+        type: GET_LIST_LOCATION_OF_DEVICE,
+        loadData
+    }
+}
+
+export const getPlantsOfUser = (loadData) => {
+    return {
+        type: GET_PLANTS_OF_USER,
+        loadData
     }
 }

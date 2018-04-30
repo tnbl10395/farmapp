@@ -9,7 +9,6 @@ var valid = function (current) {
 export class InputText extends React.Component {
     constructor(props) {
         super(props);
-
     }
 
     render() {
@@ -18,7 +17,8 @@ export class InputText extends React.Component {
                 <label>{this.props.element.name}</label>
                 <input type="text" placeholder={this.props.element.placeholder} required
                     onChange={(text) => this.props.saveInput(this.props.name, text.target.value)}
-                    className="form-control" />
+                    className="form-control"
+                    value={this.props.inputValue} />
             </div>
         );
     }
@@ -36,7 +36,7 @@ export class InputCalendar extends React.Component {
                 <Datetime
                     isValidDate={valid}
                     timeFormat={false}
-                    value={this.props.inputDate}
+                    value={new Date(this.props.inputDate)}
                     onChange={(date) => this.props.saveInput(this.props.name, date._d)}
                 />
             </div>
@@ -53,9 +53,12 @@ export class InputPassword extends React.Component {
         return (
             <div className="form-group">
                 <label>{this.props.element.name}</label>
-                <input type="password" placeholder={this.props.element.placeholder} required
-                    onChange={(text) => this.props.saveInput(this.props.name, text.target.value)}
-                    className="form-control" />
+                <input type="password" 
+                       placeholder={this.props.element.placeholder} 
+                       required
+                       value={this.props.inputValue}
+                       onChange={(text) => this.props.saveInput(this.props.name, text.target.value)}
+                       className="form-control" />
             </div>
         );
     }
@@ -70,9 +73,9 @@ export class SelectBox extends React.Component {
         return (
             <div className="form-group">
                 <label>{this.props.element.name}</label>
-                <select className="form-control" onChange={(option) => this.props.saveInput(this.props.name, option.target.value)}>
+                <select value={this.props.inputValue} className="form-control" onChange={(option) => this.props.saveInput(this.props.name, option.target.value)}>
                     {
-                        this.props.element.role.map((option) => {
+                        this.props.element.select.map((option) => {
                             return <option key={option.id} value={option.id}>{option.name}</option>
                         })
                     }

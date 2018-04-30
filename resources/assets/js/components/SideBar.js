@@ -17,47 +17,51 @@ export default class SideBar extends React.Component {
     render() {
         return (
             <div style={this.props.sideBar ? style.sideBar_true : style.sideBar_false} className="row">
-                <div>
+                {/* <div>
                     <Profile sideBar={this.props.sideBar} />
                     <div style={style.line}></div>
-                </div>
+                </div> */}
                 <div style={style.div_ul}>
-                    <Element icon={'fa fa-cog'}
-                        name={"Manage Devices"}
-                        choose={this.props.admin_device_component}
-                        chooseOption={this.props.chooseOption}
-                        link={"device"}
-                        sideBar={this.props.sideBar}
+                    <Element icon={'fa fa-tachometer'}
+                             name={"Dashboard"}
+                             link={""}
+                             choose={this.props.admin_dashboard_component}
+                             chooseOption={this.props.chooseOption}
+                             sideBar={this.props.sideBar}
                     />
                     {
                         this.props.profile.role == "1" ?
                             <Element icon={'fa fa-users'}
-                                name={"Manage User"}
-                                choose={this.props.admin_user_component}
-                                chooseOption={this.props.chooseOption}
-                                link={"user"}
-                                sideBar={this.props.sideBar}
+                                     name={"User"}
+                                     choose={this.props.admin_user_component}
+                                     chooseOption={this.props.chooseOption}
+                                     link={"user"}
+                                     sideBar={this.props.sideBar}
                             />
                             : null
                     }
-                    <Element icon={'fa fa-database'}
-                        name={"Manage Data"}
-                        choose={this.props.admin_data_component}
-                        chooseOption={this.props.chooseOption}
-                        link={"data"}
-                        sideBar={this.props.sideBar}
+                    <Element icon={'fa fa-cogs'}
+                             name={"Device"}
+                             choose={this.props.admin_device_component}
+                             chooseOption={this.props.chooseOption}
+                             link={"device"}
+                             sideBar={this.props.sideBar}
                     />
-                    <Element icon={'fa fa-book'}
-                        name={"Manage Solution"}
-                        choose={this.props.admin_solution_component}
-                        chooseOption={this.props.chooseOption}
-                        link={"solution"}
-                        sideBar={this.props.sideBar}
+                    <Element icon={'fa fa-database'}
+                             name={"Data"}
+                             choose={this.props.admin_data_component}
+                             chooseOption={this.props.chooseOption}
+                             link={"data"}
+                             sideBar={this.props.sideBar}
+                    />
+                    <Element icon={'fa fa-pagelines'}
+                             name={"Plant"}
+                             choose={this.props.admin_plant_component}
+                             chooseOption={this.props.chooseOption}
+                             link={"plant"}
+                             sideBar={this.props.sideBar}
                     />
                 </div>
-                {   
-                    this.props.sideBar ? <div style={style.footer}>Enc@Lewis</div> : null
-                }
             </div>
         )
     }
@@ -66,30 +70,29 @@ export default class SideBar extends React.Component {
 var style = {
     sideBar_true: {
         position: 'fixed',
-        backgroundColor: 'black',
-        top: 60,
+        backgroundColor: '#222d32',
+        top: 50,
         left: 0,
-        width: '15%',
+        right: 0,
         height: '100%',
-        float: 'left',
-        opacity: 0.9,
-        zIndex: 1,
-        boxShadow: "1px 7px 3px black",
+        // opacity: 0.9,
     },
-    sideBar_false: {
-        position: 'fixed',
-        backgroundColor: 'black',
-        top: 60,
-        left: 0,
-        width: 60,
-        height: '100%',
-        float: 'left',
-        opacity: 0.8,
-        zIndex: 1,
-    },
+    // sideBar_false: {
+    //     position: 'fixed',
+    //     backgroundColor: '#222d32',
+    //     top: 50,
+    //     left: 0,
+    //     width: 60,
+    //     height: '100%',
+    //     // opacity: 0.8,
+    //     zIndex: 4,
+    // },
     div_ul: {
-        marginLeft: -5,
+        marginLeft: 35,
+        marginTop: 10,
         listStyle: 'none',
+        height: 46,
+        width: '100%'
     },
     line: {
         backgroundColor: 'white',
@@ -97,11 +100,5 @@ var style = {
         width: '100%',
         height: 0.5
     },
-    footer: {
-        position: 'fixed',
-        left: '4%',
-        bottom: 5,
-        fontSize: '1vw',
-        color: 'white'
-    }
+
 }

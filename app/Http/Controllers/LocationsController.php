@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Location;
+use App\Manage;
+use App\Data;
+use JWTAuth;
 
 class LocationsController extends Controller
 {
@@ -12,9 +15,59 @@ class LocationsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        
+        $user = JWTAuth::toUser($request->header('token'));
+        $locations = [];
+        $devices = [];
+        if($user->role == '1'){
+            $device = Manage::where('isActive', '=', 1)
+                            ->select('deviceId as id')
+                            ->get();
+            if ($device != null) {
+                foreach($device as $key => $value) {
+                    array_push($devices, $value->id);
+                }
+            }
+            $location = Location::join('devices', 'locations.deviceId', '=', 'devices.id')
+                                ->join('manages', 'devices.id', '=', 'manages.deviceId')
+                                ->join('plants', 'manages.plantId', '=', 'plants.id')
+                                // ->join('data', 'manages.deviceId', '=', 'data.deviceId')
+                                ->whereIn('manages.deviceId', $devices)
+                                ->select('locations.*', 'plants.id as plantId', 'plants.name as namePlant', 'plants.description as descriptionPlant',
+                                        'manages.startDate', 'manages.endDate', 'devices.name')
+                                ->get()->groupBy('deviceId');
+            if ($location != null) {
+                foreach($location as $key => $value) {
+                    array_push($locations, $value[count($value)-1]);
+                }
+            }
+            return response()->json($locations);            
+        }else {
+            $device = Manage::where('userId', '=', $user->id)
+                            ->where('isActive', '=', 1)
+                            ->select('deviceId as id')
+                            ->get();
+            if ($device != null) {
+                foreach($device as $key => $value) {
+                    array_push($devices, $value->id);
+                }
+            }
+            $location = Location::join('devices', 'locations.deviceId', '=', 'devices.id')
+                                ->join('manages', 'devices.id', '=', 'manages.deviceId')
+                                ->join('plants', 'manages.plantId', '=', 'plants.id')
+                                // ->join('data', 'manages.deviceId', '=', 'data.deviceId')
+                                ->whereIn('manages.deviceId', $devices)
+                                ->select('locations.*', 'plants.id as plantId', 'plants.name as namePlant', 'plants.description as descriptionPlant',
+                                        'manages.startDate', 'manages.endDate', 'devices.name')
+                                ->get()->groupBy('deviceId');
+            if ($location != null) {
+                foreach($location as $key => $value) {
+                    array_push($locations, $value[count($value)-1]);
+                }
+            }
+            return response()->json($locations);         
+        }
     }
 
     /**
@@ -42,7 +95,7 @@ class LocationsController extends Controller
      */
     public function show(Request $request, $id)
     {
-        $locations = Location::where('deviceId',$id)->get();
+        $locations = Location::where('deviceId',$id)->orderBy('updated_at', 'desc')->first();
         return response()->json($locations);
     }
 

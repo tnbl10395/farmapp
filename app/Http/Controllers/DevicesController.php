@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Device;
 use App\Manage;
+use App\Location;
 use JWTAuth;
 
 class DevicesController extends Controller
@@ -57,14 +58,10 @@ class DevicesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
         $device = Device::findOrFail($id);
-        if(!is_null($device)){
-            return response()->json($device);
-        }else{
-            return response()->json('message', 'nodata');
-        } 
+        return response()->json($device);
     }
 
     /**
@@ -79,9 +76,9 @@ class DevicesController extends Controller
         $device = Device::findOrFail($id);
         $device->name = $request->name;
         $device->manufacturing_date = $request->manufacturing_date;
-        $device->status = $request->status;
+        $device->code = $request->code;
         $device->save();
-        return response()->json('message', 'updated');
+        return response()->json(true);
     }
 
     /**

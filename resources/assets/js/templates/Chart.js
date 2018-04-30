@@ -90,7 +90,7 @@ export class Chart extends React.Component {
             this.props.getOldDataOnChart(device.target.value, subDate, this.props.checkInterval, this.props.date)
         }
     }
-    
+
     chooseDate(option) {
         clearInterval(this.interval);
         clearInterval(this.intervalDate);
@@ -138,19 +138,155 @@ export class Chart extends React.Component {
         }
     }
 
+    // showValue() {
+    //     if (this.state.humidity && this.state.temperature) {
+    //         return [
+    //             humidity(this.props.humidity),
+    //             temperature(this.props.temperature)
+    //         ];
+    //     } else if (!this.state.humidity && this.state.temperature) {
+    //         return [
+    //             temperature(this.props.temperature)
+    //         ];
+    //     } else if (this.state.humidity && !this.state.temperature) {
+    //         return [
+    //             humidity(this.props.humidity)
+    //         ];
+    //     } else {
+    //         return [{ data: null }];
+    //     }
+    // }
+
+    render() {
+        // var arrayHour = this.props.checkInterval ? labelDay() : labelHour();
+        // var arrayDay = labelDay();
+        var array = this.props.all_devices;
+        // var chartData = {
+        //     labels: arrayHour,
+        //     datasets: this.showValue()
+        // };
+        return (
+            <div style={style.main_content_true}>
+                <div style={{position: 'relative', overflowY: 'auto', height: '100%'}}>
+                    {/* <div style={style.button_div}>
+                        <button
+                        className="btn btn-success"
+                        style={{ position: 'absolute', right: 90, top: 5, fontSize: 12 }}><i className="fa fa-file-excel-o" style={{ marginRight: 5 }} />Export</button>
+                        <button
+                            onClick={() => this.props.change()}
+                            className="btn btn-success"
+                            style={{ position: 'absolute', right: 10, top: 5, fontSize: 12 }}><i className="fa fa-table" style={{ marginRight: 5 }} /> Table</button>
+                    </div>
+                    <hr style={{ opacity: 0.2, marginTop: 0, marginBottom: 0 }} /> */}
+                    <div>
+                        <div className="col-sx-2 col-sm-2 col-md-2">
+                            <div className="form-group">
+                                <h5 style={{ fontWeight: 'bold' }}>Interval</h5>
+                                <select className="form-control"
+                                    value={this.props.interval}
+                                    onChange={(option) => this.changeInterval(option)}>
+                                    {
+                                        interval.map(element => {
+                                            return <option key={element.id} value={element.name}>{element.name}</option>
+                                        })
+                                    }
+                                </select>
+                            </div>
+                            <h5 style={{ fontWeight: 'bold' }}>Time</h5>
+                            <div className="form-group">
+                                <Datetime
+                                    value={this.props.date}
+                                    input={false}
+                                    timeFormat={!this.props.checkInterval ? "HH" : false}
+                                    isValidDate={valid}
+                                    onChange={(option) => this.chooseDate(option)} />
+                            </div>
+                            <div className="form-group">
+                                <h5 style={{ fontWeight: 'bold' }}>Devices</h5>
+                                <select className="form-control"
+                                    value={this.props.device}
+                                    onChange={(device) => this.chooseDevice(device)}>
+                                    {
+                                        array.map(element => {
+                                            return <option key={element.id} value={element.id}>{element.name}</option>
+                                        })
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div className="col-sx-10 col-sm-10 col-md-10" style={{ marginTop: 10 }}>
+                            <div className="col-md-6">
+                                <div className="col-md-5 label label-default" style={{ fontSize: 20, marginRight: 10, fontFamily: "Helvetica", backgroundColor: 'grey' }}>
+                                    {this.state.year}-{this.state.month}-{this.state.date}
+                                </div>
+                                <div className="col-md-2 label label-default" style={{ fontSize: 20, marginRight: 1, fontFamily: "Helvetica", backgroundColor: 'grey' }}>
+                                    {this.state.hour}
+                                </div>
+                                <div className="col-md-2 label label-default" style={{ fontSize: 20, marginRight: 1, fontFamily: "Helvetica", backgroundColor: 'grey' }}>
+                                    {this.state.minute}
+                                </div>
+                                <div className="col-md-2 label label-default" style={{ fontSize: 20, marginRight: 1, fontFamily: "Helvetica", backgroundColor: 'grey' }}>
+                                    {this.state.second}
+                                </div>
+                            </div>
+                            <div className="col-md-6">
+                                <div
+                                    className="label label-primary col-md-5 col-md-offset-1"
+                                    onClick={() => this.setState({ humidity: !this.state.humidity })}
+                                    style={
+                                        !this.state.humidity ?
+                                            { fontSize: 20, cursor: 'pointer', fontFamily: "Helvetica", backgroundColor: 'blue' }
+                                            :
+                                            { fontSize: 20, cursor: 'pointer', fontFamily: "Helvetica" }
+                                    }>
+                                    Humidity
+                            </div>
+                                <div
+                                    className="label label-success col-md-5"
+                                    onClick={() => this.setState({ temperature: !this.state.temperature })}
+                                    style={
+                                        !this.state.temperature ?
+                                            { fontSize: 20, cursor: 'pointer', fontFamily: "Helvetica", backgroundColor: 'green' }
+                                            :
+                                            { fontSize: 20, cursor: 'pointer', fontFamily: "Helvetica" }
+                                    }>
+                                    Temperature
+                            </div>
+                            </div>
+                            {/* <div style={style.boxChart}> */}
+                            <LineChartComponent stateHumidity={this.state.humidity}
+                                stateTemperature={this.state.temperature}
+                                propsHumidity={this.props.humidity}
+                                propsTemperature={this.props.temperature}
+                                checkInterval={this.props.checkInterval}
+                                width={"600"} height={"250"} />
+                            {/* </div> */}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        )
+    }
+}
+
+export class LineChartComponent extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+
     showValue() {
-        if (this.state.humidity && this.state.temperature) {
+        if (this.props.stateHumidity && this.props.stateTemperature) {
             return [
-                humidity(this.props.humidity),
-                temperature(this.props.temperature)
+                humidity(this.props.propsHumidity),
+                temperature(this.props.propsTemperature)
             ];
-        } else if (!this.state.humidity && this.state.temperature) {
+        } else if (!this.props.stateHumidity && this.props.stateTemperature) {
             return [
-                temperature(this.props.temperature)
+                temperature(this.props.propsTemperature)
             ];
-        } else if (this.state.humidity && !this.state.temperature) {
+        } else if (this.props.stateHumidity && !this.props.stateTemperature) {
             return [
-                humidity(this.props.humidity)
+                humidity(this.props.propsHumidity),
             ];
         } else {
             return [{ data: null }];
@@ -160,103 +296,12 @@ export class Chart extends React.Component {
     render() {
         var arrayHour = this.props.checkInterval ? labelDay() : labelHour();
         var arrayDay = labelDay();
-        var array = this.props.all_devices;
         var chartData = {
             labels: arrayHour,
             datasets: this.showValue()
         };
         return (
-            <div style={this.props.sideBar ? style.main_content_true : style.main_content_false}>
-                <div style={style.button_div}>
-                    <button
-                        // onClick={() => this.props.change()}
-                        className="btn btn-success"
-                        style={{ position: 'absolute', right: 80, top: 5, fontSize: 12 }}>Export</button>
-                    <button
-                        onClick={() => this.props.change()}
-                        className="btn btn-success"
-                        style={{ position: 'absolute', right: 10, top: 5, fontSize: 12 }}>Table</button>
-                </div>
-                <hr style={{ opacity: 0.2, marginTop: 0, marginBottom: 0 }} />
-                <div>
-                    <div className="col-sx-2 col-sm-2 col-md-2">
-                        <div className="form-group">
-                            <h5 style={{ fontWeight: 'bold' }}>Interval</h5>
-                            <select className="form-control"
-                                value={this.props.interval}
-                                onChange={(option) => this.changeInterval(option)}>
-                                {
-                                    interval.map(element => {
-                                        return <option key={element.id} value={element.name}>{element.name}</option>
-                                    })
-                                }
-                            </select>
-                        </div>
-                        <h5 style={{ fontWeight: 'bold' }}>Time</h5>
-                        <div className="form-group">
-                            <Datetime
-                                value={this.props.date}
-                                input={false}
-                                timeFormat={!this.props.checkInterval ? "HH" : false}
-                                isValidDate={valid}
-                                onChange={(option) => this.chooseDate(option)} />
-                        </div>
-                        <div className="form-group">
-                            <h5 style={{ fontWeight: 'bold' }}>Devices</h5>
-                            <select className="form-control"
-                                value={this.props.device}
-                                onChange={(device) => this.chooseDevice(device)}>
-                                {
-                                    array.map(element => {
-                                        return <option key={element.id} value={element.id}>{element.name}</option>
-                                    })
-                                }
-                            </select>
-                        </div>
-                    </div>
-                    <div className="col-sx-10 col-sm-10 col-md-10" style={{ marginTop: 10 }}>
-                        <div className="col-md-6">
-                            <div className="col-md-5 label label-default" style={{ fontSize: 20, marginRight: 10, fontFamily: "Helvetica", backgroundColor: 'grey' }}>
-                                {this.state.year}-{this.state.month}-{this.state.date}
-                            </div>
-                            <div className="col-md-2 label label-default" style={{ fontSize: 20, marginRight: 1, fontFamily: "Helvetica", backgroundColor: 'grey' }}>
-                                {this.state.hour}
-                            </div>
-                            <div className="col-md-2 label label-default" style={{ fontSize: 20, marginRight: 1, fontFamily: "Helvetica", backgroundColor: 'grey' }}>
-                                {this.state.minute}
-                            </div>
-                            <div className="col-md-2 label label-default" style={{ fontSize: 20, marginRight: 1, fontFamily: "Helvetica", backgroundColor: 'grey' }}>
-                                {this.state.second}
-                            </div>
-                        </div>
-                        <div className="col-md-6">
-                            <div
-                                className="label label-success col-md-5 col-md-offset-1"
-                                onClick={() => this.setState({ humidity: !this.state.humidity })}
-                                style={
-                                    !this.state.humidity ?
-                                        { fontSize: 20, cursor: 'pointer', fontFamily: "Helvetica", backgroundColor: 'green' }
-                                        :
-                                        { fontSize: 20, cursor: 'pointer', fontFamily: "Helvetica" }
-                                }>
-                                Humidity
-                        </div>
-                            <div
-                                className="label label-primary col-md-5"
-                                onClick={() => this.setState({ temperature: !this.state.temperature })}
-                                style={
-                                    !this.state.temperature ?
-                                        { fontSize: 20, cursor: 'pointer', fontFamily: "Helvetica", backgroundColor: 'blue' }
-                                        :
-                                        { fontSize: 20, cursor: 'pointer', fontFamily: "Helvetica" }
-                                }>
-                                Temperature
-                        </div>
-                        </div>
-                        <LineChart data={chartData} options={chartOptions} style={style.chart} redraw width="600" height="250" />
-                    </div>
-                </div>
-            </div>
+            <LineChart data={chartData} options={chartOptions} style={style.chart} redraw width={this.props.width} height={this.props.height} />
         )
     }
 }
@@ -264,12 +309,12 @@ export class Chart extends React.Component {
 const humidity = (humidity) => {
     return {
         label: "Humidity",
-        fillColor: "rgba(39, 174, 96,0.2)",
-        strokeColor: "green",
-        pointColor: "#5cb85c",
+        fillColor: "rgba(52, 152, 219,0.2)",
+        strokeColor: "blue",
+        pointColor: "#428bca",
         pointStrokeColor: "#fff",
         pointHighlightFill: "#fff",
-        pointHighlightStroke: "green",
+        pointHighlightStroke: "#428bca",
         data: humidity
     }
 }
@@ -277,17 +322,17 @@ const humidity = (humidity) => {
 const temperature = (temperature) => {
     return {
         label: "Temperature",
-        fillColor: "rgba(52, 152, 219,0.2)",
-        strokeColor: "blue",
-        pointColor: "#428bca",
+        fillColor: "rgba(39, 174, 96,0.2)",
+        strokeColor: "green",
+        pointColor: "#5cb85c",
         pointStrokeColor: "#fff",
         pointHighlightFill: "#fff",
-        pointHighlightStroke: "#428bca",
+        pointHighlightStroke: "#5cb85c",
         data: temperature
     }
 }
 
-const configDate = (time, interval) => {
+export const configDate = (time, interval) => {
     var date = '';
     if (parseInt(time.getDate()) < 10) {
         var dd = '0' + time.getDate();
@@ -340,63 +385,66 @@ const labelDay = () => {
     return array;
 }
 
-var chartOptions = {
+const chartOptions = {
     scaleFontColor: "black",
     scaleShowGridLines: true,
     scaleGridLineColor: "#9E9E9E",
     scaleGridLineWidth: 1,
     scaleShowHorizontalLines: true,
-    scaleShowVerticalLines: true,
+    scaleShowVerticalLines: false,
     bezierCurve: true,
-    bezierCurveTension: 0.4,
+    bezierCurveTension: 0.5,
     pointDot: true,
     pointDotRadius: 3,
     pointDotStrokeWidth: 1,
     pointHitDetectionRadius: 20,
     datasetStroke: true,
     datasetStrokeWidth: 2,
-    datasetFill: true,
+    datasetFill: false,
     offsetGridLines: false,
     responsive: true,
     animation: false,
+    scaleOverride: true,
+    scaleSteps: 10,
+    scaleStepWidth: 10,
+    scaleStartValue: 0
     // maintainAspectRatio: false,
 };
 
 const style = {
     main_content_true: {
-        color: 'black',
-        backgroundColor: 'black',
         position: 'absolute',
-        padding: 10,
-        left: '15.5%',
-        top: 100,
-        width: '83%',
-        fontSize: 12,
-        opacity: 0.8,
-        borderRadius: 5,
-        fontWeight: 'bold',
-        boxShadow: "1px 7px 3px black",
+        top: 45,
+        right: 0,
+        left: 0,
+        bottom: 0,
+        backgroundColor: '#fff',
     },
-    main_content_false: {
-        color: 'black',
-        backgroundColor: '#9E9E9E',
-        position: 'absolute',
-        padding: 10,
-        left: '4%',
-        top: 100,
-        width: '95%',
-        fontSize: 12,
-        opacity: 0.7,
-        borderRadius: 5,
-        fontWeight: 'bold',
-        boxShadow: "1px 7px 3px black",
-    },
+    // main_content_false: {
+    //     color: 'black',
+    //     backgroundColor: 'white',
+    //     position: 'absolute',
+    //     left: 10,
+    //     top: 50,
+    //     right: 10,
+    //     width: '95%',
+    //     fontSize: 12,
+    //     borderRadius: 5,
+    //     fontWeight: 'bold',
+    //     boxShadow: "0.5px 5px 3px grey",
+    //     borderTop: '4px #5cb85c solid'
+    // },
     chart: {
-        marginTop: 20,
-        backgroundColor: 'white',
-        borderRadius: 2,
+        // marginTop: 10,
+        // backgroundColor: '#ecf0f5',
+        borderRadius: 3,
+        // border: '1px solid grey',
+        // padding: 10
     },
     button_div: {
         height: 35,
-    }
+    },
+    // boxChart: {
+    //     border: '1px grey',
+    // }
 }

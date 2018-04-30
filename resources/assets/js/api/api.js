@@ -1,5 +1,8 @@
-export const URL = "http://116.98.208.44:3000/";
+import { updateDevice } from "../actions/Action";
+
+// export const URL = "http://116.110.0.66:3000/";
 // export const URL = "http://localhost:3000/";
+export const URL = "http://42.119.104.144:3000/"
 
 const token = sessionStorage.getItem('token');
 
@@ -256,7 +259,7 @@ export const getDeviceOfUserAPI = (dispatch, getDeviceOfUser) => {
     }
 }
 //form
-export const submitAddDeviceFormAPI = (dispatch, submitAddDeviceForm, name, date, code) => {
+export const submitAddDeviceFormAPI = (dispatch, submitAddDeviceForm, name, date, code, getDataDevices, getDataDevicesAPI) => {
     try {
         fetch(URL + "api/devices", {
             method: method.POST,
@@ -270,10 +273,10 @@ export const submitAddDeviceFormAPI = (dispatch, submitAddDeviceForm, name, date
             .then((response) => response.json())
             .then((res) => {
                 if (res) {
-                    dispatch(submitAddDeviceForm());
-                    window.location.reload();
+                    dispatch(submitAddDeviceForm(res));
+                    getDataDevicesAPI(dispatch, getDataDevices);
                 } else {
-                    alert('Code is unique');
+                    dispatch(submitAddDeviceForm(res));
                 }
             })
     } catch (error) {
@@ -292,17 +295,17 @@ export const submitAddDeviceUserFormAPI = (dispatch, submitAddDeviceUserForm, co
             .then((response) => response.json())
             .then((res) => {
                 if (res) {
-                    dispatch(submitAddDeviceUserForm());
-                    window.location.reload();
-                }else {
-                    alert('Please check code again!')
+                    dispatch(submitAddDeviceUserForm(res));
+                    getDataDevicesAPI(dispatch, getDataDevices);
+                } else {
+                    dispatch(submitAddDeviceUserForm(res));
                 }
             })
     } catch (error) {
     }
 }
 
-export const submitAddUserFormAPI = (dispatch, submitAddUserForm, username, password, fullname, address, phone, role) => {
+export const submitAddUserFormAPI = (dispatch, submitAddUserForm, username, password, fullname, address, phone, role, getDataUsers, getDataUsersAPI) => {
     try {
         fetch(URL + "api/users", {
             method: method.POST,
@@ -319,17 +322,17 @@ export const submitAddUserFormAPI = (dispatch, submitAddUserForm, username, pass
             .then((response) => response.json())
             .then((res) => {
                 if (res) {
-                    dispatch(submitAddUserForm());
-                    window.location.reload();
+                    dispatch(submitAddUserForm(res));
+                    getDataUsersAPI(dispatch, getDataUsers);
                 } else {
-                    alert('Username already have been registered');
+                    dispatch(submitAddUserForm(res));
                 }
             })
     } catch (error) {
     }
 }
 //login
-export const loginAPI = (dispatch, login, username, password) => {
+export const loginAPI = (dispatch, login, checkValidateLogin, username, password) => {
     try {
         fetch(URL + "api/auth/login", {
             method: method.POST,
@@ -347,7 +350,7 @@ export const loginAPI = (dispatch, login, username, password) => {
                 if (res.token != null) {
                     getUserAPI(dispatch, login, res.token);
                 } else {
-                    alert('Username or password is invalid!')
+                    dispatch(checkValidateLogin());
                 }
             })
     } catch (error) {
@@ -371,27 +374,301 @@ export const getUserAPI = (dispatch, login, token) => {
                 window.location.href = '/';
             })
     } catch (error) {
-
     }
 }
 //delete device
-export const deleteDeviceAPI = (dispatch, deleteDevice, id) => {
+export const deleteDeviceAPI = (dispatch, deleteDevice, id, getDataDevices, getDataDevicesAPI) => {
     try {
-        fetch(URL + "api/devices/"+id, {
+        fetch(URL + "api/devices/" + id, {
             method: method.DELETE,
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                'token': token
-            }
+            headers: headers
         })
             .then((response) => response.json())
             .then((res) => {
                 if (res) {
                     dispatch(deleteDevice());
+                    getDataDevicesAPI(dispatch, getDataDevices);
                 }
             })
     } catch (error) {
+    }
+}
 
+export const deleteUserAPI = (dispatch, deleteUser, id, getDataUsers, getDataUsersAPI) => {
+    try {
+        fetch(URL + "api/users/" + id, {
+            method: method.DELETE,
+            headers: headers
+        })
+            .then((response) => response.json())
+            .then((res) => {
+                if (res) {
+                    dispatch(deleteUser());
+                    getDataUsersAPI(dispatch, getDataUsers);
+                }
+            })
+    } catch (error) {
+    }
+}
+
+export const deleteDataAPI = (dispatch, deleteData, id, getDataValues, getDataValuesAPI) => {
+    try {
+        fetch(URL + "api/data/" + id, {
+            method: method.DELETE,
+            headers: headers
+        })
+            .then((response) => response.json())
+            .then((res) => {
+                if (res) {
+                    dispatch(deleteData());
+                    getDataValuesAPI(dispatch, getDataValues);
+                }
+            })
+    } catch (error) {
+    }
+}
+//load object
+export const loadDeviceUpdateAPI = (dispatch, loadDeviceUpdate, id) => {
+    try {
+        fetch(URL + "api/devices/" + id, {
+            method: method.GET,
+            headers: headers
+        })
+            .then((response) => response.json())
+            .then((res) => {
+                if (res != false) {
+                    dispatch(loadDeviceUpdate(res));
+                }
+            })
+    } catch (error) {
+    }
+}
+//update
+export const updateDeviceAPI = (dispatch, showMessage, id, object, getDataDevices, getDataDevicesAPI) => {
+    try {
+        fetch(URL + "api/devices/" + id, {
+            method: method.POST,
+            headers: headers,
+            body: JSON.stringify(object)
+        })
+            .then((response) => response.json())
+            .then((res) => {
+                if (res) {
+                    dispatch(showMessage(res));
+                    getDataDevicesAPI(dispatch, getDataDevices);
+                } else {
+                    dispatch(showMessage(res));
+                }
+            })
+    } catch (error) { }
+}
+export const updateDeviceOfUserAPI = () => { }
+
+export const updateUserAPI = (dispatch, showMessage, id, object, getDataUsers, getDataUsersAPI) => {
+    try {
+        fetch(URL + "api/users/" + id, {
+            method: method.POST,
+            headers: headers,
+            body: JSON.stringify(object)
+        })
+            .then((response) => response.json())
+            .then((res) => {
+                if (res) {
+                    dispatch(showMessage(res));
+                    getDataUsersAPI(dispatch, getDataUsers);
+                } else {
+                    dispatch(showMessage(res));
+                }
+            })
+    } catch (error) {
+    }
+}
+
+export const getOneDeviceAPI = (dispatch, getOneDevice, id) => {
+    try {
+        fetch(URL + "api/devices/" + id, {
+            method: method.GET,
+            headers: headers
+        })
+            .then((response) => response.json())
+            .then((res) => {
+                dispatch(getOneDevice(res));
+            })
+    } catch (error) {
+    }
+}
+
+export const getCurrentDataApi = (dispatch, getCurrentData, id, interval) => {
+    try {
+        fetch(URL + "api/current-data/" + id, {
+            method: method.GET,
+            headers: headers
+        })
+            .then((response) => response.json())
+            .then((res) => {
+                dispatch(getCurrentData(res));
+            })
+    } catch (error) {
+    }
+}
+
+export const getOneLocationAPI = (dispatch, getOneLocation, id) => {
+    try {
+        fetch(URL + "api/location/" + id, {
+            method: method.GET,
+            headers: headers
+        })
+            .then((response) => response.json())
+            .then((res) => {
+                dispatch(getOneLocation(res));
+            })
+    } catch (error) {
+    }
+}
+
+export const getRealChartDashboardBasedOnHourAPI = (dispatch, changeIntervalDashboard, device, interval) => {
+    try {
+        var data = [];
+        fetch(URL + "api/data-real-chart-hour/" + device, {
+            method: method.GET,
+            headers: headers
+        })
+            .then((response) => response.json())
+            .then((res) => {
+                if (res.length > 0) {
+                    res.forEach(element => {
+                        data.push(element)
+                    });
+                }
+                var time = new Date();
+                dispatch(changeIntervalDashboard(data, device, time, interval));
+            });
+    } catch (error) {
+    }
+}
+
+export const getRealChartDashboardBasedOnDayAPI = (dispatch, changeIntervalDashboard, device, interval) => {
+    try {
+        var data = [];
+        fetch(URL + "api/data-real-chart-day/" + device, {
+            method: method.GET,
+            headers: headers
+        })
+            .then((response) => response.json())
+            .then((res) => {
+                if (res.length > 0) {
+                    res.forEach(element => {
+                        data.push(element)
+                    });
+                }
+                var time = new Date();
+                dispatch(changeIntervalDashboard(data, device, time, interval));
+            });
+    } catch (error) {
+    }
+}
+
+export const submitNewPlantIntoDeviceApi = (
+    dispatch, 
+    getDetailInformationDeviceApi, 
+    getDetailInformationDevice, 
+    getListNotificationApi, 
+    getListNotification, 
+    getDeviceOfUserAPI,
+    getDeviceOfUser, 
+    getAlldevicesActiveApi,
+    getAlldevicesActive,
+    data) => {
+    try {
+        fetch(URL + "api/manages", {
+            method: method.POST,
+            headers: headers,
+            body: JSON.stringify({
+                code: data.code,
+                plant: data.plant,
+                startDate: data.startDate,
+                phase: data.phase,
+            })
+        })
+            .then((response) => response.json())
+            .then((res) => {
+                if (res != null) {
+                    getAlldevicesActiveApi(dispatch, getAlldevicesActive);
+                    getDetailInformationDeviceApi(dispatch, getDetailInformationDevice, res.deviceId);
+                    getListNotificationApi(dispatch, getListNotification);
+                    getDeviceOfUserAPI(dispatch, getDeviceOfUser);
+                }
+            });
+    } catch (error) {
+    }
+}
+
+export const getDetailInformationDeviceApi = (dispatch, getDetailInformationDevice, deviceId) => {
+    try {
+        fetch(URL + "api/get-detail-device/" + deviceId, {
+            method: method.GET,
+            headers: headers,
+        })
+            .then((response) => response.json())
+            .then((res) => {
+                dispatch( getDetailInformationDevice(res) );
+            });
+    } catch (error) {
+    }
+}
+
+export const getNotificationApi = (dispatch, getNotification, deviceId) => {
+    try {
+        fetch(URL + "api/notification/" + deviceId, {
+            method: method.GET,
+            headers: headers,
+        })
+            .then((response) => response.json())
+            .then((res) => {
+                dispatch( getNotification(res) );
+            });
+    } catch (error) {
+    }
+}
+
+export const getAlldevicesActiveApi = (dispatch, getAlldevicesActive) => {
+    try {
+        fetch(URL + "api/list-device-active", {
+            method: method.GET,
+            headers: headers,
+        })
+            .then((response) => response.json())
+            .then((res) => {
+                dispatch( getAlldevicesActive(res) );
+            });
+    } catch (error) {
+    }
+}
+
+export const getListNotificationApi = (dispatch, getListNotification) => {
+    try {
+        fetch(URL + "api/list-notification", {
+            method: method.GET,
+            headers: headers,
+        })
+            .then((response) => response.json())
+            .then((res) => {
+                dispatch( getListNotification(res) );
+            });
+    } catch (error) {
+    }
+}
+
+export const getPlantsOfUserApi = (dispatch, getPlantsOfUser) => {
+    try {
+        fetch(URL + "api/plants", {
+            method: method.GET,
+            headers: headers,
+        })
+            .then((response) => response.json())
+            .then((res) => {
+                dispatch( getPlantsOfUser(res) );
+            });
+    } catch (error) {
     }
 }

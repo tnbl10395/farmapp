@@ -13,25 +13,16 @@ export default class DevicesComponent extends React.Component {
 
     render() {
         return (
-            // this.props.dataSet.length>0? 
-            //     <Table dataSet={this.props.dataSet} 
-            //             columns={columns} 
-            //             sideBar={this.props.sideBar} 
-            //             name={'Device'}
-            //             openModal={this.props.openModal}
-            //             object={profile.role == "1" ? objectDeviceAdmin : objectDeviceUser}
-            //             /> 
-            //     : null
-            this.props.dataSet.length>0? 
             <List
+                // openUpdate={this.props.openUpdate}
                 dataSet={this.props.dataSet}
                 sideBar={this.props.sideBar}
                 name={'Device'}
                 openModal={this.props.openModal}
                 object={profile.role == "1" ? objectDeviceAdmin : objectDeviceUser}
+                objectUpdate={profile.role == "1" ? objectUpdateDeviceAdmin : objectUpdateDeviceUser}
                 openAlert={this.props.openAlert}
             />
-            : null
         );
     }
 }
@@ -54,12 +45,19 @@ var objectDeviceUser = {
     ]
 };
 
-var columns = [
-    { title: "Code" },
-    { title: "Name" },
-    { title: "Manufacturing Date" },
-    { title: "Status" },
-    { title: "Updated Date" },
-    { title: "Action" }
-];
+var objectUpdateDeviceAdmin = {
+    title: "UPDATE DEVICE",
+    property: [
+        { name: "Name", placeholder: 'Please input name' },
+        { name: "Code", placeholder: 'Please input code' },
+        { name: "Manufacturing Date", placeholder: 'Please input Manufacturing Date' }
+    ]
+};
+
+var objectUpdateDeviceUser = {
+    title: "UPDATE DEVICE",
+    property: [
+        { name: "Code", placeholder: 'Please input code' },
+    ]
+};
 

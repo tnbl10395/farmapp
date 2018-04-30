@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import Pagination from 'react-js-pagination';
+import { Link } from 'react-router-dom';
+
+const profile = JSON.parse(sessionStorage.getItem('profile'));
 
 export default class List extends React.Component {
     constructor(props) {
@@ -7,13 +10,42 @@ export default class List extends React.Component {
         this.state = {
             activePage: 1,
             data: this.props.dataSet,
-            itemsCountPerPage: 10
+            itemsCountPerPage: 5,
+            active: true,
+            inactive: true,
         };
         this.handlePageChange = this.handlePageChange.bind(this);
+        this.filterList = this.filterList.bind(this);
+        this.selectActive = this.selectActive.bind(this);
+        this.selectInactive = this.selectInactive.bind(this);
+    }
+
+    selectActive(e) {
+        this.setState({ active: !this.state.active });
+    }
+
+    selectInactive(e) {
+        this.setState({ inactive: !this.state.inactive })
+    }
+
+    filterList(e) {
+        var updateList = this.props.dataSet;
+        updateList = updateList.filter(item => {
+            return JSON.stringify(item).toLowerCase().includes(e.target.value.toLowerCase())
+        });
+        this.setState({ data: updateList });
     }
 
     handlePageChange(pageNumber) {
         this.setState({ activePage: pageNumber });
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.setState(nextProps, () => {
+            this.setState({
+                data: nextProps.dataSet
+            })
+        });
     }
 
     render() {
@@ -23,88 +55,252 @@ export default class List extends React.Component {
         const indexOfFirstTodo = indexOfLastTodo - itemsCountPerPage;
         const currentData = data.slice(indexOfFirstTodo, indexOfLastTodo);
         return (
-            <div style={this.props.sideBar ? style.main_content_true : style.main_content_false} className="col-md-10">
-                <div className="col-xs-12 col-sm-12 col-md-10" style={style.list}>
-                    <div className="row">
-                        <div className="col-xs-12 col-sm-12 col-md-12">
-                            <button onClick={() => this.props.openModal(this.props.object)} className="btn btn-success pull-right" style={{ margin: 5 }}>
-                                <i className="fa fa-plus" /> New {this.props.name}
-                            </button>
-                            <div className="form-group has-feedback col-xs-3 col-sm-3 col-md-2 pull-right" style={style.search}>
-                                <input type="text" className="form-control" placeholder="Search ..." />
-                                <span className="form-control-feedback glyphicon glyphicon-search" style={{ marginRight: 10 }}></span>
-                            </div>
+            <div style={style.main_content_true}>
+                <style dangerouslySetInnerHTML={{
+                    __html: [
+                        '.item:hover {',
+                        '  box-shadow: inset 2px 0 gray;',
+                        '}',
+                    ].join('\n')
+                }}>
+                </style>
+                <div className="col-xs-12 col-sm-12 col-md-12" style={style.list}>
+                    <div className="col-xs-12 col-sm-12 col-md-12">
+                        <div className="col-xs-sm-6 col-sm-6 col-md-6" style={{ marginTop: 20 }}>
+                            <label>
+                                Show
+                                <select value={this.state.itemsCountPerPage}
+                                    style={style.selectNumberPageDisplay}
+                                    className="input-sm"
+                                    onChange={(event) => this.setState({ itemsCountPerPage: event.target.value })}>
+                                    <option value={5}>5</option>
+                                    <option value={10}>10</option>
+                                    <option value={50}>50</option>
+                                    <option value={100}>100</option>
+                                </select>
+                                entries
+                            </label>
+                        </div>
+                        {
+                            this.props.name == "Plant" && profile.role == '1'
+                                ? null
+                                : <button onClick={() => this.props.openModal(this.props.object, null)} className="btn btn-success pull-right" style={{ margin: 5, marginTop: 20 }}>
+                                    <i className="fa fa-plus" /> New {this.props.name}
+                                 </button>
+                                // <div className="pull-right" style={{ margin: 5, marginTop: 20 }}>
+                                //     <button
+                                //         className="btn btn-success" style={{ marginRight: 10 }}><i className="fa fa-file-excel-o" style={{ marginRight: 5 }} />Export</button>
+                                //     <button onClick={() => this.props.change()}
+                                //         className="btn btn-success">
+                                //         <i className="fa fa-bar-chart" style={{ marginRight: 5 }} /> Chart
+                                //     </button>
+                                // </div>
+
+                        }
+
+                        <div className="form-group has-feedback col-xs-7 col-sm-3 col-md-3 pull-right" style={style.search}>
+                            <input type="text" className="form-control" placeholder="Search ..." onChange={this.filterList} />
+                            <span className="form-control-feedback glyphicon glyphicon-search" style={{ marginRight: 10 }}></span>
                         </div>
                     </div>
                     {
-                        renderTable(this.props.name, currentData, this.props.openAlert)
+                        this.state.data.length > 0
+                            ? renderTable(this.props.name, currentData, this.props.openAlert, this.props.openModal, this.props.objectUpdate)
+                            : <div style={style.item} className="col-xs-12 col-sm-12 col-md-12"><h3 style={{ textAlign: 'center' }}>No data</h3></div>
+
                     }
                     <div className="col-xs-12 col-sm-12 col-md-12">
-                        <Pagination
-                            prevPageText='prev'
-                            nextPageText='next'
-                            firstPageText='first'
-                            lastPageText='last'
-                            activePage={this.state.activePage}
-                            itemsCountPerPage={this.state.itemsCountPerPage}
-                            totalItemsCount={this.state.data.length}
-                            pageRangeDisplayed={5}
-                            onChange={this.handlePageChange}
-                        />
+                        <div className="col-md-6">
+                            <span>Showing {this.state.data.length == 0 ? '0' : '1'} to {this.state.itemsCountPerPage < this.state.data.length ? this.state.itemsCountPerPage : this.state.data.length} of {this.state.data.length} entries</span>
+                        </div>
+                        <div className="pull-right">
+                            <Pagination
+                                prevPageText='prev'
+                                nextPageText='next'
+                                firstPageText='first'
+                                lastPageText='last'
+                                activePage={this.state.activePage}
+                                itemsCountPerPage={this.state.itemsCountPerPage}
+                                totalItemsCount={this.state.data.length}
+                                pageRangeDisplayed={5}
+                                onChange={this.handlePageChange}
+                            />
+                        </div>
                     </div>
                 </div>
-                <div className="col-xs-12 col-sm-12 col-md-2">
-                    <div style={style.filter}></div>
-                </div>
+                {/* <div className="col-xs-12 col-sm-12 col-md-2">
+                    <div style={style.filter}>
+                        <div className="form-group col-md-12">
+                            <div className="form-check">
+                                <label className="form-check-lable">
+                                    <input type="checkbox" className="form-check-input-lg" style={style.checkbox} onChange={this.selectActive} defaultChecked={this.state.active} />
+                                </label><span style={style.textCheckbox}> Active</span>
+                            </div>
+                            <div className="form-check">
+                                <label className="form-check-lable">
+                                    <input type="checkbox" className="form-check-input" style={style.checkbox} onChange={this.selectInactive} defaultChecked={this.state.inactive} />
+                                </label><span style={style.textCheckbox}> Inactive</span>
+                            </div>
+                        </div>
+                    </div>
+                </div> */}
             </div>
         )
     }
 }
 
-const renderTable = (name, currentData, openAlert) => {
+const renderTable = (name, currentData, openAlert, openModal, object) => {
     switch (name) {
         case 'Device':
-            return device(currentData, openAlert);
+            return <Device currentData={currentData}
+                            openAlert={openAlert}
+                            openModal={openModal}
+                            object={object} />
+        // return device(currentData, openAlert, openModal, object);
         case 'User':
-            return user(currentData, openAlert);
+            return user(currentData, openAlert, openModal, object);
+        case 'Data':
+            return data(currentData, openAlert);
+        case 'Plant':
+            return <Plant currentData={currentData}
+                            openAlert={openAlert}
+                            openModal={openModal}
+                            object={object} />
+    }
+}
+// Device-------------------------------------------------------------------------------------------------------------------------
+class Device extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+
+    render() {
+        return (
+            <div>
+                {
+                    this.props.currentData.map((element, index) => 
+                        <ItemDevice key={index} element={element} 
+                                    object={this.props.object} 
+                                    openAlert={this.props.openAlert}
+                                    openModal={this.props.openModal} />
+                    )
+                }
+            </div>
+
+        );
     }
 }
 
-const device = (currentData, openAlert) => (
-    currentData.map((element, index) =>
-        <div key={index} style={style.item} className="col-xs-12 col-sm-12 col-md-12">
-            <div className="col-xs-1 col-sm-1 col-md-1">
-                <i className="fa fa-gears" style={style.picture} />
-            </div>
-            <div className="col-xs-2 col-sm-2 col-md-2" style={style.text}>{element.name}</div>
-            <div className="col-xs-3 col-sm-3 col-md-3">
-                <h6>Code</h6>
-                {element.code}
-            </div>
-            <div className="col-xs-3 col-sm-3 col-md-3">
-                <h6>Manufacturing Date</h6>
-                {element.manufacturing_date}
-            </div>
-            <div className="col-xs-2 col-sm-2 col-md-2">
-                {
-                    element.status == 1 ?
-                        <div className="col-md-8 label label-success" style={style.status}>Active</div>
-                        :
-                        <div className="col-md-8 label label-primary" style={style.status}>Inactive</div>
-                }
-            </div>
-            <div className="col-xs-1 col-sm-1 col-md-1" style={style.button}>
-                <a style={style.edit} className="fa fa-edit"></a>
-                <a onClick={() => openAlert('DELETE_DEVICE', element.id)} style={style.delete} className="fa fa-remove"></a>
-            </div>
-        </div>
-    )
-)
+class ItemDevice extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            isDetail: false
+        }
+    }
 
-const user = (currentData, openAlert) => (
+    onClickToShowDetail() {
+        this.setState({ isDetail: !this.state.isDetail })
+    }
+
+    render() {
+        return (
+            <div style={style.item} onClick={this.onClickToShowDetail.bind(this)} className="col-xs-12 col-sm-12 col-md-12 item">
+                <div className="col-xs-1 col-sm-1 col-md-1">
+                    <i className="fa fa-gears" style={style.picture} />
+                </div>
+                <div className="col-xs-2 col-sm-2 col-md-2" style={style.text}><h5>{this.props.element.name}</h5></div>
+                <div className="col-xs-3 col-sm-3 col-md-3">
+                    <h6>Code</h6>
+                    {this.props.element.code}
+                </div>
+                <div className="col-xs-3 col-sm-3 col-md-3">
+                    <h6>Manufacturing Date</h6>
+                    {this.props.element.manufacturing_date}
+                </div>
+                <div className="col-xs-2 col-sm-2 col-md-2">
+                    {
+                        this.props.element.status == 1 ?
+                            <div className="col-md-8 label label-success" style={style.status}>Active</div>
+                            :
+                            <div className="col-md-8 label label-primary" style={style.status}>Inactive</div>
+                    }
+                </div>
+                <div className="col-xs-1 col-sm-1 col-md-1" style={style.button}>
+                    {profile.role == '0' ? null : <a onClick={() => this.props.openModal(this.props.object, this.props.element)} style={style.edit} className="fa fa-edit"></a>}
+                    <a onClick={() => this.props.openAlert('DELETE_DEVICE', this.props.element.id)} style={style.delete} className="fa fa-remove"></a>
+                </div>
+                {this.state.isDetail ? 
+                    <div className="col-md-12">
+                        <hr/>
+                        <h5>Sensors in {this.props.element.name}</h5>
+                        <div className="row" style={{padding: 0, overflowX: 'auto', whiteSpace: 'nowrap'}}>
+                            <div className="col-md-4" style={{padding: 0, float: 'none', display: 'inline-block'}}>
+                                <ItemSensor />
+                            </div>
+                            <div className="col-md-4" style={{padding: 0, float: 'none', display: 'inline-block'}}>
+                                <ItemSensor />
+                            </div>
+                            <div className="col-md-4" style={{padding: 0, float: 'none', display: 'inline-block'}}>
+                                <ItemSensor />
+                            </div>
+                            <div className="col-md-4" style={{padding: 0, float: 'none', display: 'inline-block'}}>
+                                <ItemSensor />
+                            </div>
+                            <div className="col-md-4" style={{padding: 0, float: 'none', display: 'inline-block'}}>
+                                <ItemSensor />
+                            </div>
+                        </div>
+                    </div> 
+                    : null}
+            </div>
+        );
+    }
+}
+
+class ItemSensor extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+    
+    render() {
+        return (
+            <div style={styleItemSensor.body}>
+                <img src="/images/avatar.png" className="col-md-5" style={styleItemSensor.image}/>
+                <div className="col-md-7" style={{ padding:0 }}>
+                    <div className="col-md-12">
+                        <span>Name: </span> Arduino
+                    </div>
+                    <div className="col-md-12">
+                        <span>Manufacturing Date: </span> 2018-03-10
+                    </div>
+                    <div className="col-md-12">
+                        <span>Made by: </span> China
+                    </div>
+                </div>
+            </div>
+        );
+    }
+}
+
+const styleItemSensor = {
+    body: {
+        padding: 5,
+        height: 150,
+        border: '1px solid gray',
+        margin: 3,
+    },
+    image: {
+        padding: 0,
+        objectFit: 'cover',
+        height: '100%'
+    }
+}
+// User-------------------------------------------------------------------------------------------------------------------------
+const user = (currentData, openAlert, openModal, object) => (
     currentData.map((element, index) =>
-        <div key={index} style={style.item} className="col-xs-12 col-sm-12 col-md-12">
-            <div className="col-xs-1 col-sm-1 col-md-1">
+        <div key={index} style={style.item} className="col-xs-12 col-sm-12 col-md-12 item">
+            <div className="col-xs-1 col-sm-1 col-md-1" style={{ display: 'flex', alignItems: 'center', height: 70 }}>
                 <img src="/images/avatar.png" style={style.avatar} />
             </div>
             <div className="col-xs-2 col-sm-2 col-md-2" style={style.text}>
@@ -120,63 +316,157 @@ const user = (currentData, openAlert) => (
                 <p>{element.address}</p>
             </div>
             <div className="col-xs-1 col-sm-1 col-md-1" style={style.button}>
-                <a style={style.edit} className="fa fa-edit"></a>
-                <a style={style.delete} className="fa fa-remove"></a>
+                <a onClick={() => openModal(object, element)} style={style.edit} className="fa fa-edit"></a>
+                {
+                    profile.id === element.id && element.role == '1' ? null : <a onClick={() => openAlert('DELETE_USER', element.id)} style={style.delete} className="fa fa-remove"></a>
+                }
             </div>
         </div>
     )
 )
+// Data-------------------------------------------------------------------------------------------------------------------------
+const data = (currentData, openAlert) => (
+    currentData.map((element, index) =>
+        <div key={index} style={style.item} className="col-xs-12 col-sm-12 col-md-12">
+            <div className="col-xs-1 col-sm-1 col-md-1" style={style.text}>
+                {/* <h6>Device</h6> */}
+                <p>{element.name}</p>
+            </div>
+            <div className="col-xs-3 col-sm-3 col-md-3" style={style.text}>
+                <h6 style={style.title}>Humidity</h6>
+                <p><i className="fa fa-tint" style={style.icon_humidity} />{element.humidity} %</p>
+            </div>
+            <div className="col-xs-3 col-sm-3 col-md-3" style={style.text}>
+                <h6 style={style.title}>Temperature</h6>
+                <p><i className="fa fa-thermometer-empty" style={style.icon_temperature} />{element.temperature} °C</p>
+            </div>
+            <div className="col-xs-3 col-sm-3 col-md-3" style={style.text}>
+                <h6 style={style.title}>Date</h6>
+                <p>{element.updated_at}</p>
+            </div>
+            <div className="col-xs-1 col-sm-1 col-md-1" style={style.button}>
+                <a onClick={() => openAlert('DELETE_DATA', element.id)} style={style.delete} className="fa fa-remove"></a>
+            </div>
+        </div>
+    )
+)
+// Plant-------------------------------------------------------------------------------------------------------------------------
+class Plant extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+    
+    render() {
+        return (
+            <div>
+                {
+                    this.props.currentData.map((element, index) =>
+                        <ItemPlant key={index} 
+                                   element={element} 
+                                   object={this.props.object} 
+                                   openModal={this.props.openModal}
+                                   openAlert={this.props.openAlert} />
+                    )
+                }
+            </div>
+        );
+    }
+}
 
+class ItemPlant extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+
+    render() {
+        return (
+            <div style={style.item} className="col-xs-12 col-sm-12 col-md-12 item">
+                <div className="col-xs-2 col-sm-2 col-md-2">
+                    {
+                        this.props.element.picture == null 
+                            ? <img src="images/leaf.jpg" style={stylePlant.image} />
+                            : <img src={'data:image/png;base64,' + this.props.element.picture} style={stylePlant.image} />
+                    }
+                </div>
+                <div className="col-xs-2 col-sm-2 col-md-2" style={stylePlant.name}><h5>{this.props.element.name}</h5></div>
+                <div className="col-xs-3 col-sm-3 col-md-3" style={stylePlant.totalPhase}>
+                    <span style={stylePlant.textTotalPhase}>Total Phase: </span> 4
+                </div>
+                {
+                    profile.role == '1'
+                        ? <div className="col-xs-3 col-sm-3 col-md-3">
+                            <h6>Owner</h6>
+                            {this.props.element.username}
+                        </div>
+                        : <div className="col-xs-3 col-sm-3 col-md-3"></div>
+                }
+                {
+                    profile.role == '1' 
+                        ? null 
+                        : <div className="col-xs-1 col-sm-1 col-md-1" style={style.button}>
+                            <a onClick={() => this.props.openModal(this.props.object, this.props.element)} style={style.edit} className="fa fa-edit"></a>
+                            <a onClick={() => this.props.openAlert('DELETE_DATA', this.props.element.id)} style={style.delete} className="fa fa-remove"></a>
+                        </div>
+                }
+            </div>
+        );
+    }
+    
+}
+
+const stylePlant = {
+    image: {
+        marginTop: 5,
+        marginBottom: 5,
+        width: 100,
+        height: 48,
+        objectFit: 'cover'
+    },
+    name: {
+        fontWeight: 'bold',
+        marginTop: 6,
+    },
+    totalPhase: {
+        marginTop: 15,
+    },
+    textTotalPhase: {
+        fontWeight: 'bold',
+    }
+}
+//-------------------------------------------------------------------------------------------------------------------------
 const style = {
     main_content_true: {
-        color: 'black',
-        backgroundColor: 'black',
         position: 'absolute',
-        left: '15.5%',
-        top: 80,
-        // width: '83%',
-        fontSize: 12,
-        opacity: 0.7,
-        borderRadius: 5,
-        fontWeight: 'bold',
-        boxShadow: "1px 7px 3px black"
-    },
-    main_content_false: {
-        color: 'black',
-        backgroundColor: 'black',
-        position: 'absolute',
-        padding: 10,
-        left: '4%',
-        top: 80,
-        width: '95%',
-        fontSize: 12,
-        opacity: 0.7,
-        borderRadius: 5,
-        fontWeight: 'bold',
-        boxShadow: "1px 7px 3px black"
+        top: 45,
+        right: 0,
+        left: 0,
+        bottom: 0,
+        backgroundColor: '#fff',
     },
     list: {
-        marginTop: 10,
         backgroundColor: '#fff',
         borderRadius: 5,
-        display: 'inline-block'
+        position: 'relative',
+        overflowY: 'auto',
+        height: '100%',
     },
     item: {
-        border: '2px solid gray',
-        backgroundColor: '#fff',
+        border: '1px solid gray',
         borderRadius: 5,
         margin: 2,
+        cursor: 'pointer'
     },
     filter: {
-        backgroundColor: '#fff',
+        backgroundColor: '#ecf0f5',
         borderRadius: 5,
-        marginTop: 10,
+        marginTop: 65,
         height: 200,
     },
     avatar: {
-        width: 70,
-        height: 70,
-        marginTop: 5,
+        width: 35,
+        height: 35,
+        // marginTop: 20,
+        borderRadius: 100
     },
     picture: {
         marginTop: 10,
@@ -188,9 +478,11 @@ const style = {
     },
     search: {
         margin: 5,
+        marginTop: 20
     },
     text: {
-        fontSize: 15,
+        fontSize: 11,
+        fontFamily: "Helvetica",
         marginTop: 10,
     },
     status: {
@@ -222,5 +514,29 @@ const style = {
         backgroundColor: '#e74c3c',
         color: '#fff',
         cursor: 'pointer'
+    },
+    checkbox: {
+        width: 18,
+        height: 18
+    },
+    selectNumberPageDisplay: {
+        margin: 5
+    },
+    textCheckbox: {
+        fontSize: 12,
+        color: '#777',
+    },
+    icon_humidity: {
+        fontSize: 15,
+        marginRight: 10,
+        color: '#0984e3'
+    },
+    icon_temperature: {
+        fontSize: 15,
+        marginRight: 10,
+        color: '#ff7675'
+    },
+    title: {
+        color: '#777',
     }
 }

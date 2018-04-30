@@ -33,11 +33,15 @@ const bodyAlert = (title, closeAlert, id, del) => {
         case 'LOGOUT':
             return confirmLogout(closeAlert);
         case 'DELETE_DEVICE':
-            return deleteDevice(closeAlert, id, del);
+            return deleteDevice(closeAlert, id, del, title);
+        case 'DELETE_USER':
+            return deleteUser(closeAlert, id, del, title);
+        case 'DELETE_DATA':
+            return deleteUser(closeAlert, id, del, title);
     }
 };
 
-const deleteDevice = (closeAlert, id, del) => (
+const deleteDevice = (closeAlert, id, del, title) => (
     <div>
         <div style={{textAlign: 'center'}}>
             <i className="fa fa-exclamation-triangle" style={style.icon}/>
@@ -47,7 +51,35 @@ const deleteDevice = (closeAlert, id, del) => (
         <hr />
         <div className="row">
             <button onClick={() => closeAlert()} className="btn btn-default col-xs-5 col-sm-5 col-md-3 col-xs-offset-1 col-sm-offset-1 col-md-offset-5" style={{ marginRight: 5 }}>Cancel</button>
-            <button onClick={() => del(id)} className="btn btn-success col-xs-5 col-sm-5 col-md-3">Yes</button>
+            <button onClick={() => del(title, id)} className="btn btn-success col-xs-5 col-sm-5 col-md-3">Yes</button>
+        </div>
+    </div>
+);
+
+const deleteUser = (closeAlert, id, del, title) => (
+    <div>
+        <div style={{textAlign: 'center'}}>
+            <i className="fa fa-exclamation-triangle" style={style.icon}/>
+            <h3>Are you sure you want to delete this user?</h3>
+        </div>
+        <hr />
+        <div className="row">
+            <button onClick={() => closeAlert()} className="btn btn-default col-xs-5 col-sm-5 col-md-3 col-xs-offset-1 col-sm-offset-1 col-md-offset-5" style={{ marginRight: 5 }}>Cancel</button>
+            <button onClick={() => del(title, id)} className="btn btn-success col-xs-5 col-sm-5 col-md-3">Yes</button>
+        </div>
+    </div>
+);
+
+const deleteData = (closeAlert, id, del, title) => (
+    <div>
+        <div style={{textAlign: 'center'}}>
+            <i className="fa fa-exclamation-triangle" style={style.icon}/>
+            <h3>Are you sure you want to delete this data?</h3>
+        </div>
+        <hr />
+        <div className="row">
+            <button onClick={() => closeAlert()} className="btn btn-default col-xs-5 col-sm-5 col-md-3 col-xs-offset-1 col-sm-offset-1 col-md-offset-5" style={{ marginRight: 5 }}>Cancel</button>
+            <button onClick={() => del(title, id)} className="btn btn-success col-xs-5 col-sm-5 col-md-3">Yes</button>
         </div>
     </div>
 );
@@ -86,7 +118,7 @@ const style = {
     },
     icon: {
         fontSize: 100,
-        color: '#eccc68',
+        color: '#f6e58d',
     },
     title: {
         fontWeight: 'bold'

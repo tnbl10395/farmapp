@@ -20,13 +20,13 @@ export default class UserComponent extends React.Component {
             //         openModal={this.props.openModal}
             //         sideBar={this.props.sideBar} name={"User"} />
             //     : null
-            this.props.dataSet.length > 0 ?
             <List 
                 dataSet={this.props.dataSet}
                 object={objectUser}
                 openModal={this.props.openModal}
-                sideBar={this.props.sideBar} name={"User"} />
-            : null
+                sideBar={this.props.sideBar} name={"User"} 
+                openAlert={this.props.openAlert} 
+                objectUpdate={objectUpdate}/>
         );
     }
 }
@@ -39,15 +39,26 @@ var objectUser = {
         { name: "Full name", placeholder: 'Please input full name' },
         { name: "Address", placeholder: 'Please input address' },
         { name: "Phone", placeholder: 'Please input phone' },
-        { name: "Role", role: [{ id: '0', name: "Admin" }, { id: '1', name: "User" }] },
+        { name: "Role", select: [{ id: '1', name: "Admin" }, { id: '0', name: "User" }] },
     ]
 };
 
-var columns = [
-    { title: "ID" },
-    { title: "Username" },
-    { title: "Full Name" },
-    { title: "Address" },
-    { title: "Phone" },
-    { title: "Action" },
-];
+var objectUpdate = {
+    title: "UPDATE USER",
+    property: [
+        { name: "Username", placeholder: 'Please input username' },
+        { name: "Password", placeholder: 'Please input password' },
+        { name: "Full name", placeholder: 'Please input full name' },
+        { name: "Address", placeholder: 'Please input address' },
+        { name: "Phone", placeholder: 'Please input phone' },
+        { name: "Role", select: [{ id: '1', name: "Admin" }, { id: '0', name: "User" }] },
+    ]
+};
+// var columns = [
+//     { title: "ID" },
+//     { title: "Username" },
+//     { title: "Full Name" },
+//     { title: "Address" },
+//     { title: "Phone" },
+//     { title: "Action" },
+// ];

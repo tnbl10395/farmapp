@@ -100,7 +100,7 @@ class DataController extends Controller
     {
         $data = Data::findOrFail($id);
         $data->delete();
-        return response()->json('Deleted');
+        return response()->json($data);
     }
     //real - hour
     public function getRealChartBasedOnHour(Request $request, $deviceId)
@@ -173,7 +173,6 @@ class DataController extends Controller
     //one-minute
     public function getOneValueBasedOnMinute(Request $request)
     {
-        $array = [];
         $data = Data::join('devices','data.deviceId','=','devices.id')
         ->whereRaw('substr(data.updated_at,1,16) = "'.$request->minute.'"')
         ->where('deviceId',$request->deviceId)
@@ -185,7 +184,6 @@ class DataController extends Controller
     //one-hour
     public function getOneValueBasedOnHour(Request $request)
     {
-        $array = [];
         $data = Data::join('devices','data.deviceId','=','devices.id')
         ->whereDate('data.updated_at',$request->hour)
         ->where('deviceId',$request->deviceId)
@@ -193,5 +191,25 @@ class DataController extends Controller
                 data.humidity,data.temperature,data.updated_at')
         ->orderBy('id','desc')->first(); 
         return response()->json($data);
+    }
+    //current value
+    public function getCurrentValue(Request $request, $id)
+    {
+        // if ($request->interval) {
+        //     $current = Data::selectRaw('substr(updated_at, 1, 13) as time, substr(NOW(),1,13) as currentTime')->orderBy('time','desc')->first();
+        // }else {
+        //     $current = Data::selectRaw('substr(updated_at, 1, 16) as time, substr(NOW(),1,16) as currentTime')->orderBy('time','desc')->first();
+        // }
+
+        // if ($current->time == $current->currentTime) {
+            $data = Data::join('devices','data.deviceId','=','devices.id')
+            ->where('deviceId',$id)
+            ->selectRaw('data.id,data.deviceId,devices.name, substr(data.updated_at,15,2) as minute,
+                         data.humidity,data.temperature,data.updated_at')
+            ->orderBy('id','desc')->first(); 
+            return response()->json($data);
+        // }else {
+        //     return response()->json([]);
+        // }
     }
 }

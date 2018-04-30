@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { InputText, InputCalendar, InputPassword, SelectBox } from '../templates/InputForm';
 import { fadeInDown } from 'react-animations';
 import Radium, { StyleRoot } from 'radium';
 
 import AddDevice from '../containers/AddDeviceContainer';
 import AddUser from '../containers/AddUserContainer';
+import AddPlant from '../containers/AddPlantContainer';
+import ActionSolution from '../containers/ActionSolutionContainer';
 
 export default class Modal extends React.Component {
     constructor(props) {
@@ -19,12 +20,13 @@ export default class Modal extends React.Component {
     render() {
         return (
             <div>
-                <div style={style.overview}
-                    onClick={() => this.props.closeModal()}>
+                <div 
+                    //  onClick={() => this.props.closeModal()}
+                     style={style.overview}>
                 </div>
                 <StyleRoot>
-                    <div style={style.form} className="col-xs-8 col-xs-offset-2 col-md-6 col-md-offset-3">
-                        <h3 style={style.title}>{this.props.object.title} FORM</h3>
+                    <div style={style.form} className="col-xs-8 col-xs-offset-2 col-md-8 col-md-offset-2">
+                        <h4 style={style.title}>{this.props.object.title} FORM</h4>
                         <hr />
                         {
                             bodyModal(this.props.object)
@@ -39,9 +41,17 @@ export default class Modal extends React.Component {
 const bodyModal = (object) => {
     switch (object.title) {
         case 'ADD DEVICE':
-            return <AddDevice property={object.property}/>;
+            return <AddDevice object={object}/>;
         case 'ADD USER':
-            return <AddUser property={object.property}/>;
+            return <AddUser object={object}/>;
+        case 'UPDATE DEVICE':
+            return <AddDevice object={object}/>;
+        case 'UPDATE USER':
+            return <AddUser object={object}/>;
+        case 'ADD PLANT':
+            return <AddPlant object={object}/>;
+        case 'UPDATE PLANT':
+            return <AddPlant object={object}/>;
     }
 }
 
@@ -58,7 +68,7 @@ const style = {
     },
     form: {
         position: 'absolute',
-        top: '15%',
+        top: '10%',
         padding: 20,
         borderRadius: 5,
         backgroundColor: 'white',
