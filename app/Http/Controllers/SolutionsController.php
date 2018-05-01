@@ -209,7 +209,8 @@ class SolutionsController extends Controller
                     ->whereRaw('substr(updated_at,1,16) = "'.$this->getDateBasedOnMinute($now).'"')
                     ->select(['id','humidity', 'temperature', 'deviceId'])
                     ->orderBy('id', 'desc')
-                    ->get();
+                    ->get()->groupBy('deviceId');
+        
         if (count($data) == 0) {
             foreach ($devices as $key => $value) {
                 $res = [
@@ -222,37 +223,45 @@ class SolutionsController extends Controller
             }
         }else {
             $object = [];
-            for ($i = 0; $i < count($devices); $i++) {
-                if(!isset($data[$i])) {
+            foreach ($devices as $key => $device) {
+                # code...
+            // }
+            // for ($i = 0; $i < count($devices); $i++) {
+                if(!isset($data[$device->deviceId])) {
                     $res = [
-                        'deviceId' => $value->deviceId,
-                        'deviceName' => $value->nameDevice,
+                        'deviceId' => $device->deviceId,
+                        'deviceName' => $device->nameDevice,
                         'message' => "Your device can't measure. Please check your device again",
                         'datetime' => $datetime->datetime
                     ];
                     array_push($sendData, $res);
                 }else {
-                    $plant = Manage::where('deviceId', '=', $data[$i]->deviceId)
+                    $getData = $data[(string)$device->deviceId][count($data[$device->deviceId])-1];
+                    $plant = Manage::where('deviceId', '=', $device->deviceId)
                                     ->select('plantId as id', 'startDate')
                                     ->first();
                     $phases = Phase::where('plantId', '=', $plant->id)
                                     ->orderBy('id')
                                     ->get();
+                    $plantName = Plant::where('id', '=', $plant->id)->select('name')->first();
+                    $deviceName = Device::where('id', '=', $device->deviceId)->select('name')->first();
                     for($j = 0; $j < count($phases); $j++){
                         if ($j == 0) $startDate = \Carbon\Carbon::parse($plant->startDate);
                         else $startDate = \Carbon\Carbon::parse($plant->startDate)->addDays($phases[$j-1]->days);
                         $endDate = \Carbon\Carbon::parse($plant->startDate)->addDays($phases[$j]->days);
                         if ($startDate < $now && $now < $endDate) {
-                            $statusHumidity = $this->compareValue($phases[$j]->minHumidity, $phases[$j]->maxHumidity, $data[$i]->humidity);
-                            $statusTemperature = $this->compareValue($phases[$j]->minTemperature, $phases[$j]->maxTemperature, $data[$i]->temperature);
+                            $statusHumidity = $this->compareValue($phases[$j]->minHumidity, $phases[$j]->maxHumidity, $getData->humidity);
+                            $statusTemperature = $this->compareValue($phases[$j]->minTemperature, $phases[$j]->maxTemperature, $getData->temperature);
                             $solution = $this->getSolution($statusHumidity, $statusTemperature, $phases[$j]->id);
                             $object = [
                                 'message' => "OK",
-                                'deviceId' => $data[$i]->deviceId,
+                                'deviceId' => $getData->deviceId,
                                 'solution' => $solution,
-                                'data' => $data[$i],
+                                'data' => $getData,
                                 'phase' => $phases[$j],
-                                'datetime' => $datetime->datetime
+                                'datetime' => $datetime->datetime,
+                                'plantName' => $plantName->name,
+                                'deviceName' => $deviceName->name
                             ];
                             break;
                         }

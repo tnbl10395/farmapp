@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import Index from '../components/Index';
-import { getDeviceOfUserAPI, deleteDeviceAPI, getDataDevicesAPI, deleteUserAPI, getDataUsersAPI, deleteDataAPI, getDataValuesAPI, getAlldevicesActiveApi } from '../api/api';
-import { getDeviceOfUser, closeModal, closeAlert, deleteDevice, getDataDevices, deleteUser, getDataUsers, deleteData, getDataValues, getAlldevicesActive, } from '../actions/Action';
+import { getDeviceOfUserAPI, deleteDeviceAPI, getDataDevicesAPI, deleteUserAPI, getDataUsersAPI, deleteDataAPI, getDataValuesAPI, getAlldevicesActiveApi, getPlantsOfUserApi } from '../api/api';
+import { getDeviceOfUser, closeModal, closeAlert, deleteDevice, getDataDevices, deleteUser, getDataUsers, deleteData, getDataValues, getAlldevicesActive, getPlantsOfUser } from '../actions/Action';
 
 const mapStateToProps = (state) => ({
     sideBar: state.sideBar,
@@ -35,7 +35,10 @@ const mapDispatchToProps = (dispatch) => ({
     },
     getAllDevicesActive: () => {
         getAlldevicesActiveApi(dispatch, getAlldevicesActive);
-    }
+    },
+    getPlantsOfUser: () => {
+        getPlantsOfUserApi(dispatch, getPlantsOfUser);
+    },
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Index);

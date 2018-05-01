@@ -7,10 +7,6 @@ export default class PlantComponent extends React.Component {
     constructor(props) {
         super(props);
     }
-    
-    componentDidMount() {
-        this.props.getPlantsOfUser();
-    }
 
     render() {
         return (

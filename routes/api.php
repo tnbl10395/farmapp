@@ -68,6 +68,13 @@ Route::group(['middleware' => 'jwt.auth'], function () {
     Route::post('plants/{id}', 'PlantController@update');
     Route::delete('plants/{id}', 'PlantController@destroy');
 
+    //note
+    Route::get('get-list-notes', 'NoteController@index');
+    Route::get('get-note/{id}', 'NoteController@show');
+    Route::post('create-note', 'NoteController@store');
+    Route::post('edit-note/{id}', 'NoteController@update');
+    Route::delete('delete-note/{id}', 'NoteController@destroy');
+
     //Location 
     Route::get('location/{id}', 'LocationsController@show');
 
@@ -78,6 +85,7 @@ Route::group(['middleware' => 'jwt.auth'], function () {
     Route::get('notification/{deviceId}', 'SolutionsController@notificationSolution');
     Route::get('list-notification', 'SolutionsController@getListNotifications');
     Route::get('list-device-active', 'ManagesController@getListDeviceActive');
+    Route::get('sensors', 'SensorController@index'); 
 });
 Route::group(['middleware' => 'key'], function () {
     Route::get('send-data', 'DataController@store');

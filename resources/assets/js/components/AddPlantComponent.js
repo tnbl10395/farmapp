@@ -175,7 +175,7 @@ export class AddPlantComponent extends React.Component {
                         !this.state.isNextPage
                             ? <div>
                                 <div className="col-md-5" onClick={() => this.onOpenFile()}>
-                                    {this.state.picture == '' ?  <img src="images/leaf.jpg" style={{height: 100}}/> :  <img src={'data:image/png;base64,' + this.state.picture} style={{height: 50}}/>}
+                                    {this.state.picture == '' ?  <img src="images/leaf.jpg" style={styleForm.image}/> :  <img src={'data:image/png;base64,' + this.state.picture} style={styleForm.image}/>}
                                     <input type="file" className="form-control" style={{ display: 'none' }} accept="image/*" onChange={this.onFileChange}/>
                                 </div>
                                 <div className="col-md-7">
@@ -283,5 +283,12 @@ const styleForm = {
         color: '#9eacb4',
         fontSize: '13px',
         fontWeight: 400,
+    },
+    image: {
+        height: '150px',
+        width: '100%',
+        objectFit: 'cover',
+        border: '2px dashed #e7ecf1',
+        borderRadius: '5px'
     }
 }

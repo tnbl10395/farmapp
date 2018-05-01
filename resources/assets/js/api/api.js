@@ -1,8 +1,8 @@
 import { updateDevice } from "../actions/Action";
 
-// export const URL = "http://116.110.0.66:3000/";
+export const URL = "http://116.110.0.66:3000/";
 // export const URL = "http://localhost:3000/";
-export const URL = "http://42.119.104.144:3000/"
+// export const URL = "http://42.119.104.144:3000/"
 
 const token = sessionStorage.getItem('token');
 
@@ -668,6 +668,20 @@ export const getPlantsOfUserApi = (dispatch, getPlantsOfUser) => {
             .then((response) => response.json())
             .then((res) => {
                 dispatch( getPlantsOfUser(res) );
+            });
+    } catch (error) {
+    }
+}
+
+export const getListSensorsApi = (dispatch, getListSensors) => {
+    try {
+        fetch(URL + "api/sensors", {
+            method: method.GET,
+            headers: headers,
+        })
+            .then((response) => response.json())
+            .then((res) => {
+                dispatch( getListSensors(res) );
             });
     } catch (error) {
     }

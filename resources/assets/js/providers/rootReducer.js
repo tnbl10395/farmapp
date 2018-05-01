@@ -42,7 +42,8 @@ import {
     CHOOSE_OPTION_LIST_DEVICE,
     GET_ALL_DEVICES_ACTIVE,
     GET_LIST_NOTIFICATION,
-    GET_PLANTS_OF_USER
+    GET_PLANTS_OF_USER,
+    GET_LIST_SENSORS
 } from "../actions/TypeAction";
 
 const initialState = {
@@ -92,6 +93,8 @@ const initialState = {
     sideBar: true,
     //plant
     plantsOfUser: [],
+    //sensors
+    listSensors: [],
     //
     data_devices: [],
     data_values: [],
@@ -747,6 +750,11 @@ const Reducer = (state = initialState, action) => {
             return {
                 ...state,
                 plantsOfUser: action.loadData
+            }
+        case GET_LIST_SENSORS:
+            return {
+                ...state,
+                listSensors: action.loadData
             }
         default:
             return {

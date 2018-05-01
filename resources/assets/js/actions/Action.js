@@ -44,7 +44,8 @@ import {
     GET_LIST_NOTIFICATION,
     SUBMIT_ADD_PLANT_INTO_DEVICE,
     GET_LIST_LOCATION_OF_DEVICE,
-    GET_PLANTS_OF_USER
+    GET_PLANTS_OF_USER,
+    GET_LIST_SENSORS
 } from "./TypeAction";
 //Custom UI
 export const chooseOptionSidebar = (option) => {
@@ -370,6 +371,13 @@ export const getListLocationOfDevice = (loadData) => {
 export const getPlantsOfUser = (loadData) => {
     return {
         type: GET_PLANTS_OF_USER,
+        loadData
+    }
+}
+
+export const getListSensors = (loadData) => {
+    return {
+        type: GET_LIST_SENSORS,
         loadData
     }
 }

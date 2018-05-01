@@ -7,6 +7,7 @@ import Content from '../components/Content';
 import { HashRouter } from 'react-router-dom';
 import Modal from '../templates/Modal';
 import { Alert } from '../templates/Alert';
+import FinalForm from '../containers/FinalFormContainer';
 
 const profile = JSON.parse(sessionStorage.getItem('profile'));
 
@@ -17,6 +18,7 @@ export default class Index extends Component {
 
     componentDidMount() {
         this.props.getDevicesOfUser();
+        this.props.getPlantsOfUser();
         this.props.getAllDevicesActive();
     }
 
@@ -45,6 +47,7 @@ export default class Index extends Component {
                                    id={this.props.id} />
                             : null
                     }
+                    {/* <FinalForm /> */}
                     {/* <div style={{borderTop: '1px #777 solid', position: 'fixed', bottom: 0, left: 210, right: 0, height: 50, zIndex: 3, alignItems: 'center'}}>
                         <h6>Enc © 2018 - Lewis</h6>
                     </div> */}

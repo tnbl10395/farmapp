@@ -34,6 +34,8 @@ const mapStateToProps = (state) => ({
     showDevicesByList: state.showDevicesByList,
     showDevicesByMap: state.showDevicesByMap,
     showDevicesByGrid: state.showDevicesByGrid,
+    //plant
+    plantsOfUser: state.plantsOfUser
 });
 
 const mapDispatchToProps = (dispatch) => ({

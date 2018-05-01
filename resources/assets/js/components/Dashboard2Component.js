@@ -5,6 +5,7 @@ import 'react-big-calendar/lib/css/react-big-calendar.css';
 var Datetime = require('react-datetime');
 import { MapWithAMarker } from '../templates/Map';
 import { LineChartComponent } from '../templates/Chart';
+import Loader from '../templates/Loader';
 
 BigCalendar.setLocalizer(BigCalendar.momentLocalizer(moment))
 
@@ -14,20 +15,26 @@ export default class Dashboard2Component extends React.Component {
         this.state = {
             isModal: false,
             codeInModal: '',
+            loader: true,
         }
     }
 
     componentWillMount() {
         this.timeout = setTimeout(() => {
             this.props.getDetailInformationDevice(this.props.deviceFirst);
-        }, 1000);
+        }, 1500);
         this.timeoutRealTime = setTimeout(() => {
             this.props.getRealDataOnChart(this.props.device, this.props.interval);
         }, 1500);
     }
 
+    componentDidMount() {
+
+    }
+
     componentWillUnmount() {
         clearTimeout(this.timeout);
+        clearTimeout(this.timeoutRealTime);
     }
 
     openModal(code) {
@@ -45,7 +52,8 @@ export default class Dashboard2Component extends React.Component {
 
     render() {
         return (
-            <div style={style.body}>
+            this.state.loader
+            ? <div style={style.body}>
                 <div className="col-md-3" style={style.main}>
                     <Block openModal={this.openModal.bind(this)}
                         listDevice={this.props.all_devices}
@@ -91,7 +99,12 @@ export default class Dashboard2Component extends React.Component {
                 </div>
                 {this.state.isModal ? <Form closeModal={this.closeModal.bind(this)} 
                                             code={this.state.codeInModal}
-                                            submit={this.props.submitAddNewPlant} /> : null}
+                                            submit={this.props.submitAddNewPlant} 
+                                            plants={this.props.plantsOfUser}/> : null}
+            </div>
+            : 
+            <div style={{ position: 'fixed', top: 0, right: 0, left: 0, bottom: 0 }}>
+                <Loader />
             </div>
         )
     }
@@ -158,7 +171,7 @@ class Block extends React.Component {
                     <div style={{ padding: '10px 15px', fontSize: 16, fontWeight: 'bold', borderBottom: '1px solid #eef1f5' }}>
                         ALL DEVICES
                         <IconButton name={"map"} class={"fa fa-map"} active={this.props.showDevicesByMap} chooseOptionShowDevices={this.props.chooseOptionShowDevices} />
-                        <IconButton name={"list"} class={"fa fa-th-list"} active={this.props.showDevicesByList} chooseOptionShowDevices={this.props.chooseOptionShowDevices} />
+                        {/* <IconButton name={"list"} class={"fa fa-th-list"} active={this.props.showDevicesByList} chooseOptionShowDevices={this.props.chooseOptionShowDevices} /> */}
                         <IconButton name={"grid"} class={"fa fa-th"} active={this.props.showDevicesByGrid} chooseOptionShowDevices={this.props.chooseOptionShowDevices} />
                     </div>
                 </div>
@@ -846,8 +859,18 @@ class Form extends React.Component {
                 name: '',
                 description: ''
             },
+            picture: this.props.plants[0].picture,
+            isChoosingPlant: false,
+            file: '',
         }
         this.onSubmit = this.onSubmit.bind(this);
+        this.onSubmitPlant = this.onSubmitPlant.bind(this);
+    }
+
+    componentWillMount() {
+        if(this.props.plants.length > 0) {
+            this.setState({isChoosingPlant: true})
+        }
     }
 
     onChangePlantName(plant) {
@@ -978,65 +1001,100 @@ class Form extends React.Component {
         this.props.closeModal();
     }
 
+    onSubmitPlant(e) {
+        e.preventDefault();
+        this.props.closeModal();
+    }
+
     render() {
         return (
             <div>
                 <div style={styleForm.background}></div>
                 <form style={styleForm.body} className="col-md-8 col-md-offset-2">
-                    {/* <div style={style.title}>
-                    <div style={{ padding: '10px 15px', fontSize: 16, fontWeight: 'bold', borderBottom: '1px solid #eef1f5' }} className="text-uppercase text-center">
-                        Add New Plant Form
-                    </div>
-                </div> */}
-                    <h3 className="text-uppercase text-center" style={{ borderBottom: '1px solid #eef1f5', paddingBottom: 15 }}>Add New Plant Form</h3>
+                    <h3 className="text-uppercase text-center" style={{ borderBottom: '1px solid #eef1f5', paddingBottom: 15 }}>Start Plan For Plant</h3>
                     {
-                        !this.state.isNextPage
-                            ? <div className="col-md-12">
-                                <div className="form-group col-md-12">
-                                    <label>Plant</label>
-                                    <input type="text"
-                                        required
-                                        className="form-control"
-                                        placeholder="Please input name"
-                                        value={this.state.plantName}
-                                        onChange={(plant) => this.onChangePlantName(plant)} />
-                                    {/* <select className="form-control">
-                                        <option>Please choose plant</option>
-                                        <option>Rice Plant</option>
-                                        <option>Potato Plant</option>
-                                    </select> */}
+                        this.state.isChoosingPlant 
+                            ? <div>
+                                <div className="col-md-6">
+                                    {this.state.picture == '' ?  <img src="images/leaf.jpg" style={styleForm.image}/> : <img src={'data:image/png;base64,' + this.state.picture} style={styleForm.image}/>}
                                 </div>
-                                <div className="form-group col-md-6">
-                                    <label>Phase</label>
-                                    <input type="number"
-                                        min="1" step="1"
-                                        required
-                                        className="form-control"
-                                        placeholder="Please input total phase"
-                                        value={this.state.phaseInput}
-                                        onChange={(phase) => this.onChangePhaseInput(phase)} />
-                                    <span style={style.description}> Phase should be from 1 to 10</span>
-                                </div>
-                                <div className="form-group col-md-6">
-                                    <label>Start Date</label>
-                                    <Datetime
-                                        timeFormat={false}
-                                        isValidDate={valid}
-                                        value={this.state.startDate}
-                                        onChange={(date) => this.onChangeDate(date)}
-                                    />
-                                </div>
-                                <div className="form-group col-md-12">
-                                    <label>Description</label>
-                                    <textarea type="text"
-                                        required
-                                        className="form-control"
-                                        placeholder="Please input description"
-                                        value={this.state.description}
-                                        onChange={(description) => this.onChangeDescription(description)} />
+                                <div className="col-md-6">
+                                    <div className="form-group">
+                                        <label>Plant</label>
+                                        <select className="form-control" onChange={(event)=>this.setState({picture: this.props.plants[event.target.value].picture})}>
+                                            {
+                                                this.props.plants.map((element, index) => {
+                                                    return <option key={index} value={index}>{element.name}</option>
+                                                })
+                                            }
+                                        </select>
+                                    </div>
+                                    <div className="form-group">
+                                        <label>Start Date</label>
+                                        <Datetime
+                                            timeFormat={false}
+                                            isValidDate={valid}
+                                            value={this.state.startDate}
+                                            onChange={(date) => this.onChangeDate(date)}
+                                        />
+                                    </div>
                                 </div>
                             </div>
-                            : <div className="col-md-12">
+                            : null
+                    }
+                    {
+                        !this.state.isNextPage && !this.state.isChoosingPlant
+                            ? <div>
+                                <div className="col-md-4" onClick={() => this.onOpenFile()}>
+                                    {this.state.file == '' ?  <img src="images/leaf.jpg" style={styleForm.image}/> : <img src={'data:image/png;base64,' + this.state.picture} style={styleForm.image}/>}
+                                    <input type="file" className="form-control" style={{ display: 'none' }} accept="image/*" onChange={this.onFileChange}/>
+                                </div>
+                                <div className="col-md-8">
+                                    <div className="form-group col-md-12">
+                                        <label>Plant</label>
+                                        <input type="text"
+                                            required
+                                            className="form-control"
+                                            placeholder="Please input name"
+                                            value={this.state.plantName}
+                                            onChange={(plant) => this.onChangePlantName(plant)} />
+                                    </div>
+                                    <div className="form-group col-md-6">
+                                        <label>Phase</label>
+                                        <input type="number"
+                                            min="1" step="1"
+                                            required
+                                            className="form-control"
+                                            placeholder="Please input total phase"
+                                            value={this.state.phaseInput}
+                                            onChange={(phase) => this.onChangePhaseInput(phase)} />
+                                        <span style={style.description}> Phase should be from 1 to 10</span>
+                                    </div>
+                                    <div className="form-group col-md-6">
+                                        <label>Start Date</label>
+                                        <Datetime
+                                            timeFormat={false}
+                                            isValidDate={valid}
+                                            value={this.state.startDate}
+                                            onChange={(date) => this.onChangeDate(date)}
+                                        />
+                                    </div>
+                                    <div className="form-group col-md-12">
+                                        <label>Description</label>
+                                        <textarea type="text"
+                                            required
+                                            className="form-control"
+                                            placeholder="Please input description"
+                                            value={this.state.description}
+                                            onChange={(description) => this.onChangeDescription(description)} />
+                                    </div>
+                                </div>
+                            </div>
+                            : null
+                    }
+                    {
+                        this.state.isNextPage && !this.state.isChoosingPlant
+                            ? <div className="col-md-12">
                                 <div style={styleForm.bodyNextPage}>
                                     {
                                         this.state.phases.map(phase => {
@@ -1073,12 +1131,16 @@ class Form extends React.Component {
                                     }
                                 </div>
                             </div>
+                        : null
                     }
                     <div className="col-md-12" style={styleForm.groupBtn}>
                         <hr />
-                        {this.state.isNextPage ? <input type="submit" className="btn btn-success pull-right col-md-2" value="Save" style={{ marginRight: 10 }} onClick={this.onSubmit} /> : null}
-                        {!this.state.isNextPage ? <input type="button" className="btn btn-success pull-right col-md-2" value="Next" style={{ marginRight: 10 }} disabled={this.state.disabledNext ? 'disabled' : ''} onClick={() => this.onClickNextPage()} /> : null}
-                        {this.state.isNextPage ? <input type="button" className="btn btn-default pull-right col-md-2" value="Previous" style={{ marginRight: 10 }} onClick={() => this.onClickPreviousPage()} /> : null}
+                        {this.state.isChoosingPlant ? <input type="submit" className="btn btn-success pull-right col-md-2" value="Save" style={{ marginRight: 10 }} onClick={this.onSubmitPlant} /> : null}
+                        {this.state.isChoosingPlant ? <input type="button" className="btn btn-success pull-right col-md-2" value="New One" style={{ marginRight: 10 }} onClick={() =>this.setState({isChoosingPlant: false}) } /> : null}
+                        {this.state.isNextPage && !this.state.isChoosingPlant ? <input type="submit" className="btn btn-success pull-right col-md-2" value="Save" style={{ marginRight: 10 }} onClick={this.onSubmit} /> : null}
+                        {!this.state.isNextPage && !this.state.isChoosingPlant ? <input type="button" className="btn btn-success pull-right col-md-2" value="Next" style={{ marginRight: 10 }} disabled={this.state.disabledNext ? 'disabled' : ''} onClick={() => this.onClickNextPage()} /> : null}
+                        {this.state.isNextPage && !this.state.isChoosingPlant ? <input type="button" className="btn btn-default pull-right col-md-2" value="Previous" style={{ marginRight: 10 }} onClick={() => this.onClickPreviousPage()} /> : null}
+                        {!this.state.isNextPage && !this.state.isChoosingPlant ? <input type="button" className="btn btn-default pull-right col-md-2" value="Back" style={{ marginRight: 10 }} onClick={() => this.setState({isChoosingPlant: true})} /> : null}
                         <input type="button" className="btn btn-default pull-right col-md-2" value="Cancel" style={{ marginRight: 10 }} onClick={() => this.props.closeModal()} />
                     </div>
                 </form>
@@ -1117,9 +1179,17 @@ const styleForm = {
     bodyNextPage: {
         height: 300,
         overflow: 'auto'
+    },
+    image: {
+        height: '150px',
+        width: '100%',
+        objectFit: 'cover',
+        border: '2px dashed #e7ecf1',
+        borderRadius: '5px'
     }
 }
 
+// Chart 
 class ChartComponent extends React.Component {
     constructor(props) {
         super(props);
