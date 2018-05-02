@@ -12,6 +12,7 @@ const mapStateToProps = (state) => ({
     title: state.title_alert,
     id: state.id_delete,
     breadcrumb: state.breadcrumb,
+    isFinalForm: state.isFinalForm
 });
 const mapDispatchToProps = (dispatch) => ({
     getDevicesOfUser: () => {

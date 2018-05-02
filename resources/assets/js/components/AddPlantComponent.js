@@ -19,6 +19,7 @@ export class AddPlantComponent extends React.Component {
             },
         }
         this.onSubmit = this.onSubmit.bind(this);
+        this.onFileChange = this.onFileChange.bind(this);
     }
 
     onChangePlantName(plant) {
@@ -91,8 +92,26 @@ export class AddPlantComponent extends React.Component {
 
     }
 
-    onFileChange() {
-
+    onFileChange(e, file) {
+        var file = file || e.target.files[0],
+        pattern = /image-*/,
+        reader = new FileReader();
+        
+        if (!file.type.match(pattern)) {
+            alert('Format invalid');
+            return;
+        }
+        
+        // this.setState({ loaded: false });
+        
+        reader.onload = (e) => {
+            this.setState({ 
+                picture: reader.result, 
+                // loaded: true 
+            }); 
+        }
+        
+        reader.readAsDataURL(file);
     }
 
     onChangeDays(days, key) {
@@ -174,9 +193,13 @@ export class AddPlantComponent extends React.Component {
                     {
                         !this.state.isNextPage
                             ? <div>
-                                <div className="col-md-5" onClick={() => this.onOpenFile()}>
-                                    {this.state.picture == '' ?  <img src="images/leaf.jpg" style={styleForm.image}/> :  <img src={'data:image/png;base64,' + this.state.picture} style={styleForm.image}/>}
-                                    <input type="file" className="form-control" style={{ display: 'none' }} accept="image/*" onChange={this.onFileChange}/>
+                                <div className="col-md-5" style={{ textAlign: 'center' }}>
+                                    <label style={styleForm.image}>
+                                        {this.state.picture == '' ?  null :  <img src={this.state.picture} style={styleForm.image}/>}
+                                        {this.state.picture != '' ? null : <i className="fa fa-upload" style={{ fontSize: 60, marginTop: 35 }}></i>}
+                                        <input type="file" className="form-control" style={{ display: 'none' }} accept="image/*" onChange={this.onFileChange}/>
+                                    </label>
+                                    Click to open the file picker
                                 </div>
                                 <div className="col-md-7">
                                     <div className="form-group col-md-12">
@@ -289,6 +312,7 @@ const styleForm = {
         width: '100%',
         objectFit: 'cover',
         border: '2px dashed #e7ecf1',
-        borderRadius: '5px'
+        borderRadius: '5px',
+        cursor: 'pointer'
     }
 }

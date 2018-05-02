@@ -12,7 +12,7 @@ export default class FinalFormComponent extends React.Component {
         return (
             <div style={style.body}>
                 <div style={style.title}>
-                    <h3 className="text-center text-uppercase" style={{ fontWeight: '900' }}>Information Plant</h3>
+                    <h3 className="text-center text-uppercase" style={{ fontWeight: '900' }}>Edit Information Plant</h3>
                 </div>
                 <div style={style.closeBtn}><i className="fa fa-remove"></i></div>
                 <div style={style.content} className="col-md-12">
@@ -53,7 +53,7 @@ export default class FinalFormComponent extends React.Component {
                                 <input type="number" className="form-control" placeholder="Max Humidity" required onChange={(maxHumidity) => this.onChangeMaxHumidity(maxHumidity, 1)} />
                             </div>
                             <div className="form-group col-md-12">
-                                <input className="btn btn-success col-md-3 pull-right" value="Edit Phase" style={{marginLeft: 10}}/>
+                                <input className="btn btn-success col-md-3 pull-right" value="Save" style={{marginLeft: 10}}/>
                                 <input className="btn btn-default col-md-4 pull-right" value="Show Solution"/>
                             </div>
                         </div>
@@ -96,7 +96,7 @@ export default class FinalFormComponent extends React.Component {
                                 <input type="input" className="form-control" placeholder="Max Humidity" required onChange={(maxHumidity) => this.onChangeMaxHumidity(maxHumidity, 1)} />
                             </div>
                             <div className="form-group col-md-12">
-                                <input className="btn btn-success col-md-3 pull-right" value="Edit Solution"/>
+                                <input className="btn btn-success col-md-3 pull-right" value="Save"/>
                             </div>
                         </div>
                     </div>

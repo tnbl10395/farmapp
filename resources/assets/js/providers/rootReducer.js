@@ -93,6 +93,7 @@ const initialState = {
     sideBar: true,
     //plant
     plantsOfUser: [],
+    isFinalForm: false,
     //sensors
     listSensors: [],
     //
