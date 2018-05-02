@@ -47,7 +47,7 @@ export default class Index extends Component {
                                    id={this.props.id} />
                             : null
                     }
-                    {/* <FinalForm /> */}
+                    <FinalForm />
                     {/* <div style={{borderTop: '1px #777 solid', position: 'fixed', bottom: 0, left: 210, right: 0, height: 50, zIndex: 3, alignItems: 'center'}}>
                         <h6>Enc © 2018 - Lewis</h6>
                     </div> */}
