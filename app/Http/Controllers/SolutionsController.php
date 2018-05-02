@@ -54,14 +54,10 @@ class SolutionsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request)
     {
-        $solution = Solution::findOrFail($id);
-        if(!is_null($solution)){
-            return response()->json($solution);
-        }else{
-            return response()->json(false);
-        }    
+        $solutions = Solution::where('phaseId', $request->phaseId)->get();
+        return response()->json($solutions);
     }
 
     /**

@@ -43,7 +43,11 @@ import {
     GET_ALL_DEVICES_ACTIVE,
     GET_LIST_NOTIFICATION,
     GET_PLANTS_OF_USER,
-    GET_LIST_SENSORS
+    GET_LIST_SENSORS,
+    GET_ONE_INFORMATION_PLANT,
+    OPEN_FINAL_FORM,
+    CLOSE_FINAL_FORM,
+    GET_ONE_SOLUTION
 } from "../actions/TypeAction";
 
 const initialState = {
@@ -94,6 +98,9 @@ const initialState = {
     //plant
     plantsOfUser: [],
     isFinalForm: false,
+    detailPlant: null,
+    detailPhases: [],
+    detailSolution: [],
     //sensors
     listSensors: [],
     //
@@ -756,6 +763,28 @@ const Reducer = (state = initialState, action) => {
             return {
                 ...state,
                 listSensors: action.loadData
+            }
+        case GET_ONE_INFORMATION_PLANT:
+            return {
+                ...state,
+                detailPlant: action.loadData.plant,
+                detailPhases: action.loadData.phases,
+                isFinalForm: true,
+            }
+        case OPEN_FINAL_FORM:
+            return {
+                ...state,
+                isFinalForm: true,
+            }
+        case CLOSE_FINAL_FORM:
+            return {
+                ...state,
+                isFinalForm: false,
+            }
+        case GET_ONE_SOLUTION:
+            return {
+                ...state,
+                detailSolution: action.loadData,
             }
         default:
             return {

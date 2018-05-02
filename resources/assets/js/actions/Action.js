@@ -45,7 +45,11 @@ import {
     SUBMIT_ADD_PLANT_INTO_DEVICE,
     GET_LIST_LOCATION_OF_DEVICE,
     GET_PLANTS_OF_USER,
-    GET_LIST_SENSORS
+    GET_LIST_SENSORS,
+    GET_ONE_INFORMATION_PLANT,
+    OPEN_FINAL_FORM,
+    CLOSE_FINAL_FORM,
+    GET_ONE_SOLUTION
 } from "./TypeAction";
 //Custom UI
 export const chooseOptionSidebar = (option) => {
@@ -378,6 +382,32 @@ export const getPlantsOfUser = (loadData) => {
 export const getListSensors = (loadData) => {
     return {
         type: GET_LIST_SENSORS,
+        loadData
+    }
+}
+
+export const getOneInformationPlant = (loadData) => {
+    return {
+        type: GET_ONE_INFORMATION_PLANT,
+        loadData
+    }
+}
+
+export const openFinalForm = () => {
+    return {
+        type: OPEN_FINAL_FORM
+    }
+}
+
+export const closeFinalForm = () => {
+    return {
+        type: CLOSE_FINAL_FORM
+    }
+}
+
+export const getOneSolution = (loadData) => {
+    return {
+        type: GET_ONE_SOLUTION,
         loadData
     }
 }

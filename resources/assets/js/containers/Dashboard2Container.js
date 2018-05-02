@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import Dashboard2Component from '../components/Dashboard2Component';
-import { getDetailInformationDeviceApi, getNotificationApi, getRealChartBasedOnDayAPI, getRealChartBasedOnHourAPI, getAlldevicesActiveApi, getListNotificationApi, submitNewPlantIntoDeviceApi, getDeviceOfUserAPI } from '../api/api';
-import { getDetailInformationDevice, getNotification, getRealChartBasedOnDay, getRealChartBasedOnHour, chooseOptionListDevice, getAlldevicesActive, getListNotification, submitAddPlantIntoDevice, getDeviceOfUser } from '../actions/Action';
+import { getDetailInformationDeviceApi, getNotificationApi, getRealChartBasedOnDayAPI, getRealChartBasedOnHourAPI, getAlldevicesActiveApi, getListNotificationApi, submitNewPlantIntoDeviceApi, getDeviceOfUserAPI, getOneInformationPlantApi, getOneSolutionApi } from '../api/api';
+import { getDetailInformationDevice, getNotification, getRealChartBasedOnDay, getRealChartBasedOnHour, chooseOptionListDevice, getAlldevicesActive, getListNotification, submitAddPlantIntoDevice, getDeviceOfUser, getOneInformationPlant, getOneSolution } from '../actions/Action';
 
 const mapStateToProps = (state) => ({
     all_devices: state.all_devices,
@@ -69,6 +69,10 @@ const mapDispatchToProps = (dispatch) => ({
             getDeviceOfUser,
             getAlldevicesActiveApi,
             getAlldevicesActive, 
+            getOneInformationPlantApi,
+            getOneInformationPlant,
+            getOneSolutionApi,
+            getOneSolution,
             {
                 code: code,
                 plant: plant,

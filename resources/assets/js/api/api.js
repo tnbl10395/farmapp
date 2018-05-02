@@ -578,6 +578,10 @@ export const submitNewPlantIntoDeviceApi = (
     getDeviceOfUser, 
     getAlldevicesActiveApi,
     getAlldevicesActive,
+    getOneInformationPlantApi,
+    getOneInformationPlant,
+    getOneSolutionApi,
+    getOneSolution,
     data) => {
     try {
         fetch(URL + "api/manages", {
@@ -597,6 +601,7 @@ export const submitNewPlantIntoDeviceApi = (
                     getDetailInformationDeviceApi(dispatch, getDetailInformationDevice, res.deviceId);
                     getListNotificationApi(dispatch, getListNotification);
                     getDeviceOfUserAPI(dispatch, getDeviceOfUser);
+                    getOneInformationPlantApi(dispatch, getOneInformationPlant, getOneSolutionApi, getOneSolution, res.plantId);
                 }
             });
     } catch (error) {
@@ -682,6 +687,38 @@ export const getListSensorsApi = (dispatch, getListSensors) => {
             .then((response) => response.json())
             .then((res) => {
                 dispatch( getListSensors(res) );
+            });
+    } catch (error) {
+    }
+}
+
+export const getOneInformationPlantApi = (dispatch, getOneInformationPlant, getOneSolutionApi, getOneSolution, plantId) => {
+    try {
+        fetch(URL + "api/plants/" + plantId, {
+            method: method.GET,
+            headers: headers,
+        })
+            .then((response) => response.json())
+            .then((res) => {
+                dispatch( getOneInformationPlant(res) );
+                getOneSolutionApi(dispatch, getOneSolution, res.phases[0].id);
+            });
+    } catch (error) {
+    }
+}
+
+export const getOneSolutionApi = (dispatch, getOneSolution, phaseId) => {
+    try {
+        fetch(URL + "api/get-solution", {
+            method: method.POST,
+            headers: headers,
+            body: JSON.stringify({
+                phaseId: phaseId
+            })
+        })
+            .then((response) => response.json())
+            .then((res) => {
+                dispatch( getOneSolution(res) );
             });
     } catch (error) {
     }

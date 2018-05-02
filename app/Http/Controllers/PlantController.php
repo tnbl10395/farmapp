@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Plant;
+use App\Phase;
 use Illuminate\Http\Request;
 use JWTAuth;
 
@@ -50,10 +51,21 @@ class PlantController extends Controller
      * @param  \App\Plant  $plant
      * @return \Illuminate\Http\Response
      */
-    public function show(Plant $plant)
+    public function show($id)
     {
-        $plant = Plant::findOrFail($id);
-        return reponse()->json($plant);
+        $plant = Plant::where('plants.id', $id)
+                    ->selectRaw('plants.id, plants.name, plants.description, TO_BASE64(plants.picture) as picture')
+                    ->get();
+
+        $phases = Phase::where('phases.plantId', $id)
+                    ->get();
+
+        $sendData = [
+            'plant' => $plant,
+            'phases' => $phases
+        ];
+
+        return response()->json($sendData);
     }
 
     /**

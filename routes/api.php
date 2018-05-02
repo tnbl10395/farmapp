@@ -43,7 +43,7 @@ Route::group(['middleware' => 'jwt.auth'], function () {
 
     //Solutions
     Route::get('solutions', 'SolutionsController@index');
-    Route::get('solutions/{id}', 'SolutionsController@show');
+    Route::post('get-solution', 'SolutionsController@show');
     Route::post('solutions', 'SolutionsController@store');
     Route::post('solutions/{id}', 'SolutionsController@update');
     Route::delete('solutions/{id}', 'SolutionsController@destroy');

@@ -112,7 +112,8 @@ export default class List extends React.Component {
                                             this.props.openAlert, 
                                             this.props.openModal, 
                                             this.props.objectUpdate,
-                                            this.state.listSensors
+                                            this.state.listSensors,
+                                            this.props.getOnePlant
                                         )
                             : <div style={style.item} className="col-xs-12 col-sm-12 col-md-12"><h3 style={{ textAlign: 'center' }}>No data</h3></div>
 
@@ -157,7 +158,7 @@ export default class List extends React.Component {
     }
 }
 
-const renderTable = (name, currentData, openAlert, openModal, object, listSensors) => {
+const renderTable = (name, currentData, openAlert, openModal, object, listSensors, getOnePlant) => {
     switch (name) {
         case 'Device':
             return <Device currentData={currentData}
@@ -174,7 +175,8 @@ const renderTable = (name, currentData, openAlert, openModal, object, listSensor
             return <Plant currentData={currentData}
                             openAlert={openAlert}
                             openModal={openModal}
-                            object={object} />
+                            object={object} 
+                            getOnePlant={getOnePlant}/>
     }
 }
 // Device-------------------------------------------------------------------------------------------------------------------------
@@ -374,7 +376,8 @@ class Plant extends React.Component {
                                    element={element} 
                                    object={this.props.object} 
                                    openModal={this.props.openModal}
-                                   openAlert={this.props.openAlert} />
+                                   openAlert={this.props.openAlert} 
+                                   getOnePlant={this.props.getOnePlant}/>
                     )
                 }
             </div>
@@ -413,7 +416,7 @@ class ItemPlant extends React.Component {
                     profile.role == '1' 
                         ? null 
                         : <div className="col-xs-1 col-sm-1 col-md-1" style={style.button}>
-                            <a onClick={() => this.props.openModal(this.props.object, this.props.element)} style={style.edit} className="fa fa-edit"></a>
+                            <a onClick={() => this.props.getOnePlant(this.props.element.id)} style={style.edit} className="fa fa-edit"></a>
                             <a onClick={() => this.props.openAlert('DELETE_DATA', this.props.element.id)} style={style.delete} className="fa fa-remove"></a>
                         </div>
                 }

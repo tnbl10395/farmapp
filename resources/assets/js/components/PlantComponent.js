@@ -19,6 +19,7 @@ export default class PlantComponent extends React.Component {
                 object={profile.role == "1" ? null : objectPlantAdd}
                 objectUpdate={profile.role == "1" ? null : objectPlantUpdate}
                 openAlert={this.props.openAlert}
+                getOnePlant={this.props.getOnePlant}
             />
         );
     }
