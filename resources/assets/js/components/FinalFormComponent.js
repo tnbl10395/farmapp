@@ -9,8 +9,9 @@ export default class FinalFormComponent extends React.Component {
             namePlant: this.props.plant[0].name,
             phases: this.props.phases,
             phaseName: this.props.phases[0].name,
-            solutions: this.props.solutions
+            solutions: this.props.solutions,
         }
+        this.onFileChange = this.onFileChange.bind(this);
     }
 
     // componentWillMount() {
@@ -26,6 +27,28 @@ export default class FinalFormComponent extends React.Component {
         this.setState({ phaseName: name });
     }
 
+    onFileChange(e, file) {
+        var file = file || e.target.files[0],
+        pattern = /image-*/,
+        reader = new FileReader();
+        
+        if (!file.type.match(pattern)) {
+            alert('Format invalid');
+            return;
+        }
+        
+        // this.setState({ loaded: false });
+        
+        reader.onload = (e) => {
+            this.setState({ 
+                picture: reader.result, 
+                // loaded: true 
+            }); 
+        }
+        
+        reader.readAsDataURL(file);
+    }
+
     render() {
         return (
             <div style={style.body}>
@@ -35,7 +58,15 @@ export default class FinalFormComponent extends React.Component {
                 <div style={style.closeBtn} onClick={() => this.props.closeForm()}><i className="fa fa-remove"></i></div>
                 <div style={style.content} className="col-md-12">
                     <div className="col-md-3" style={{ height: '100%' }}>
-                        {this.state.picture == '' ? <img src="images/leaf.jpg" style={style.image} /> : <img src={'data:image/png;base64,' + this.state.picture} style={style.image} />}
+                        <div style={{ textAlign: 'center' }}>
+                            <label style={style.image}>
+                                {this.state.picture == '' ? null : <img src={this.state.picture} style={style.image}/>}
+                                {this.state.picture != '' || this.props.plant[0].picture != null ? null : <i className="fa fa-upload" style={{ fontSize: 60, marginTop: 35 }}></i>}
+                                {this.state.picture == '' && this.props.plant[0].picture != null ?  <img src={'data:image/png;base64,'+this.props.plant[0].picture} style={style.image} /> : null}
+                                <input type="file" className="form-control" style={{ display: 'none' }} accept="image/*" onChange={this.onFileChange}/>
+                            </label>
+                            Click to open the file picker
+                        </div>
                         <div style={{ height: '85%', overflow: 'auto' }}>
                             <h4 style={{ fontWeight: '900' }}>Description</h4>
                             <textarea type="text"
@@ -45,8 +76,8 @@ export default class FinalFormComponent extends React.Component {
                                             value={this.state.description}
                                             style={{ height: '50%' }}
                                             onChange={(description) => this.onChangeDescription(description)} />
-                            <div className="form-group">
-                                <input type="submit" className="btn btn-success col-md-3 pull-right" value="Save" style={{marginLeft: 10}}/>
+                            <div className="form-group" style={{margin: 10}}>
+                                <input type="submit" className="btn btn-success col-md-3 pull-right" value="Save"/>
                             </div>
                         </div>
                     </div>
@@ -164,6 +195,7 @@ const style = {
         width: '100%',
         objectFit: 'cover',
         border: '2px dashed #e7ecf1',
-        borderRadius: '5px'
+        borderRadius: '5px',
+        cursor: 'pointer'
     }
 }
