@@ -49,7 +49,13 @@ import {
     GET_ONE_INFORMATION_PLANT,
     OPEN_FINAL_FORM,
     CLOSE_FINAL_FORM,
-    GET_ONE_SOLUTION
+    GET_ONE_SOLUTION,
+    UPDATE_PLANT,
+    UPDATE_PHASE,
+    UPDATE_SOLUTION,
+    CLOSE_MESSAGE_ALERT,
+    CHANGE_PHASE_NAME,
+    ADD_PLANT_FOR_DEVICE
 } from "./TypeAction";
 //Custom UI
 export const chooseOptionSidebar = (option) => {
@@ -409,5 +415,42 @@ export const getOneSolution = (loadData) => {
     return {
         type: GET_ONE_SOLUTION,
         loadData
+    }
+}
+
+export const updatePlant = () => {
+    return {
+        type: UPDATE_PLANT,
+    }
+}
+
+export const updatePhase = () => {
+    return {
+        type: UPDATE_PHASE,
+    }
+}
+
+export const updateSolution = () => {
+    return {
+        type: UPDATE_SOLUTION,
+    }
+}
+
+export const closeMessageAlert = () => {
+    return {
+        type: CLOSE_MESSAGE_ALERT
+    }
+}
+
+export const changePhaseName = (phaseName) => {
+    return {
+        type: CHANGE_PHASE_NAME,
+        phaseName
+    }
+}
+
+export const addPlantForDevice = () => {
+    return {
+        type: ADD_PLANT_FOR_DEVICE
     }
 }

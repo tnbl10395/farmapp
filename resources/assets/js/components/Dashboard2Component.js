@@ -50,6 +50,26 @@ export default class Dashboard2Component extends React.Component {
         });
     }
 
+    onFileChange(e, file) {
+        var file = file || e.target.files[0],
+            pattern = /image-*/,
+            reader = new FileReader();
+
+        if (!file.type.match(pattern)) {
+            alert('Format invalid');
+            return;
+        }
+
+        reader.onload = (e) => {
+            this.setState({
+                picture: reader.result,
+                // loaded: true 
+            });
+        }
+
+        reader.readAsDataURL(file);
+    }
+
     render() {
         return (
             this.state.loader
@@ -100,7 +120,8 @@ export default class Dashboard2Component extends React.Component {
                 {this.state.isModal ? <Form closeModal={this.closeModal.bind(this)} 
                                             code={this.state.codeInModal}
                                             submit={this.props.submitAddNewPlant} 
-                                            plants={this.props.plantsOfUser}/> : null}
+                                            plants={this.props.plantsOfUser}
+                                            addPlantForDevice={this.props.addPlantForDevice} /> : null}
             </div>
             : 
             <div style={{ position: 'fixed', top: 0, right: 0, left: 0, bottom: 0 }}>
@@ -576,7 +597,9 @@ class Main extends React.Component {
                 </div>
                 <div className="col-md-12" style={styleMain.contentIntro}>
                     <div className="col-md-7">
-                        <img src={'data:image/png;base64,'+this.props.picture} style={styleMain.image} />
+                        {
+                            this.props.picture == null ? <img src="images/leaf.jpg" style={styleMain.image}/> : <img src={this.props.picture} style={styleMain.image} />
+                        }
                     </div>
                     <div className="col-md-5" style={styleMain.intro}>
                         <div style={styleMain.textIntro}>
@@ -862,9 +885,11 @@ class Form extends React.Component {
             picture: this.props.plants[0].picture,
             isChoosingPlant: false,
             file: '',
+            plantId: this.props.plants[0].id
         }
         this.onSubmit = this.onSubmit.bind(this);
         this.onSubmitPlant = this.onSubmitPlant.bind(this);
+        this.onFileChange = this.onFileChange.bind(this);
     }
 
     componentWillMount() {
@@ -997,13 +1022,41 @@ class Form extends React.Component {
 
     onSubmit(e) {
         e.preventDefault();
-        this.props.submit(this.props.code, this.state.plant, this.state.startDate, this.state.phases);
+        this.props.submit(this.props.code, this.state.plant, this.state.startDate, this.state.file, this.state.phases);
         this.props.closeModal();
     }
 
     onSubmitPlant(e) {
         e.preventDefault();
+        this.props.addPlantForDevice(this.props.code, this.state.plantId, this.state.startDate);
         this.props.closeModal();
+    }
+
+    onFileChange(e, file) {
+        var file = file || e.target.files[0],
+            pattern = /image-*/,
+            reader = new FileReader();
+
+        if (!file.type.match(pattern)) {
+            alert('Format invalid');
+            return;
+        }
+
+        reader.onload = (e) => {
+            this.setState({
+                file: reader.result,
+                // loaded: true 
+            });
+        }
+
+        reader.readAsDataURL(file);
+    }
+
+    onSelectPlant(event) {
+        this.setState({
+            picture: this.props.plants[event.target.value].picture,
+            plantId: this.props.plants[event.target.value].id, 
+        });
     }
 
     render() {
@@ -1016,12 +1069,12 @@ class Form extends React.Component {
                         this.state.isChoosingPlant 
                             ? <div>
                                 <div className="col-md-6">
-                                    {this.state.picture == '' ?  <img src="images/leaf.jpg" style={styleForm.image}/> : <img src={'data:image/png;base64,' + this.state.picture} style={styleForm.image}/>}
+                                    {this.state.picture == '' ?  <img src="images/leaf.jpg" style={styleForm.image}/> : <img src={this.state.picture} style={styleForm.image}/>}
                                 </div>
                                 <div className="col-md-6">
                                     <div className="form-group">
                                         <label>Plant</label>
-                                        <select className="form-control" onChange={(event)=>this.setState({picture: this.props.plants[event.target.value].picture})}>
+                                        <select className="form-control" onChange={(event)=> this.onSelectPlant(event)}>
                                             {
                                                 this.props.plants.map((element, index) => {
                                                     return <option key={index} value={index}>{element.name}</option>
@@ -1045,9 +1098,13 @@ class Form extends React.Component {
                     {
                         !this.state.isNextPage && !this.state.isChoosingPlant
                             ? <div>
-                                <div className="col-md-4" onClick={() => this.onOpenFile()}>
-                                    {this.state.file == '' ?  <img src="images/leaf.jpg" style={styleForm.image}/> : <img src={'data:image/png;base64,' + this.state.picture} style={styleForm.image}/>}
-                                    <input type="file" className="form-control" style={{ display: 'none' }} accept="image/*" onChange={this.onFileChange}/>
+                                <div className="col-md-4" style={{ textAlign: 'center' }}>
+                                    <label style={styleForm.image}>
+                                        {this.state.file == '' ?  null :  <img src={this.state.file} style={styleForm.image}/>}
+                                        {this.state.file != '' ? null : <i className="fa fa-upload" style={{ fontSize: 60, marginTop: 35 }}></i>}
+                                        <input type="file" className="form-control" style={{ display: 'none' }} accept="image/*" onChange={this.onFileChange}/>
+                                    </label>
+                                    Click to open the file picker
                                 </div>
                                 <div className="col-md-8">
                                     <div className="form-group col-md-12">
@@ -1185,7 +1242,8 @@ const styleForm = {
         width: '100%',
         objectFit: 'cover',
         border: '2px dashed #e7ecf1',
-        borderRadius: '5px'
+        borderRadius: '5px',
+        cursor: 'pointer',
     }
 }
 

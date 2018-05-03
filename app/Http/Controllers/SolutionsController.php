@@ -67,18 +67,11 @@ class SolutionsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
-        foreach ($request as $object) {
-            $solution = Solution::findOrFail($object->id);
-            $solution->planId = $object->plantId;
-            $solution->min_temperature = $object->min_temperature;
-            $solution->min_humidity = $object->min_humidity;
-            $solution->max_temperature = $object->max_temperature;
-            $solution->max_humidity = $object->max_humidity;
-            $solution->solution = $object->solution;
-            $solution->save();
-        }
+        $solution = Solution::findOrFail($id);
+        $solution->description = $request->description;
+        $solution->save();
         return response()->json(true);
     }
 

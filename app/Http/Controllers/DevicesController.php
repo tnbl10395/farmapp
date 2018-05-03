@@ -108,6 +108,7 @@ class DevicesController extends Controller
             $manage = new Manage();
             $manage->userId = $user->id;
             $manage->deviceId = $device->id;
+            $manage->isActive = '0';
             $manage->save();
             if ($manage == true) {
                 Device::where('id',$device->id)->update(['status' => '1']);

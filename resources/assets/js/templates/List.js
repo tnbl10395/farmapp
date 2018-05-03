@@ -397,7 +397,7 @@ class ItemPlant extends React.Component {
                     {
                         this.props.element.picture == null 
                             ? <img src="images/leaf.jpg" style={stylePlant.image} />
-                            : <img src={'data:image/png;base64,' + this.props.element.picture} style={stylePlant.image} />
+                            : <img src={this.props.element.picture} style={stylePlant.image} />
                     }
                 </div>
                 <div className="col-xs-2 col-sm-2 col-md-2" style={stylePlant.name}><h5>{this.props.element.name}</h5></div>

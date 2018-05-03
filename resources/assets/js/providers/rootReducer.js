@@ -47,7 +47,12 @@ import {
     GET_ONE_INFORMATION_PLANT,
     OPEN_FINAL_FORM,
     CLOSE_FINAL_FORM,
-    GET_ONE_SOLUTION
+    GET_ONE_SOLUTION,
+    UPDATE_PLANT,
+    CLOSE_MESSAGE_ALERT,
+    UPDATE_SOLUTION,
+    UPDATE_PHASE,
+    CHANGE_PHASE_NAME
 } from "../actions/TypeAction";
 
 const initialState = {
@@ -101,6 +106,8 @@ const initialState = {
     detailPlant: null,
     detailPhases: [],
     detailSolution: [],
+    message_alert: false,
+    phaseName: '',
     //sensors
     listSensors: [],
     //
@@ -770,6 +777,7 @@ const Reducer = (state = initialState, action) => {
                 detailPlant: action.loadData.plant,
                 detailPhases: action.loadData.phases,
                 isFinalForm: true,
+                phaseName: action.loadData.phases[0].name
             }
         case OPEN_FINAL_FORM:
             return {
@@ -785,6 +793,31 @@ const Reducer = (state = initialState, action) => {
             return {
                 ...state,
                 detailSolution: action.loadData,
+            }
+        case UPDATE_PLANT: 
+            return {
+                ...state,
+                message_alert: true,
+            }
+        case UPDATE_SOLUTION: 
+            return {
+                ...state,
+                message_alert: true,
+            }
+        case UPDATE_PHASE:
+            return {
+                ...state,
+                message_alert: true,
+            }
+        case CLOSE_MESSAGE_ALERT:
+            return {
+                ...state,
+                message_alert: false
+            }
+        case CHANGE_PHASE_NAME: 
+            return {
+                ...state,
+                phaseName: action.phaseName
             }
         default:
             return {

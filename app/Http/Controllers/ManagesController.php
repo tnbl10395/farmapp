@@ -53,7 +53,7 @@ class ManagesController extends Controller
         $plant = new Plant();
         $object = new Plant($request->plant);
         $plant->name = $object->name;
-        $plant->picture = null;
+        $plant->picture = $request->picture;
         $plant->userId = $user->id;
         $plant->description = $object->description;
         $plant->save();
@@ -261,7 +261,7 @@ class ManagesController extends Controller
                 'totalPhases' => count($phases),
                 'startDate' => $plantId->startDate,
                 'endDate' => $plantId->endDate,
-                'picture' => base64_encode($picturePlant->picture),
+                'picture' => $picturePlant->picture,
                 'now' => $now->days
             ];
             return response()->json($data);
@@ -305,7 +305,7 @@ class ManagesController extends Controller
                 'totalPhases' => count($phases),
                 'startDate' => $plantId->startDate,
                 'endDate' => $plantId->endDate,
-                'picture' => base64_encode($picturePlant->picture),
+                'picture' => $picturePlant->picture,
                 'now' => $now->days
             ];
             return response()->json($data);
@@ -331,5 +331,27 @@ class ManagesController extends Controller
             ->get();
             return response()->json($manages);
         }
+    }
+
+    public function addPlantForDevice(Request $request) 
+    {
+        $totalDays = 0;
+        $user = JWTAuth::toUser($request->header('token'));
+        $device = Device::where('code', $request->code)->select('id')->first();
+        $manage = Manage::where('userId', $user->id)
+                        ->where('deviceId', $device->id)
+                        ->where('isActive', '0')
+                        ->first();
+        $phases = Phase::where('plantId', $request->plantId)->get();
+        foreach ($phases as $key => $value) {
+            $totalDays = $totalDays + $value->days;
+        }
+        $endDate = \Carbon\Carbon::parse($request->startDate)->addDays($totalDays);
+        $manage->plantId = $request->plantId;
+        $manage->startDate = \Carbon\Carbon::parse($request->startDate);
+        $manage->endDate = $endDate;
+        $manage->isActive = "1";
+        $manage->save();
+        return response()->json($manage);
     }
 }
