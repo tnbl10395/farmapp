@@ -1,14 +1,15 @@
 import { connect } from 'react-redux';
 import FinalFormComponent from '../components/FinalFormComponent';
-import { closeFinalForm, getOneSolution, closeMessage, updatePlant, updateSolution, updatePhase, changePhaseName } from '../actions/Action';
-import { getOneSolutionApi, updatePlantApi, updateSolutionApi, updatePhaseApi } from '../api/api';
+import { closeFinalForm, getOneSolution, closeMessage, updatePlant, updateSolution, updatePhase, changePhaseName, getPlantsOfUser, closeMessageAlert } from '../actions/Action';
+import { getOneSolutionApi, updatePlantApi, updateSolutionApi, updatePhaseApi, getPlantsOfUserApi } from '../api/api';
 
 const mapStateToProps = (state) => ({
     plant: state.detailPlant,
     phases: state.detailPhases,
     solutions: state.detailSolution,
-    messageSuccess: state.message_success,
-    phaseName: state.phaseName
+    messageAlert: state.message_alert,
+    phaseName: state.phaseName,
+    phaseId: state.phaseIdOfSolution
 });
 const mapDispatchToProps = (dispatch) => ({
     closeForm: () => {
@@ -24,8 +25,8 @@ const mapDispatchToProps = (dispatch) => ({
     closeMessage: () => {
         dispatch(closeMessage());
     },
-    updateSolution: (description, solutionId) => {
-        updateSolutionApi(dispatch, updateSolution, description, solutionId);
+    updateSolution: (description, solutionId, phaseId) => {
+        updateSolutionApi(dispatch, updateSolution, getOneSolutionApi, getOneSolution, description, solutionId, phaseId);
     },
     updatePhase: (name, days, minTem, maxTem, minHum, maxHum, phaseId) => {
         updatePhaseApi(
@@ -41,6 +42,12 @@ const mapDispatchToProps = (dispatch) => ({
             },
             phaseId
         )
+    },
+    getPlantsOfUser: () => {
+        getPlantsOfUserApi(dispatch, getPlantsOfUser);
+    },
+    closeMessageAlert: () => {
+        dispatch(closeMessageAlert());
     }
 });
 

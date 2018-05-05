@@ -73,6 +73,8 @@ const mapDispatchToProps = (dispatch) => ({
             getOneInformationPlant,
             getOneSolutionApi,
             getOneSolution,
+            getRealChartBasedOnHourAPI,
+            getRealChartBasedOnHour,
             {
                 code: code,
                 plant: plant,

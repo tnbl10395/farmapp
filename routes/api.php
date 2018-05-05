@@ -77,6 +77,7 @@ Route::group(['middleware' => 'jwt.auth'], function () {
 
     //phase
     Route::post('phases/{id}', 'PhaseController@update');
+    Route::get('phases/{id}', 'PhaseController@show');
 
     //Location 
     Route::get('location/{id}', 'LocationsController@show');

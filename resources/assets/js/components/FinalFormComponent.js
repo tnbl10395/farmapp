@@ -4,14 +4,23 @@ export default class FinalFormComponent extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            picture: '',
+            picture: this.props.plant[0].picture,
             description: this.props.plant[0].description,
-            namePlant: this.props.plant[0].name,
+            titlePlantName: this.props.plant[0].name,
+            plantName: this.props.plant[0].name,
             phases: this.props.phases,
             solutions: this.props.solutions
         }
         this.onFileChange = this.onFileChange.bind(this);
         this.submitPlant = this.submitPlant.bind(this);
+    }
+
+    onChangePlantName(plantName) {
+        if (plantName.target.value == '') {
+            this.setState({ plantName: this.state.titlePlantName });
+        }else {
+            this.setState({ plantName: plantName.target.value });
+        }
     }
 
     onChangeDescription(description) {
@@ -41,28 +50,31 @@ export default class FinalFormComponent extends React.Component {
     submitPlant(e) {
         e.preventDefault();
         var data = {
-            name: this.state.namePlant,
+            name: this.state.plantName,
             picture: this.state.picture,
             description: this.state.description,
         }
         this.props.updatePlant(data, this.props.plant[0].id);
+        this.setState({titlePlantName: this.state.plantName});
+    }
+
+    onClose() {
+        this.props.getPlantsOfUser();
+        this.props.closeForm();
     }
 
     render() {
         return (
             <div style={style.body}>
-                {/* {
-                        this.props.messageFail ?
-                            <div className="alert alert-danger alert-dismissible fade in">
-                                <a href="#" onClick={() => this.props.closeMessage()} className="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                <strong>Fail!</strong> You should check code!
-                            </div>
-                            : null
-                    } */}
+                {
+                    this.props.messageAlert ?
+                        <Alert closeAlert={this.props.closeMessageAlert}/>
+                        : null
+                }
                 <div style={style.title}>
-                    <h3 className="text-center text-uppercase" style={{ fontWeight: '900' }}>Edit Information {this.state.namePlant} Plant</h3>
+                    <h3 className="text-center text-uppercase" style={{ fontWeight: '900' }}>Edit Information of Plant: {this.state.titlePlantName}</h3>
                 </div>
-                <div style={style.closeBtn} onClick={() => this.props.closeForm()}><i className="fa fa-remove"></i></div>
+                <div style={style.closeBtn} onClick={() => this.onClose()}><i className="fa fa-remove"></i></div>
                 {
                     this.props.messageSuccess ?
                         <div className="alert alert-success alert-dismissible fade in">
@@ -75,23 +87,30 @@ export default class FinalFormComponent extends React.Component {
                     <div className="col-md-3" style={{ height: '100%' }}>
                         <div style={{ textAlign: 'center' }}>
                             <label style={style.image}>
-                                {this.state.picture == '' ? null : <img src={this.state.picture} style={style.image} />}
-                                {this.state.picture != '' || this.props.plant[0].picture != null ? null : <i className="fa fa-upload" style={{ fontSize: 60, marginTop: 35 }}></i>}
-                                {this.state.picture == '' && this.props.plant[0].picture != null ? <img src={this.props.plant[0].picture} style={style.image} /> : null}
+                                {this.state.picture == null && this.props.plant[0].picture == null ? null : <img src={this.state.picture} style={style.image} />}
+                                {this.state.picture != null || this.props.plant[0].picture != null ? null : <i className="fa fa-upload" style={{ fontSize: 60, marginTop: 35 }}></i>}
+                                {this.state.picture == null && this.props.plant[0].picture != null ? <img src={this.props.plant[0].picture} style={style.image} /> : null}
                                 <input type="file" className="form-control" style={{ display: 'none' }} accept="image/*" onChange={this.onFileChange} />
                             </label>
                             Click to open the file picker
                         </div>
                         <div style={{ height: '85%', overflow: 'auto' }}>
+                            <h4 style={{ fontWeight: '900' }}>Name</h4>
+                            <input type="text"
+                                required
+                                className="form-control"
+                                placeholder="Please input plant name"
+                                value={this.state.plantName}
+                                onChange={(namePlant) => this.onChangePlantName(namePlant)} />
                             <h4 style={{ fontWeight: '900' }}>Description</h4>
                             <textarea type="text"
                                 required
                                 className="form-control"
                                 placeholder="Please input description"
                                 value={this.state.description}
-                                style={{ height: '50%' }}
+                                rows="5"
                                 onChange={(description) => this.onChangeDescription(description)} />
-                            <div className="form-group" style={{ margin: 10 }}>
+                            <div className="form-group" style={{ marginTop: 10 }}>
                                 <input type="submit" className="btn btn-success col-md-3 pull-right" value="Save" onClick={this.submitPlant} />
                             </div>
                         </div>
@@ -111,7 +130,7 @@ export default class FinalFormComponent extends React.Component {
                             <div className="col-md-12" style={{ padding: 0, height: "90%", overflow: 'auto' }}>
                                 {
                                     this.props.solutions.map((element, index) => {
-                                        return <ItemSolution key={index} element={element} updateSolution={this.props.updateSolution} />
+                                        return <ItemSolution key={index} element={element} updateSolution={this.props.updateSolution} phaseId={this.props.phaseId}/>
                                     })
                                 }
                             </div>
@@ -259,7 +278,7 @@ class ItemSolution extends React.Component {
 
     submitSolution(e) {
         e.preventDefault();
-        this.props.updateSolution(this.state.description, this.state.solutionId)
+        this.props.updateSolution(this.state.description, this.state.solutionId, this.props.phaseId);
     }
 
     render() {
@@ -299,7 +318,7 @@ const style = {
         right: 0,
         left: 0,
         backgroundColor: 'white',
-        zIndex: 99999
+        zIndex: 99995
     },
     title: {
         paddingBottom: 10,
@@ -323,5 +342,62 @@ const style = {
         border: '2px dashed #e7ecf1',
         borderRadius: '5px',
         cursor: 'pointer'
+    }
+}
+
+//Alert
+class Alert extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {};
+    }
+    render() {
+        return (
+            <div>
+                <div style={styleAlert.overview}></div>
+                <div style={styleAlert.alert} className="col-xs-6 col-xs-offset-3 col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
+                        <div style={{textAlign: 'center'}}>
+                        <i className="fa fa-check-circle-o" style={styleAlert.icon}/>
+                        <h3>Information of Plant is updated.</h3>
+                    </div>
+                    <hr />
+                    <div className="row">
+                        <button onClick={() => this.props.closeAlert()} className="btn btn-success col-xs-5 col-sm-5 col-md-4 col-xs-offset-1 col-sm-offset-1 col-md-offset-4">Continue</button>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+    
+}
+
+const styleAlert = {
+    overview: {
+        position: 'fixed',
+        top: 0,
+        right: 0,
+        bottom: 0,
+        left: 0,
+        backgroundColor: 'black',
+        opacity: 0.4,
+        zIndex: 99999,
+    },
+    alert: {
+        position: 'fixed',
+        top: '15%',
+        padding: 20,
+        borderRadius: 5,
+        zIndex: 99999,
+        backgroundColor: 'white',
+    },
+    icon: {
+        fontSize: 100,
+        color: '#2ab27b',
+    },
+    title: {
+        fontWeight: 'bold'
+    },
+    content: {
+        fontSize: 15
     }
 }

@@ -283,7 +283,7 @@ export const submitAddDeviceFormAPI = (dispatch, submitAddDeviceForm, name, date
     }
 }
 
-export const submitAddDeviceUserFormAPI = (dispatch, submitAddDeviceUserForm, code) => {
+export const submitAddDeviceUserFormAPI = (dispatch, submitAddDeviceUserForm, getDataDevices, getDataDevicesAPI, getDeviceOfUser, getDeviceOfUserAPI, code) => {
     try {
         fetch(URL + "api/user-add-device", {
             method: method.POST,
@@ -297,6 +297,7 @@ export const submitAddDeviceUserFormAPI = (dispatch, submitAddDeviceUserForm, co
                 if (res) {
                     dispatch(submitAddDeviceUserForm(res));
                     getDataDevicesAPI(dispatch, getDataDevices);
+                    getDeviceOfUserAPI(dispatch, getDeviceOfUser);
                 } else {
                     dispatch(submitAddDeviceUserForm(res));
                 }
@@ -582,6 +583,8 @@ export const submitNewPlantIntoDeviceApi = (
     getOneInformationPlant,
     getOneSolutionApi,
     getOneSolution,
+    getRealChartBasedOnHourAPI,
+    getRealChartBasedOnHour,
     data) => {
     try {
         fetch(URL + "api/manages", {
@@ -603,6 +606,7 @@ export const submitNewPlantIntoDeviceApi = (
                     getListNotificationApi(dispatch, getListNotification);
                     getDeviceOfUserAPI(dispatch, getDeviceOfUser);
                     getOneInformationPlantApi(dispatch, getOneInformationPlant, getOneSolutionApi, getOneSolution, res.plantId);
+                    getRealChartBasedOnHourAPI(dispatch, getRealChartBasedOnHour, res.deviceId);
                 }
             });
     } catch (error) {
@@ -719,7 +723,7 @@ export const getOneSolutionApi = (dispatch, getOneSolution, phaseId) => {
         })
             .then((response) => response.json())
             .then((res) => {
-                dispatch( getOneSolution(res) );
+                dispatch( getOneSolution(res, phaseId) );
             });
     } catch (error) {
     }
@@ -746,7 +750,7 @@ export const updatePlantApi = (dispatch, updatePlant, data, plantId) => {
     }
 }
 
-export const updateSolutionApi = (dispatch, updateSolution, description, solutionId) => {
+export const updateSolutionApi = (dispatch, updateSolution, getOneSolutionApi, getOneSolution, description, solutionId, phaseId) => {
     try {
         fetch(URL + "api/solutions/" + solutionId, {
             method: method.POST,
@@ -759,6 +763,7 @@ export const updateSolutionApi = (dispatch, updateSolution, description, solutio
             .then((res) => {
                 if(res) {
                     dispatch( updateSolution() );
+                    getOneSolutionApi(dispatch, getOneSolution, phaseId);
                 }
             });
     } catch (error) {

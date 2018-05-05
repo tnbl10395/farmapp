@@ -230,14 +230,26 @@ class ItemDevice extends React.Component {
                     <h6>Manufacturing Date</h6>
                     {this.props.element.manufacturing_date}
                 </div>
-                <div className="col-xs-2 col-sm-2 col-md-2">
-                    {
-                        this.props.element.status == 1 ?
-                            <div className="col-md-8 label label-success" style={style.status}>Active</div>
-                            :
-                            <div className="col-md-8 label label-primary" style={style.status}>Inactive</div>
-                    }
-                </div>
+                {
+                    profile.role == "0" ?
+                        <div className="col-xs-2 col-sm-2 col-md-2">
+                            {
+                                this.props.element.isActive == 1 ?
+                                    <div className="col-md-8 label label-success" style={style.status}>Active</div>
+                                    :
+                                    <div className="col-md-8 label label-primary" style={style.status}>Inactive</div>
+                            }
+                        </div>
+                        :
+                        <div className="col-xs-2 col-sm-2 col-md-2">
+                            {
+                                this.props.element.status == 1 ?
+                                    <div className="col-md-8 label label-success" style={style.status}>Own</div>
+                                    :
+                                    <div className="col-md-8 label label-primary" style={style.status}>No own</div>
+                            }
+                        </div>
+                }
                 <div className="col-xs-1 col-sm-1 col-md-1" style={style.button}>
                     {profile.role == '0' ? null : <a onClick={() => this.props.openModal(this.props.object, this.props.element)} style={style.edit} className="fa fa-edit"></a>}
                     <a onClick={() => this.props.openAlert('DELETE_DEVICE', this.props.element.id)} style={style.delete} className="fa fa-remove"></a>
@@ -401,20 +413,24 @@ class ItemPlant extends React.Component {
                     }
                 </div>
                 <div className="col-xs-2 col-sm-2 col-md-2" style={stylePlant.name}><h5>{this.props.element.name}</h5></div>
-                <div className="col-xs-3 col-sm-3 col-md-3" style={stylePlant.totalPhase}>
-                    <span style={stylePlant.textTotalPhase}>Total Phase: </span> 4
+                <div className="col-xs-2 col-sm-2 col-md-2" style={stylePlant.totalPhase}>
+                    <span style={stylePlant.textTotalPhase}>Total Phase: </span> {this.props.element.totalPhases}
+                </div>
+                <div className="col-xs-2 col-sm-2 col-md-2" style={stylePlant.totalPhase}>
+                    <span style={stylePlant.textTotalPhase}>Total Days: </span> {this.props.element.totalDays}
                 </div>
                 {
                     profile.role == '1'
-                        ? <div className="col-xs-3 col-sm-3 col-md-3">
-                            <h6>Owner</h6>
-                            {this.props.element.username}
+                        ? <div className="col-xs-2 col-sm-2 col-md-2" style={stylePlant.totalPhase}>
+                            <span style={stylePlant.textTotalPhase}>Owner: </span> {this.props.element.username}
                         </div>
-                        : <div className="col-xs-3 col-sm-3 col-md-3"></div>
+                        : <div className="col-xs-2 col-sm-2 col-md-2"></div>
                 }
                 {
                     profile.role == '1' 
-                        ? null 
+                        ? <div className="col-xs-1 col-sm-1 col-md-1" style={style.button}>
+                            <a onClick={() => this.props.getOnePlant(this.props.element.id)} style={style.edit} className="fa fa-edit"></a>
+                        </div>
                         : <div className="col-xs-1 col-sm-1 col-md-1" style={style.button}>
                             <a onClick={() => this.props.getOnePlant(this.props.element.id)} style={style.edit} className="fa fa-edit"></a>
                             <a onClick={() => this.props.openAlert('DELETE_DATA', this.props.element.id)} style={style.delete} className="fa fa-remove"></a>

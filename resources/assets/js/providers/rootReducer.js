@@ -89,6 +89,7 @@ const initialState = {
     notificationPhase: null,
     notificationDeviceId: null,
     notificationDatetime: null,
+    notificationPlantName: null,
     //dashboard choose show list device
     showDevicesByList: false,
     showDevicesByMap: false,
@@ -108,6 +109,7 @@ const initialState = {
     detailSolution: [],
     message_alert: false,
     phaseName: '',
+    phaseIdOfSolution: '',
     //sensors
     listSensors: [],
     //
@@ -793,6 +795,7 @@ const Reducer = (state = initialState, action) => {
             return {
                 ...state,
                 detailSolution: action.loadData,
+                phaseIdOfSolution: action.phaseId
             }
         case UPDATE_PLANT: 
             return {

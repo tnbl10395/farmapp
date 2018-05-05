@@ -411,10 +411,11 @@ export const closeFinalForm = () => {
     }
 }
 
-export const getOneSolution = (loadData) => {
+export const getOneSolution = (loadData, phaseId) => {
     return {
         type: GET_ONE_SOLUTION,
-        loadData
+        loadData,
+        phaseId
     }
 }
 

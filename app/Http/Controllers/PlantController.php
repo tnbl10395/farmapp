@@ -18,16 +18,55 @@ class PlantController extends Controller
     public function index(Request $request)
     {
         $user = JWTAuth::toUser($request->header('token'));
+        $sendData = [];
+        $totalDays = 0;
         if($user->role == '1'){
             $plants = Plant::join('users','plants.userId','=','users.id')
                             ->selectRaw('plants.id, plants.name, plants.description, users.username, picture')
                             ->get();
-            return response()->json($plants);
+            foreach ($plants as $key => $plant) {
+                $totalPhases = Phase::where('plantId', $plant->id)
+                                ->selectRaw('COUNT(phases.id) as totalPhases')
+                                ->first();
+                $phases = Phase::where('plantId', $plant->id)->select('days')->get();
+                foreach ($phases as $key => $phase) {
+                    $totalDays = $totalDays + $phase->days;
+                }
+                $object = [
+                    'id' => $plant->id,
+                    'name' => $plant->name,
+                    'description' => $plant->description,
+                    'picture' => $plant->picture,
+                    'totalPhases' => $totalPhases->totalPhases,
+                    'username' => $plant->username,
+                    'totalDays' => $totalDays
+                ];
+                array_push($sendData, $object);
+            }
+            return response()->json($sendData);
         }else{
             $plants = Plant::where('userId', $user->id)
                             ->selectRaw('plants.id, plants.name, plants.description, picture')
                             ->get();
-            return response()->json($plants);
+            foreach ($plants as $key => $plant) {
+                $totalPhases = Phase::where('plantId', $plant->id)
+                                ->selectRaw('COUNT(phases.id) as totalPhases')
+                                ->first();
+                $phases = Phase::where('plantId', $plant->id)->select('days')->get();
+                foreach ($phases as $key => $phase) {
+                    $totalDays = $totalDays + $phase->days;
+                }
+                $object = [
+                    'id' => $plant->id,
+                    'name' => $plant->name,
+                    'description' => $plant->description,
+                    'picture' => $plant->picture,
+                    'totalPhases' => $totalPhases->totalPhases,
+                    'totalDays' => $totalDays
+                ];
+                array_push($sendData, $object);
+            }
+            return response()->json($sendData);
         }
     }
 

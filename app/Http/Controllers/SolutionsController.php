@@ -202,9 +202,14 @@ class SolutionsController extends Controller
         
         if (count($data) == 0) {
             foreach ($devices as $key => $value) {
+                $plant = Manage::where('deviceId', '=', $value->deviceId)
+                                ->select('plantId as id', 'startDate')
+                                ->first();
+                $plantName = Plant::where('id', '=', $plant->id)->select('name')->first();
                 $res = [
                     'deviceId' => $value->deviceId,
                     'deviceName' => $value->nameDevice,
+                    'plantName' =>  $plantName->name,
                     'message' => "Your device can't measure. Please check your device again",
                     'datetime' => $datetime->datetime
                 ];
@@ -213,26 +218,32 @@ class SolutionsController extends Controller
         }else {
             $object = [];
             foreach ($devices as $key => $device) {
-                # code...
-            // }
-            // for ($i = 0; $i < count($devices); $i++) {
+                $plant = Manage::where('deviceId', '=', $device->deviceId)
+                                ->select('plantId as id', 'startDate')
+                                ->first();
+                $plantName = Plant::where('id', '=', $plant->id)->select('name')->first();
+                // $plant = Manage::join('plants', 'manages.plantId', '=', 'plants.id')
+                //                 ->where('manages.deviceId', '=', $device->deviceId)
+                //                 ->select('manages.plantId as id', 'manages.startDate', 'plants.name as plantName')
+                //                 ->first();
                 if(!isset($data[$device->deviceId])) {
                     $res = [
                         'deviceId' => $device->deviceId,
                         'deviceName' => $device->nameDevice,
+                        'plantName' =>  $plantName->name,
                         'message' => "Your device can't measure. Please check your device again",
                         'datetime' => $datetime->datetime
                     ];
                     array_push($sendData, $res);
                 }else {
                     $getData = $data[(string)$device->deviceId][count($data[$device->deviceId])-1];
-                    $plant = Manage::where('deviceId', '=', $device->deviceId)
-                                    ->select('plantId as id', 'startDate')
-                                    ->first();
+                    // $plant = Manage::where('deviceId', '=', $device->deviceId)
+                    //                 ->select('plantId as id', 'startDate')
+                    //                 ->first();
+                    // $plantName = Plant::where('id', '=', $plant->id)->select('name')->first();
                     $phases = Phase::where('plantId', '=', $plant->id)
                                     ->orderBy('id')
                                     ->get();
-                    $plantName = Plant::where('id', '=', $plant->id)->select('name')->first();
                     $deviceName = Device::where('id', '=', $device->deviceId)->select('name')->first();
                     for($j = 0; $j < count($phases); $j++){
                         if ($j == 0) $startDate = \Carbon\Carbon::parse($plant->startDate);

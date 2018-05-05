@@ -46,9 +46,10 @@ class PhaseController extends Controller
      * @param  \App\Phase  $phase
      * @return \Illuminate\Http\Response
      */
-    public function show(Phase $phase)
+    public function show($id)
     {
-        //
+        $phase = Phase::findOrFail($id);
+        return response()->json($phase);
     }
 
     /**
