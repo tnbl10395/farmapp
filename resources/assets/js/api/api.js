@@ -3,7 +3,7 @@ import { updateDevice } from "../actions/Action";
 // export const URL = "http://116.110.0.66:3000/";
 // export const URL = "http://localhost:3000/";
 // export const URL = "http://42.119.104.144:3000/"
-export const URL = "http://52.15.185.17:3000";
+export const URL = "http://52.15.185.17:3000/";
 
 const token = sessionStorage.getItem('token');
 
