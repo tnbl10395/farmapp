@@ -35,7 +35,7 @@ export default class AddUserComponent extends React.Component {
                     this.props.messageSuccess ?
                         <div className="alert alert-success alert-dismissible fade in">
                             <a href="#" onClick={() => this.props.closeMessage()} className="close" data-dismiss="alert" aria-label="close">&times;</a>
-                            <strong>Success!</strong> The new device has just created!
+                            <strong>Success!</strong> The new user has just created!
                             </div>
                         : null
                 }

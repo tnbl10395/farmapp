@@ -54,14 +54,10 @@ class SolutionsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request)
     {
-        $solution = Solution::findOrFail($id);
-        if(!is_null($solution)){
-            return response()->json($solution);
-        }else{
-            return response()->json(false);
-        }    
+        $solutions = Solution::where('phaseId', $request->phaseId)->get();
+        return response()->json($solutions);
     }
 
     /**
@@ -71,18 +67,11 @@ class SolutionsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
-        foreach ($request as $object) {
-            $solution = Solution::findOrFail($object->id);
-            $solution->planId = $object->plantId;
-            $solution->min_temperature = $object->min_temperature;
-            $solution->min_humidity = $object->min_humidity;
-            $solution->max_temperature = $object->max_temperature;
-            $solution->max_humidity = $object->max_humidity;
-            $solution->solution = $object->solution;
-            $solution->save();
-        }
+        $solution = Solution::findOrFail($id);
+        $solution->description = $request->description;
+        $solution->save();
         return response()->json(true);
     }
 
@@ -209,12 +198,18 @@ class SolutionsController extends Controller
                     ->whereRaw('substr(updated_at,1,16) = "'.$this->getDateBasedOnMinute($now).'"')
                     ->select(['id','humidity', 'temperature', 'deviceId'])
                     ->orderBy('id', 'desc')
-                    ->get();
+                    ->get()->groupBy('deviceId');
+        
         if (count($data) == 0) {
             foreach ($devices as $key => $value) {
+                $plant = Manage::where('deviceId', '=', $value->deviceId)
+                                ->select('plantId as id', 'startDate')
+                                ->first();
+                $plantName = Plant::where('id', '=', $plant->id)->select('name')->first();
                 $res = [
                     'deviceId' => $value->deviceId,
                     'deviceName' => $value->nameDevice,
+                    'plantName' =>  $plantName->name,
                     'message' => "Your device can't measure. Please check your device again",
                     'datetime' => $datetime->datetime
                 ];
@@ -222,37 +217,51 @@ class SolutionsController extends Controller
             }
         }else {
             $object = [];
-            for ($i = 0; $i < count($devices); $i++) {
-                if(!isset($data[$i])) {
+            foreach ($devices as $key => $device) {
+                $plant = Manage::where('deviceId', '=', $device->deviceId)
+                                ->select('plantId as id', 'startDate')
+                                ->first();
+                $plantName = Plant::where('id', '=', $plant->id)->select('name')->first();
+                // $plant = Manage::join('plants', 'manages.plantId', '=', 'plants.id')
+                //                 ->where('manages.deviceId', '=', $device->deviceId)
+                //                 ->select('manages.plantId as id', 'manages.startDate', 'plants.name as plantName')
+                //                 ->first();
+                if(!isset($data[$device->deviceId])) {
                     $res = [
-                        'deviceId' => $value->deviceId,
-                        'deviceName' => $value->nameDevice,
+                        'deviceId' => $device->deviceId,
+                        'deviceName' => $device->nameDevice,
+                        'plantName' =>  $plantName->name,
                         'message' => "Your device can't measure. Please check your device again",
                         'datetime' => $datetime->datetime
                     ];
                     array_push($sendData, $res);
                 }else {
-                    $plant = Manage::where('deviceId', '=', $data[$i]->deviceId)
-                                    ->select('plantId as id', 'startDate')
-                                    ->first();
+                    $getData = $data[(string)$device->deviceId][count($data[$device->deviceId])-1];
+                    // $plant = Manage::where('deviceId', '=', $device->deviceId)
+                    //                 ->select('plantId as id', 'startDate')
+                    //                 ->first();
+                    // $plantName = Plant::where('id', '=', $plant->id)->select('name')->first();
                     $phases = Phase::where('plantId', '=', $plant->id)
                                     ->orderBy('id')
                                     ->get();
+                    $deviceName = Device::where('id', '=', $device->deviceId)->select('name')->first();
                     for($j = 0; $j < count($phases); $j++){
                         if ($j == 0) $startDate = \Carbon\Carbon::parse($plant->startDate);
                         else $startDate = \Carbon\Carbon::parse($plant->startDate)->addDays($phases[$j-1]->days);
                         $endDate = \Carbon\Carbon::parse($plant->startDate)->addDays($phases[$j]->days);
                         if ($startDate < $now && $now < $endDate) {
-                            $statusHumidity = $this->compareValue($phases[$j]->minHumidity, $phases[$j]->maxHumidity, $data[$i]->humidity);
-                            $statusTemperature = $this->compareValue($phases[$j]->minTemperature, $phases[$j]->maxTemperature, $data[$i]->temperature);
+                            $statusHumidity = $this->compareValue($phases[$j]->minHumidity, $phases[$j]->maxHumidity, $getData->humidity);
+                            $statusTemperature = $this->compareValue($phases[$j]->minTemperature, $phases[$j]->maxTemperature, $getData->temperature);
                             $solution = $this->getSolution($statusHumidity, $statusTemperature, $phases[$j]->id);
                             $object = [
                                 'message' => "OK",
-                                'deviceId' => $data[$i]->deviceId,
+                                'deviceId' => $getData->deviceId,
                                 'solution' => $solution,
-                                'data' => $data[$i],
+                                'data' => $getData,
                                 'phase' => $phases[$j],
-                                'datetime' => $datetime->datetime
+                                'datetime' => $datetime->datetime,
+                                'plantName' => $plantName->name,
+                                'deviceName' => $deviceName->name
                             ];
                             break;
                         }

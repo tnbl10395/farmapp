@@ -42,7 +42,17 @@ import {
     CHOOSE_OPTION_LIST_DEVICE,
     GET_ALL_DEVICES_ACTIVE,
     GET_LIST_NOTIFICATION,
-    GET_PLANTS_OF_USER
+    GET_PLANTS_OF_USER,
+    GET_LIST_SENSORS,
+    GET_ONE_INFORMATION_PLANT,
+    OPEN_FINAL_FORM,
+    CLOSE_FINAL_FORM,
+    GET_ONE_SOLUTION,
+    UPDATE_PLANT,
+    CLOSE_MESSAGE_ALERT,
+    UPDATE_SOLUTION,
+    UPDATE_PHASE,
+    CHANGE_PHASE_NAME
 } from "../actions/TypeAction";
 
 const initialState = {
@@ -79,6 +89,7 @@ const initialState = {
     notificationPhase: null,
     notificationDeviceId: null,
     notificationDatetime: null,
+    notificationPlantName: null,
     //dashboard choose show list device
     showDevicesByList: false,
     showDevicesByMap: false,
@@ -92,6 +103,15 @@ const initialState = {
     sideBar: true,
     //plant
     plantsOfUser: [],
+    isFinalForm: false,
+    detailPlant: null,
+    detailPhases: [],
+    detailSolution: [],
+    message_alert: false,
+    phaseName: '',
+    phaseIdOfSolution: '',
+    //sensors
+    listSensors: [],
     //
     data_devices: [],
     data_values: [],
@@ -747,6 +767,60 @@ const Reducer = (state = initialState, action) => {
             return {
                 ...state,
                 plantsOfUser: action.loadData
+            }
+        case GET_LIST_SENSORS:
+            return {
+                ...state,
+                listSensors: action.loadData
+            }
+        case GET_ONE_INFORMATION_PLANT:
+            return {
+                ...state,
+                detailPlant: action.loadData.plant,
+                detailPhases: action.loadData.phases,
+                isFinalForm: true,
+                phaseName: action.loadData.phases[0].name
+            }
+        case OPEN_FINAL_FORM:
+            return {
+                ...state,
+                isFinalForm: true,
+            }
+        case CLOSE_FINAL_FORM:
+            return {
+                ...state,
+                isFinalForm: false,
+            }
+        case GET_ONE_SOLUTION:
+            return {
+                ...state,
+                detailSolution: action.loadData,
+                phaseIdOfSolution: action.phaseId
+            }
+        case UPDATE_PLANT: 
+            return {
+                ...state,
+                message_alert: true,
+            }
+        case UPDATE_SOLUTION: 
+            return {
+                ...state,
+                message_alert: true,
+            }
+        case UPDATE_PHASE:
+            return {
+                ...state,
+                message_alert: true,
+            }
+        case CLOSE_MESSAGE_ALERT:
+            return {
+                ...state,
+                message_alert: false
+            }
+        case CHANGE_PHASE_NAME: 
+            return {
+                ...state,
+                phaseName: action.phaseName
             }
         default:
             return {

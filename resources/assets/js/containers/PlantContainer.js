@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import PlantComponent from '../components/PlantComponent';
-import { getPlantsOfUser, openModal, openAlert } from '../actions/Action';
-import { getPlantsOfUserApi } from '../api/api';
+import { openModal, openAlert, getOneInformationPlant, getOneSolution } from '../actions/Action';
+import { getOneInformationPlantApi, getOneSolutionApi } from '../api/api';
 
 const mapStateToProps = (state) => ({
     plants: state.plantsOfUser,
@@ -9,15 +9,15 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    getPlantsOfUser: () => {
-        getPlantsOfUserApi(dispatch, getPlantsOfUser);
-    },
     openModal: (object, element) => {
         dispatch(openModal(object, element));
     },
     openAlert: (title, id) => {
         dispatch(openAlert(title, id));
     },
+    getOnePlant: (plantId) => {
+        getOneInformationPlantApi(dispatch, getOneInformationPlant, getOneSolutionApi, getOneSolution, plantId);
+    }
 });
 
 export default connect (mapStateToProps,mapDispatchToProps)(PlantComponent);

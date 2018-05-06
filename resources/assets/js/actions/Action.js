@@ -44,7 +44,18 @@ import {
     GET_LIST_NOTIFICATION,
     SUBMIT_ADD_PLANT_INTO_DEVICE,
     GET_LIST_LOCATION_OF_DEVICE,
-    GET_PLANTS_OF_USER
+    GET_PLANTS_OF_USER,
+    GET_LIST_SENSORS,
+    GET_ONE_INFORMATION_PLANT,
+    OPEN_FINAL_FORM,
+    CLOSE_FINAL_FORM,
+    GET_ONE_SOLUTION,
+    UPDATE_PLANT,
+    UPDATE_PHASE,
+    UPDATE_SOLUTION,
+    CLOSE_MESSAGE_ALERT,
+    CHANGE_PHASE_NAME,
+    ADD_PLANT_FOR_DEVICE
 } from "./TypeAction";
 //Custom UI
 export const chooseOptionSidebar = (option) => {
@@ -371,5 +382,76 @@ export const getPlantsOfUser = (loadData) => {
     return {
         type: GET_PLANTS_OF_USER,
         loadData
+    }
+}
+
+export const getListSensors = (loadData) => {
+    return {
+        type: GET_LIST_SENSORS,
+        loadData
+    }
+}
+
+export const getOneInformationPlant = (loadData) => {
+    return {
+        type: GET_ONE_INFORMATION_PLANT,
+        loadData
+    }
+}
+
+export const openFinalForm = () => {
+    return {
+        type: OPEN_FINAL_FORM
+    }
+}
+
+export const closeFinalForm = () => {
+    return {
+        type: CLOSE_FINAL_FORM
+    }
+}
+
+export const getOneSolution = (loadData, phaseId) => {
+    return {
+        type: GET_ONE_SOLUTION,
+        loadData,
+        phaseId
+    }
+}
+
+export const updatePlant = () => {
+    return {
+        type: UPDATE_PLANT,
+    }
+}
+
+export const updatePhase = () => {
+    return {
+        type: UPDATE_PHASE,
+    }
+}
+
+export const updateSolution = () => {
+    return {
+        type: UPDATE_SOLUTION,
+    }
+}
+
+export const closeMessageAlert = () => {
+    return {
+        type: CLOSE_MESSAGE_ALERT
+    }
+}
+
+export const changePhaseName = (phaseName) => {
+    return {
+        type: CHANGE_PHASE_NAME,
+        phaseName
+    }
+}
+
+export const addPlantForDevice = () => {
+    return {
+        type: ADD_PLANT_FOR_DEVICE
     }
 }

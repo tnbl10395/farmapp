@@ -20,11 +20,16 @@ class DevicesController extends Controller
         $user = JWTAuth::toUser($request->header('token'));
         if($user->role == '1') {
             $devices = Device::all();
+            // $devices = Device::leftJoin('manages','devices.id','=','manages.deviceId')
+                            // ->join('users','manages.userId','=','users.id')
+                            // ->select('devices.*', 'manages.isActive', 'manages.startDate')
+                            // ->get();
             return response()->json($devices);
         }else if($user->role == '0'){
             $device = Device::join('manages','devices.id','=','manages.deviceId')
                             ->join('users','manages.userId','=','users.id')
                             ->where('users.id',$user->id)
+                            ->select('devices.*', 'manages.isActive', 'manages.startDate')
                             ->get();
             return response()->json($device);
         }      
@@ -108,6 +113,7 @@ class DevicesController extends Controller
             $manage = new Manage();
             $manage->userId = $user->id;
             $manage->deviceId = $device->id;
+            $manage->isActive = '0';
             $manage->save();
             if ($manage == true) {
                 Device::where('id',$device->id)->update(['status' => '1']);

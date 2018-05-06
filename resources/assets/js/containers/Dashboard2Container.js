@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import Dashboard2Component from '../components/Dashboard2Component';
-import { getDetailInformationDeviceApi, getNotificationApi, getRealChartBasedOnDayAPI, getRealChartBasedOnHourAPI, getAlldevicesActiveApi, getListNotificationApi, submitNewPlantIntoDeviceApi, getDeviceOfUserAPI } from '../api/api';
-import { getDetailInformationDevice, getNotification, getRealChartBasedOnDay, getRealChartBasedOnHour, chooseOptionListDevice, getAlldevicesActive, getListNotification, submitAddPlantIntoDevice, getDeviceOfUser } from '../actions/Action';
+import { getDetailInformationDeviceApi, getNotificationApi, getRealChartBasedOnDayAPI, getRealChartBasedOnHourAPI, getAlldevicesActiveApi, getListNotificationApi, submitNewPlantIntoDeviceApi, getDeviceOfUserAPI, getOneInformationPlantApi, getOneSolutionApi, addPlantForDeviceApi } from '../api/api';
+import { getDetailInformationDevice, getNotification, getRealChartBasedOnDay, getRealChartBasedOnHour, chooseOptionListDevice, getAlldevicesActive, getListNotification, submitAddPlantIntoDevice, getDeviceOfUser, getOneInformationPlant, getOneSolution } from '../actions/Action';
 
 const mapStateToProps = (state) => ({
     all_devices: state.all_devices,
@@ -34,6 +34,8 @@ const mapStateToProps = (state) => ({
     showDevicesByList: state.showDevicesByList,
     showDevicesByMap: state.showDevicesByMap,
     showDevicesByGrid: state.showDevicesByGrid,
+    //plant
+    plantsOfUser: state.plantsOfUser
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -56,7 +58,7 @@ const mapDispatchToProps = (dispatch) => ({
     getListNotification: () => {
         getListNotificationApi(dispatch, getListNotification);
     },
-    submitAddNewPlant: (code, plant, startDate, phase) => {
+    submitAddNewPlant: (code, plant, startDate, picture, phase) => {
         submitNewPlantIntoDeviceApi(
             dispatch, 
             getDetailInformationDeviceApi, 
@@ -67,11 +69,40 @@ const mapDispatchToProps = (dispatch) => ({
             getDeviceOfUser,
             getAlldevicesActiveApi,
             getAlldevicesActive, 
+            getOneInformationPlantApi,
+            getOneInformationPlant,
+            getOneSolutionApi,
+            getOneSolution,
+            getRealChartBasedOnHourAPI,
+            getRealChartBasedOnHour,
             {
                 code: code,
                 plant: plant,
                 startDate: startDate,
+                picture: picture,
                 phase: phase
+            }
+        )
+    },
+    addPlantForDevice: (code, plantId, startDate) => {
+        addPlantForDeviceApi(
+            dispatch, 
+            getDetailInformationDeviceApi, 
+            getDetailInformationDevice,
+            getListNotificationApi,
+            getListNotification,
+            getDeviceOfUserAPI,
+            getDeviceOfUser,
+            getAlldevicesActiveApi,
+            getAlldevicesActive, 
+            getOneInformationPlantApi,
+            getOneInformationPlant,
+            getOneSolutionApi,
+            getOneSolution,
+            {
+                code: code,
+                plantId: plantId,
+                startDate: startDate,
             }
         )
     }

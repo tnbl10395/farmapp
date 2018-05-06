@@ -9,6 +9,7 @@ export default class DevicesComponent extends React.Component {
 
     componentDidMount() {
         this.props.getDataDevices();
+        this.props.getListSensors();
     }
 
     render() {
@@ -17,6 +18,7 @@ export default class DevicesComponent extends React.Component {
                 // openUpdate={this.props.openUpdate}
                 dataSet={this.props.dataSet}
                 sideBar={this.props.sideBar}
+                listSensors={this.props.listSensors}
                 name={'Device'}
                 openModal={this.props.openModal}
                 object={profile.role == "1" ? objectDeviceAdmin : objectDeviceUser}

@@ -13,6 +13,7 @@ export default class List extends React.Component {
             itemsCountPerPage: 5,
             active: true,
             inactive: true,
+            listSensors: this.props.listSensors
         };
         this.handlePageChange = this.handlePageChange.bind(this);
         this.filterList = this.filterList.bind(this);
@@ -105,7 +106,15 @@ export default class List extends React.Component {
                     </div>
                     {
                         this.state.data.length > 0
-                            ? renderTable(this.props.name, currentData, this.props.openAlert, this.props.openModal, this.props.objectUpdate)
+                            ? renderTable(
+                                            this.props.name, 
+                                            currentData, 
+                                            this.props.openAlert, 
+                                            this.props.openModal, 
+                                            this.props.objectUpdate,
+                                            this.state.listSensors,
+                                            this.props.getOnePlant
+                                        )
                             : <div style={style.item} className="col-xs-12 col-sm-12 col-md-12"><h3 style={{ textAlign: 'center' }}>No data</h3></div>
 
                     }
@@ -149,13 +158,14 @@ export default class List extends React.Component {
     }
 }
 
-const renderTable = (name, currentData, openAlert, openModal, object) => {
+const renderTable = (name, currentData, openAlert, openModal, object, listSensors, getOnePlant) => {
     switch (name) {
         case 'Device':
             return <Device currentData={currentData}
                             openAlert={openAlert}
                             openModal={openModal}
-                            object={object} />
+                            object={object} 
+                            listSensors={listSensors}/>
         // return device(currentData, openAlert, openModal, object);
         case 'User':
             return user(currentData, openAlert, openModal, object);
@@ -165,7 +175,8 @@ const renderTable = (name, currentData, openAlert, openModal, object) => {
             return <Plant currentData={currentData}
                             openAlert={openAlert}
                             openModal={openModal}
-                            object={object} />
+                            object={object} 
+                            getOnePlant={getOnePlant}/>
     }
 }
 // Device-------------------------------------------------------------------------------------------------------------------------
@@ -182,7 +193,8 @@ class Device extends React.Component {
                         <ItemDevice key={index} element={element} 
                                     object={this.props.object} 
                                     openAlert={this.props.openAlert}
-                                    openModal={this.props.openModal} />
+                                    openModal={this.props.openModal} 
+                                    listSensors={this.props.listSensors[element.id]} />
                     )
                 }
             </div>
@@ -209,7 +221,7 @@ class ItemDevice extends React.Component {
                 <div className="col-xs-1 col-sm-1 col-md-1">
                     <i className="fa fa-gears" style={style.picture} />
                 </div>
-                <div className="col-xs-2 col-sm-2 col-md-2" style={style.text}><h5>{this.props.element.name}</h5></div>
+                <div className="col-xs-2 col-sm-2 col-md-2" style={style.text}><h5 style={{fontWeight: 'bold'}}>{this.props.element.name}</h5></div>
                 <div className="col-xs-3 col-sm-3 col-md-3">
                     <h6>Code</h6>
                     {this.props.element.code}
@@ -218,14 +230,26 @@ class ItemDevice extends React.Component {
                     <h6>Manufacturing Date</h6>
                     {this.props.element.manufacturing_date}
                 </div>
-                <div className="col-xs-2 col-sm-2 col-md-2">
-                    {
-                        this.props.element.status == 1 ?
-                            <div className="col-md-8 label label-success" style={style.status}>Active</div>
-                            :
-                            <div className="col-md-8 label label-primary" style={style.status}>Inactive</div>
-                    }
-                </div>
+                {
+                    profile.role == "0" ?
+                        <div className="col-xs-2 col-sm-2 col-md-2">
+                            {
+                                this.props.element.isActive == 1 ?
+                                    <div className="col-md-8 label label-success" style={style.status}>Active</div>
+                                    :
+                                    <div className="col-md-8 label label-primary" style={style.status}>Inactive</div>
+                            }
+                        </div>
+                        :
+                        <div className="col-xs-2 col-sm-2 col-md-2">
+                            {
+                                this.props.element.status == 1 ?
+                                    <div className="col-md-8 label label-success" style={style.status}>Own</div>
+                                    :
+                                    <div className="col-md-8 label label-primary" style={style.status}>No own</div>
+                            }
+                        </div>
+                }
                 <div className="col-xs-1 col-sm-1 col-md-1" style={style.button}>
                     {profile.role == '0' ? null : <a onClick={() => this.props.openModal(this.props.object, this.props.element)} style={style.edit} className="fa fa-edit"></a>}
                     <a onClick={() => this.props.openAlert('DELETE_DEVICE', this.props.element.id)} style={style.delete} className="fa fa-remove"></a>
@@ -235,24 +259,17 @@ class ItemDevice extends React.Component {
                         <hr/>
                         <h5>Sensors in {this.props.element.name}</h5>
                         <div className="row" style={{padding: 0, overflowX: 'auto', whiteSpace: 'nowrap'}}>
-                            <div className="col-md-4" style={{padding: 0, float: 'none', display: 'inline-block'}}>
-                                <ItemSensor />
-                            </div>
-                            <div className="col-md-4" style={{padding: 0, float: 'none', display: 'inline-block'}}>
-                                <ItemSensor />
-                            </div>
-                            <div className="col-md-4" style={{padding: 0, float: 'none', display: 'inline-block'}}>
-                                <ItemSensor />
-                            </div>
-                            <div className="col-md-4" style={{padding: 0, float: 'none', display: 'inline-block'}}>
-                                <ItemSensor />
-                            </div>
-                            <div className="col-md-4" style={{padding: 0, float: 'none', display: 'inline-block'}}>
-                                <ItemSensor />
-                            </div>
+                            {
+                                this.props.listSensors.map((element, index) => {
+                                    return <div key={index}  className="col-md-4" style={{padding: 0, float: 'none', display: 'inline-block'}}>
+                                        <ItemSensor element={element}/>
+                                    </div>
+                                })
+                            }
                         </div>
                     </div> 
-                    : null}
+                    : null
+                }
             </div>
         );
     }
@@ -262,21 +279,27 @@ class ItemSensor extends React.Component {
     constructor(props) {
         super(props);
     }
-    
+
     render() {
         return (
             <div style={styleItemSensor.body}>
-                <img src="/images/avatar.png" className="col-md-5" style={styleItemSensor.image}/>
+                <img src={'data:image/png;base64,' + this.props.element.picture} className="col-md-5" style={styleItemSensor.image}/>
                 <div className="col-md-7" style={{ padding:0 }}>
                     <div className="col-md-12">
-                        <span>Name: </span> Arduino
+                        <span style={{ fontWeight: 'bold'}}>Name: </span> {this.props.element.sensorName}
                     </div>
                     <div className="col-md-12">
-                        <span>Manufacturing Date: </span> 2018-03-10
+                        <span style={{ fontWeight: 'bold'}}>Manufacturing Date: </span> {this.props.element.manufacturing_date}
                     </div>
                     <div className="col-md-12">
-                        <span>Made by: </span> China
+                        <span style={{ fontWeight: 'bold'}}>Made In: </span> {this.props.element.madeIn}
                     </div>
+                    <div className="col-md-12">
+                        <span style={{ fontWeight: 'bold'}}>Code: </span> {this.props.element.code}
+                    </div>
+                    {/* <div className="col-md-12" style={{ height: '100%', overflow: 'auto' }}>
+                        <span style={{ fontWeight: 'bold'}}>Specification: </span> {this.props.element.specification}
+                    </div> */}
                 </div>
             </div>
         );
@@ -365,7 +388,8 @@ class Plant extends React.Component {
                                    element={element} 
                                    object={this.props.object} 
                                    openModal={this.props.openModal}
-                                   openAlert={this.props.openAlert} />
+                                   openAlert={this.props.openAlert} 
+                                   getOnePlant={this.props.getOnePlant}/>
                     )
                 }
             </div>
@@ -385,26 +409,30 @@ class ItemPlant extends React.Component {
                     {
                         this.props.element.picture == null 
                             ? <img src="images/leaf.jpg" style={stylePlant.image} />
-                            : <img src={'data:image/png;base64,' + this.props.element.picture} style={stylePlant.image} />
+                            : <img src={this.props.element.picture} style={stylePlant.image} />
                     }
                 </div>
                 <div className="col-xs-2 col-sm-2 col-md-2" style={stylePlant.name}><h5>{this.props.element.name}</h5></div>
-                <div className="col-xs-3 col-sm-3 col-md-3" style={stylePlant.totalPhase}>
-                    <span style={stylePlant.textTotalPhase}>Total Phase: </span> 4
+                <div className="col-xs-2 col-sm-2 col-md-2" style={stylePlant.totalPhase}>
+                    <span style={stylePlant.textTotalPhase}>Total Phase: </span> {this.props.element.totalPhases}
+                </div>
+                <div className="col-xs-2 col-sm-2 col-md-2" style={stylePlant.totalPhase}>
+                    <span style={stylePlant.textTotalPhase}>Total Days: </span> {this.props.element.totalDays}
                 </div>
                 {
                     profile.role == '1'
-                        ? <div className="col-xs-3 col-sm-3 col-md-3">
-                            <h6>Owner</h6>
-                            {this.props.element.username}
+                        ? <div className="col-xs-2 col-sm-2 col-md-2" style={stylePlant.totalPhase}>
+                            <span style={stylePlant.textTotalPhase}>Owner: </span> {this.props.element.username}
                         </div>
-                        : <div className="col-xs-3 col-sm-3 col-md-3"></div>
+                        : <div className="col-xs-2 col-sm-2 col-md-2"></div>
                 }
                 {
                     profile.role == '1' 
-                        ? null 
+                        ? <div className="col-xs-1 col-sm-1 col-md-1" style={style.button}>
+                            <a onClick={() => this.props.getOnePlant(this.props.element.id)} style={style.edit} className="fa fa-edit"></a>
+                        </div>
                         : <div className="col-xs-1 col-sm-1 col-md-1" style={style.button}>
-                            <a onClick={() => this.props.openModal(this.props.object, this.props.element)} style={style.edit} className="fa fa-edit"></a>
+                            <a onClick={() => this.props.getOnePlant(this.props.element.id)} style={style.edit} className="fa fa-edit"></a>
                             <a onClick={() => this.props.openAlert('DELETE_DATA', this.props.element.id)} style={style.delete} className="fa fa-remove"></a>
                         </div>
                 }
@@ -484,6 +512,7 @@ const style = {
         fontSize: 11,
         fontFamily: "Helvetica",
         marginTop: 10,
+        fontWeight: 'bold'
     },
     status: {
         fontSize: '1vw',

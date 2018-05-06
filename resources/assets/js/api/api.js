@@ -1,8 +1,8 @@
 import { updateDevice } from "../actions/Action";
 
-// export const URL = "http://116.110.0.66:3000/";
+export const URL = "http://116.110.0.66:3000/";
 // export const URL = "http://localhost:3000/";
-export const URL = "http://42.119.104.144:3000/"
+// export const URL = "http://42.119.104.144:3000/"
 
 const token = sessionStorage.getItem('token');
 
@@ -283,7 +283,7 @@ export const submitAddDeviceFormAPI = (dispatch, submitAddDeviceForm, name, date
     }
 }
 
-export const submitAddDeviceUserFormAPI = (dispatch, submitAddDeviceUserForm, code) => {
+export const submitAddDeviceUserFormAPI = (dispatch, submitAddDeviceUserForm, getDataDevices, getDataDevicesAPI, getDeviceOfUser, getDeviceOfUserAPI, code) => {
     try {
         fetch(URL + "api/user-add-device", {
             method: method.POST,
@@ -297,6 +297,7 @@ export const submitAddDeviceUserFormAPI = (dispatch, submitAddDeviceUserForm, co
                 if (res) {
                     dispatch(submitAddDeviceUserForm(res));
                     getDataDevicesAPI(dispatch, getDataDevices);
+                    getDeviceOfUserAPI(dispatch, getDeviceOfUser);
                 } else {
                     dispatch(submitAddDeviceUserForm(res));
                 }
@@ -578,6 +579,12 @@ export const submitNewPlantIntoDeviceApi = (
     getDeviceOfUser, 
     getAlldevicesActiveApi,
     getAlldevicesActive,
+    getOneInformationPlantApi,
+    getOneInformationPlant,
+    getOneSolutionApi,
+    getOneSolution,
+    getRealChartBasedOnHourAPI,
+    getRealChartBasedOnHour,
     data) => {
     try {
         fetch(URL + "api/manages", {
@@ -587,6 +594,7 @@ export const submitNewPlantIntoDeviceApi = (
                 code: data.code,
                 plant: data.plant,
                 startDate: data.startDate,
+                picture: data.picture,
                 phase: data.phase,
             })
         })
@@ -597,6 +605,8 @@ export const submitNewPlantIntoDeviceApi = (
                     getDetailInformationDeviceApi(dispatch, getDetailInformationDevice, res.deviceId);
                     getListNotificationApi(dispatch, getListNotification);
                     getDeviceOfUserAPI(dispatch, getDeviceOfUser);
+                    getOneInformationPlantApi(dispatch, getOneInformationPlant, getOneSolutionApi, getOneSolution, res.plantId);
+                    getRealChartBasedOnHourAPI(dispatch, getRealChartBasedOnHour, res.deviceId);
                 }
             });
     } catch (error) {
@@ -668,6 +678,156 @@ export const getPlantsOfUserApi = (dispatch, getPlantsOfUser) => {
             .then((response) => response.json())
             .then((res) => {
                 dispatch( getPlantsOfUser(res) );
+            });
+    } catch (error) {
+    }
+}
+
+export const getListSensorsApi = (dispatch, getListSensors) => {
+    try {
+        fetch(URL + "api/sensors", {
+            method: method.GET,
+            headers: headers,
+        })
+            .then((response) => response.json())
+            .then((res) => {
+                dispatch( getListSensors(res) );
+            });
+    } catch (error) {
+    }
+}
+
+export const getOneInformationPlantApi = (dispatch, getOneInformationPlant, getOneSolutionApi, getOneSolution, plantId) => {
+    try {
+        fetch(URL + "api/plants/" + plantId, {
+            method: method.GET,
+            headers: headers,
+        })
+            .then((response) => response.json())
+            .then((res) => {
+                dispatch( getOneInformationPlant(res) );
+                getOneSolutionApi(dispatch, getOneSolution, res.phases[0].id);
+            });
+    } catch (error) {
+    }
+}
+
+export const getOneSolutionApi = (dispatch, getOneSolution, phaseId) => {
+    try {
+        fetch(URL + "api/get-solution", {
+            method: method.POST,
+            headers: headers,
+            body: JSON.stringify({
+                phaseId: phaseId
+            })
+        })
+            .then((response) => response.json())
+            .then((res) => {
+                dispatch( getOneSolution(res, phaseId) );
+            });
+    } catch (error) {
+    }
+}
+
+export const updatePlantApi = (dispatch, updatePlant, data, plantId) => {
+    try {
+        fetch(URL + "api/plants/" + plantId, {
+            method: method.POST,
+            headers: headers,
+            body: JSON.stringify({
+                name: data.name,
+                picture: data.picture,
+                description: data.description
+            })
+        })
+            .then((response) => response.json())
+            .then((res) => {
+                if(res) {
+                    dispatch( updatePlant() );
+                }
+            });
+    } catch (error) {
+    }
+}
+
+export const updateSolutionApi = (dispatch, updateSolution, getOneSolutionApi, getOneSolution, description, solutionId, phaseId) => {
+    try {
+        fetch(URL + "api/solutions/" + solutionId, {
+            method: method.POST,
+            headers: headers,
+            body: JSON.stringify({
+                description: description
+            })
+        })
+            .then((response) => response.json())
+            .then((res) => {
+                if(res) {
+                    dispatch( updateSolution() );
+                    getOneSolutionApi(dispatch, getOneSolution, phaseId);
+                }
+            });
+    } catch (error) {
+    }
+}
+
+export const updatePhaseApi = (dispatch, updatePhase, data, phaseId) => {
+    try {
+        fetch(URL + "api/phases/" + phaseId, {
+            method: method.POST,
+            headers: headers,
+            body: JSON.stringify({
+                name: data.name,
+                days: data.days,
+                minTemperature: data.minTemperature,
+                maxTemperature: data.maxTemperature,
+                minHumidity: data.minHumidity,
+                maxHumidity: data.maxHumidity
+            })
+        })
+            .then((response) => response.json())
+            .then((res) => {
+                if(res) {
+                    dispatch( updatePhase() );
+                }
+            });
+    } catch (error) {
+    }
+}
+
+export const addPlantForDeviceApi = (
+    dispatch, 
+    getDetailInformationDeviceApi, 
+    getDetailInformationDevice, 
+    getListNotificationApi, 
+    getListNotification, 
+    getDeviceOfUserAPI,
+    getDeviceOfUser, 
+    getAlldevicesActiveApi,
+    getAlldevicesActive,
+    getOneInformationPlantApi,
+    getOneInformationPlant,
+    getOneSolutionApi,
+    getOneSolution,
+    data) => {
+    try {
+        fetch(URL + "api/add-plant-for-device", {
+            method: method.POST,
+            headers: headers,
+            body: JSON.stringify({
+                code: data.code,
+                plantId: data.plantId,
+                startDate: data.startDate,
+            })
+        })
+            .then((response) => response.json())
+            .then((res) => {
+                if(res != null ) {
+                    getAlldevicesActiveApi(dispatch, getAlldevicesActive);
+                    getDetailInformationDeviceApi(dispatch, getDetailInformationDevice, res.deviceId);
+                    getListNotificationApi(dispatch, getListNotification);
+                    getDeviceOfUserAPI(dispatch, getDeviceOfUser);
+                    getOneInformationPlantApi(dispatch, getOneInformationPlant, getOneSolutionApi, getOneSolution, res.plantId);
+                }
             });
     } catch (error) {
     }

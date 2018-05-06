@@ -37,7 +37,7 @@ var style = {
         background: 'linear-gradient(to bottom, #007991, #78ffd6)',
         width: '100%',
         height: 50,
-        zIndex: 99999,
+        zIndex: 90000,
         boxShadow: "1px 1px 1px black",
         // opacity: 0.8,
     },

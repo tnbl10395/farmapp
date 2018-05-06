@@ -7,10 +7,6 @@ export default class PlantComponent extends React.Component {
     constructor(props) {
         super(props);
     }
-    
-    componentDidMount() {
-        this.props.getPlantsOfUser();
-    }
 
     render() {
         return (
@@ -23,6 +19,7 @@ export default class PlantComponent extends React.Component {
                 object={profile.role == "1" ? null : objectPlantAdd}
                 objectUpdate={profile.role == "1" ? null : objectPlantUpdate}
                 openAlert={this.props.openAlert}
+                getOnePlant={this.props.getOnePlant}
             />
         );
     }
