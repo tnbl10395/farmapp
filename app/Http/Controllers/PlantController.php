@@ -131,8 +131,9 @@ class PlantController extends Controller
      * @param  \App\Plant  $plant
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Plant $plant)
+    public function destroy(Request $request)
     {
+        $user = JWTAuth::toUser($request->header('token'));
         $plant = Plant::findOrFail($id);
         $plant->delete();
         return response()->json($plant);
