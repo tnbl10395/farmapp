@@ -875,7 +875,7 @@ class Form extends React.Component {
             isNextPage: false,
             phaseInput: '',
             disabledNext: true,
-            disabledSave: true,
+            disabledSave: false,
             phases: [],
             plantName: '',
             description: '',
@@ -941,6 +941,7 @@ class Form extends React.Component {
             });
         }
         this.setState({
+            disabledSave: true,
             isNextPage: true,
             phases: array,
             plant: {
@@ -960,6 +961,15 @@ class Form extends React.Component {
         var array = this.state.phases;
         if (key == this.state.phases[key - 1].key) {
             array[key - 1].name = phaseName.target.value;
+            if (phaseName.target.value == '') {
+                this.setState({disabledSave: true});
+            }else {
+                this.setState({disabledSave: false});
+                this.checkNull();
+                this.checkGreaterAndLess();
+                this.checkLess0Than();
+                this.checkHumidityLess0Than();
+            }
             this.setState({
                 phases: array,
             })
@@ -979,6 +989,15 @@ class Form extends React.Component {
             this.setState({
                 phases: array
             })
+            if (days.target.value == '') {
+                this.setState({disabledSave: true});
+            }else {
+                this.setState({disabledSave: false});
+                this.checkNull();
+                this.checkGreaterAndLess();
+                this.checkLess0Than();
+                this.checkHumidityLess0Than();
+            }
         }
     }
 
@@ -986,6 +1005,15 @@ class Form extends React.Component {
         var array = this.state.phases;
         if (key == this.state.phases[key - 1].key) {
             array[key - 1].minTemperature = minTemperature.target.value;
+            if (minTemperature.target.value >= array[key - 1].maxTemperature) {
+                this.setState({disabledSave: true});
+            }else {
+                this.setState({disabledSave: false});
+                this.checkNull();
+                this.checkGreaterAndLess();
+                this.checkLess0Than();
+                this.checkHumidityLess0Than();
+            }
             this.setState({
                 phases: array
             })
@@ -996,6 +1024,15 @@ class Form extends React.Component {
         var array = this.state.phases;
         if (key == this.state.phases[key - 1].key) {
             array[key - 1].maxTemperature = maxTemperature.target.value;
+            if (maxTemperature.target.value <= array[key - 1].minTemperature) {
+                this.setState({disabledSave: true});
+            }else {
+                this.setState({disabledSave: false});
+                this.checkNull();
+                this.checkGreaterAndLess();
+                this.checkLess0Than();
+                this.checkHumidityLess0Than();
+            }
             this.setState({
                 phases: array
             })
@@ -1006,6 +1043,15 @@ class Form extends React.Component {
         var array = this.state.phases;
         if (key == this.state.phases[key - 1].key) {
             array[key - 1].minHumidity = minHumidity.target.value;
+            if (minHumidity.target.value >= array[key - 1].maxHumidity) {
+                this.setState({disabledSave: true});
+            }else {
+                this.setState({disabledSave: false});
+                this.checkNull();
+                this.checkGreaterAndLess();
+                this.checkLess0Than();
+                this.checkHumidityLess0Than();
+            }
             this.setState({
                 phases: array
             })
@@ -1016,6 +1062,15 @@ class Form extends React.Component {
         var array = this.state.phases;
         if (key == this.state.phases[key - 1].key) {
             array[key - 1].maxHumidity = maxHumidity.target.value;
+            if (maxHumidity.target.value <= array[key - 1].minHumidity) {
+                this.setState({disabledSave: true});
+            }else {
+                this.setState({disabledSave: false});
+                this.checkNull();
+                this.checkGreaterAndLess();
+                this.checkLess0Than();
+                this.checkHumidityLess0Than();
+            }
             this.setState({
                 phases: array
             })
@@ -1059,6 +1114,41 @@ class Form extends React.Component {
             picture: this.props.plants[event.target.value].picture,
             plantId: this.props.plants[event.target.value].id,
         });
+    }
+
+    checkNull () {
+        for(let i = 0; i < this.state.phaseInput; i++) {
+            if (this.state.phases[i].name == '' || this.state.phases[i].days == '' ||
+                this.state.phases[i].minTemperature == '' || this.state.phases[i].maxTemperature == '' ||
+                this.state.phases[i].minHumidity == '' || this.state.phases[i].maxHumidity == '') {
+                    this.setState({disabledSave: true});
+                }
+        }
+    }
+
+    checkGreaterAndLess () {
+        for(let i = 0; i < this.state.phaseInput; i++) {
+            if (this.state.phases[i].minTemperature >= this.state.phases[i].maxTemperature ||
+                this.state.phases[i].minHumidity >= this.state.phases[i].maxHumidity) {
+                    this.setState({disabledSave: true});
+            }
+        }
+    }
+
+    checkHumidityLess0Than () {
+        for(let i = 0; i < this.state.phaseInput; i++) {
+            if (this.state.phases[i].minHumidity < 0 || this.state.phases[i].maxHumidity < 0) {
+                this.setState({disabledSave: true});
+            }
+        }
+    }
+
+    checkLess0Than () {
+        for(let i = 0; i < this.state.phaseInput; i++) { 
+            if (this.state.phases[i].days < 1) {
+                this.setState({disabledSave: true});
+            }
+        }
     }
 
     render() {
@@ -1200,7 +1290,7 @@ class Form extends React.Component {
                     <div className="col-md-12" style={styleForm.groupBtn}>
                         <hr />
                         {this.state.isChoosingPlant ? <input type="submit" className="btn btn-success pull-right col-md-2" value="Save" style={{ marginRight: 10 }} onClick={this.onSubmitPlant} /> : null}
-                        {this.state.isNextPage && !this.state.isChoosingPlant ? <input type="submit" className="btn btn-success pull-right col-md-2" value="Save" style={{ marginRight: 10 }} onClick={this.onSubmit} /> : null}
+                        {this.state.isNextPage && !this.state.isChoosingPlant ? <input type="submit" className="btn btn-success pull-right col-md-2" value="Save" style={{ marginRight: 10 }} onClick={this.onSubmit} disabled={this.state.disabledSave ? "disabled" : ""}/> : null}
                         {!this.state.isNextPage && !this.state.isChoosingPlant ? <input type="button" className="btn btn-success pull-right col-md-2" value="Next" style={{ marginRight: 10 }} disabled={this.state.disabledNext ? 'disabled' : ''} onClick={() => this.onClickNextPage()} /> : null}
                         {this.state.isNextPage && !this.state.isChoosingPlant ? <input type="button" className="btn btn-default pull-right col-md-2" value="Previous" style={{ marginRight: 10 }} onClick={() => this.onClickPreviousPage()} /> : null}
                         {!this.state.isNextPage && !this.state.isChoosingPlant ? <input type="button" className="btn btn-default pull-right col-md-2" value="Back" style={{ marginRight: 10 }} onClick={() => this.setState({ isChoosingPlant: true })} /> : null}
@@ -1310,6 +1400,8 @@ class Notification extends React.Component {
                                 solution={Object(this.props.notificationList[index]).solution}
                                 message={Object(this.props.notificationList[index]).message}
                                 plantName={Object(this.props.notificationList[index]).plantName}
+                                now={Object(this.props.notificationList[index]).now}
+                                startDate={Object(this.props.notificationList[index]).startDate}
                                 name={element.name}
                                 datetime={Object(this.props.notificationList[index]).datetime} />
                             // if ((Object(this.props.notificationList[index]).solution != null && Object(this.props.notificationList[index]).message == 'OK') || Object(this.props.notificationList[index]).message != 'OK' && Object(this.props.notificationList[index]).message != null) {
@@ -1364,8 +1456,16 @@ class Message extends React.Component {
                         </div>
                         : <div style={styleMessage.bodyAlert}>
                             <h4 style={styleMessage.titleAlert}>{this.props.name} - {this.props.plantName}</h4>
-                            <h4 style={{ fontSize: '16px !important', margin: '2px' }}>{this.props.datetime}</h4>
-                            <span>{this.props.message}</span>
+                            {
+                                this.props.now >= 0 ?
+                                    <div>
+                                        <h4 style={{ fontSize: '16px !important', margin: '2px' }}>{this.props.datetime}</h4>
+                                        <span>{this.props.message}</span>
+                                    </div>
+                                    : <div>
+                                        <span>Your device will be started in <span style={{fontWeight: 'bold'}}>{this.props.startDate}</span></span>
+                                    </div>
+                            }
                         </div>
                 }
             </div>
@@ -1376,27 +1476,28 @@ class Message extends React.Component {
 const styleMessage = {
     bodyAlert: {
         marginTop: 10,
-        padding: '2px 5px 2px 5px',
+        padding: '3px 5px 3px 5px',
         // backgroundColor: '#e7505a',
         border: '2px solid #e7505a',
         color: '#2f353b'
     },
     bodyWarning: {
         marginTop: 10,
-        padding: '2px 5px 2px 5px',
+        padding: '3px 5px 3px 5px',
         // backgroundColor: '#f39c12',
         border: '2px solid #F4D03F',
         color: '#2f353b'
     },
     bodyGood: {
         marginTop: 10,
-        padding: '2px 5px 2px 5px',
+        padding: '3px 5px 3px 5px',
         border: '2px solid #00a65a',
         color: '#2f353b'
     },
     titleAlert: {
         fontSize: '16px !important',
         margin: '0px -3px',
+        paddingLeft: 3,
         backgroundColor: '#e7505a',
         color: 'white',
         // textAlign: 'center'  
@@ -1404,6 +1505,7 @@ const styleMessage = {
     titleWarning: {
         fontSize: '16px !important',
         margin: '0px -3px',
+        paddingLeft: 3,
         backgroundColor: '#F4D03F',
         color: 'white',
         // textAlign: 'center' 
@@ -1411,6 +1513,7 @@ const styleMessage = {
     titleGood: {
         fontSize: '16px !important',
         margin: '0px -3px',
+        paddingLeft: 3,
         backgroundColor: '#00a65a',
         color: 'white',
         // textAlign: 'center' 

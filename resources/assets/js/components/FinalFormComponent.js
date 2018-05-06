@@ -156,32 +156,116 @@ class ItemPhase extends React.Component {
             maxTemperature: this.props.element.maxTemperature,
             minHumidity: this.props.element.minHumidity,
             maxHumidity: this.props.element.maxHumidity,
+            disabled: false,
         }
         this.submitPhase = this.submitPhase.bind(this);
+        // this.checkNull = this.checkNull.bind(this);
+        // this.checkGreaterAndLess =  this.checkGreaterAndLess.bind(this);
+        // this.checkHumidityLess0Than = this.checkHumidityLess0Than.bind(this);
+        // this.checkLess0Than = this.checkLess0Than.bind(this);
     }
 
     onChangePhaseName(name) {
         this.setState({name: name.target.value});
+        if(name.target.value == '') {
+            this.setState({disabled:true})
+        }else {
+            this.setState({disabled:false})
+            this.checkHumidityLess0Than();
+            this.checkNull();
+            this.checkGreaterAndLess();
+            this.checkLess0Than();
+        }
     }
 
     onChangeDays(days) {
         this.setState({days: days.target.value});
+        if(days.target.value == '') {
+            this.setState({disabled:true})
+        }else {
+            this.setState({disabled:false})
+            this.checkHumidityLess0Than();
+            this.checkNull();
+            this.checkGreaterAndLess();
+            this.checkLess0Than();
+        }
     }
 
     onChangeMinTemperature(minTemperature) {
         this.setState({minTemperature: minTemperature.target.value});
+        if (minTemperature.target.value >= this.state.maxTemperature) {
+            this.setState({disabled:true})
+        }else {
+            this.setState({disabled:false})
+            this.checkHumidityLess0Than();
+            this.checkNull();
+            this.checkGreaterAndLess();
+            this.checkLess0Than();
+        }
     }
 
     onChangeMaxTemperature(maxTemperature) {
         this.setState({maxTemperature: maxTemperature.target.value});
+        if (maxTemperature.target.value <= this.state.minTemperature) {
+            this.setState({disabled:true})
+        }else {
+            this.setState({disabled:false})
+            this.checkHumidityLess0Than();
+            this.checkNull();
+            this.checkGreaterAndLess();
+            this.checkLess0Than();
+        }
     }
 
     onChangeMinHumidity(minHumidity) {
         this.setState({minHumidity: minHumidity.target.value});
+        if (minHumidity.target.value >= this.state.maxHumidity) {
+            this.setState({disabled:true})
+        }else {
+            this.setState({disabled:false})
+            this.checkHumidityLess0Than();
+            this.checkNull();
+            this.checkGreaterAndLess();
+            this.checkLess0Than();
+        }
     }
 
     onChangeMaxHumidity(maxHumidity) {
         this.setState({maxHumidity: maxHumidity.target.value});
+        if (maxHumidity.target.value <= this.state.minHumidity) {
+            this.setState({disabled:true});
+        }else {
+            this.setState({disabled:false})
+            this.checkHumidityLess0Than();
+            this.checkNull();
+            this.checkGreaterAndLess();
+            this.checkLess0Than();
+        }
+    }
+
+    checkHumidityLess0Than () {
+        if (this.state.maxHumidity < 0 || this.state.minHumidity < 0) this.setState({disabled:true});
+    }
+
+    checkNull () {
+        if (this.state.name == '' || this.state.days == '' || 
+            this.state.minTemperature == '' || this.state.maxTemperature == '' || 
+            this.state.maxHumidity == '' || this.state.minHumidity == '') {
+                this.setState({disabled: true});
+            }
+    }
+
+    checkGreaterAndLess () {
+        if (this.state.minTemperature >= this.state.maxTemperature || 
+            this.state.minHumidity >= this.state.maxHumidity) {
+                this.setState({disabled: true});
+            }
+    }
+
+    checkLess0Than () {
+        if (this.state.days < 1) {
+            this.setState({disabled: true});
+        }
     }
 
     submitPhase(e) {
@@ -209,7 +293,7 @@ class ItemPhase extends React.Component {
                 </div>
                 <div className="form-group col-md-4">
                     <label className="form-label">Days</label>
-                    <input type="number" className="form-control" min="1" max="10" placeholder="Days" value={this.state.days} required onChange={(days) => this.onChangeDays(days)} />
+                    <input type="number" className="form-control" placeholder="Days" value={this.state.days} required onChange={(days) => this.onChangeDays(days)} />
                 </div>
                 <div className="form-group col-md-3">
                     <label className="form-label">Min Temperature</label>
@@ -228,7 +312,7 @@ class ItemPhase extends React.Component {
                     <input type="number" className="form-control" placeholder="Max Humidity" required value={this.state.maxHumidity} onChange={(maxHumidity) => this.onChangeMaxHumidity(maxHumidity)} />
                 </div>
                 <div className="form-group col-md-12">
-                    <input type="submit" className="btn btn-success col-md-3 pull-right" value="Save" style={{ marginLeft: 10 }} onClick={this.submitPhase} />
+                    <input type="submit" className="btn btn-success col-md-3 pull-right" value="Save" style={{ marginLeft: 10 }} onClick={this.submitPhase} disabled={this.state.disabled ? "disabled" : ""}/>
                     <input type="button" className="btn btn-default col-md-4 pull-right" value="Show Solution" onClick={() => this.props.getOneSolution(this.state.id, this.state.name)} />
                 </div>
             </div>

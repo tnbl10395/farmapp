@@ -55,7 +55,8 @@ import {
     UPDATE_SOLUTION,
     CLOSE_MESSAGE_ALERT,
     CHANGE_PHASE_NAME,
-    ADD_PLANT_FOR_DEVICE
+    ADD_PLANT_FOR_DEVICE,
+    DELETE_PLANT
 } from "./TypeAction";
 //Custom UI
 export const chooseOptionSidebar = (option) => {
@@ -453,5 +454,11 @@ export const changePhaseName = (phaseName) => {
 export const addPlantForDevice = () => {
     return {
         type: ADD_PLANT_FOR_DEVICE
+    }
+}
+
+export const deletePlant = () => {
+    return {
+        type: DELETE_PLANT
     }
 }

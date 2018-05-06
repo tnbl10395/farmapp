@@ -176,7 +176,8 @@ class SolutionsController extends Controller
         $user = JWTAuth::toUser($request->header('token'));
         $now = \Carbon\Carbon::now();
         $datetime = Device::selectRaw('NOW() as datetime')->first();
-
+        $date = Manage::selectRaw('CURDATE() as getDate')->first();
+        //
         if ($user->role == 1){
             $devices = Device::join('manages', 'devices.id', '=', 'manages.deviceId')
             ->where('isActive', '=', 1)
@@ -202,6 +203,10 @@ class SolutionsController extends Controller
         
         if (count($data) == 0) {
             foreach ($devices as $key => $value) {
+                $getNow = Manage::where('deviceId', '=', $value->deviceId)
+                                ->where('isActive', '=', 1)
+                                ->selectRaw('DATEDIFF("'.$date->getDate.'", startDate) as days, startDate')
+                                ->first();
                 $plant = Manage::where('deviceId', '=', $value->deviceId)
                                 ->select('plantId as id', 'startDate')
                                 ->first();
@@ -211,13 +216,19 @@ class SolutionsController extends Controller
                     'deviceName' => $value->nameDevice,
                     'plantName' =>  $plantName->name,
                     'message' => "Your device can't measure. Please check your device again",
-                    'datetime' => $datetime->datetime
+                    'datetime' => $datetime->datetime,
+                    'now' => $getNow->days,
+                    'startDate' => $getNow->startDate
                 ];
                 array_push($sendData, $res);
             }
         }else {
             $object = [];
             foreach ($devices as $key => $device) {
+                $getNow = Manage::where('deviceId', '=', $device->deviceId)
+                                ->where('isActive', '=', 1)
+                                ->selectRaw('DATEDIFF("'.$date->getDate.'", startDate) as days, startDate')
+                                ->first();
                 $plant = Manage::where('deviceId', '=', $device->deviceId)
                                 ->select('plantId as id', 'startDate')
                                 ->first();
@@ -232,7 +243,9 @@ class SolutionsController extends Controller
                         'deviceName' => $device->nameDevice,
                         'plantName' =>  $plantName->name,
                         'message' => "Your device can't measure. Please check your device again",
-                        'datetime' => $datetime->datetime
+                        'datetime' => $datetime->datetime,
+                        'now' => $getNow->days,
+                        'startDate' => $getNow->startDate
                     ];
                     array_push($sendData, $res);
                 }else {
@@ -261,7 +274,9 @@ class SolutionsController extends Controller
                                 'phase' => $phases[$j],
                                 'datetime' => $datetime->datetime,
                                 'plantName' => $plantName->name,
-                                'deviceName' => $deviceName->name
+                                'deviceName' => $deviceName->name,
+                                'now' => $getNow->days,
+                                'startDate' => $getNow->startDate
                             ];
                             break;
                         }
