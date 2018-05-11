@@ -82,6 +82,12 @@ Route::group(['middleware' => 'jwt.auth'], function () {
     //Location 
     Route::get('location/{id}', 'LocationsController@show');
 
+    //Sensor 
+    Route::get('sensors', 'SensorController@index'); 
+    Route::get('sensors/{id}', 'SensorController@show'); 
+    Route::post('senosrs', 'SensorController@store');
+    Route::post('senosrs/{id}', 'SensorController@update');
+    Route::delete('senosrs/{id}', 'SensorController@store');
     //important 
     Route::get('list-location', 'LocationsController@index');
     Route::get('get-detail-device/{deviceId}', 'ManagesController@getDetailInformationDevices');
@@ -89,7 +95,6 @@ Route::group(['middleware' => 'jwt.auth'], function () {
     Route::get('notification/{deviceId}', 'SolutionsController@notificationSolution');
     Route::get('list-notification', 'SolutionsController@getListNotifications');
     Route::get('list-device-active', 'ManagesController@getListDeviceActive');
-    Route::get('sensors', 'SensorController@index'); 
     Route::get('list-plant-active', 'PlantController@getListPlant');
     Route::post('add-plant-for-device', 'ManagesController@addPlantForDevice');
 });

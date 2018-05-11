@@ -81,6 +81,7 @@ const initialState = {
     dashboardTotalPhases: null,
     dashboardPicture: null,
     dashboardNow: null,
+    dashboardAreaName: null,
     //dashboard_notification
     notificationList: [],
     notificationMessage: null,
@@ -699,7 +700,8 @@ const Reducer = (state = initialState, action) => {
                 dashboardEndDate: action.loadData.endDate,
                 dashboardTotalPhases: action.loadData.totalPhases,
                 dashboardPicture: action.loadData.picture,
-                dashboardNow: action.loadData.now
+                dashboardNow: action.loadData.now,
+                dashboardAreaName: action.loadData.areaName
             }
         case GET_NOTIFICATION:
             if (action.loadData.message == 'OK') {

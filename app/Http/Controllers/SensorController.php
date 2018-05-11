@@ -58,7 +58,15 @@ class SensorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $sensor = new Sensor();
+        $sensor->name = $request->name;
+        $sensor->picture = $request->picture;
+        $sensor->tech_specification = $request->tech_specification;
+        $sensor->deviceId = $request->deviceId;
+        $sensor->manufacturing_date = $request->manufacturing_date;
+        $sensor->code = $request->code;
+        $sensor->save();
+        return response()->json(true);
     }
 
     /**
@@ -69,7 +77,8 @@ class SensorController extends Controller
      */
     public function show(Sensor $sensor)
     {
-        //
+        $sensor = Sensor::findOrFail($id);
+        return response()->json($sensor);
     }
 
     /**
@@ -80,7 +89,7 @@ class SensorController extends Controller
      */
     public function edit(Sensor $sensor)
     {
-        //
+        
     }
 
     /**
@@ -90,9 +99,17 @@ class SensorController extends Controller
      * @param  \App\Sensor  $sensor
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Sensor $sensor)
+    public function update(Request $request, $id)
     {
-        //
+        $sensor = Sensor::findOrFail($id);
+        $sensor->name = $request->name;
+        $sensor->picture = $request->picture;
+        $sensor->tech_specification = $request->tech_specification;
+        $sensor->deviceId = $request->deviceId;
+        $sensor->manufacturing_date = $request->manufacturing_date;
+        $sensor->code = $request->code;
+        $sensor->save();
+        return response()->json(true);
     }
 
     /**
@@ -103,6 +120,8 @@ class SensorController extends Controller
      */
     public function destroy(Sensor $sensor)
     {
-        //
+        $sensor = Sensor::findOrFail($id);
+        $sensor->delete();
+        return response()->json(true);
     }
 }

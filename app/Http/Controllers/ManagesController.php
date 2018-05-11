@@ -30,7 +30,7 @@ class ManagesController extends Controller
             return response()->json($manages);
         }else{
             $manages = Manage::join('devices','manages.deviceId','=','devices.id')
-            ->where('userId',$user->id)
+            ->where('manages.userId',$user->id)
             ->select('manages.deviceId as id','devices.name', 'manages.isActive', 'devices.code')
             ->orderBy('id')
             ->get();
@@ -225,7 +225,7 @@ class ManagesController extends Controller
         if($user->role == '1'){
             $plantId = Manage::where('deviceId', '=', $deviceId)
                             ->where('isActive', '=', 1)
-                            ->select('plantId as id', 'startDate', 'endDate')
+                            ->select('plantId as id', 'startDate', 'endDate', 'name')
                             ->first();
             $plant = Plant::where('id', '=', $plantId->id)
                             ->select('id', 'name', 'description')
@@ -262,14 +262,15 @@ class ManagesController extends Controller
                 'startDate' => $plantId->startDate,
                 'endDate' => $plantId->endDate,
                 'picture' => $picturePlant->picture,
-                'now' => $now->days
+                'now' => $now->days,
+                'areaName' => $plantId->name
             ];
             return response()->json($data);
         }else {
             $plantId = Manage::where('deviceId', '=', $deviceId)
                             ->where('isActive', '=', 1)
                             ->where('userId', '=', $user->id)
-                            ->select('plantId as id', 'startDate', 'endDate')
+                            ->select('plantId as id', 'startDate', 'endDate', 'name')
                             ->first();
             $plant = Plant::where('id', '=', $plantId->id)
                             ->select('id', 'name', 'description')
@@ -306,7 +307,8 @@ class ManagesController extends Controller
                 'startDate' => $plantId->startDate,
                 'endDate' => $plantId->endDate,
                 'picture' => $picturePlant->picture,
-                'now' => $now->days
+                'now' => $now->days,
+                'areaName' => $plantId->name
             ];
             return response()->json($data);
         }
@@ -324,7 +326,7 @@ class ManagesController extends Controller
             return response()->json($manages);
         }else{
             $manages = Manage::join('devices','manages.deviceId','=','devices.id')
-            ->where('userId',$user->id)
+            ->where('manages.userId',$user->id)
             ->where('manages.isActive', '1')
             ->select('manages.deviceId as id','devices.name', 'manages.isActive', 'devices.code')
             ->orderBy('id')

@@ -185,7 +185,7 @@ class SolutionsController extends Controller
             ->get();
         }else {
             $devices = Device::join('manages', 'devices.id', '=', 'manages.deviceId')
-            ->where('userId', '=', $user->id)
+            ->where('manages.userId', '=', $user->id)
             ->where('isActive', '=', 1)
             ->select('devices.id as deviceId', 'devices.name as nameDevice', 'devices.code as codeDevice')
             ->get();

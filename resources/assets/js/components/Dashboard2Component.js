@@ -6,8 +6,11 @@ var Datetime = require('react-datetime');
 import { MapWithAMarker } from '../templates/Map';
 import { LineChartComponent } from '../templates/Chart';
 import Loader from '../templates/Loader';
+import {Timeline, TimelineEvent} from 'react-event-timeline'
 
 BigCalendar.setLocalizer(BigCalendar.momentLocalizer(moment))
+
+var p = null;
 
 export default class Dashboard2Component extends React.Component {
     constructor(props) {
@@ -106,7 +109,8 @@ export default class Dashboard2Component extends React.Component {
                             endDate={this.props.dashboardEndDate}
                             totalPhases={this.props.dashboardTotalPhases}
                             picture={this.props.dashboardPicture}
-                            now={this.props.dashboardNow} />
+                            now={this.props.dashboardNow} 
+                            areaName={this.props.dashboardAreaName}/>
                     </div>
                     <div className="col-md-3" style={style.main}>
                         <Notification plant={this.props.dashboardPlant}
@@ -260,7 +264,7 @@ const styleBlock = {
     },
     content: {
         overflow: 'auto',
-        height: '91%',
+        height: '89%',
     },
     icon: {
         cursor: 'pointer',
@@ -593,47 +597,55 @@ class Main extends React.Component {
                     </div>
                 </div>
                 <div className="col-md-12 text-uppercase text-center">
-                    <label className="form-label" style={{ marginTop: 10, marginBottom: 0, fontSize: 18, color: '#32c5d2' }}>{Object(this.props.dashboardDevice).name}</label>
+                    <label className="form-label" style={{ marginTop: 10, marginBottom: 0, fontSize: 18, color: '#32c5d2' }}>{this.props.areaName}</label>
                 </div>
-                <div className="col-md-12" style={styleMain.contentIntro}>
-                    <div className="col-md-7">
-                        {
-                            this.props.picture == null ? <img src="images/leaf.jpg" style={styleMain.image} /> : <img src={this.props.picture} style={styleMain.image} />
-                        }
+                <div style={{ overflow: 'auto', width: '100%', height: '80%'}}>
+                    <div className="col-md-12" style={styleMain.contentIntro}>
+                        <div className="col-md-7">
+                            {
+                                this.props.picture == null ? <img src="images/leaf.jpg" style={styleMain.image} /> : <img src={this.props.picture} style={styleMain.image} />
+                            }
+                        </div>
+                        <div className="col-md-5" style={styleMain.intro}>
+                            <div style={styleMain.textIntro}>
+                                <label className="form-label text-weight-bold">Device: </label><span> {Object(this.props.dashboardDevice).name}</span>
+                            </div>
+                            <div style={styleMain.textIntro}>
+                                <label className="form-label text-weight-bold">Plant: </label><span> {Object(this.props.plant).name}</span>
+                            </div>
+                            <div style={styleMain.textIntro}>
+                                <label className="form-label text-weight-bold">Start Date: </label><span> {this.props.startDate}</span>
+                            </div>
+                            <div style={styleMain.textIntro}>
+                                <label className="form-label text-weight-bold">End Date: </label><span> {this.props.endDate}</span>
+                            </div>
+                            <div style={styleMain.textIntro}>
+                                <label className="form-label text-weight-bold">Total Phases: </label><span> {this.props.totalPhases}</span>
+                            </div>
+                            <div style={styleMain.textIntro}>
+                                <label className="form-label text-weight-bold">Total days of Plant: </label><span> {this.props.totalDayOfPlant} {this.props.totalDayOfPlant == 1 ? "day": "days"}</span>
+                            </div>
+                            <div style={styleMain.textIntro}>
+                                <label className="form-label text-weight-bold">Total days in current: </label><span> {this.props.now > 0 ? this.props.now : 0} {this.props.now == 1 ? "day": "days"}</span>
+                            </div>
+                        </div>
                     </div>
-                    <div className="col-md-5" style={styleMain.intro}>
-                        <div style={styleMain.textIntro}>
-                            <label className="form-label text-weight-bold">Plant: </label><span> {Object(this.props.plant).name}</span>
-                        </div>
-                        <div style={styleMain.textIntro}>
-                            <label className="form-label text-weight-bold">Start Date: </label><span> {this.props.startDate}</span>
-                        </div>
-                        <div style={styleMain.textIntro}>
-                            <label className="form-label text-weight-bold">End Date: </label><span> {this.props.endDate}</span>
-                        </div>
-                        <div style={styleMain.textIntro}>
-                            <label className="form-label text-weight-bold">Total Phases: </label><span> {this.props.totalPhases}</span>
-                        </div>
-                        <div style={styleMain.textIntro}>
-                            <label className="form-label text-weight-bold">Total days of Plant: </label><span> {this.props.totalDayOfPlant}</span>
-                        </div>
+                    <div className="col-md-12" style={{ borderBottom: '1px solid #eef1f5' }}>
+                        <label className="form-label" style={{ marginTop: 10, marginBottom: 0 }}><i className="fa fa-info-circle" style={{ paddingRight: 5 }}></i>Progress</label>
+                        <TimeLines phases={this.props.phases}
+                            totalDaysOfPhase={this.props.totalDaysOfPhase}
+                            now={this.props.now} 
+                            startDate={this.props.startDate}/>
                     </div>
-                </div>
-                <div className="col-md-12" style={{ borderBottom: '1px solid #eef1f5' }}>
-                    <label className="form-label" style={{ marginTop: 10, marginBottom: 0 }}><i className="fa fa-info-circle" style={{ paddingRight: 5 }}></i>Progress</label>
-                    <TimeLines phases={this.props.phases}
-                        totalDaysOfPhase={this.props.totalDaysOfPhase}
-                        now={this.props.now} 
-                        startDate={this.props.startDate}/>
-                </div>
-                <div className="col-md-12" style={{ paddingTop: 10, paddingLeft: 5, paddingRight: 5, paddingBottom: 5 }}>
-                    <label className="form-label" style={{ marginTop: 10, marginBottom: 20, marginLeft: 10 }}><i className="fa fa-line-chart" style={{ paddingRight: 5 }}></i>Real-time Chart</label>
-                    <ChartComponent humidity={this.props.humidity}
-                        temperature={this.props.temperature}
-                        intervalTime={this.props.intervalTime}
-                        interval={this.props.interval}
-                        getRealDataOnChart={this.props.getRealDataOnChart}
-                        device={Object(this.props.dashboardDevice).id} />
+                    <div className="col-md-12" style={{ paddingTop: 10, paddingLeft: 5, paddingRight: 5, paddingBottom: 5 }}>
+                        <label className="form-label" style={{ marginTop: 10, marginBottom: 20, marginLeft: 10 }}><i className="fa fa-line-chart" style={{ paddingRight: 5 }}></i>Real-time Chart</label>
+                        <ChartComponent humidity={this.props.humidity}
+                            temperature={this.props.temperature}
+                            intervalTime={this.props.intervalTime}
+                            interval={this.props.interval}
+                            getRealDataOnChart={this.props.getRealDataOnChart}
+                            device={Object(this.props.dashboardDevice).id} />
+                    </div>
                 </div>
             </div>
 
@@ -648,7 +660,6 @@ const styleMain = {
         width: '100%',
         height: '100%',
         border: '1px solid #e7ecf1',
-        overflow: 'auto'
     },
     image: {
         objectFit: 'cover',
@@ -688,9 +699,10 @@ class TimeLines extends React.Component {
     render() {
         if (this.props.now >= 0) var positionMarker = (this.props.now / this.props.totalDaysOfPhase * 100) + 9;
         else var positionMarker = 1;
+        var day = 0;
         return (
             <div className="body">
-                <style dangerouslySetInnerHTML={{
+                {/* <style dangerouslySetInnerHTML={{
                     __html: [
                         'ol {',
                         // '  position: absolute;',
@@ -797,14 +809,13 @@ class TimeLines extends React.Component {
                         '}'
                     ].join('\n')
                 }}>
-                </style>
-                <ol>
+                </style> */}
+                {/* <ol>
                     <i className="fa fa-map-marker" style={{ color: '#2f353b', position: 'absolute', top: '62px', fontSize: '35px', left: positionMarker + '%' }}></i>
                     {
                         this.props.phases.map((element, index) => {
                             var width = element.days / this.props.totalDaysOfPhase * 100;
                             return <li style={{ width: width + '%' }} key={element.id}>
-                                {/* <p className="diplome">{"Phase "+(index+1)}</p> */}
                                 <div className="point"></div>
                                 <div className="description">
                                     <p><span>Phase:</span> {Object(element).name}</p>
@@ -815,9 +826,46 @@ class TimeLines extends React.Component {
                             </li>
                         })
                     }
-                </ol>
+                </ol> */}
+                <Timeline>
+                        {/* <TimelineEvent // iconStyle={{ marginTop: height + "%" }}
+                            bubbleStyle={{ backgroundColor: 'white', border: '1px solid gray', marginTop: positionMarker + "%", zIndex: 1 }}
+                            style={{ zIndex: 4 }}
+                            icon={<i style={{ color: 'gray'  }}>Now</i>}></TimelineEvent> */}
+                    {
+                        this.props.phases.map((element, index) => {
+                            var height = element.days / this.props.totalDaysOfPhase * 100;
+                            p = day;
+                            day = day + Object(element).days;
+                            let value = checkCurrentPhase(index, day, this.props.now, Object(element).days);
+                            return <TimelineEvent key={index} title={Object(element).name}
+                                                // createdAt="2016-09-12 10:06 PM"
+                                                // iconStyle={{ marginTop: height + "%" }}
+                                                contentStyle={!value ? { fontSize: '16px' } : { fontSize: '16px', fontWeight: 'bold', color: 'gray', border: '2px solid rgb(50, 197, 210)' }}
+                                                bubbleStyle={!value ? { backgroundColor: 'white' } : { backgroundColor: 'white',  border: '2px solid rgb(50, 197, 210)' }}
+                                                titleStyle={!value ? { fontSize: '18px', fontWeight: 'bold' } : { fontSize: '18px', fontWeight: 'bold', color: 'rgb(50, 197, 210)' }}
+                                                style={{backgroundColor: 'white'}}
+                                                icon={<i className="fa fa-leaf" style={!value ? { color: 'rgb(111, 186, 28)' } : {color: 'rgb(50, 197, 210)'}}></i>}
+                                    >
+                                        <p><span>Days:</span> {Object(element).days}</p>
+                                        <p><span>Fit Humidity:</span> {Object(element).minHumidity}-{Object(element).maxHumidity} (%)</p>
+                                        <p><span>Fit Temperature:</span> {Object(element).minTemperature}-{Object(element).maxTemperature} (°C)</p>
+                                    </TimelineEvent>
+                        })
+                    }
+                </Timeline>
             </div >
         );
+    }
+}
+
+const checkCurrentPhase = (index, day, now, dayPhase) => {
+    if (index == 0) {
+        if (now < dayPhase) return true;
+        else return false;
+    }else {
+        if (p < now && now < day) return true;
+        else return false;
     }
 }
 
@@ -1427,7 +1475,7 @@ const styleInfo = {
         border: '1px solid #e7ecf1',
     },
     messageBox: {
-        height: '91%',
+        height: '89%',
         overflow: 'auto'
     },
     contentBox: {

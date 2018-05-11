@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+const profile = JSON.parse(sessionStorage.getItem('profile'));
+
 export default class FinalFormComponent extends React.Component {
     constructor(props) {
         super(props);
@@ -72,7 +74,7 @@ export default class FinalFormComponent extends React.Component {
                         : null
                 }
                 <div style={style.title}>
-                    <h3 className="text-center text-uppercase" style={{ fontWeight: '900' }}>Edit Information of Plant: {this.state.titlePlantName}</h3>
+                    <h3 className="text-center text-uppercase" style={{ fontWeight: '900' }}>{profile.role == "1"? null : "Edit" } Information of Plant: {this.state.titlePlantName}</h3>
                 </div>
                 <div style={style.closeBtn} onClick={() => this.onClose()}><i className="fa fa-remove"></i></div>
                 {
@@ -111,7 +113,7 @@ export default class FinalFormComponent extends React.Component {
                                 rows="5"
                                 onChange={(description) => this.onChangeDescription(description)} />
                             <div className="form-group" style={{ marginTop: 10 }}>
-                                <input type="submit" className="btn btn-success col-md-3 pull-right" value="Save" onClick={this.submitPlant} />
+                                {profile.role == "p" ? <input type="submit" className="btn btn-success col-md-3 pull-right" value="Save" onClick={this.submitPlant} /> : null}
                             </div>
                         </div>
                     </div>
@@ -312,7 +314,7 @@ class ItemPhase extends React.Component {
                     <input type="number" className="form-control" placeholder="Max Humidity" required value={this.state.maxHumidity} onChange={(maxHumidity) => this.onChangeMaxHumidity(maxHumidity)} />
                 </div>
                 <div className="form-group col-md-12">
-                    <input type="submit" className="btn btn-success col-md-3 pull-right" value="Save" style={{ marginLeft: 10 }} onClick={this.submitPhase} disabled={this.state.disabled ? "disabled" : ""}/>
+                    {profile.role == "0" ? <input type="submit" className="btn btn-success col-md-3 pull-right" value="Save" style={{ marginLeft: 10 }} onClick={this.submitPhase} disabled={this.state.disabled ? "disabled" : ""}/> : null}
                     <input type="button" className="btn btn-default col-md-4 pull-right" value="Show Solution" onClick={() => this.props.getOneSolution(this.state.id, this.state.name)} />
                 </div>
             </div>
@@ -376,7 +378,7 @@ class ItemSolution extends React.Component {
                         onChange={(solution) => this.onChangeDescription(solution)} />
                 </div>
                 <div className="form-group col-md-12">
-                    <input type="submit" className="btn btn-success col-md-2 pull-right" value="Save" onClick={this.submitSolution} />
+                    {profile.role == "1" ? null : <input type="submit" className="btn btn-success col-md-2 pull-right" value="Save" onClick={this.submitSolution} />}
                 </div>
             </div>
         );
