@@ -833,3 +833,76 @@ export const addPlantForDeviceApi = (
     } catch (error) {
     }
 }
+
+export const addSensorApi = (dispatch, data, addSensor, getListSensorsApi, getListSensors) => {
+    try {
+        fetch(URL + "api/sensors", {
+            method: method.POST,
+            headers: headers,
+            body: JSON.stringify({
+                deviceId: data.deviceId,
+                code: data.code,
+                name: data.name,
+                date: data.date,
+                picture: data.picture,
+                spec: data.spec,
+                madeIn: data.madeIn
+            })
+        })
+            .then((response) => response.json())
+            .then((res) => {
+                if(res) {
+                    dispatch(addSensor(true));
+                    getListSensorsApi(dispatch, getListSensors);
+                }else {
+                    dispatch(addSensor(false));
+                }
+            });
+    } catch (error) {
+    }
+}
+
+export const deleteSensorAPI = (dispatch, deleteSensor, id, getListSensorsApi, getListSensors) => {
+    try {
+        fetch(URL + "api/sensors/" + id, {
+            method: method.DELETE,
+            headers: headers
+        })
+            .then((response) => response.json())
+            .then((res) => {
+                if (res) {
+                    dispatch(deleteSensor());
+                    getListSensorsApi(dispatch, getListSensors);
+                }
+            })
+    } catch (error) {
+    }
+}
+
+export const updateSensorApi = (dispatch, data, updateSensor, getListSensorsApi, getListSensors) => {
+    try {
+        fetch(URL + "api/sensors/" + data.id, {
+            method: method.POST,
+            headers: headers,
+            body: JSON.stringify({
+                deviceId: data.deviceId,
+                code: data.code,
+                name: data.name,
+                date: data.date,
+                picture: data.picture,
+                spec: data.spec,
+                madeIn: data.madeIn
+            })
+        })
+            .then((response) => response.json())
+            .then((res) => {
+                if(res) {
+                    dispatch(updateSensor(true));
+                    getListSensorsApi(dispatch, getListSensors);
+                }else {
+                    dispatch(updateSensor(false));
+                }
+            });
+    } catch (error) {
+    }
+}

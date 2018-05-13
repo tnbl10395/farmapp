@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+var Datetime = require('react-datetime');
+import moment from 'moment';
 
 export class AddSensorComponent extends React.Component {
     constructor(props) {
@@ -8,11 +10,14 @@ export class AddSensorComponent extends React.Component {
             name: '',
             code: '',
             spec: '',
-            date: '',
+            date: new Date(),
             madeIn: '',
+            disabled: true
         }
+        this.onSubmit = this.onSubmit.bind(this);
+        this.onFileChange = this.onFileChange.bind(this);
     }
-    
+
     onFileChange(e, file) {
         var file = file || e.target.files[0],
         pattern = /image-*/,
@@ -22,13 +27,10 @@ export class AddSensorComponent extends React.Component {
             alert('Format invalid');
             return;
         }
-        
-        // this.setState({ loaded: false });
-        
+
         reader.onload = (e) => {
             this.setState({ 
                 picture: reader.result, 
-                // loaded: true 
             }); 
         }
         
@@ -36,33 +38,70 @@ export class AddSensorComponent extends React.Component {
     }
 
     onChangeName(name) {
-        this.setState({
-            name: name.target.value,
-        });
+        this.setState({name: name.target.value});   
+        if (name.target.value == '') {
+            this.setState({
+                disabled: true
+            });   
+        }else {
+            this.setState({
+                disabled: false
+            });
+            this.checkNull();
+        }
     }
 
     onChangeCode(code) {
-        this.setState({
-            code: code.target.value,
-        });
+        this.setState({code: code.target.value});   
+        if (code.target.value == '') {
+            this.setState({
+                disabled: true
+            });   
+        }else {
+            this.setState({
+                disabled: false
+            });
+            this.checkNull();
+        }
     }
 
     onChangeSpec(spec) {
         this.setState({
             spec: spec.target.value,
         });
+        this.checkNull();
     }
 
     onChangeDate(date) {
         this.setState({
-            date: date.target.value,
-        });
+            date: date._d
+        })
+        this.checkNull();
     }
 
     onChangeMadeIn(madeIn) {
-        this.setState({
-            madeIn: madeIn.target.value,
-        });
+        this.setState({madeIn: madeIn.target.value});   
+        if (madeIn.target.value == '') {
+            this.setState({
+                disabled: true
+            });   
+        }else {
+            this.setState({
+                disabled: false
+            });
+            this.checkNull();
+        }
+    }
+
+    checkNull() {
+        if (this.state.name == '' || this.state.code == '' || this.state.madeIn == '') {
+            this.setState({disabled: true});
+        }
+    }
+
+    onSubmit(e) {
+        e.preventDefault();
+        this.props.onSubmitSensor(this.props.object.id, this.state.name, this.state.spec, this.state.date, this.state.madeIn, this.state.picture, this.state.code);
     }
 
     render() {
@@ -72,7 +111,7 @@ export class AddSensorComponent extends React.Component {
                     this.props.messageSuccess ?
                         <div className="alert alert-success alert-dismissible fade in">
                             <a href="#" onClick={() => this.props.closeMessage()} className="close" data-dismiss="alert" aria-label="close">&times;</a>
-                            <strong>Success!</strong> The new user has just created!
+                            <strong>Success!</strong> The new sensor has just created!
                             </div>
                         : null
                 }
@@ -101,6 +140,7 @@ export class AddSensorComponent extends React.Component {
                                         required
                                         className="form-control"
                                         placeholder="Please input name"
+                                        value={this.state.name}
                                         onChange={(name) => this.onChangeName(name)} />
                                 </div>
                                 <div className="form-group col-md-6">
@@ -109,6 +149,7 @@ export class AddSensorComponent extends React.Component {
                                         required
                                         className="form-control"
                                         placeholder="Please input code"
+                                        value={this.state.code}
                                         onChange={(code) => this.onChangeCode(code)} />
                                 </div>
                                 <div className="form-group col-md-6">
@@ -117,15 +158,17 @@ export class AddSensorComponent extends React.Component {
                                         required
                                         className="form-control"
                                         placeholder="Please input where sensor is made"
+                                        value={this.state.madeIn}
                                         onChange={(madeIn) => this.onChangeMadeIn(madeIn)} />
                                 </div>
                                 <div className="form-group col-md-6">
                                     <label>Manufacturing Date</label>
-                                    <input type="text"
-                                        required
-                                        className="form-control"
-                                        placeholder="Please input manufacturing date"
-                                        onChange={(date) => this.onChangeDate(date)} />
+                                    <Datetime
+                                        timeFormat={false}
+                                        isValidDate={valid}
+                                        value={this.state.date}
+                                        onChange={(date) => this.onChangeDate(date)}
+                                    />
                                 </div>
                                 <div className="form-group col-md-12">
                                     <label>Technical Specification</label>
@@ -133,13 +176,15 @@ export class AddSensorComponent extends React.Component {
                                         required
                                         className="form-control"
                                         placeholder="Please input specification"
+                                        value={this.state.spec}
+                                        rows="3"
                                         onChange={(spec) => this. onChangeSpec(spec)} />
                                 </div>
                             </div>
                         </div>
                     <div className="col-md-12" style={styleForm.groupBtn}>
                         <hr />
-                        <input type="submit" className="btn btn-success pull-right col-md-2" value="Save" style={{ marginRight: 10 }} onClick={this.onSubmit} />
+                        <input type="submit" className="btn btn-success pull-right col-md-2" value="Save" style={{ marginRight: 10 }} disabled={this.state.disabled ? "disabled" : null} onClick={this.onSubmit} />
                         <input type="button" className="btn btn-default pull-right col-md-2" value="Cancel" style={{ marginRight: 10 }} onClick={() => this.props.closeModal()} />
                     </div>
                 </form>
@@ -147,6 +192,11 @@ export class AddSensorComponent extends React.Component {
         );
     }
 }
+
+var today = Datetime.moment();
+var valid = function (current) {
+    return current.isBefore(today);
+};
 
 const styleForm = {
     body: {

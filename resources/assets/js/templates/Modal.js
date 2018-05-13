@@ -7,6 +7,7 @@ import AddUser from '../containers/AddUserContainer';
 import AddPlant from '../containers/AddPlantContainer';
 import ActionSolution from '../containers/ActionSolutionContainer';
 import AddSensor from '../containers/AddSensorContainer';
+import UpdateSensor from '../containers/UpdateSensorContainer';
 
 export default class Modal extends React.Component {
     constructor(props) {
@@ -56,7 +57,7 @@ const bodyModal = (object) => {
         case 'ADD SENSOR':
             return <AddSensor object={object}/>;
         case 'UPDATE SENSOR':
-            return <AddSensor object={object}/>;
+            return <UpdateSensor object={object}/>;
     }
 }
 

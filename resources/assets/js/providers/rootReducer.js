@@ -52,7 +52,10 @@ import {
     CLOSE_MESSAGE_ALERT,
     UPDATE_SOLUTION,
     UPDATE_PHASE,
-    CHANGE_PHASE_NAME
+    CHANGE_PHASE_NAME,
+    ADD_SENSOR,
+    DELETE_SENSOR,
+    UPDATE_SENSOR
 } from "../actions/TypeAction";
 
 const initialState = {
@@ -823,6 +826,36 @@ const Reducer = (state = initialState, action) => {
             return {
                 ...state,
                 phaseName: action.phaseName
+            }
+        case ADD_SENSOR: 
+            if (action.message) {
+                return {
+                    ...state,
+                    message_success: true
+                }
+            }else {
+                return {
+                    ...state,
+                    message_fail: true
+                }
+            }
+        case DELETE_SENSOR:
+            return {
+                ...state,
+                alert: false,
+                id_delete: '',
+            }
+        case UPDATE_SENSOR: 
+            if (action.message) {
+                return {
+                    ...state,
+                    message_success: true
+                }
+            }else {
+                return {
+                    ...state,
+                    message_fail: true
+                }
             }
         default:
             return {

@@ -38,6 +38,8 @@ const bodyAlert = (title, closeAlert, id, del) => {
             return deleteUser(closeAlert, id, del, title);
         case 'DELETE_DATA':
             return deleteUser(closeAlert, id, del, title);
+        case 'DELETE_SENSOR':
+            return deleteSensor(closeAlert, id, del, title);
     }
 };
 
@@ -75,6 +77,20 @@ const deleteData = (closeAlert, id, del, title) => (
         <div style={{textAlign: 'center'}}>
             <i className="fa fa-exclamation-triangle" style={style.icon}/>
             <h3>Are you sure you want to delete this data?</h3>
+        </div>
+        <hr />
+        <div className="row">
+            <button onClick={() => closeAlert()} className="btn btn-default col-xs-5 col-sm-5 col-md-3 col-xs-offset-1 col-sm-offset-1 col-md-offset-5" style={{ marginRight: 5 }}>Cancel</button>
+            <button onClick={() => del(title, id)} className="btn btn-success col-xs-5 col-sm-5 col-md-3">Yes</button>
+        </div>
+    </div>
+);
+
+const deleteSensor = (closeAlert, id, del, title) => (
+    <div>
+        <div style={{textAlign: 'center'}}>
+            <i className="fa fa-exclamation-triangle" style={style.icon}/>
+            <h3>Are you sure you want to delete this sensor?</h3>
         </div>
         <hr />
         <div className="row">

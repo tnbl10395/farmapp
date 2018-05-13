@@ -217,65 +217,67 @@ class ItemDevice extends React.Component {
 
     render() {
         return (
-            <div style={style.item} onClick={this.onClickToShowDetail.bind(this)} className="col-xs-12 col-sm-12 col-md-12 item">
-                <div className="col-xs-1 col-sm-1 col-md-1">
-                    <i className="fa fa-gears" style={style.picture} />
-                </div>
-                <div className="col-xs-2 col-sm-2 col-md-2" style={style.text}><h5 style={{fontWeight: 'bold'}}>{this.props.element.name}</h5></div>
-                <div className={profile.role == "1" ? "col-xs-2 col-sm-2 col-md-2": "col-xs-3 col-sm-3 col-md-3"}>
-                    <h6>Code</h6>
-                    {this.props.element.code}
-                </div>
-                <div className={profile.role == "1" ? "col-xs-2 col-sm-2 col-md-2": "col-xs-3 col-sm-3 col-md-3"}>
-                    <h6>Manufacturing Date</h6>
-                    {this.props.element.manufacturing_date}
-                </div>
-                <div className="col-xs-2 col-sm-2 col-md-2">
+            <div style={style.item} className="col-xs-12 col-sm-12 col-md-12 item">
+                <div onClick={this.onClickToShowDetail.bind(this)} style={{ cursor: 'pointer' }}>
+                    <div className="col-xs-1 col-sm-1 col-md-1">
+                        <i className="fa fa-gears" style={style.picture} />
+                    </div>
+                    <div className="col-xs-2 col-sm-2 col-md-2" style={style.text}><h5 style={{fontWeight: 'bold'}}>{this.props.element.name}</h5></div>
+                    <div className={profile.role == "1" ? "col-xs-2 col-sm-2 col-md-2": "col-xs-3 col-sm-3 col-md-3"}>
+                        <h6>Code</h6>
+                        {this.props.element.code}
+                    </div>
+                    <div className={profile.role == "1" ? "col-xs-2 col-sm-2 col-md-2": "col-xs-3 col-sm-3 col-md-3"}>
+                        <h6>Manufacturing Date</h6>
+                        {this.props.element.manufacturing_date}
+                    </div>
+                    <div className="col-xs-2 col-sm-2 col-md-2">
+                        {
+                            this.props.element.isActive == 1 ?
+                                <div className="col-md-8 label label-success" style={style.status}>Active</div>
+                                :
+                                <div className="col-md-8 label label-primary" style={style.status}>Inactive</div>
+                        }
+                    </div>
                     {
-                        this.props.element.isActive == 1 ?
-                            <div className="col-md-8 label label-success" style={style.status}>Active</div>
+                        profile.role == "0" ?
+                            null
                             :
-                            <div className="col-md-8 label label-primary" style={style.status}>Inactive</div>
+                            <div className="col-xs-2 col-sm-2 col-md-2">
+                                {
+                                    this.props.element.status == 1 ?
+                                        <div>
+                                            <h6>Owner</h6>
+                                            {this.props.element.username}
+                                        </div>
+                                        :
+                                        <div>
+                                            <h6>No owner</h6>
+                                        </div>
+                                }
+                            </div>
                     }
-                </div>
-                {
-                    profile.role == "0" ?
-                        null
-                        :
-                        <div className="col-xs-2 col-sm-2 col-md-2">
-                            {
-                                this.props.element.status == 1 ?
-                                    <div>
-                                        <h6>Owner</h6>
-                                        {this.props.element.username}
-                                    </div>
-                                    :
-                                    <div>
-                                        <h6>No owner</h6>
-                                    </div>
-                            }
-                        </div>
-                }
-                <div className="col-xs-1 col-sm-1 col-md-1" style={style.button}>
-                    {profile.role == '0' ? null : <a onClick={() => this.props.openModal(this.props.object, this.props.element)} style={style.edit} className="fa fa-edit"></a>}
-                    <a onClick={() => this.props.openAlert('DELETE_DEVICE', this.props.element.id)} style={style.delete} className="fa fa-remove"></a>
+                    <div className="col-xs-1 col-sm-1 col-md-1" style={style.button}>
+                        {profile.role == '0' ? null : <a onClick={() => this.props.openModal(this.props.object, this.props.element)} style={style.edit} className="fa fa-edit"></a>}
+                        <a onClick={() => this.props.openAlert('DELETE_DEVICE', this.props.element.id)} style={style.delete} className="fa fa-remove"></a>
+                    </div>
                 </div>
                 {this.state.isDetail ? 
                     <div className="col-md-12">
                         <hr/>
                         <h5>Sensors in {this.props.element.name}</h5>
-                        {this.props.listSensors != null && profile.role == "1" ? <button className="btn btn-success col-md-offset-11" onClick={() => this.props.openModal(objectSensorAdd, null)}>New One</button> : null}
+                        {this.props.listSensors != null && profile.role == "1" ? <button className="btn btn-success col-md-offset-11" onClick={() => this.props.openModal({title:'ADD SENSOR', id: this.props.element.id}, null)}>New One</button> : null}
                         <div className="row" style={{padding: 0, overflowX: 'auto', whiteSpace: 'nowrap'}}>
                             {
                                 this.props.listSensors != null ?
                                 this.props.listSensors.map((element, index) => {
                                     return <div key={index}  className="col-md-4" style={{padding: 0, float: 'none', display: 'inline-block'}}>
-                                        <ItemSensor element={element}/>
+                                        <ItemSensor element={element} openAlert={this.props.openAlert} deviceId={this.props.element.id} openModal={this.props.openModal}/>
                                     </div>
                                 })
                                 : <div className="text-center" style={{border: '1px solid gray', marginBottom: 3}}>
                                     <h5>This device doesn't have information about sensors</h5>
-                                    {profile.role == "1" ? <button className="btn btn-success" style={{ marginBottom: 20 }} onClick={() => this.props.openModal(objectSensorAdd, null)}>New One</button> : null}
+                                    {profile.role == "1" ? <button className="btn btn-success" style={{ marginBottom: 20 }} onClick={() => this.props.openModal({title:'ADD SENSOR', id: this.props.element.id}, null)}>New One</button> : null}
                                 </div>
                             }
                         </div>
@@ -287,22 +289,6 @@ class ItemDevice extends React.Component {
     }
 }
 
-var objectSensorAdd = {
-    title: "ADD SENSOR",
-    property: [
-        { name: "Name", placeholder: 'Please input name' },
-        { name: "Description", placeholder: 'Please input description' },
-    ]
-};
-
-var objectSensorUpdate = {
-    title: "UPDATE SENSOR",
-    property: [
-        { name: "Name", placeholder: 'Please input name' },
-        { name: "Description", placeholder: 'Please input description' },
-    ]
-};
-
 class ItemSensor extends React.Component {
     constructor(props) {
         super(props);
@@ -310,10 +296,16 @@ class ItemSensor extends React.Component {
 
     render() {
         return (
-            <div style={styleItemSensor.body} onClick={()=> alert('ok')}>
-                <img src={'data:image/png;base64,' + this.props.element.picture} className="col-md-5" style={styleItemSensor.image}/>
+            <div style={styleItemSensor.body}>
+                {this.props.element.picture != null ?
+                    <img src={this.props.element.picture} className="col-md-5" style={styleItemSensor.image}/>
+                    :<img src="images/cogs.png" className="col-md-5" style={styleItemSensor.image}/>
+                } 
                 <div className="col-md-7" style={{ padding:0 }}>
-                    <div className="col-md-12">{profile == "1" ? <a className="pull-right">x</a> : null}</div>
+                    <div className="col-md-12" style={{ padding:0 }}>
+                        <div>{profile.role == "1" ? <a className="pull-right" style={{ cursor: 'pointer' }} onClick={()=> this.props.openAlert('DELETE_SENSOR', this.props.element.id)}><i className="fa fa-remove"></i></a> : null}</div>
+                        <div>{profile.role == "1" ? <a className="pull-right" style={{ cursor: 'pointer', marginRight: 5 }} onClick={() => this.props.openModal({title:'UPDATE SENSOR', element: this.props.element}, null)}><i className="fa fa-pencil-square-o"></i></a> : null}</div>
+                    </div>
                     <div className="col-md-12">
                         <span style={{ fontWeight: 'bold'}}>Name: </span> {this.props.element.sensorName}
                     </div>
@@ -511,7 +503,6 @@ const style = {
         border: '1px solid gray',
         borderRadius: 5,
         margin: 2,
-        cursor: 'pointer'
     },
     filter: {
         backgroundColor: '#ecf0f5',

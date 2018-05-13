@@ -85,9 +85,9 @@ Route::group(['middleware' => 'jwt.auth'], function () {
     //Sensor 
     Route::get('sensors', 'SensorController@index'); 
     Route::get('sensors/{id}', 'SensorController@show'); 
-    Route::post('senosrs', 'SensorController@store');
-    Route::post('senosrs/{id}', 'SensorController@update');
-    Route::delete('senosrs/{id}', 'SensorController@store');
+    Route::post('sensors', 'SensorController@store');
+    Route::post('sensors/{id}', 'SensorController@update');
+    Route::delete('sensors/{id}', 'SensorController@destroy');
     //important 
     Route::get('list-location', 'LocationsController@index');
     Route::get('get-detail-device/{deviceId}', 'ManagesController@getDetailInformationDevices');

@@ -56,7 +56,10 @@ import {
     CLOSE_MESSAGE_ALERT,
     CHANGE_PHASE_NAME,
     ADD_PLANT_FOR_DEVICE,
-    DELETE_PLANT
+    DELETE_PLANT,
+    ADD_SENSOR,
+    DELETE_SENSOR,
+    UPDATE_SENSOR
 } from "./TypeAction";
 //Custom UI
 export const chooseOptionSidebar = (option) => {
@@ -460,5 +463,25 @@ export const addPlantForDevice = () => {
 export const deletePlant = () => {
     return {
         type: DELETE_PLANT
+    }
+}
+
+export const addSensor = (message) => {
+    return {
+        type: ADD_SENSOR,
+        message
+    }
+}
+
+export const deleteSensor = () => {
+    return {
+        type: DELETE_SENSOR,
+    }
+}
+
+export const updateSensor = (message) => {
+    return {
+        type: UPDATE_SENSOR,
+        message
     }
 }

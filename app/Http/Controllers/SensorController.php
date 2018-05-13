@@ -21,7 +21,7 @@ class SensorController extends Controller
             $sensors = Sensor::join('devices', 'sensors.deviceId', '=', 'devices.id')
                              ->selectRaw('sensors.id, devices.name as deviceName, sensors.deviceId, sensors.name as sensorName,
                                         sensors.tech_specification as specification, sensors.madeIn, 
-                                        sensors.manufacturing_date, sensors.code, TO_BASE64(sensors.picture) as picture')
+                                        sensors.manufacturing_date, sensors.code, picture')
                              ->orderBy('sensors.id', 'asc')
                              ->get()->groupBy('deviceId');
             return response()->json($sensors);
@@ -33,7 +33,7 @@ class SensorController extends Controller
                              ->whereIn('deviceId',$devices)
                              ->selectRaw('sensors.id, devices.name as deviceName, sensors.name as sensorName, sensors.deviceId,
                                         sensors.tech_specification as specification, sensors.madeIn, 
-                                        sensors.manufacturing_date, sensors.code, TO_BASE64(sensors.picture) as picture')
+                                        sensors.manufacturing_date, sensors.code, picture')
                              ->orderBy('sensors.id', 'asc')
                              ->get()->groupBy('deviceId');
             return response()->json($sensors);
@@ -61,10 +61,11 @@ class SensorController extends Controller
         $sensor = new Sensor();
         $sensor->name = $request->name;
         $sensor->picture = $request->picture;
-        $sensor->tech_specification = $request->tech_specification;
+        $sensor->tech_specification = $request->spec;
         $sensor->deviceId = $request->deviceId;
-        $sensor->manufacturing_date = $request->manufacturing_date;
+        $sensor->manufacturing_date = \Carbon\Carbon::parse($request->date);
         $sensor->code = $request->code;
+        $sensor->madeIn = $request->madeIn;
         $sensor->save();
         return response()->json(true);
     }
@@ -104,10 +105,10 @@ class SensorController extends Controller
         $sensor = Sensor::findOrFail($id);
         $sensor->name = $request->name;
         $sensor->picture = $request->picture;
-        $sensor->tech_specification = $request->tech_specification;
-        $sensor->deviceId = $request->deviceId;
-        $sensor->manufacturing_date = $request->manufacturing_date;
+        $sensor->tech_specification = $request->spec;
+        $sensor->manufacturing_date = \Carbon\Carbon::parse($request->date);
         $sensor->code = $request->code;
+        $sensor->madeIn = $request->madeIn;
         $sensor->save();
         return response()->json(true);
     }
@@ -118,7 +119,7 @@ class SensorController extends Controller
      * @param  \App\Sensor  $sensor
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Sensor $sensor)
+    public function destroy($id)
     {
         $sensor = Sensor::findOrFail($id);
         $sensor->delete();
