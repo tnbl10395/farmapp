@@ -1,4 +1,4 @@
-import { updateDevice } from "../actions/Action";
+// import { updateDevice } from "../actions/Action";
 
 // export const URL = "http://116.110.0.66:3000/";
 export const URL = "http://localhost:3000/";
@@ -901,6 +901,82 @@ export const updateSensorApi = (dispatch, data, updateSensor, getListSensorsApi,
                     getListSensorsApi(dispatch, getListSensors);
                 }else {
                     dispatch(updateSensor(false));
+                }
+            });
+    } catch (error) {
+    }
+}
+
+export const getListAreaApi = (dispatch, getListArea) => {
+    try {
+        fetch(URL + "api/areas", {
+            method: method.GET,
+            headers: headers,
+        })
+            .then((response) => response.json())
+            .then((res) => {
+                dispatch( getListArea(res) );
+            });
+    } catch (error) {
+    }
+}
+
+export const getListDeviceNoActiveApi = (dispatch, getListDeviceNoActive) => {
+    try {
+        fetch(URL + "api/get-devices-no-active", {
+            method: method.GET,
+            headers: headers,
+        })
+            .then((response) => response.json())
+            .then((res) => {
+                dispatch( getListDeviceNoActive(res) );
+            });
+    } catch (error) {
+    }
+}
+
+export const addAreaApi = (dispatch, data, addArea, getListAreaApi, getListArea, getListDeviceNoActiveApi, getListDeviceNoActive) => {
+    try {
+        fetch(URL + "api/areas", {
+            method: method.POST,
+            headers: headers,
+            body: JSON.stringify({
+                deviceId: data.deviceId,
+                name: data.name,
+            })
+        })
+            .then((response) => response.json())
+            .then((res) => {
+                if(res) {
+                    dispatch(addArea(true));
+                    getListAreaApi(dispatch, getListArea);
+                    getListDeviceNoActiveApi(dispatch, getListDeviceNoActive);
+                }else {
+                    dispatch(addArea(false));
+                }
+            });
+    } catch (error) {
+    }
+}
+
+export const updateAreaApi = (dispatch, data, updateArea, getListAreaApi, getListArea, getListDeviceNoActiveApi, getListDeviceNoActive) => {
+    try {
+        fetch(URL + "api/areas/" + data.id, {
+            method: method.POST,
+            headers: headers,
+            body: JSON.stringify({
+                deviceId: data.deviceId,
+                name: data.name,
+            })
+        })
+            .then((response) => response.json())
+            .then((res) => {
+                if(res) {
+                    dispatch(updateArea(true));
+                    getListAreaApi(dispatch, getListArea);
+                    getListDeviceNoActiveApi(dispatch, getListDeviceNoActive);
+                }else {
+                    dispatch(updateArea(false));
                 }
             });
     } catch (error) {

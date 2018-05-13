@@ -88,6 +88,14 @@ Route::group(['middleware' => 'jwt.auth'], function () {
     Route::post('sensors', 'SensorController@store');
     Route::post('sensors/{id}', 'SensorController@update');
     Route::delete('sensors/{id}', 'SensorController@destroy');
+
+    //Area 
+    Route::get('areas', 'ManagesController@getAllArea'); 
+    Route::get('areas/{id}', 'ManagesController@getOneArea'); 
+    Route::post('areas', 'ManagesController@storeOneArea');
+    Route::post('areas/{id}', 'ManagesController@updateOneArea');
+    Route::delete('areas/{id}', 'ManagesController@deleteOneArea');
+
     //important 
     Route::get('list-location', 'LocationsController@index');
     Route::get('get-detail-device/{deviceId}', 'ManagesController@getDetailInformationDevices');
@@ -97,6 +105,7 @@ Route::group(['middleware' => 'jwt.auth'], function () {
     Route::get('list-device-active', 'ManagesController@getListDeviceActive');
     Route::get('list-plant-active', 'PlantController@getListPlant');
     Route::post('add-plant-for-device', 'ManagesController@addPlantForDevice');
+    Route::get('get-devices-no-active', 'DevicesController@getListDevicesNoActive');
 });
 Route::group(['middleware' => 'key'], function () {
     Route::get('send-data', 'DataController@store');

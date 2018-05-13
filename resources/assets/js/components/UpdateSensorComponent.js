@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 var Datetime = require('react-datetime');
 import moment from 'moment';
 
+const profile = JSON.parse(sessionStorage.getItem('profile'));
+
 export class UpdateSensorComponent extends React.Component {
     constructor(props) {
         super(props);
@@ -113,7 +115,7 @@ export class UpdateSensorComponent extends React.Component {
                     this.props.messageSuccess ?
                         <div className="alert alert-success alert-dismissible fade in">
                             <a href="#" onClick={() => this.props.closeMessage()} className="close" data-dismiss="alert" aria-label="close">&times;</a>
-                            <strong>Success!</strong> The new sensor has just created!
+                            <strong>Success!</strong> The new sensor has just updated!
                             </div>
                         : null
                 }
@@ -143,6 +145,7 @@ export class UpdateSensorComponent extends React.Component {
                                         className="form-control"
                                         placeholder="Please input name"
                                         value={this.state.name}
+                                        disabled={profile.role == '0' ? 'disabled' : ''}
                                         onChange={(name) => this.onChangeName(name)} />
                                 </div>
                                 <div className="form-group col-md-6">
@@ -152,6 +155,7 @@ export class UpdateSensorComponent extends React.Component {
                                         className="form-control"
                                         placeholder="Please input code"
                                         value={this.state.code}
+                                        disabled={profile.role == '0' ? 'disabled' : ''}
                                         onChange={(code) => this.onChangeCode(code)} />
                                 </div>
                                 <div className="form-group col-md-6">
@@ -161,16 +165,26 @@ export class UpdateSensorComponent extends React.Component {
                                         className="form-control"
                                         placeholder="Please input where sensor is made"
                                         value={this.state.madeIn}
+                                        disabled={profile.role == '0' ? 'disabled' : ''}
                                         onChange={(madeIn) => this.onChangeMadeIn(madeIn)} />
                                 </div>
                                 <div className="form-group col-md-6">
                                     <label>Manufacturing Date</label>
-                                    <Datetime
-                                        timeFormat={false}
-                                        isValidDate={valid}
-                                        value={this.state.date}
-                                        onChange={(date) => this.onChangeDate(date)}
-                                    />
+                                    {
+                                        profile.role == '1'
+                                            ?   <Datetime
+                                                    timeFormat={false}
+                                                    isValidDate={valid}
+                                                    value={this.state.date}
+                                                    onChange={(date) => this.onChangeDate(date)}
+                                                />
+                                            :    <input type="text"
+                                                    required
+                                                    className="form-control"
+                                                    value={this.state.date}
+                                                    disabled='disabled'
+                                                    onChange={(madeIn) => this.onChangeDate(madeIn)} />
+                                    }
                                 </div>
                                 <div className="form-group col-md-12">
                                     <label>Technical Specification</label>
@@ -180,15 +194,24 @@ export class UpdateSensorComponent extends React.Component {
                                         placeholder="Please input specification"
                                         value={this.state.spec}
                                         rows="3"
+                                        disabled={profile.role == '0' ? 'disabled' : ''}
                                         onChange={(spec) => this. onChangeSpec(spec)} />
                                 </div>
                             </div>
                         </div>
-                    <div className="col-md-12" style={styleForm.groupBtn}>
-                        <hr />
-                        <input type="submit" className="btn btn-success pull-right col-md-2" value="Save" style={{ marginRight: 10 }} disabled={this.state.disabled ? "disabled" : null} onClick={this.onSubmit} />
-                        <input type="button" className="btn btn-default pull-right col-md-2" value="Cancel" style={{ marginRight: 10 }} onClick={() => this.props.closeModal()} />
-                    </div>
+                        {
+                            profile.role == '1'
+                                ?    <div className="col-md-12" style={styleForm.groupBtn}>
+                                        <hr />
+                                        <input type="submit" className="btn btn-success pull-right col-md-2" value="Save" style={{ marginRight: 10 }} disabled={this.state.disabled ? "disabled" : null} onClick={this.onSubmit} />
+                                        <input type="button" className="btn btn-default pull-right col-md-2" value="Cancel" style={{ marginRight: 10 }} onClick={() => this.props.closeModal()} />
+                                    </div>
+                                :  <div className="col-md-12" style={styleForm.groupBtn}>
+                                        <hr />
+                                        <input type="button" className="btn btn-default pull-right col-md-2" value="Cancel" style={{ marginRight: 10 }} onClick={() => this.props.closeModal()} />
+                                    </div>
+                        }
+
                 </form>
             </div>
         );

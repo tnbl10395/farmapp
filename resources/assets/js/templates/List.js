@@ -177,6 +177,8 @@ const renderTable = (name, currentData, openAlert, openModal, object, listSensor
                             openModal={openModal}
                             object={object} 
                             getOnePlant={getOnePlant}/>
+        case 'Area':
+            return area(currentData, openAlert, openModal);
     }
 }
 // Device-------------------------------------------------------------------------------------------------------------------------
@@ -305,6 +307,7 @@ class ItemSensor extends React.Component {
                     <div className="col-md-12" style={{ padding:0 }}>
                         <div>{profile.role == "1" ? <a className="pull-right" style={{ cursor: 'pointer' }} onClick={()=> this.props.openAlert('DELETE_SENSOR', this.props.element.id)}><i className="fa fa-remove"></i></a> : null}</div>
                         <div>{profile.role == "1" ? <a className="pull-right" style={{ cursor: 'pointer', marginRight: 5 }} onClick={() => this.props.openModal({title:'UPDATE SENSOR', element: this.props.element}, null)}><i className="fa fa-pencil-square-o"></i></a> : null}</div>
+                        <div>{profile.role == "0" ? <a className="pull-right" style={{ cursor: 'pointer', marginRight: 5 }} onClick={() => this.props.openModal({title:'UPDATE SENSOR', element: this.props.element}, null)}><i className="fa fa-info"></i></a> : null}</div>                        
                     </div>
                     <div className="col-md-12">
                         <span style={{ fontWeight: 'bold'}}>Name: </span> {this.props.element.sensorName}
@@ -390,6 +393,41 @@ const data = (currentData, openAlert) => (
             </div>
             <div className="col-xs-1 col-sm-1 col-md-1" style={style.button}>
                 <a onClick={() => openAlert('DELETE_DATA', element.id)} style={style.delete} className="fa fa-remove"></a>
+            </div>
+        </div>
+    )
+)
+// Area-------------------------------------------------------------------------------------------------------------------------
+const area = (currentData, openAlert, openModal) => (
+    currentData.map((element, index) =>
+        <div key={index} style={style.item} className="col-xs-12 col-sm-12 col-md-12 item">
+            <div className="col-xs-1 col-sm-1 col-md-1" style={{ display: 'flex', alignItems: 'center', height: 60 }}>
+                <img src="/images/farm.png" style={style.avatar} />
+            </div>
+            <div className="col-xs-2 col-sm-2 col-md-2" style={stylePlant.totalPhase}>
+                <strong>Area Name: </strong>{element.name}
+
+            </div>
+            <div className="col-xs-2 col-sm-2 col-md-2" style={stylePlant.totalPhase}>
+                <strong>Device Name: </strong>{element.deviceName}
+            </div>
+            <div className="col-xs-2 col-sm-2 col-md-2" style={stylePlant.totalPhase}>
+                <strong>Plant Name: </strong>{element.plantName}
+            </div>
+            <div className="col-xs-2 col-sm-2 col-md-2" style={stylePlant.totalPhase}>
+                <strong>Season start: </strong>{element.startDate}
+            </div>
+            <div className="col-xs-2 col-sm-2 col-md-2">
+                {
+                    element.isActive == 1 ?
+                        <div className="col-md-8 label label-success" style={style.status}>Active</div>
+                        :
+                        <div className="col-md-8 label label-primary" style={style.status}>Inactive</div>
+                }
+            </div>
+            <div className="col-xs-1 col-sm-1 col-md-1" style={style.button}>
+                <a onClick={() => openModal({title: 'UPDATE AREA', object: element}, null)} style={style.edit} className="fa fa-edit"></a>
+                <a onClick={() => openAlert('DELETE_AREA', element.id)} style={style.delete} className="fa fa-remove"></a>
             </div>
         </div>
     )

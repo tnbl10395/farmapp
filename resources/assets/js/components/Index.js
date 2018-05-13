@@ -20,6 +20,7 @@ export default class Index extends Component {
         this.props.getDevicesOfUser();
         this.props.getPlantsOfUser();
         this.props.getAllDevicesActive();
+        this.props.getListDeviceNoActive();
     }
 
     render() {

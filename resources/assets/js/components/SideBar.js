@@ -40,18 +40,29 @@ export default class SideBar extends React.Component {
                             />
                             : null
                     }
-                    <Element icon={'fa fa-cogs'}
-                             name={"Device"}
-                             choose={this.props.admin_device_component}
-                             chooseOption={this.props.chooseOption}
-                             link={"device"}
-                             sideBar={this.props.sideBar}
-                    />
                     <Element icon={'fa fa-database'}
                              name={"Data"}
                              choose={this.props.admin_data_component}
                              chooseOption={this.props.chooseOption}
                              link={"data"}
+                             sideBar={this.props.sideBar}
+                    />
+                    {/* {
+                        this.props.profile.role == "0" ?
+                            <Element icon={'fa fa-th-large'}
+                                     name={"Area"}
+                                     choose={this.props.admin_area_component}
+                                     chooseOption={this.props.chooseOption}
+                                     link={"area"}
+                                     sideBar={this.props.sideBar}
+                            />
+                            : null
+                    } */}
+                    <Element icon={'fa fa-cogs'}
+                             name={"Device"}
+                             choose={this.props.admin_device_component}
+                             chooseOption={this.props.chooseOption}
+                             link={"device"}
                              sideBar={this.props.sideBar}
                     />
                     <Element icon={'fa fa-pagelines'}

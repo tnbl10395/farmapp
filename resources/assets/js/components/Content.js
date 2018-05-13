@@ -5,6 +5,7 @@ import Devices from '../containers/DevicesContainer';
 import User from '../containers/UserContainer';
 import Data from '../containers/DataContainer';
 import Plant from '../containers/PlantContainer';
+import Area from '../containers/AreaContainer';
 import { HashRouter } from 'react-router-dom';
 import List from '../templates/List';
 
@@ -34,6 +35,7 @@ export default class Content extends React.Component {
                         }
                         <Route exact path="/data" component={Data} />
                         <Route exact path="/plant" component={Plant} />
+                        {/* <Route exact path="/area" component={Area} /> */}
                     </Switch>
                 </div>
             </div>

@@ -9,7 +9,7 @@ import Loader from '../templates/Loader';
 import {Timeline, TimelineEvent} from 'react-event-timeline'
 
 BigCalendar.setLocalizer(BigCalendar.momentLocalizer(moment))
-
+const profile = JSON.parse(sessionStorage.getItem('profile'));
 var p = null;
 
 export default class Dashboard2Component extends React.Component {
@@ -386,7 +386,8 @@ class Device extends React.Component {
                             </div>
                         </div>
                 }
-                {this.props.element.name}
+                {/* <h6>{this.props.element.areaName} </h6> */}
+                <h6>{this.props.element.name} </h6>
             </div>
         );
     }
@@ -550,7 +551,8 @@ class NoDevice extends React.Component {
                         <h5>No data</h5>
                     </div>
                 </div>
-                {this.props.element.name}
+                {/* <h6>{this.props.element.areaName} </h6> */}
+                <h6>{this.props.element.name} </h6>
             </div>
         );
     }
@@ -572,6 +574,7 @@ const styleNoDevice = {
         // backgroundColor: '#00a65a' 
     },
     inside: {
+        display: 'inline-block',
         position: 'absolute',
         top: '30%',
         left: 0,
@@ -597,7 +600,7 @@ class Main extends React.Component {
                     </div>
                 </div>
                 <div className="col-md-12 text-uppercase text-center">
-                    <label className="form-label" style={{ marginTop: 10, marginBottom: 0, fontSize: 18, color: '#32c5d2' }}>{this.props.areaName}</label>
+                    <label className="form-label" style={{ marginTop: 10, marginBottom: 0, fontSize: 18, color: '#32c5d2' }}>{profile.role=="1" ? Object(this.props.dashboardDevice).name : this.props.areaName}</label>
                 </div>
                 <div style={{ overflow: 'auto', width: '100%', height: '80%'}}>
                     <div className="col-md-12" style={styleMain.contentIntro}>
@@ -607,9 +610,13 @@ class Main extends React.Component {
                             }
                         </div>
                         <div className="col-md-5" style={styleMain.intro}>
-                            <div style={styleMain.textIntro}>
-                                <label className="form-label text-weight-bold">Device: </label><span> {Object(this.props.dashboardDevice).name}</span>
-                            </div>
+                            {
+                                profile.role == '1' ?
+                                    null 
+                                    : <div style={styleMain.textIntro}>
+                                        <label className="form-label text-weight-bold">Device: </label><span> {Object(this.props.dashboardDevice).name}</span>
+                                    </div>
+                            }
                             <div style={styleMain.textIntro}>
                                 <label className="form-label text-weight-bold">Plant: </label><span> {Object(this.props.plant).name}</span>
                             </div>

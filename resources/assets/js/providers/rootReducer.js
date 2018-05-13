@@ -55,7 +55,11 @@ import {
     CHANGE_PHASE_NAME,
     ADD_SENSOR,
     DELETE_SENSOR,
-    UPDATE_SENSOR
+    UPDATE_SENSOR,
+    GET_LIST_AREA,
+    GET_LIST_DEVICE_NO_ACTIVE,
+    ADD_AREA,
+    UPDATE_AREA
 } from "../actions/TypeAction";
 
 const initialState = {
@@ -104,6 +108,7 @@ const initialState = {
     admin_user_component: false,
     admin_data_component: false,
     admin_plant_component: false,
+    admin_area_component: false,
     sideBar: true,
     //plant
     plantsOfUser: [],
@@ -116,6 +121,9 @@ const initialState = {
     phaseIdOfSolution: '',
     //sensors
     listSensors: [],
+    //area
+    listArea: [],
+    listDeviceNoActive: [],
     //
     data_devices: [],
     data_values: [],
@@ -299,6 +307,7 @@ const Reducer = (state = initialState, action) => {
                         admin_user_component: false,
                         admin_data_component: false,
                         admin_plant_component: false,
+                        admin_area_component: false,
                     }
                 case "device":
                     return {
@@ -309,6 +318,7 @@ const Reducer = (state = initialState, action) => {
                         admin_user_component: false,
                         admin_data_component: false,
                         admin_plant_component: false,
+                        admin_area_component: false,
                     }
                 case "user":
                     return {
@@ -319,6 +329,7 @@ const Reducer = (state = initialState, action) => {
                         admin_user_component: true,
                         admin_data_component: false,
                         admin_plant_component: false,
+                        admin_area_component: false,
                     }
                 case "data":
                     return {
@@ -329,6 +340,7 @@ const Reducer = (state = initialState, action) => {
                         admin_user_component: false,
                         admin_data_component: true,
                         admin_plant_component: false,
+                        admin_area_component: false,
                     }
                 case "plant":
                     return {
@@ -339,6 +351,18 @@ const Reducer = (state = initialState, action) => {
                         admin_user_component: false,
                         admin_data_component: false,
                         admin_plant_component: true,
+                        admin_area_component: false,
+                    }
+                case "area":
+                    return {
+                        ...state,
+                        breadcrumb: 'Area',
+                        admin_dashboard_component: false,
+                        admin_device_component: false,
+                        admin_user_component: false,
+                        admin_data_component: false,
+                        admin_plant_component: false,
+                        admin_area_component: true,
                     }
                 default:
                     return {
@@ -846,6 +870,40 @@ const Reducer = (state = initialState, action) => {
                 id_delete: '',
             }
         case UPDATE_SENSOR: 
+            if (action.message) {
+                return {
+                    ...state,
+                    message_success: true
+                }
+            }else {
+                return {
+                    ...state,
+                    message_fail: true
+                }
+            }
+        case GET_LIST_AREA:
+            return {
+                ...state,
+                listArea: action.loadData
+            }
+        case GET_LIST_DEVICE_NO_ACTIVE:
+            return {
+                ...state,
+                listDeviceNoActive: action.loadData
+            }
+        case ADD_AREA: 
+            if (action.message) {
+                return {
+                    ...state,
+                    message_success: true
+                }
+            }else {
+                return {
+                    ...state,
+                    message_fail: true
+                }
+            }
+        case UPDATE_AREA: 
             if (action.message) {
                 return {
                     ...state,

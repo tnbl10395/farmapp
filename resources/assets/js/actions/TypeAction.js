@@ -74,3 +74,7 @@ export const DELETE_PLANT = 'DELETE_PLANT';
 export const ADD_SENSOR = 'ADD_SENSOR';
 export const DELETE_SENSOR = 'DELETE_SENSOR';
 export const UPDATE_SENSOR = 'UPDATE_SENSOR';
+export const GET_LIST_AREA = 'GET_LIST_AREA';
+export const GET_LIST_DEVICE_NO_ACTIVE = 'GET_LIST_DEVICE_NO_ACTIVE';
+export const ADD_AREA = 'ADD_AREA';
+export const UPDATE_AREA = 'UPDATE_AREA';
