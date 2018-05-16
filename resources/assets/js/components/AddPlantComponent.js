@@ -166,8 +166,8 @@ export class AddPlantComponent extends React.Component {
 
     onSubmit(e) {
         e.preventDefault();
-        // this.props.submit(this.props.code, this.state.plant, this.state.startDate, this.state.phases);
-        // this.props.closeModal();
+        this.props.submit(this.props.code, this.state.plant, this.state.startDate, this.state.phases);
+        this.props.closeModal();
     }
 
     render() {

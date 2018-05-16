@@ -115,7 +115,7 @@ export default class FinalFormComponent extends React.Component {
                                 disabled={profile.role == "1" ? 'disabled' : ''}
                                 onChange={(description) => this.onChangeDescription(description)} />
                             <div className="form-group" style={{ marginTop: 10 }}>
-                                {profile.role == "p" ? <input type="submit" className="btn btn-success col-md-3 pull-right" value="Save" onClick={this.submitPlant} /> : null}
+                                {profile.role == "0" ? <input type="submit" className="btn btn-success col-md-3 pull-right" value="Save" onClick={this.submitPlant} /> : null}
                             </div>
                         </div>
                     </div>

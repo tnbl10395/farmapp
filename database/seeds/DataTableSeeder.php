@@ -11,7 +11,7 @@ class DataTableSeeder extends Seeder
      */
     public function run()
     {
-        $dt = \Carbon\Carbon::now();
+        $dt = \Carbon\Carbon::now()->addHours(11);
         // for ($i= 1; $i <= 1000; $i++) {
         //     DB::table('data')->insert(
         //         [
@@ -28,12 +28,12 @@ class DataTableSeeder extends Seeder
         //     ); 
         //     $dt = $dt->subMinute();
         // }
-        for ($i= 1; $i <= 4320; $i++) {
+        for ($i= 1; $i <= 2000; $i++) {
             DB::table('data')->insert(
                 [
                     [
                         // 'id' => $i,
-                        'deviceId' => 2,
+                        'deviceId' => 1,
                         'humidity' => rand(50,60),
                         'temperature' => rand(27,32),
                         'status' => '1',

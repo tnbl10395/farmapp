@@ -241,7 +241,15 @@ class Block extends React.Component {
                     {
                         this.props.showDevicesByMap
                             ? <MapWithAMarker
-                                array={[{ latitude: 16.054690, longitude: 108.231540 }, { latitude: 16.053115, longitude: 108.210358 }]}
+                                array={[
+                                    { latitude: 16.054690, longitude: 108.231540 },
+                                    { latitude: 16.053115, longitude: 108.210358 },
+                                    { latitude: 16.0680745, longitude: 108.1500851 },
+                                    { latitude: 16.0655872, longitude: 108.1524857 },
+                                    { latitude: 16.0658141, longitude: 108.1523283 },
+                                    { latitude: 16.071411, longitude: 108.1171094 },
+                                    { latitude: 16.0784203, longitude: 108.1173669 },
+                                ]}
                                 googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyC_aFLX1tVABBgvwYQ1mZzr3ApJVU5_YwA&v=3.exp&libraries=geometry,drawing,places"
                                 loadingElement={<div style={{ height: `100%` }} />}
                                 containerElement={<div style={{ height: `100%` }} />}
@@ -253,6 +261,16 @@ class Block extends React.Component {
         );
     }
 }
+
+const array = [
+    { latitude: 16.054690, longitude: 108.231540 },
+    { latitude: 16.053115, longitude: 108.210358 },
+    { latitude: 16.0680745, longitude: 108.1500851 },
+    { latitude: 16.0655872, longitude: 108.1524857 },
+    { latitude: 16.0658141, longitude: 108.1523283 },
+    { latitude: 16.071411, longitude: 108.1171094 },
+    { latitude: 16.0784203, longitude: 108.1173669 },
+]
 
 const styleBlock = {
     body: {
