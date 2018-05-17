@@ -30,8 +30,8 @@ class ManagesController extends Controller
             return response()->json($manages);
         }else{
             $manages = Manage::join('devices','manages.deviceId','=','devices.id')
-            ->where('userId',$user->id)
-            ->select('manages.deviceId as id','devices.name', 'manages.isActive', 'devices.code')
+            ->where('manages.userId',$user->id)
+            ->select('manages.deviceId as id','devices.name', 'manages.isActive', 'devices.code', 'manages.name as areaName')
             ->orderBy('id')
             ->get();
             return response()->json($manages);
@@ -225,7 +225,7 @@ class ManagesController extends Controller
         if($user->role == '1'){
             $plantId = Manage::where('deviceId', '=', $deviceId)
                             ->where('isActive', '=', 1)
-                            ->select('plantId as id', 'startDate', 'endDate')
+                            ->select('plantId as id', 'startDate', 'endDate', 'name')
                             ->first();
             $plant = Plant::where('id', '=', $plantId->id)
                             ->select('id', 'name', 'description')
@@ -262,14 +262,15 @@ class ManagesController extends Controller
                 'startDate' => $plantId->startDate,
                 'endDate' => $plantId->endDate,
                 'picture' => $picturePlant->picture,
-                'now' => $now->days
+                'now' => $now->days,
+                'areaName' => $plantId->name
             ];
             return response()->json($data);
         }else {
             $plantId = Manage::where('deviceId', '=', $deviceId)
                             ->where('isActive', '=', 1)
                             ->where('userId', '=', $user->id)
-                            ->select('plantId as id', 'startDate', 'endDate')
+                            ->select('plantId as id', 'startDate', 'endDate', 'name')
                             ->first();
             $plant = Plant::where('id', '=', $plantId->id)
                             ->select('id', 'name', 'description')
@@ -306,7 +307,8 @@ class ManagesController extends Controller
                 'startDate' => $plantId->startDate,
                 'endDate' => $plantId->endDate,
                 'picture' => $picturePlant->picture,
-                'now' => $now->days
+                'now' => $now->days,
+                'areaName' => $plantId->name
             ];
             return response()->json($data);
         }
@@ -318,15 +320,15 @@ class ManagesController extends Controller
         if($user->role == '1'){
             $manages = Manage::join('devices','manages.deviceId','=','devices.id')
             ->where('manages.isActive', '1')
-            ->select('manages.deviceId as id','devices.name', 'manages.isActive', 'devices.code')
+            ->select('manages.deviceId as id','devices.name', 'manages.isActive', 'devices.code', 'manages.name as areaName')
             ->orderBy('id')
             ->get();
             return response()->json($manages);
         }else{
             $manages = Manage::join('devices','manages.deviceId','=','devices.id')
-            ->where('userId',$user->id)
+            ->where('manages.userId',$user->id)
             ->where('manages.isActive', '1')
-            ->select('manages.deviceId as id','devices.name', 'manages.isActive', 'devices.code')
+            ->select('manages.deviceId as id','devices.name', 'manages.isActive', 'devices.code', 'manages.name as areaName')
             ->orderBy('id')
             ->get();
             return response()->json($manages);
@@ -353,5 +355,48 @@ class ManagesController extends Controller
         $manage->isActive = "1";
         $manage->save();
         return response()->json($manage);
+    }
+
+    public function getAllArea(Request $request) {
+        $user = JWTAuth::toUser($request->header('token'));
+        $area = Manage::leftJoin('devices', 'manages.deviceId', '=', 'devices.id')
+                        ->leftJoin('plants', 'manages.plantId', '=', 'plants.id')
+                        ->where('manages.userId', $user->id)
+                        ->select('manages.*', 'devices.name as deviceName', 'plants.name as plantName')
+                        ->orderBy('manages.id')
+                        ->get();
+        return response()->json($area);
+    }
+    
+    public function getOneArea(Request $request, $id) {
+        $user = JWTAuth::toUser($request->header('token'));
+        $area = Manage::where('userId', $user->id)
+                        ->where('id', $id)
+                        ->get();
+        return response()->json($area);    
+    }
+    
+    public function storeOneArea(Request $request) {
+        $user = JWTAuth::toUser($request->header('token'));
+        $area =  new Manage();
+        $area->name = $request->name;
+        $area->userId = $user->id;
+        $area->deviceId = $request->deviceId;
+        $area->isActive = '0';
+        $area->save();
+        return response()->json(true);
+    }
+    
+    public function updateOneArea(Request $request, $id) {
+        $area = Manage::findOrFail($id);
+        $area->name = $request->name;
+        $area->save();
+        return response()->json(true);
+    }
+    
+    public function deleteOneArea($id) {
+        $area = Manage::findOrFail($id);
+        $area->delete();
+        return response()->json($area);        
     }
 }

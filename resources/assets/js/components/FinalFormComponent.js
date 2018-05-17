@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+const profile = JSON.parse(sessionStorage.getItem('profile'));
+
 export default class FinalFormComponent extends React.Component {
     constructor(props) {
         super(props);
@@ -72,7 +74,7 @@ export default class FinalFormComponent extends React.Component {
                         : null
                 }
                 <div style={style.title}>
-                    <h3 className="text-center text-uppercase" style={{ fontWeight: '900' }}>Edit Information of Plant: {this.state.titlePlantName}</h3>
+                    <h3 className="text-center text-uppercase" style={{ fontWeight: '900' }}>{profile.role == "1"? null : "Edit" } Information of Plant: {this.state.titlePlantName}</h3>
                 </div>
                 <div style={style.closeBtn} onClick={() => this.onClose()}><i className="fa fa-remove"></i></div>
                 {
@@ -90,9 +92,9 @@ export default class FinalFormComponent extends React.Component {
                                 {this.state.picture == null && this.props.plant[0].picture == null ? null : <img src={this.state.picture} style={style.image} />}
                                 {this.state.picture != null || this.props.plant[0].picture != null ? null : <i className="fa fa-upload" style={{ fontSize: 60, marginTop: 35 }}></i>}
                                 {this.state.picture == null && this.props.plant[0].picture != null ? <img src={this.props.plant[0].picture} style={style.image} /> : null}
-                                <input type="file" className="form-control" style={{ display: 'none' }} accept="image/*" onChange={this.onFileChange} />
+                                <input type="file" className="form-control" style={{ display: 'none' }} accept="image/*" onChange={this.onFileChange} disabled={profile.role == "1" ? 'disabled' : ''}/>
                             </label>
-                            Click to open the file picker
+                            {profile.role == "1" ? '' : 'Click to open the file picker'}
                         </div>
                         <div style={{ height: '85%', overflow: 'auto' }}>
                             <h4 style={{ fontWeight: '900' }}>Name</h4>
@@ -101,6 +103,7 @@ export default class FinalFormComponent extends React.Component {
                                 className="form-control"
                                 placeholder="Please input plant name"
                                 value={this.state.plantName}
+                                disabled={profile.role == "1" ? 'disabled' : ''}
                                 onChange={(namePlant) => this.onChangePlantName(namePlant)} />
                             <h4 style={{ fontWeight: '900' }}>Description</h4>
                             <textarea type="text"
@@ -109,9 +112,10 @@ export default class FinalFormComponent extends React.Component {
                                 placeholder="Please input description"
                                 value={this.state.description}
                                 rows="5"
+                                disabled={profile.role == "1" ? 'disabled' : ''}
                                 onChange={(description) => this.onChangeDescription(description)} />
                             <div className="form-group" style={{ marginTop: 10 }}>
-                                <input type="submit" className="btn btn-success col-md-3 pull-right" value="Save" onClick={this.submitPlant} />
+                                {profile.role == "0" ? <input type="submit" className="btn btn-success col-md-3 pull-right" value="Save" onClick={this.submitPlant} /> : null}
                             </div>
                         </div>
                     </div>
@@ -289,30 +293,30 @@ class ItemPhase extends React.Component {
                 </div>
                 <div className="form-group col-md-8">
                     <label className="form-label">Phase name</label>
-                    <input type="text" className="form-control" placeholder="Phase name" required value={this.state.name} onChange={(phaseName) => this.onChangePhaseName(phaseName)} />
+                    <input type="text" className="form-control" placeholder="Phase name" required value={this.state.name} onChange={(phaseName) => this.onChangePhaseName(phaseName)} disabled={profile.role == "1" ? 'disabled' : ''}/>
                 </div>
                 <div className="form-group col-md-4">
                     <label className="form-label">Days</label>
-                    <input type="number" className="form-control" placeholder="Days" value={this.state.days} required onChange={(days) => this.onChangeDays(days)} />
+                    <input type="number" className="form-control" placeholder="Days" value={this.state.days} required onChange={(days) => this.onChangeDays(days)} disabled={profile.role == "1" ? 'disabled' : ''}/>
                 </div>
                 <div className="form-group col-md-3">
                     <label className="form-label">Min Temperature</label>
-                    <input type="number" className="form-control" placeholder="Min Temperature" required value={this.state.minTemperature} onChange={(minTemperature) => this.onChangeMinTemperature(minTemperature)} />
+                    <input type="number" className="form-control" placeholder="Min Temperature" required value={this.state.minTemperature} onChange={(minTemperature) => this.onChangeMinTemperature(minTemperature)} disabled={profile.role == "1" ? 'disabled' : ''}/>
                 </div>
                 <div className="form-group col-md-3">
                     <label className="form-label">Max Temperature</label>
-                    <input type="number" className="form-control" placeholder="Max Temperature" required value={this.state.maxTemperature} onChange={(maxTemperature) => this.onChangeMaxTemperature(maxTemperature)} />
+                    <input type="number" className="form-control" placeholder="Max Temperature" required value={this.state.maxTemperature} onChange={(maxTemperature) => this.onChangeMaxTemperature(maxTemperature)} disabled={profile.role == "1" ? 'disabled' : ''}/>
                 </div>
                 <div className="form-group col-md-3">
                     <label className="form-label">Min Humidity</label>
-                    <input type="number" className="form-control" placeholder="Min Humidity" required value={this.state.minHumidity} onChange={(minHumidity) => this.onChangeMinHumidity(minHumidity)} />
+                    <input type="number" className="form-control" placeholder="Min Humidity" required value={this.state.minHumidity} onChange={(minHumidity) => this.onChangeMinHumidity(minHumidity)} disabled={profile.role == "1" ? 'disabled' : ''}/>
                 </div>
                 <div className="form-group col-md-3">
                     <label className="form-label">Max Humidity</label>
-                    <input type="number" className="form-control" placeholder="Max Humidity" required value={this.state.maxHumidity} onChange={(maxHumidity) => this.onChangeMaxHumidity(maxHumidity)} />
+                    <input type="number" className="form-control" placeholder="Max Humidity" required value={this.state.maxHumidity} onChange={(maxHumidity) => this.onChangeMaxHumidity(maxHumidity)} disabled={profile.role == "1" ? 'disabled' : ''} />
                 </div>
                 <div className="form-group col-md-12">
-                    <input type="submit" className="btn btn-success col-md-3 pull-right" value="Save" style={{ marginLeft: 10 }} onClick={this.submitPhase} disabled={this.state.disabled ? "disabled" : ""}/>
+                    {profile.role == "0" ? <input type="submit" className="btn btn-success col-md-3 pull-right" value="Save" style={{ marginLeft: 10 }} onClick={this.submitPhase} disabled={this.state.disabled ? "disabled" : ""}/> : null}
                     <input type="button" className="btn btn-default col-md-4 pull-right" value="Show Solution" onClick={() => this.props.getOneSolution(this.state.id, this.state.name)} />
                 </div>
             </div>
@@ -373,10 +377,10 @@ class ItemSolution extends React.Component {
                     <textarea className="form-control"
                         placeholder="" required
                         value={this.state.description}
-                        onChange={(solution) => this.onChangeDescription(solution)} />
+                        onChange={(solution) => this.onChangeDescription(solution)} disabled={profile.role == "1" ? 'disabled' : ''}/>
                 </div>
                 <div className="form-group col-md-12">
-                    <input type="submit" className="btn btn-success col-md-2 pull-right" value="Save" onClick={this.submitSolution} />
+                    {profile.role == "1" ? null : <input type="submit" className="btn btn-success col-md-2 pull-right" value="Save" onClick={this.submitSolution} />}
                 </div>
             </div>
         );

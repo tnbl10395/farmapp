@@ -19,15 +19,16 @@ class DevicesController extends Controller
     {   
         $user = JWTAuth::toUser($request->header('token'));
         if($user->role == '1') {
-            $devices = Device::all();
-            // $devices = Device::leftJoin('manages','devices.id','=','manages.deviceId')
-                            // ->join('users','manages.userId','=','users.id')
-                            // ->select('devices.*', 'manages.isActive', 'manages.startDate')
-                            // ->get();
+            // $devices = Device::all();
+            $devices = Device::leftJoin('users','devices.userId','=','users.id')
+                            ->leftJoin('manages','devices.id','=','manages.deviceId')
+                            ->select('devices.*', 'users.username', 'manages.isActive', 'manages.startDate')
+                            ->orderBy('devices.id')
+                            ->get();
             return response()->json($devices);
         }else if($user->role == '0'){
-            $device = Device::join('manages','devices.id','=','manages.deviceId')
-                            ->join('users','manages.userId','=','users.id')
+            $device = Device::leftJoin('manages','devices.id','=','manages.deviceId')
+                            ->leftJoin('users','devices.userId','=','users.id')
                             ->where('users.id',$user->id)
                             ->select('devices.*', 'manages.isActive', 'manages.startDate')
                             ->get();
@@ -121,6 +122,20 @@ class DevicesController extends Controller
             }else {
                 return response()->json(false);
             }
+        }
+    }
+
+    public function getListDevicesNoActive(Request $request) 
+    {
+        $user = JWTAuth::toUser($request->header('token'));
+        if ($user->role == "0") {
+            $devices = Device::leftJoin('manages', 'devices.id', '=', 'manages.deviceId')
+                            ->where('devices.userId', $user->id)
+                            ->where('manages.plantId', null)
+                            ->where('manages.deviceId', null)
+                            ->select('devices.*')
+                            ->get();
+            return response()->json($devices);
         }
     }
 }

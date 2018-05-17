@@ -6,6 +6,10 @@ import AddDevice from '../containers/AddDeviceContainer';
 import AddUser from '../containers/AddUserContainer';
 import AddPlant from '../containers/AddPlantContainer';
 import ActionSolution from '../containers/ActionSolutionContainer';
+import AddSensor from '../containers/AddSensorContainer';
+import UpdateSensor from '../containers/UpdateSensorContainer';
+import AddArea from '../containers/AddAreaContainer';
+import UpdateArea from '../containers/UpdateAreaContainer';
 
 export default class Modal extends React.Component {
     constructor(props) {
@@ -52,6 +56,14 @@ const bodyModal = (object) => {
             return <AddPlant object={object}/>;
         case 'UPDATE PLANT':
             return <AddPlant object={object}/>;
+        case 'ADD SENSOR':
+            return <AddSensor object={object}/>;
+        case 'UPDATE SENSOR':
+            return <UpdateSensor object={object}/>;
+        case 'ADD AREA':
+            return <AddArea object={object}/>;
+        case 'UPDATE AREA':
+            return <UpdateArea object={object}/>;
     }
 }
 

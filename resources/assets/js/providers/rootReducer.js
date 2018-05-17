@@ -52,7 +52,15 @@ import {
     CLOSE_MESSAGE_ALERT,
     UPDATE_SOLUTION,
     UPDATE_PHASE,
-    CHANGE_PHASE_NAME
+    CHANGE_PHASE_NAME,
+    ADD_SENSOR,
+    DELETE_SENSOR,
+    UPDATE_SENSOR,
+    GET_LIST_AREA,
+    GET_LIST_DEVICE_NO_ACTIVE,
+    ADD_AREA,
+    UPDATE_AREA,
+    GET_LIST_LOCATION_OF_DEVICE
 } from "../actions/TypeAction";
 
 const initialState = {
@@ -81,6 +89,8 @@ const initialState = {
     dashboardTotalPhases: null,
     dashboardPicture: null,
     dashboardNow: null,
+    dashboardAreaName: null,
+    dashboardLocations: [],
     //dashboard_notification
     notificationList: [],
     notificationMessage: null,
@@ -100,6 +110,7 @@ const initialState = {
     admin_user_component: false,
     admin_data_component: false,
     admin_plant_component: false,
+    admin_area_component: false,
     sideBar: true,
     //plant
     plantsOfUser: [],
@@ -112,6 +123,9 @@ const initialState = {
     phaseIdOfSolution: '',
     //sensors
     listSensors: [],
+    //area
+    listArea: [],
+    listDeviceNoActive: [],
     //
     data_devices: [],
     data_values: [],
@@ -295,6 +309,7 @@ const Reducer = (state = initialState, action) => {
                         admin_user_component: false,
                         admin_data_component: false,
                         admin_plant_component: false,
+                        admin_area_component: false,
                     }
                 case "device":
                     return {
@@ -305,6 +320,7 @@ const Reducer = (state = initialState, action) => {
                         admin_user_component: false,
                         admin_data_component: false,
                         admin_plant_component: false,
+                        admin_area_component: false,
                     }
                 case "user":
                     return {
@@ -315,6 +331,7 @@ const Reducer = (state = initialState, action) => {
                         admin_user_component: true,
                         admin_data_component: false,
                         admin_plant_component: false,
+                        admin_area_component: false,
                     }
                 case "data":
                     return {
@@ -325,6 +342,7 @@ const Reducer = (state = initialState, action) => {
                         admin_user_component: false,
                         admin_data_component: true,
                         admin_plant_component: false,
+                        admin_area_component: false,
                     }
                 case "plant":
                     return {
@@ -335,6 +353,18 @@ const Reducer = (state = initialState, action) => {
                         admin_user_component: false,
                         admin_data_component: false,
                         admin_plant_component: true,
+                        admin_area_component: false,
+                    }
+                case "area":
+                    return {
+                        ...state,
+                        breadcrumb: 'Area',
+                        admin_dashboard_component: false,
+                        admin_device_component: false,
+                        admin_user_component: false,
+                        admin_data_component: false,
+                        admin_plant_component: false,
+                        admin_area_component: true,
                     }
                 default:
                     return {
@@ -699,7 +729,8 @@ const Reducer = (state = initialState, action) => {
                 dashboardEndDate: action.loadData.endDate,
                 dashboardTotalPhases: action.loadData.totalPhases,
                 dashboardPicture: action.loadData.picture,
-                dashboardNow: action.loadData.now
+                dashboardNow: action.loadData.now,
+                dashboardAreaName: action.loadData.areaName
             }
         case GET_NOTIFICATION:
             if (action.loadData.message == 'OK') {
@@ -821,6 +852,75 @@ const Reducer = (state = initialState, action) => {
             return {
                 ...state,
                 phaseName: action.phaseName
+            }
+        case ADD_SENSOR: 
+            if (action.message) {
+                return {
+                    ...state,
+                    message_success: true
+                }
+            }else {
+                return {
+                    ...state,
+                    message_fail: true
+                }
+            }
+        case DELETE_SENSOR:
+            return {
+                ...state,
+                alert: false,
+                id_delete: '',
+            }
+        case UPDATE_SENSOR: 
+            if (action.message) {
+                return {
+                    ...state,
+                    message_success: true
+                }
+            }else {
+                return {
+                    ...state,
+                    message_fail: true
+                }
+            }
+        case GET_LIST_AREA:
+            return {
+                ...state,
+                listArea: action.loadData
+            }
+        case GET_LIST_DEVICE_NO_ACTIVE:
+            return {
+                ...state,
+                listDeviceNoActive: action.loadData
+            }
+        case ADD_AREA: 
+            if (action.message) {
+                return {
+                    ...state,
+                    message_success: true
+                }
+            }else {
+                return {
+                    ...state,
+                    message_fail: true
+                }
+            }
+        case UPDATE_AREA: 
+            if (action.message) {
+                return {
+                    ...state,
+                    message_success: true
+                }
+            }else {
+                return {
+                    ...state,
+                    message_fail: true
+                }
+            }
+        case GET_LIST_LOCATION_OF_DEVICE:
+            return {
+                ...state,
+                dashboardLocations: action.loadData
             }
         default:
             return {

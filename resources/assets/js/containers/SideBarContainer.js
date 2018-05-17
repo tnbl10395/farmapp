@@ -8,6 +8,7 @@ const mapStateToProps = (state) => ({
     admin_user_component: state.admin_user_component,
     admin_data_component: state.admin_data_component,
     admin_plant_component: state.admin_plant_component,
+    admin_area_component: state.admin_area_component,
     sideBar: state.sideBar
 });
 const mapDispatchToProps = (dispatch) => ({

@@ -9,6 +9,11 @@ class Sensor extends Model
     protected $fillable = [
         'deviceId',
         'name',
-        'picture'
+        'picture',
+        'code',
+        'tech_spectification',
+        'madeIn',
+        'manufacturing_date'
     ];
+    public $timestamps = false;
 }

@@ -177,6 +177,8 @@ const renderTable = (name, currentData, openAlert, openModal, object, listSensor
                             openModal={openModal}
                             object={object} 
                             getOnePlant={getOnePlant}/>
+        case 'Area':
+            return area(currentData, openAlert, openModal);
     }
 }
 // Device-------------------------------------------------------------------------------------------------------------------------
@@ -217,54 +219,68 @@ class ItemDevice extends React.Component {
 
     render() {
         return (
-            <div style={style.item} onClick={this.onClickToShowDetail.bind(this)} className="col-xs-12 col-sm-12 col-md-12 item">
-                <div className="col-xs-1 col-sm-1 col-md-1">
-                    <i className="fa fa-gears" style={style.picture} />
-                </div>
-                <div className="col-xs-2 col-sm-2 col-md-2" style={style.text}><h5 style={{fontWeight: 'bold'}}>{this.props.element.name}</h5></div>
-                <div className="col-xs-3 col-sm-3 col-md-3">
-                    <h6>Code</h6>
-                    {this.props.element.code}
-                </div>
-                <div className="col-xs-3 col-sm-3 col-md-3">
-                    <h6>Manufacturing Date</h6>
-                    {this.props.element.manufacturing_date}
-                </div>
-                {
-                    profile.role == "0" ?
-                        <div className="col-xs-2 col-sm-2 col-md-2">
-                            {
-                                this.props.element.isActive == 1 ?
-                                    <div className="col-md-8 label label-success" style={style.status}>Active</div>
-                                    :
-                                    <div className="col-md-8 label label-primary" style={style.status}>Inactive</div>
-                            }
-                        </div>
-                        :
-                        <div className="col-xs-2 col-sm-2 col-md-2">
-                            {
-                                this.props.element.status == 1 ?
-                                    <div className="col-md-8 label label-success" style={style.status}>Own</div>
-                                    :
-                                    <div className="col-md-8 label label-primary" style={style.status}>No own</div>
-                            }
-                        </div>
-                }
-                <div className="col-xs-1 col-sm-1 col-md-1" style={style.button}>
-                    {profile.role == '0' ? null : <a onClick={() => this.props.openModal(this.props.object, this.props.element)} style={style.edit} className="fa fa-edit"></a>}
-                    <a onClick={() => this.props.openAlert('DELETE_DEVICE', this.props.element.id)} style={style.delete} className="fa fa-remove"></a>
+            <div style={style.item} className="col-xs-12 col-sm-12 col-md-12 item">
+                <div onClick={this.onClickToShowDetail.bind(this)} style={{ cursor: 'pointer' }}>
+                    <div className="col-xs-1 col-sm-1 col-md-1">
+                        <i className="fa fa-gears" style={style.picture} />
+                    </div>
+                    <div className="col-xs-2 col-sm-2 col-md-2" style={style.text}><h5 style={{fontWeight: 'bold'}}>{this.props.element.name}</h5></div>
+                    <div className={profile.role == "1" ? "col-xs-2 col-sm-2 col-md-2": "col-xs-3 col-sm-3 col-md-3"}>
+                        <h6>Code</h6>
+                        {this.props.element.code}
+                    </div>
+                    <div className={profile.role == "1" ? "col-xs-2 col-sm-2 col-md-2": "col-xs-3 col-sm-3 col-md-3"}>
+                        <h6>Manufacturing Date</h6>
+                        {this.props.element.manufacturing_date}
+                    </div>
+                    <div className="col-xs-2 col-sm-2 col-md-2">
+                        {
+                            this.props.element.isActive == 1 ?
+                                <div className="col-md-8 label label-success" style={style.status}>Active</div>
+                                :
+                                <div className="col-md-8 label label-primary" style={style.status}>Inactive</div>
+                        }
+                    </div>
+                    {
+                        profile.role == "0" ?
+                            null
+                            :
+                            <div className="col-xs-2 col-sm-2 col-md-2">
+                                {
+                                    this.props.element.status == 1 ?
+                                        <div>
+                                            <h6>Owner</h6>
+                                            {this.props.element.username}
+                                        </div>
+                                        :
+                                        <div>
+                                            <h6>No owner</h6>
+                                        </div>
+                                }
+                            </div>
+                    }
+                    <div className="col-xs-1 col-sm-1 col-md-1" style={style.button}>
+                        {profile.role == '0' ? null : <a onClick={() => this.props.openModal(this.props.object, this.props.element)} style={style.edit} className="fa fa-edit"></a>}
+                        <a onClick={() => this.props.openAlert('DELETE_DEVICE', this.props.element.id)} style={style.delete} className="fa fa-remove"></a>
+                    </div>
                 </div>
                 {this.state.isDetail ? 
                     <div className="col-md-12">
                         <hr/>
                         <h5>Sensors in {this.props.element.name}</h5>
+                        {this.props.listSensors != null && profile.role == "1" ? <button className="btn btn-success col-md-offset-11" onClick={() => this.props.openModal({title:'ADD SENSOR', id: this.props.element.id}, null)}>New One</button> : null}
                         <div className="row" style={{padding: 0, overflowX: 'auto', whiteSpace: 'nowrap'}}>
                             {
+                                this.props.listSensors != null ?
                                 this.props.listSensors.map((element, index) => {
                                     return <div key={index}  className="col-md-4" style={{padding: 0, float: 'none', display: 'inline-block'}}>
-                                        <ItemSensor element={element}/>
+                                        <ItemSensor element={element} openAlert={this.props.openAlert} deviceId={this.props.element.id} openModal={this.props.openModal}/>
                                     </div>
                                 })
+                                : <div className="text-center" style={{border: '1px solid gray', marginBottom: 3}}>
+                                    <h5>This device doesn't have information about sensors</h5>
+                                    {profile.role == "1" ? <button className="btn btn-success" style={{ marginBottom: 20 }} onClick={() => this.props.openModal({title:'ADD SENSOR', id: this.props.element.id}, null)}>New One</button> : null}
+                                </div>
                             }
                         </div>
                     </div> 
@@ -283,8 +299,16 @@ class ItemSensor extends React.Component {
     render() {
         return (
             <div style={styleItemSensor.body}>
-                <img src={'data:image/png;base64,' + this.props.element.picture} className="col-md-5" style={styleItemSensor.image}/>
+                {this.props.element.picture != null ?
+                    <img src={this.props.element.picture} className="col-md-5" style={styleItemSensor.image}/>
+                    :<img src="images/cogs.png" className="col-md-5" style={styleItemSensor.image}/>
+                } 
                 <div className="col-md-7" style={{ padding:0 }}>
+                    <div className="col-md-12" style={{ padding:0 }}>
+                        <div>{profile.role == "1" ? <a className="pull-right" style={{ cursor: 'pointer' }} onClick={()=> this.props.openAlert('DELETE_SENSOR', this.props.element.id)}><i className="fa fa-remove"></i></a> : null}</div>
+                        <div>{profile.role == "1" ? <a className="pull-right" style={{ cursor: 'pointer', marginRight: 5 }} onClick={() => this.props.openModal({title:'UPDATE SENSOR', element: this.props.element}, null)}><i className="fa fa-pencil-square-o"></i></a> : null}</div>
+                        <div>{profile.role == "0" ? <a className="pull-right" style={{ cursor: 'pointer', marginRight: 5 }} onClick={() => this.props.openModal({title:'UPDATE SENSOR', element: this.props.element}, null)}><i className="fa fa-info"></i></a> : null}</div>                        
+                    </div>
                     <div className="col-md-12">
                         <span style={{ fontWeight: 'bold'}}>Name: </span> {this.props.element.sensorName}
                     </div>
@@ -373,6 +397,41 @@ const data = (currentData, openAlert) => (
         </div>
     )
 )
+// Area-------------------------------------------------------------------------------------------------------------------------
+const area = (currentData, openAlert, openModal) => (
+    currentData.map((element, index) =>
+        <div key={index} style={style.item} className="col-xs-12 col-sm-12 col-md-12 item">
+            <div className="col-xs-1 col-sm-1 col-md-1" style={{ display: 'flex', alignItems: 'center', height: 60 }}>
+                <img src="/images/farm.png" style={style.avatar} />
+            </div>
+            <div className="col-xs-2 col-sm-2 col-md-2" style={stylePlant.totalPhase}>
+                <strong>Area Name: </strong>{element.name}
+
+            </div>
+            <div className="col-xs-2 col-sm-2 col-md-2" style={stylePlant.totalPhase}>
+                <strong>Device Name: </strong>{element.deviceName}
+            </div>
+            <div className="col-xs-2 col-sm-2 col-md-2" style={stylePlant.totalPhase}>
+                <strong>Plant Name: </strong>{element.plantName}
+            </div>
+            <div className="col-xs-2 col-sm-2 col-md-2" style={stylePlant.totalPhase}>
+                <strong>Season start: </strong>{element.startDate}
+            </div>
+            <div className="col-xs-2 col-sm-2 col-md-2">
+                {
+                    element.isActive == 1 ?
+                        <div className="col-md-8 label label-success" style={style.status}>Active</div>
+                        :
+                        <div className="col-md-8 label label-primary" style={style.status}>Inactive</div>
+                }
+            </div>
+            <div className="col-xs-1 col-sm-1 col-md-1" style={style.button}>
+                <a onClick={() => openModal({title: 'UPDATE AREA', object: element}, null)} style={style.edit} className="fa fa-edit"></a>
+                <a onClick={() => openAlert('DELETE_AREA', element.id)} style={style.delete} className="fa fa-remove"></a>
+            </div>
+        </div>
+    )
+)
 // Plant-------------------------------------------------------------------------------------------------------------------------
 class Plant extends React.Component {
     constructor(props) {
@@ -429,7 +488,7 @@ class ItemPlant extends React.Component {
                 {
                     profile.role == '1' 
                         ? <div className="col-xs-1 col-sm-1 col-md-1" style={style.button}>
-                            <a onClick={() => this.props.getOnePlant(this.props.element.id)} style={style.edit} className="fa fa-edit"></a>
+                            <a onClick={() => this.props.getOnePlant(this.props.element.id)} style={style.info} className="fa fa-info"></a>
                         </div>
                         : <div className="col-xs-1 col-sm-1 col-md-1" style={style.button}>
                             <a onClick={() => this.props.getOnePlant(this.props.element.id)} style={style.edit} className="fa fa-edit"></a>
@@ -482,7 +541,6 @@ const style = {
         border: '1px solid gray',
         borderRadius: 5,
         margin: 2,
-        cursor: 'pointer'
     },
     filter: {
         backgroundColor: '#ecf0f5',
@@ -529,6 +587,17 @@ const style = {
         paddingBottom: 7,
         paddingRight: 7,
         paddingLeft: 7,
+        backgroundColor: '#3498db',
+        color: '#fff',
+        marginRight: 5,
+        cursor: 'pointer'
+    },
+    info: {
+        borderRadius: 5,
+        paddingTop: 7,
+        paddingBottom: 7,
+        paddingRight: 9,
+        paddingLeft: 9,
         backgroundColor: '#3498db',
         color: '#fff',
         marginRight: 5,
