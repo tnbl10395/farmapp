@@ -528,6 +528,20 @@ export const getOneLocationAPI = (dispatch, getOneLocation, id) => {
     }
 }
 
+export const getListLocationOfDeviceAPI = (dispatch, getListLocationOfDevice) => {
+    try {
+        fetch(URL + "api/list-location", {
+            method: method.GET,
+            headers: headers
+        })
+            .then((response) => response.json())
+            .then((res) => {
+                dispatch(getListLocationOfDevice(res));
+            })
+    } catch (error) {
+    }
+}
+
 export const getRealChartDashboardBasedOnHourAPI = (dispatch, changeIntervalDashboard, device, interval) => {
     try {
         var data = [];

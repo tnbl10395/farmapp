@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import Dashboard2Component from '../components/Dashboard2Component';
-import { getDetailInformationDeviceApi, getNotificationApi, getRealChartBasedOnDayAPI, getRealChartBasedOnHourAPI, getAlldevicesActiveApi, getListNotificationApi, submitNewPlantIntoDeviceApi, getDeviceOfUserAPI, getOneInformationPlantApi, getOneSolutionApi, addPlantForDeviceApi } from '../api/api';
-import { getDetailInformationDevice, getNotification, getRealChartBasedOnDay, getRealChartBasedOnHour, chooseOptionListDevice, getAlldevicesActive, getListNotification, submitAddPlantIntoDevice, getDeviceOfUser, getOneInformationPlant, getOneSolution } from '../actions/Action';
+import { getDetailInformationDeviceApi, getNotificationApi, getRealChartBasedOnDayAPI, getRealChartBasedOnHourAPI, getAlldevicesActiveApi, getListNotificationApi, submitNewPlantIntoDeviceApi, getDeviceOfUserAPI, getOneInformationPlantApi, getOneSolutionApi, addPlantForDeviceApi, getListLocationOfDeviceAPI } from '../api/api';
+import { getDetailInformationDevice, getNotification, getRealChartBasedOnDay, getRealChartBasedOnHour, chooseOptionListDevice, getAlldevicesActive, getListNotification, submitAddPlantIntoDevice, getDeviceOfUser, getOneInformationPlant, getOneSolution, getListLocationOfDevice } from '../actions/Action';
 
 const mapStateToProps = (state) => ({
     all_devices: state.all_devices,
@@ -18,6 +18,7 @@ const mapStateToProps = (state) => ({
     dashboardPicture: state.dashboardPicture,
     dashboardNow: state.dashboardNow,
     dashboardAreaName: state.dashboardAreaName,
+    dashboardLocations: state.dashboardLocations,
     //notification
     notificationData: state.notificationData,
     notificationSolution: state.notificationSolution,
@@ -106,6 +107,9 @@ const mapDispatchToProps = (dispatch) => ({
                 startDate: startDate,
             }
         )
+    },
+    getListLocationOfDevice: () => {
+        getListLocationOfDeviceAPI(dispatch, getListLocationOfDevice);
     }
 });
 

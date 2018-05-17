@@ -29,6 +29,9 @@ export default class Dashboard2Component extends React.Component {
         this.timeoutRealTime = setTimeout(() => {
             this.props.getRealDataOnChart(this.props.device, this.props.interval);
         }, 1500);
+        this.getLocation = setTimeout(() => {
+            this.props.getListLocationOfDevice();
+        }, 1500);
     }
 
     componentDidMount() {
@@ -38,6 +41,7 @@ export default class Dashboard2Component extends React.Component {
     componentWillUnmount() {
         clearTimeout(this.timeout);
         clearTimeout(this.timeoutRealTime);
+        clearTimeout(this.getLocation);
     }
 
     openModal(code) {
@@ -91,7 +95,8 @@ export default class Dashboard2Component extends React.Component {
                             notificationList={this.props.notificationList}
                             getDetailInformationDevice={this.props.getDetailInformationDevice}
                             getRealDataOnChart={this.props.getRealDataOnChart}
-                            interval={this.props.interval} />
+                            interval={this.props.interval} 
+                            listLocation={this.props.dashboardLocations}/>
                     </div>
                     <div className="col-md-6" style={style.main}>
                         <Main phases={this.props.dashboardPhases}
@@ -241,15 +246,8 @@ class Block extends React.Component {
                     {
                         this.props.showDevicesByMap
                             ? <MapWithAMarker
-                                array={[
-                                    { latitude: 16.054690, longitude: 108.231540 },
-                                    { latitude: 16.053115, longitude: 108.210358 },
-                                    { latitude: 16.0680745, longitude: 108.1500851 },
-                                    { latitude: 16.0655872, longitude: 108.1524857 },
-                                    { latitude: 16.0658141, longitude: 108.1523283 },
-                                    { latitude: 16.071411, longitude: 108.1171094 },
-                                    { latitude: 16.0784203, longitude: 108.1173669 },
-                                ]}
+                                getDetailInformationDevice={this.props.getDetailInformationDevice}
+                                array={this.props.listLocation}
                                 googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyC_aFLX1tVABBgvwYQ1mZzr3ApJVU5_YwA&v=3.exp&libraries=geometry,drawing,places"
                                 loadingElement={<div style={{ height: `100%` }} />}
                                 containerElement={<div style={{ height: `100%` }} />}
@@ -261,16 +259,6 @@ class Block extends React.Component {
         );
     }
 }
-
-const array = [
-    { latitude: 16.054690, longitude: 108.231540 },
-    { latitude: 16.053115, longitude: 108.210358 },
-    { latitude: 16.0680745, longitude: 108.1500851 },
-    { latitude: 16.0655872, longitude: 108.1524857 },
-    { latitude: 16.0658141, longitude: 108.1523283 },
-    { latitude: 16.071411, longitude: 108.1171094 },
-    { latitude: 16.0784203, longitude: 108.1173669 },
-]
 
 const styleBlock = {
     body: {

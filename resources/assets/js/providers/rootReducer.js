@@ -59,7 +59,8 @@ import {
     GET_LIST_AREA,
     GET_LIST_DEVICE_NO_ACTIVE,
     ADD_AREA,
-    UPDATE_AREA
+    UPDATE_AREA,
+    GET_LIST_LOCATION_OF_DEVICE
 } from "../actions/TypeAction";
 
 const initialState = {
@@ -89,6 +90,7 @@ const initialState = {
     dashboardPicture: null,
     dashboardNow: null,
     dashboardAreaName: null,
+    dashboardLocations: [],
     //dashboard_notification
     notificationList: [],
     notificationMessage: null,
@@ -914,6 +916,11 @@ const Reducer = (state = initialState, action) => {
                     ...state,
                     message_fail: true
                 }
+            }
+        case GET_LIST_LOCATION_OF_DEVICE:
+            return {
+                ...state,
+                dashboardLocations: action.loadData
             }
         default:
             return {
