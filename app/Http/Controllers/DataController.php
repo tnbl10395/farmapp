@@ -212,4 +212,28 @@ class DataController extends Controller
         //     return response()->json([]);
         // }
     }
+
+    public function sendDataRandom(Request $request, $id)
+    {
+        $req = explode('-',$request->data);
+        $checkStatus = Device::where('id',$req[1])->select('status')->first();
+        if($checkStatus->status=="1"){
+            $data = new Data();
+            $data->deviceId = $req[1];
+            $data->humidity = rand(70, 75);
+            $data->temperature = rand(25, 30);
+            $data->status = 1;
+            $data->save();
+            if($req[2]!='null' && $req[3] !='null' ){
+                $location = new Location();
+                $location->deviceId = $req[1];
+                $location->latitude = $req[2];
+                $location->longitude = $req[3];
+                $location->save();
+            }
+            return response()->json(true);
+        }else{
+            return response()->json(false);
+        }
+    }
 }

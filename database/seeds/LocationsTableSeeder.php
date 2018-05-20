@@ -14,10 +14,9 @@ class LocationsTableSeeder extends Seeder
         DB::table('locations')->insert(
             [
                 [
-                    'id' => 1,
-                    'deviceId' => 1,
-                    'latitude' => '16.0533965',
-                    'longitude' => '108.2178674',
+                    'deviceId' => 14,
+                    'latitude' => '16.073865',
+                    'longitude' => '108.153023',
                     'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
                     'updated_at' => \Carbon\Carbon::now()->toDateTimeString()
                 ]

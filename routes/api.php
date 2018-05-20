@@ -111,4 +111,5 @@ Route::group(['middleware' => 'jwt.auth'], function () {
 Route::group(['middleware' => 'key'], function () {
     Route::get('send-data', 'DataController@store');
     Route::get('send-location','LocationsController@store');
+    Route::get('send-data-rand', 'DataController@sendDataRandom');
 });
