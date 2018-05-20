@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { fadeInDown } from 'react-animations';
 import Radium, { StyleRoot } from 'radium';
+import { deletePlant, deleteDeviceUser } from '../actions/Action';
 
 export class Alert extends React.Component {
     constructor(props) {
@@ -40,10 +41,29 @@ const bodyAlert = (title, closeAlert, id, del) => {
             return deleteUser(closeAlert, id, del, title);
         case 'DELETE_SENSOR':
             return deleteSensor(closeAlert, id, del, title);
+        case 'DELETE_PLANT':
+            return deletePlants(closeAlert, id, del, title);
+        case 'DELETE_DEVICE_USER':
+            return deleteDeviceUsers(closeAlert, id, del, title);
     }
 };
 
 const deleteDevice = (closeAlert, id, del, title) => (
+    <div>
+        <div style={{textAlign: 'center'}}>
+            <i className="fa fa-exclamation-triangle" style={style.icon}/>
+            <h3>Are you sure you want to delete this device?</h3>
+            <p>You can lose all data of this device</p>
+        </div>
+        <hr />
+        <div className="row">
+            <button onClick={() => closeAlert()} className="btn btn-default col-xs-5 col-sm-5 col-md-3 col-xs-offset-1 col-sm-offset-1 col-md-offset-5" style={{ marginRight: 5 }}>Cancel</button>
+            <button onClick={() => del(title, id)} className="btn btn-success col-xs-5 col-sm-5 col-md-3">Yes</button>
+        </div>
+    </div>
+);
+
+const deleteDeviceUsers = (closeAlert, id, del, title) => (
     <div>
         <div style={{textAlign: 'center'}}>
             <i className="fa fa-exclamation-triangle" style={style.icon}/>
@@ -100,9 +120,23 @@ const deleteSensor = (closeAlert, id, del, title) => (
     </div>
 );
 
+const deletePlants = (closeAlert, id, del, title) => (
+    <div>
+        <div style={{textAlign: 'center'}}>
+            <i className="fa fa-exclamation-triangle" style={style.icon}/>
+            <h3>Are you sure you want to delete this plant?</h3>
+        </div>
+        <hr />
+        <div className="row">
+            <button onClick={() => closeAlert()} className="btn btn-default col-xs-5 col-sm-5 col-md-3 col-xs-offset-1 col-sm-offset-1 col-md-offset-5" style={{ marginRight: 5 }}>Cancel</button>
+            <button onClick={() => del(title, id)} className="btn btn-success col-xs-5 col-sm-5 col-md-3">Yes</button>
+        </div>
+    </div>
+);
+
 const confirmLogout = (closeAlert) => (
     <div>
-        <h3>Are you sure logout?</h3>
+        <h3>Do you want to logout?</h3>
         <hr />
         <div className="row">
         <button onClick={() => closeAlert()} className="btn btn-default col-xs-5 col-sm-5 col-md-3 col-xs-offset-1 col-sm-offset-1 col-md-offset-5" style={{ marginRight: 5 }}>Cancel</button>

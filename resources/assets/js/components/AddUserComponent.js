@@ -87,7 +87,19 @@ export default class AddUserComponent extends React.Component {
                             inputValue={this.props.inputRole}
                             saveInput={this.props.saveInput} />
                     </div>
-                    <input type="submit" className="btn btn-success col-md-2" value="Add" 
+                    {/* {
+                        this.props.object.title == 'ADD USER' ?
+                            <input type="submit" className="btn btn-success col-md-2" 
+                                value='Add' style={{ marginRight: 10 }} />                            
+                            : <input type="submit" className="btn btn-success col-md-2" 
+                            value='Update' style={{ marginRight: 10 }} />
+                    } */}
+                    <input type="submit" className="btn btn-success col-md-2" 
+                           disabled={
+                                this.props.inputUsername == '' || this.props.inputPassword == '' || 
+                                this.props.inputFullname == '' || this.props.inputAddress == '' || this.props.inputPhone == ''
+                                    ? "disabled" : ''
+                           }
                            value={this.props.object.title == 'ADD USER' ? 'Add' : 'Update'} style={{ marginRight: 10 }} />
                     <input type="button" onClick={() => this.props.closeModal()} className="btn btn-default col-md-2" value="Cancel" />
                 </form>

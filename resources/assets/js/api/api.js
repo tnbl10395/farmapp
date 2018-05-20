@@ -379,7 +379,7 @@ export const getUserAPI = (dispatch, login, token) => {
     }
 }
 //delete device
-export const deleteDeviceAPI = (dispatch, deleteDevice, id, getDataDevices, getDataDevicesAPI) => {
+export const deleteDeviceAPI = (dispatch, deleteDevice, id, getDataDevices, getDataDevicesAPI, getAlldevicesActiveApi, getAlldevicesActive) => {
     try {
         fetch(URL + "api/devices/" + id, {
             method: method.DELETE,
@@ -390,6 +390,7 @@ export const deleteDeviceAPI = (dispatch, deleteDevice, id, getDataDevices, getD
                 if (res) {
                     dispatch(deleteDevice());
                     getDataDevicesAPI(dispatch, getDataDevices);
+                    getAlldevicesActiveApi(dispatch, getAlldevicesActive);
                 }
             })
     } catch (error) {
@@ -995,4 +996,65 @@ export const updateAreaApi = (dispatch, data, updateArea, getListAreaApi, getLis
             });
     } catch (error) {
     }
+}
+
+export const addPlantApi = (dispatch, addPlant, getPlantsOfUserApi, getPlantsOfUser, data) => {
+    try {
+        fetch(URL + "api/plants", {
+            method: method.POST,
+            headers: headers,
+            body: JSON.stringify({
+                plant: data.plant,
+                phase: data.phase,
+                picture: data.picture
+            })
+        })
+            .then((response) => response.json())
+            .then((res) => {
+                if(res) {
+                    getPlantsOfUserApi(dispatch, getPlantsOfUser);
+                    dispatch(addPlant(true))
+                }
+            });
+    } catch (error) {
+    } 
+}   
+
+export const deletePlantApi = (dispatch, deletePlant, id, getPlantsOfUserApi, getPlantsOfUser) => {
+    try {
+        fetch(URL + "api/plants/" + id, {
+            method: method.DELETE,
+            headers: headers,
+        })
+            .then((response) => response.json())
+            .then((res) => {
+                if(res) {
+                    getPlantsOfUserApi(dispatch, getPlantsOfUser);
+                    dispatch(deletePlant(true))
+                }else {
+                    dispatch(deletePlant(false))
+                }
+            });
+    } catch (error) {
+    } 
+}
+
+export const deleteDeviceUserApi = (dispatch, deleteDeviceUser, id, getDeviceOfUserAPI, getDeviceOfUser, getDataDevicesAPI, getDataDevices, getAlldevicesActiveApi, getAlldevicesActive) => {
+    try {
+        fetch(URL + "api/delete-device-user/" + id, {
+            method: method.DELETE,
+            headers: headers,
+        })
+            .then((response) => response.json())
+            .then((res) => {
+                if(res) {
+                    getDeviceOfUserAPI(dispatch, getDeviceOfUser);
+                    getDataDevicesAPI(dispatch, getDataDevices);
+                    dispatch(deleteDeviceUser(true))
+                }else {
+                    dispatch(deletePlant(false))
+                }
+            });
+    } catch (error) {
+    } 
 }

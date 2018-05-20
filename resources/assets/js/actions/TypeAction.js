@@ -78,3 +78,5 @@ export const GET_LIST_AREA = 'GET_LIST_AREA';
 export const GET_LIST_DEVICE_NO_ACTIVE = 'GET_LIST_DEVICE_NO_ACTIVE';
 export const ADD_AREA = 'ADD_AREA';
 export const UPDATE_AREA = 'UPDATE_AREA';
+export const ADD_PLANT = 'ADD_PLANT';
+export const DELETE_DEVICE_USER = 'DELETE_DEVICE_USER';

@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Device;
 use App\Manage;
 use App\Location;
+use App\Sensor;
+use App\Data;
 use JWTAuth;
 
 class DevicesController extends Controller
@@ -94,7 +96,10 @@ class DevicesController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-    {
+    {   
+        $sensor = Sensor::where('deviceId', $id)->delete();
+        $manage = Manage::where('deviceId', $id)->delete();
+        $location = Location::where('deviceId', $id)->delete();
         $device = Device::findOrFail($id);
         $device->delete();
         return response()->json($device);
@@ -111,13 +116,16 @@ class DevicesController extends Controller
         if ($device == null) {
             return response()->json(false);
         }else {
+            $manages = Manage::where('userId', $user->id)->count();
+            $count = $manages + 1;
             $manage = new Manage();
             $manage->userId = $user->id;
+            $manage->name = "Plot $count";
             $manage->deviceId = $device->id;
             $manage->isActive = '0';
             $manage->save();
             if ($manage == true) {
-                Device::where('id',$device->id)->update(['status' => '1']);
+                Device::where('id',$device->id)->update(['userId'=>$user->id, 'status' => '1']);
                 return response()->json(true);
             }else {
                 return response()->json(false);
@@ -137,5 +145,17 @@ class DevicesController extends Controller
                             ->get();
             return response()->json($devices);
         }
+    }
+
+    public function deleteDeviceOfUser(Request $request, $id) 
+    {
+        $user = JWTAuth::toUser($request->header('token'));
+        $location = Location::where('deviceId', $id)->delete();
+        $manage = Manage::where('userId', $user->id)
+                        ->where('deviceId', $id)
+                        ->delete();      
+        $data = Data::where('deviceId', $id)->delete();
+        $device = Device::where('id', $id)->update(['userId'=>null, 'status' => '0']); 
+        return response()->json(true);            
     }
 }

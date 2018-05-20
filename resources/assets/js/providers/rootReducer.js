@@ -60,7 +60,10 @@ import {
     GET_LIST_DEVICE_NO_ACTIVE,
     ADD_AREA,
     UPDATE_AREA,
-    GET_LIST_LOCATION_OF_DEVICE
+    GET_LIST_LOCATION_OF_DEVICE,
+    ADD_PLANT,
+    DELETE_PLANT,
+    DELETE_DEVICE_USER
 } from "../actions/TypeAction";
 
 const initialState = {
@@ -921,6 +924,30 @@ const Reducer = (state = initialState, action) => {
             return {
                 ...state,
                 dashboardLocations: action.loadData
+            }
+        case ADD_PLANT: 
+            if (action.message) {
+                return {
+                    ...state,
+                    message_success: true
+                }
+            }else {
+                return {
+                    ...state,
+                    message_fail: true
+                }
+            }
+        case DELETE_PLANT:
+            return {
+                ...state,
+                alert: false,
+                id_delete: '',
+            }
+        case DELETE_DEVICE_USER:
+            return {
+                ...state,
+                alert: false,
+                id_delete: '',
             }
         default:
             return {

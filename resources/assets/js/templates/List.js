@@ -261,7 +261,11 @@ class ItemDevice extends React.Component {
                     }
                     <div className="col-xs-1 col-sm-1 col-md-1" style={style.button}>
                         {profile.role == '0' ? null : <a onClick={() => this.props.openModal(this.props.object, this.props.element)} style={style.edit} className="fa fa-edit"></a>}
-                        <a onClick={() => this.props.openAlert('DELETE_DEVICE', this.props.element.id)} style={style.delete} className="fa fa-remove"></a>
+                        {
+                            profile.role == '0'
+                                ? <a onClick={() => this.props.openAlert('DELETE_DEVICE_USER', this.props.element.id)} style={style.delete} className="fa fa-remove"></a>
+                                : <a onClick={() => this.props.openAlert('DELETE_DEVICE', this.props.element.id)} style={style.delete} className="fa fa-remove"></a>
+                        }
                     </div>
                 </div>
                 {this.state.isDetail ? 
@@ -492,7 +496,7 @@ class ItemPlant extends React.Component {
                         </div>
                         : <div className="col-xs-1 col-sm-1 col-md-1" style={style.button}>
                             <a onClick={() => this.props.getOnePlant(this.props.element.id)} style={style.edit} className="fa fa-edit"></a>
-                            <a onClick={() => this.props.openAlert('DELETE_DATA', this.props.element.id)} style={style.delete} className="fa fa-remove"></a>
+                            <a onClick={() => this.props.openAlert('DELETE_PLANT', this.props.element.id)} style={style.delete} className="fa fa-remove"></a>
                         </div>
                 }
             </div>

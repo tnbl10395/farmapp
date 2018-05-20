@@ -102,6 +102,15 @@ export class AddSensorComponent extends React.Component {
     onSubmit(e) {
         e.preventDefault();
         this.props.onSubmitSensor(this.props.object.id, this.state.name, this.state.spec, this.state.date, this.state.madeIn, this.state.picture, this.state.code);
+        this.setState({
+            picture: '',
+            name: '',
+            code: '',
+            spec: '',
+            date: new Date(),
+            madeIn: '',
+            disabled: true
+        });
     }
 
     render() {
