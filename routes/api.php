@@ -106,6 +106,7 @@ Route::group(['middleware' => 'jwt.auth'], function () {
     Route::get('list-plant-active', 'PlantController@getListPlant');
     Route::post('add-plant-for-device', 'ManagesController@addPlantForDevice');
     Route::get('get-devices-no-active', 'DevicesController@getListDevicesNoActive');
+    Route::delete('delete-device-user/{id}', 'DevicesController@deleteDeviceOfUser');
 });
 Route::group(['middleware' => 'key'], function () {
     Route::get('send-data', 'DataController@store');

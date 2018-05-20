@@ -63,7 +63,9 @@ import {
     GET_LIST_AREA,
     GET_LIST_DEVICE_NO_ACTIVE,
     ADD_AREA,
-    UPDATE_AREA
+    UPDATE_AREA,
+    ADD_PLANT,
+    DELETE_DEVICE_USER
 } from "./TypeAction";
 //Custom UI
 export const chooseOptionSidebar = (option) => {
@@ -515,5 +517,18 @@ export const updateArea = (message) => {
     return {
         type: UPDATE_AREA,
         message
+    }
+}
+
+export const addPlant = (message) => {
+    return {
+        type: ADD_PLANT,
+        message
+    }  
+}
+
+export const deleteDeviceUser = () => {
+    return {
+        type: DELETE_DEVICE_USER,
     }
 }

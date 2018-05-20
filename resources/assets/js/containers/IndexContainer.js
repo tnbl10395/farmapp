@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import Index from '../components/Index';
-import { getDeviceOfUserAPI, deleteDeviceAPI, getDataDevicesAPI, deleteUserAPI, getDataUsersAPI, deleteDataAPI, getDataValuesAPI, getAlldevicesActiveApi, getPlantsOfUserApi, deleteSensorAPI, getListSensorsApi, getListDeviceNoActiveApi } from '../api/api';
-import { getDeviceOfUser, closeModal, closeAlert, deleteDevice, getDataDevices, deleteUser, getDataUsers, deleteData, getDataValues, getAlldevicesActive, getPlantsOfUser, deleteSensor, getListSensors, getListDeviceNoActive } from '../actions/Action';
+import { getDeviceOfUserAPI, deleteDeviceAPI, getDataDevicesAPI, deleteUserAPI, getDataUsersAPI, deleteDataAPI, getDataValuesAPI, getAlldevicesActiveApi, getPlantsOfUserApi, deleteSensorAPI, getListSensorsApi, getListDeviceNoActiveApi, deletePlantApi, deleteDeviceUserApi } from '../api/api';
+import { getDeviceOfUser, closeModal, closeAlert, deleteDevice, getDataDevices, deleteUser, getDataUsers, deleteData, getDataValues, getAlldevicesActive, getPlantsOfUser, deleteSensor, getListSensors, getListDeviceNoActive, deletePlant, deleteDeviceUser } from '../actions/Action';
 
 const mapStateToProps = (state) => ({
     sideBar: state.sideBar,
@@ -24,7 +24,7 @@ const mapDispatchToProps = (dispatch) => ({
     delete: (title, id) => {
         switch (title) {
             case 'DELETE_DEVICE':
-                deleteDeviceAPI(dispatch, deleteDevice, id, getDataDevices, getDataDevicesAPI)
+                deleteDeviceAPI(dispatch, deleteDevice, id, getDataDevices, getDataDevicesAPI, getAlldevicesActiveApi, getAlldevicesActive)
                 break;
             case 'DELETE_USER':
                 deleteUserAPI(dispatch, deleteUser, id, getDataUsers, getDataUsersAPI)
@@ -34,6 +34,12 @@ const mapDispatchToProps = (dispatch) => ({
                 break;
             case 'DELETE_SENSOR':
                 deleteSensorAPI(dispatch, deleteSensor, id, getListSensorsApi, getListSensors)
+                break;
+            case 'DELETE_PLANT':
+                deletePlantApi(dispatch, deletePlant, id, getPlantsOfUserApi, getPlantsOfUser)
+                break;
+            case 'DELETE_DEVICE_USER':
+                deleteDeviceUserApi(dispatch, deleteDeviceUser, id, getDeviceOfUserAPI, getDeviceOfUser, getDataDevicesAPI, getDataDevices, getAlldevicesActiveApi, getAlldevicesActive)
                 break;
         }
     },

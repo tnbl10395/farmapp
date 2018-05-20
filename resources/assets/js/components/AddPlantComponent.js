@@ -8,7 +8,7 @@ export class AddPlantComponent extends React.Component {
             isNextPage: false,
             phaseInput: '',
             disabledNext: true,
-            disabledSave: true,
+            disabledSave: false,
             phases: [],
             plantName: '',
             description: '',
@@ -57,6 +57,7 @@ export class AddPlantComponent extends React.Component {
             });
         }
         this.setState({
+            disabledSave: true,
             isNextPage: true,
             phases: array,
             plant: {
@@ -76,6 +77,15 @@ export class AddPlantComponent extends React.Component {
         var array = this.state.phases;
         if (key == this.state.phases[key - 1].key) {
             array[key - 1].name = phaseName.target.value;
+            if (phaseName.target.value == '') {
+                this.setState({disabledSave: true});
+            }else {
+                this.setState({disabledSave: false});
+                this.checkNull();
+                this.checkGreaterAndLess();
+                this.checkLess0Than();
+                this.checkHumidityLess0Than();
+            }
             this.setState({
                 phases: array,
             })
@@ -86,10 +96,6 @@ export class AddPlantComponent extends React.Component {
         this.setState({
             description: description.target.value,
         });
-    }
-
-    onOpenFile() {
-
     }
 
     onFileChange(e, file) {
@@ -120,7 +126,16 @@ export class AddPlantComponent extends React.Component {
             array[key - 1].days = days.target.value;
             this.setState({
                 phases: array
-            })
+            });
+            if (days.target.value == '') {
+                this.setState({disabledSave: true});
+            }else {
+                this.setState({disabledSave: false});
+                this.checkNull();
+                this.checkGreaterAndLess();
+                this.checkLess0Than();
+                this.checkHumidityLess0Than();
+            }
         }
     }
 
@@ -130,7 +145,16 @@ export class AddPlantComponent extends React.Component {
             array[key - 1].minTemperature = minTemperature.target.value;
             this.setState({
                 phases: array
-            })
+            });
+            if (minTemperature.target.value >= array[key - 1].maxTemperature) {
+                this.setState({disabledSave: true});
+            }else {
+                this.setState({disabledSave: false});
+                this.checkNull();
+                this.checkGreaterAndLess();
+                this.checkLess0Than();
+                this.checkHumidityLess0Than();
+            }
         }
     }
 
@@ -141,6 +165,15 @@ export class AddPlantComponent extends React.Component {
             this.setState({
                 phases: array
             })
+            if (maxTemperature.target.value <= array[key - 1].minTemperature) {
+                this.setState({disabledSave: true});
+            }else {
+                this.setState({disabledSave: false});
+                this.checkNull();
+                this.checkGreaterAndLess();
+                this.checkLess0Than();
+                this.checkHumidityLess0Than();
+            }
         }
     }
 
@@ -150,7 +183,16 @@ export class AddPlantComponent extends React.Component {
             array[key - 1].minHumidity = minHumidity.target.value;
             this.setState({
                 phases: array
-            })
+            });
+            if (minHumidity.target.value >= array[key - 1].maxHumidity) {
+                this.setState({disabledSave: true});
+            }else {
+                this.setState({disabledSave: false});
+                this.checkNull();
+                this.checkGreaterAndLess();
+                this.checkLess0Than();
+                this.checkHumidityLess0Than();
+            }
         }
     }
 
@@ -160,14 +202,58 @@ export class AddPlantComponent extends React.Component {
             array[key - 1].maxHumidity = maxHumidity.target.value;
             this.setState({
                 phases: array
-            })
+            });
+            if (maxHumidity.target.value <= array[key - 1].minHumidity) {
+                this.setState({disabledSave: true});
+            }else {
+                this.setState({disabledSave: false});
+                this.checkNull();
+                this.checkGreaterAndLess();
+                this.checkLess0Than();
+                this.checkHumidityLess0Than();
+            }
         }
     }
 
     onSubmit(e) {
         e.preventDefault();
-        this.props.submit(this.props.code, this.state.plant, this.state.startDate, this.state.phases);
+        this.props.submit(this.state.plant, this.state.phases, this.state.picture);
         this.props.closeModal();
+    }
+
+    checkNull () {
+        for(let i = 0; i < this.state.phaseInput; i++) {
+            if (this.state.phases[i].name == '' || this.state.phases[i].days == '' ||
+                this.state.phases[i].minTemperature == '' || this.state.phases[i].maxTemperature == '' ||
+                this.state.phases[i].minHumidity == '' || this.state.phases[i].maxHumidity == '') {
+                    this.setState({disabledSave: true});
+                }
+        }
+    }
+
+    checkGreaterAndLess () {
+        for(let i = 0; i < this.state.phaseInput; i++) {
+            if (this.state.phases[i].minTemperature >= this.state.phases[i].maxTemperature ||
+                this.state.phases[i].minHumidity >= this.state.phases[i].maxHumidity) {
+                    this.setState({disabledSave: true});
+            }
+        }
+    }
+
+    checkHumidityLess0Than () {
+        for(let i = 0; i < this.state.phaseInput; i++) {
+            if (this.state.phases[i].minHumidity < 0 || this.state.phases[i].maxHumidity < 0) {
+                this.setState({disabledSave: true});
+            }
+        }
+    }
+
+    checkLess0Than () {
+        for(let i = 0; i < this.state.phaseInput; i++) { 
+            if (this.state.phases[i].days < 1) {
+                this.setState({disabledSave: true});
+            }
+        }
     }
 
     render() {
@@ -210,6 +296,11 @@ export class AddPlantComponent extends React.Component {
                                             placeholder="Please input name"
                                             value={this.state.plantName}
                                             onChange={(plant) => this.onChangePlantName(plant)} />
+                                        {
+                                            this.state.plantName == '' 
+                                                ? null
+                                                : <a className="pull-right" href={"https://en.wikipedia.org/wiki/"+this.state.plantName}>Do you need help?</a>
+                                        }
                                     </div>
                                     <div className="form-group col-md-12">
                                         <label>Phase</label>
@@ -273,7 +364,7 @@ export class AddPlantComponent extends React.Component {
                     }
                     <div className="col-md-12" style={styleForm.groupBtn}>
                         <hr />
-                        {this.state.isNextPage ? <input type="submit" className="btn btn-success pull-right col-md-2" value="Save" style={{ marginRight: 10 }} onClick={this.onSubmit} /> : null}
+                        {this.state.isNextPage ? <input type="submit" className="btn btn-success pull-right col-md-2" value="Save" style={{ marginRight: 10 }} onClick={this.onSubmit} disabled={this.state.disabledSave ? 'disabled' : ''}/> : null}
                         {!this.state.isNextPage ? <input type="button" className="btn btn-success pull-right col-md-2" value="Next" style={{ marginRight: 10 }} disabled={this.state.disabledNext ? 'disabled' : ''} onClick={() => this.onClickNextPage()} /> : null}
                         {this.state.isNextPage ? <input type="button" className="btn btn-default pull-right col-md-2" value="Previous" style={{ marginRight: 10 }} onClick={() => this.onClickPreviousPage()} /> : null}
                         <input type="button" className="btn btn-default pull-right col-md-2" value="Cancel" style={{ marginRight: 10 }} onClick={() => this.props.closeModal()} />

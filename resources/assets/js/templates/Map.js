@@ -22,12 +22,12 @@ export const MapWithAMarker = withScriptjs(withGoogleMap(props => {
     >
         {
             props.array.map((element, index) => {
-                let isDisplayed = false;
+                let isDisplayed = true;
                 return <Marker key={index}
                     position={{ lat: Number(element.latitude), lng: Number(element.longitude) }}
                     onClick={() => {
                         props.getDetailInformationDevice(element.deviceId);
-                        isDisplayed = true;
+                        isDisplayed = false;
                     }}>
                         {
                             isDisplayed 

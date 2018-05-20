@@ -15,10 +15,23 @@ export class InputText extends React.Component {
         return (
             <div className="form-group">
                 <label>{this.props.element.name}</label>
-                <input type="text" placeholder={this.props.element.placeholder} required
+                {
+                    this.props.name == 'USER_PHONE' ?
+                        <input type="number" placeholder={this.props.element.placeholder} required
+                    onChange={(text) => this.props.saveInput(this.props.name, text.target.value)}
+                    className="form-control"
+                    min="00000000000"
+                    max="99999999999"
+                    value={this.props.inputValue} />
+                    :   <input type="text" placeholder={this.props.element.placeholder} required
                     onChange={(text) => this.props.saveInput(this.props.name, text.target.value)}
                     className="form-control"
                     value={this.props.inputValue} />
+                }
+                {/* <input type="text" placeholder={this.props.element.placeholder} required
+                    onChange={(text) => this.props.saveInput(this.props.name, text.target.value)}
+                    className="form-control"
+                    value={this.props.inputValue} /> */}
             </div>
         );
     }
