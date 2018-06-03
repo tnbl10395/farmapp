@@ -213,15 +213,15 @@ class DataController extends Controller
         // }
     }
 
-    public function sendDataRandom(Request $request, $id)
+    public function sendDataRandom(Request $request)
     {
         $req = explode('-',$request->data);
         $checkStatus = Device::where('id',$req[1])->select('status')->first();
         if($checkStatus->status=="1"){
             $data = new Data();
             $data->deviceId = $req[1];
-            $data->humidity = rand(70, 75);
-            $data->temperature = rand(25, 30);
+            $data->humidity = rand(48, 55);
+            $data->temperature = rand(23, 27);
             $data->status = 1;
             $data->save();
             if($req[2]!='null' && $req[3] !='null' ){
